@@ -56,6 +56,7 @@ macro(UseNanoGUI YOUR_TARGET INTERFACE_PUBLIC_OR_PRIVATE DOWNLOAD_DIR)
             NanoGUI
             ${DOWNLOAD_DIR}
             src
+            -DNANOGUI_BUILD_PYTHON=OFF
         )
 
 
