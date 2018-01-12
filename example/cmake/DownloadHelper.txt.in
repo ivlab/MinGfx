@@ -1,0 +1,26 @@
+# This file is part of the MinGfx cmake build system.  
+# See the main MinGfx/CMakeLists.txt file for authors, copyright, and license info.
+
+# This is a "helper" cmake project -- the only thing this project does is download
+# the external project.  So, the configure, build, install, and test commands for 
+# ExternalProject_Add() are intentionally set as NOPs.  
+
+cmake_minimum_required (VERSION 3.9) 
+
+project(@EXT_PROJECT_NAME@-download)
+
+include(ExternalProject)
+ExternalProject_Add(
+  @EXT_PROJECT_NAME@
+  SOURCE_DIR "@DOWNLOAD_DIR@/@EXT_PROJECT_NAME@/src"
+  BINARY_DIR "@DOWNLOAD_DIR@/@EXT_PROJECT_NAME@/download-helper"
+  @DOWNLOAD_OPTIONS@
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND ""
+  INSTALL_COMMAND ""
+  TEST_COMMAND ""
+  LOG_DOWNLOAD ON
+  GIT_PROGRESS 1
+)
+
+
