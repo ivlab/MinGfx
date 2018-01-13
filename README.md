@@ -40,7 +40,7 @@ Here's a complete annotated list of steps to setup a new build tree for creating
 
 #### 1. Create a Linux-Style Directory Tree
 
-Libraries will get installed to a lib/ directory.  Include files will go in include/, and we'll put the source we are developing inside dev/.
+Libraries will get installed to a lib/ directory.  Include files will go in include/, executables in bin/, and we'll put the source we are developing inside dev/.
 
 ```
 mkdir -p /Users/keefe/courses/csci4611/sw
@@ -74,7 +74,7 @@ Do you see an error in the CMake output window?  If so, don't worry about this y
 
 #### 4. Set the CMAKE_INSTALL_PREFIX Variable to the Root of Your Directory Tree
 
-Now, using cmake-gui, scroll through the table of variables until you find the one named CMAKE_INSTALL_PREFIX.  Click on it and edit its value to point to the root of the directory tree you created in Step 1.  The root for the example tree used in Step 1 would be /Users/keefe/courses/csci4611/sw.  In other words, the root is the last directory before you get to lib, include, and dev.
+Now, using cmake-gui, scroll through the table of variables until you find the one named CMAKE_INSTALL_PREFIX.  Click on it and edit its value to point to the root of the directory tree you created in Step 1.  The root for the example tree used in Step 1 would be /Users/keefe/courses/csci4611/sw.  In other words, the root is the last directory before you get to lib, include, bin, and dev.
 
 Once you make this change, you can press the Configure button again.  It doesn't hurt to press Configure multiple times.  You need to do it at least once after every change you make.  Notice how the variables highlighted in red go away when you do this because they are no longer new options -- cmake knows that you have already had a chance to see them once.
 
@@ -127,7 +127,7 @@ To see if it worked take a look in the lib, include, and bin directories within 
 
 *Prereq:* Before getting started, make sure you have installed MinGfx, going all the way through the 9th step above.
 
-The project in the MinGfx/example folder is an example of a stand-alone project that uses a separate camke build systems.  This means we can copy it and move it out of the MinGfx source tree to serve as starting points for building your own project.  Let's do that now.
+The project in the MinGfx/example folder is an example of a stand-alone project that uses a separate cmake build system.  This means we can copy it and move it out of the MinGfx source tree to serve as a starting point for your own project.  Let's do that now.
 
 ```
 cd /Users/courses/csci4611/sw/dev  (or wherever you put your dev directory)
@@ -171,6 +171,6 @@ Finally, you can run your first example graphics program with the command:
 
 You can change the name of the executable, add more header and source files to the project and make other changes to the build process by editing the CMakeLists.txt file, but remember that after each change, you must run CMake's *Configure* and *Generate* steps again.  
 
-To reiterate the point above, if you are using an IDE, it is important to remember to add new files to your project by editing the CMakeLists.txt file NOT by using File->Add To Project.. or whatever option is provided inside your IDE.  Since we are generating the IDE's project files, and we may want to switch to a different IDE or to Makefiles in the future, the CMakeLists.txt file needs to be treated as the master record of all of the build settings.
+To reiterate the point above, if you are using an IDE, it is important to remember to add new files to your project by editing the CMakeLists.txt file NOT by using File->Add To Project.. or whatever option is provided inside your IDE.  Since we using CMake to generate the IDE's project files, and we may want to switch to a different IDE or to Makefiles in the future, the CMakeLists.txt file needs to be treated as the master record of all of the build settings.
 
 
