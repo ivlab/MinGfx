@@ -33,7 +33,7 @@ function(ExternalProject_Download EXT_PROJECT_NAME DOWNLOAD_DIR)
     string (REGEX REPLACE "(^|[^\\\\]);" "\\1 " DOWNLOAD_OPTIONS "${DOWNLOAD_OPTIONS}")
 
 
-    file(MAKE_DIRECTORY ${EXTERNAL_DIR}/${EXT_PROJECT_NAME})
+    file(MAKE_DIRECTORY ${DOWNLOAD_DIR}/${EXT_PROJECT_NAME})
     configure_file(
         ${DIR_OF_THIS_FILE}/DownloadHelper.txt.in 
         ${DOWNLOAD_DIR}/${EXT_PROJECT_NAME}/download-helper/CMakeLists.txt
