@@ -3,17 +3,27 @@
 
 
 set(HEADERFILES
-  src/GraphicsApp.h
+  src/graphics_app.h
+  src/matrix4.h
+  src/mingfx.h
+  src/opengl_headers.h
+  src/point3.h
+  src/quick_shapes.h
+  src/vector3.h
 )
 
 set(SOURCEFILES
-  src/GraphicsApp.cpp
+  src/graphics_app.cc
+  src/matrix4.cc
+  src/point3.cc
+  src/quick_shapes.cc
+  src/vector3.cc
 )
 
 source_group("Header Files" FILES ${HEADERFILES})
 source_group("Source Files" FILES ${SOURCEFILES})
 
-add_library(MinGfx ${HEADERFILES} ${SOURCEFILES})
+add_library(MinGfx SHARED ${HEADERFILES} ${SOURCEFILES})
 
 
 # Using target_include_directories() rather than just include_directories() is
@@ -28,6 +38,11 @@ target_include_directories(MinGfx PUBLIC
 # Add dependency on NanoGUI
 include(UseNanoGUI)
 UseNanoGUI(MinGfx PUBLIC ${EXTERNAL_DIR})
+
+# Add dependency on OpenGL
+include(UseOpenGL)
+UseOpenGL(MinGfx PUBLIC ${EXTERNAL_DIR})
+
 
 
 install(TARGETS MinGfx EXPORT MinGfxTargets COMPONENT CoreLib

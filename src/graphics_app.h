@@ -1,16 +1,31 @@
 
+#ifndef SRC_GRAPHICS_APP_H_
+#define SRC_GRAPHICS_APP_H_
+
+
+// GLFW
+//
+#if defined(NANOGUI_GLAD)
+#if defined(NANOGUI_SHARED) && !defined(GLAD_GLAPI_EXPORT)
+#define GLAD_GLAPI_EXPORT
+#endif
+
+#include <glad/glad.h>
+#else
+#if defined(__APPLE__)
+#define GLFW_INCLUDE_GLCOREARB
+#else
+#define GL_GLEXT_PROTOTYPES
+#endif
+#endif
+
+#include <GLFW/glfw3.h>
+
 #include <nanogui/nanogui.h>
 #include <iostream>
 
 
-namespace cs3081 {
-
-/// Call this function once before creating an instance of GraphicsApp
-void InitGraphics();
-
-/// Call this function after deleting all instances of GraphicsApp
-void ShutdownGraphics();
-
+namespace MinGfx {
 
 
 /** Base class for several cs3081 class projects that make use of graphics.
@@ -20,7 +35,7 @@ void ShutdownGraphics();
     including GLFW, which helps to open a graphics window and setup the
     OpenGL rendering context.
 **/
-class GraphicsApp : public nanogui::Screen {
+class GraphicsApp {
 public:
 
     /// cs3081::InitGraphics() must be called before this constructor!
@@ -52,20 +67,6 @@ public:
     virtual void OnSpecialKeyUp(int key, int scancode, int modifiers) {}
 
 
-    /// Called once per frame.  dt is the elapsed time since the last call.
-    /// Override this and fill it in to update your simulation code or any
-    /// other updates you need to make to your model that are timed rather
-    /// than in response to user input.
-    virtual void UpdateSimulation(double dt) {}
-
-    /// Override this to draw graphics using the nanovg vector graphics
-    /// library, which provides an easy way to draw 2D shapes to the screen.
-    virtual void DrawUsingNanoVG(NVGcontext *ctx) {}
-
-    /// Override this to draw graphics using raw OpenGL 2D or 3D graphics
-    /// calls.
-    virtual void DrawUsingOpenGL() {}
-
     /// After creating a new GraphicsApp, call this to start the app's
     /// mainloop.  Each time through the mainloop the app will: 1. respond
     /// any user input events by calling the On*() callback methods, 2. call
@@ -73,19 +74,56 @@ public:
     /// Run() does not return until the user closes the app and the program
     /// is ready to shutdown.
     void Run();
+    
+    
+    /// Called once per frame.  dt is the elapsed time since the last call.
+    /// Override this and fill it in to update your simulation code or any
+    /// other updates you need to make to your model that are timed rather
+    /// than in response to user input.
+    virtual void UpdateSimulation(double dt) {}
 
+    
+    /// Override this to draw graphics using the nanovg vector graphics
+    /// library, which provides an easy way to draw 2D shapes to the screen.
+    virtual void DrawUsingNanoVG(NVGcontext *ctx) {}
+
+    /// Override this to initialize the OpenGL context with textures, vertex
+    /// buffers, etc. that you will use later inside DrawUsingOpenGL().  This
+    /// InitOpenGL function is called once on program startup just after the
+    /// OpenGL drawing context is created.
+    virtual void InitOpenGL() {}
+    
+    /// Override this to draw graphics using raw OpenGL 2D or 3D graphics
+    /// calls.
+    virtual void DrawUsingOpenGL() {}
+
+    
+    /// Returns width/height for the current shape of the window
+    float aspect_ratio();
+    
+    /// Access to the underlying NanoGUI Screen object
+    nanogui::Screen* screen();
+
+    /// Access to the underlying GLFWwindow object
+    GLFWwindow* window();
 
 private:
-
-    bool mouseButtonEvent(const Eigen::Vector2i &p, int button, bool down, int modifiers);
-    bool mouseMotionEvent(const Eigen::Vector2i &p, const Eigen::Vector2i &rel, int button, int modifiers);
-    bool keyboardEvent(int key, int scancode, int action, int modifiers);
-    void draw(NVGcontext *ctx);
-    void drawContents();
-
+    
+    bool cursor_pos_glfw_cb(double x, double y);
+    bool mouse_button_glfw_cb(int button, int action, int modifiers);
+    bool key_glfw_cb(int key, int scancode, int action, int mods);
+    bool char_glfw_cb(unsigned int codepoint);
+    bool drop_glfw_cb(int count, const char **filenames);
+    bool scroll_glfw_cb(double x, double y);
+    bool resize_glfw_cb(int width, int height);
+    
+    nanogui::Screen *screen_;
+    GLFWwindow* window_;
     double lastDrawT_;
 };
 
 
+} // end namespace
 
-} // end cs3081 namespace
+#endif
+

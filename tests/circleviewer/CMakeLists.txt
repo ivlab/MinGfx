@@ -6,10 +6,11 @@ project(mingfx-circles)
 
 # Source:
 set (SOURCEFILES 
-  CircleViewer.cpp
-  main-circleviewer.cpp
+  circle_viewer.cc
+  main.cc
 )
 set (HEADERFILES
+  circle_viewer.h
 )
 set (CONFIGFILES
 )

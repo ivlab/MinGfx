@@ -6,7 +6,7 @@ project(mingfx-blankwindow)
 
 # Source:
 set (SOURCEFILES 
-  main-blankwindow.cpp
+  main.cc
 )
 set (HEADERFILES
 )
