@@ -1,5 +1,5 @@
 
-#include "circle_viewer.h"
+#include "gui_plus_opengl.h"
 #include <iostream>
 
 
@@ -7,11 +7,11 @@ QuickShapes *qs;
 GLuint vbo, vao, vshader, fshader, shaderProgram;
 float model[16];
 
-CircleViewer::CircleViewer() : GraphicsApp(1024,768, "Circle Simulation") {
+GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
     nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
     nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Simulation Controls");    
-    pauseBtn_ = gui->addButton("Pause", std::bind(&CircleViewer::OnPauseBtnPressed, this));
-    gui->addButton("Restart", std::bind(&CircleViewer::OnRestartBtnPressed, this));
+    pauseBtn_ = gui->addButton("Pause", std::bind(&GuiPlusOpenGL::OnPauseBtnPressed, this));
+    gui->addButton("Restart", std::bind(&GuiPlusOpenGL::OnRestartBtnPressed, this));
 
     screen()->performLayout();
      
@@ -22,12 +22,12 @@ CircleViewer::CircleViewer() : GraphicsApp(1024,768, "Circle Simulation") {
 }
 
 
-CircleViewer::~CircleViewer() {
+GuiPlusOpenGL::~GuiPlusOpenGL() {
     
 }
 
 
-void CircleViewer::UpdateSimulation(double dt) {
+void GuiPlusOpenGL::UpdateSimulation(double dt) {
     if (!paused_) {
         simTime_ += dt;
         std::cout << "Update Simulation " << simTime_ << std::endl;
@@ -35,11 +35,11 @@ void CircleViewer::UpdateSimulation(double dt) {
 }
 
 
-void CircleViewer::OnRestartBtnPressed() {
+void GuiPlusOpenGL::OnRestartBtnPressed() {
     simTime_ = 0.0;
 }
 
-void CircleViewer::OnPauseBtnPressed() {
+void GuiPlusOpenGL::OnPauseBtnPressed() {
     paused_ = !paused_;
     if (paused_) {
         pauseBtn_->setCaption("Play");
@@ -50,44 +50,44 @@ void CircleViewer::OnPauseBtnPressed() {
 }
 
 
-void CircleViewer::OnMouseMove(int x, int y) {
+void GuiPlusOpenGL::OnMouseMove(int x, int y) {
     std::cout << "Mouse moved to (" << x << ", " << y << ")" << std::endl; 
 }
 
-void CircleViewer::OnLeftMouseDown(int x, int y) {
+void GuiPlusOpenGL::OnLeftMouseDown(int x, int y) {
     std::cout << "Left mouse button DOWN (" << x << ", " << y << ")" << std::endl; 
 }
 
-void CircleViewer::OnLeftMouseUp(int x, int y) {
+void GuiPlusOpenGL::OnLeftMouseUp(int x, int y) {
     std::cout << "Left mouse button UP (" << x << ", " << y << ")" << std::endl; 
 }
 
-void CircleViewer::OnRightMouseDown(int x, int y) {
+void GuiPlusOpenGL::OnRightMouseDown(int x, int y) {
     std::cout << "Right mouse button DOWN (" << x << ", " << y << ")" << std::endl; 
 }
 
-void CircleViewer::OnRightMouseUp(int x, int y) {
+void GuiPlusOpenGL::OnRightMouseUp(int x, int y) {
     std::cout << "Right mouse button UP (" << x << ", " << y << ")" << std::endl; 
 }
 
-void CircleViewer::OnKeyDown(const char *c, int modifiers) {
+void GuiPlusOpenGL::OnKeyDown(const char *c, int modifiers) {
     std::cout << "Key DOWN (" << c << ") modifiers=" << modifiers << std::endl; 
 }
 
-void CircleViewer::OnKeyUp(const char *c, int modifiers) {
+void GuiPlusOpenGL::OnKeyUp(const char *c, int modifiers) {
     std::cout << "Key UP (" << c << ") modifiers=" << modifiers << std::endl; 
 }
 
-void CircleViewer::OnSpecialKeyDown(int key, int scancode, int modifiers) {
+void GuiPlusOpenGL::OnSpecialKeyDown(int key, int scancode, int modifiers) {
     std::cout << "Special Key DOWN key=" << key << " scancode=" << scancode << " modifiers=" << modifiers << std::endl; 
 }
 
-void CircleViewer::OnSpecialKeyUp(int key, int scancode, int modifiers) {
+void GuiPlusOpenGL::OnSpecialKeyUp(int key, int scancode, int modifiers) {
     std::cout << "Special Key UP key=" << key << " scancode=" << scancode << " modifiers=" << modifiers << std::endl; 
 }
 
 
-void CircleViewer::DrawUsingNanoVG(NVGcontext *ctx) {
+void GuiPlusOpenGL::DrawUsingNanoVG(NVGcontext *ctx) {
     // example of drawing some circles
     
     nvgBeginPath(ctx);
@@ -143,7 +143,7 @@ void linkShaderProgram(GLuint shaderProgram) {
 }
 
 
-void CircleViewer::InitOpenGL() {
+void GuiPlusOpenGL::InitOpenGL() {
     #ifdef _WIN32
         glewExperimental = GL_TRUE;
         GLenum err = glewInit();
@@ -272,7 +272,7 @@ void CircleViewer::InitOpenGL() {
 }
 
 
-void CircleViewer::DrawUsingOpenGL() {
+void GuiPlusOpenGL::DrawUsingOpenGL() {
     // clear screen
     glClearColor(0, 0, 0, 1);
 
@@ -297,7 +297,7 @@ void CircleViewer::DrawUsingOpenGL() {
 
     
     Matrix4 P = Matrix4::perspective(60.0, aspect_ratio(), 0.1, 10.0);
-    Matrix4 V = Matrix4::lookAt(Point3(1,1,4), Point3(0,0,0), Vector3(0,1,0));
+    Matrix4 V = Matrix4::lookAt(Point3(1,1,3), Point3(0,0,0), Vector3(0,1,0));
     Matrix4 M = Matrix4::translation(Vector3(-1,0,0)) * Matrix4::scale(Vector3(0.5, 0.5, 0.5));
     
     // Set shader parameters
@@ -309,15 +309,25 @@ void CircleViewer::DrawUsingOpenGL() {
     loc = glGetUniformLocation(shaderProgram, "ModelMatrix");
     glUniformMatrix4fv(loc, 1, GL_FALSE, M.value_ptr());
 
-    // Draw cube
+    // Draw color cube
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
 
-    // Draw sphere using quick shapes
+    // Draw several quick shapes
     float col[3] = {0.4, 0.4, 0.8};
-    Matrix4 M2 = Matrix4::translation(Vector3(1,0,0))*Matrix4::scale(Vector3(0.5, 0.5, 0.5));
+    Matrix4 M2 = Matrix4::translation(Vector3(1,1.5,0))*Matrix4::scale(Vector3(0.2, 0.2, 0.2));
+    qs->drawCube(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+
+    M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
+    qs->drawCylinder(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+
+    M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
+    qs->drawSphere(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+
+    M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
     qs->drawBrush(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+
     
     // reset program
     glUseProgram(0);

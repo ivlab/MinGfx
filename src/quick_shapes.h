@@ -66,12 +66,6 @@ public:
                    const float *projectionMatrix, const float *color);
     
     
-    /** Draws a cubbie with extents -1 to 1 given the model, view, and projection
-     matrices provided and using the supplied color as a material property.
-     */
-    void drawCubbie(const float *modelMatrix, const float *viewMatrix,
-                    const float *projectionMatrix, const float *color);
-    
 
 	void setLightPos(const float *pos) {
 		s_lightPos[0] = pos[0];  s_lightPos[1] = pos[1]; s_lightPos[2] = pos[2];
@@ -118,10 +112,6 @@ private:
     void initBrush();
     GLuint s_brushVAO;
     GLuint s_brushVBO;
-
-    void initCubbie();
-    GLuint s_cubbieVAO;
-    GLuint s_cubbieVBO;
     
 	float s_lightPos[3];
 	float s_lightAmb[3];

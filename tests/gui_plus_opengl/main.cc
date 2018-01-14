@@ -1,11 +1,11 @@
 
 #include <mingfx.h>
-#include "circle_viewer.h"
+#include "gui_plus_opengl.h"
 
 
 int main(int argc, char **argv) {
 
-    CircleViewer *app = new CircleViewer();
+    GuiPlusOpenGL *app = new GuiPlusOpenGL();
     app->Run();
 
     return 0;

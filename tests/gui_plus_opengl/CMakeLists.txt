@@ -1,16 +1,16 @@
 # This file is part of the MinGfx cmake build system.  
 # See the main MinGfx/CMakeLists.txt file for details.
 
-project(mingfx-circles)
+project(mingfx-test-gui-plus-opengl)
 
 
 # Source:
 set (SOURCEFILES 
-  circle_viewer.cc
+  gui_plus_opengl.cc
   main.cc
 )
 set (HEADERFILES
-  circle_viewer.h
+  gui_plus_opengl.h
 )
 set (CONFIGFILES
 )

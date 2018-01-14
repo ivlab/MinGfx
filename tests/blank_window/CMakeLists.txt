@@ -1,7 +1,7 @@
 # This file is part of the MinGfx cmake build system.  
 # See the main MinGfx/CMakeLists.txt file for details.
 
-project(mingfx-blankwindow)
+project(mingfx-test-blank-window)
 
 
 # Source:

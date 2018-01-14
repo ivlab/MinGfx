@@ -31,10 +31,10 @@
     Fill in the Draw*() methods to draw graphics to the screen using
     either the nanovg library or raw OpenGL.
 */
-class CircleViewer : public GraphicsApp {
+class GuiPlusOpenGL : public GraphicsApp {
 public:
-    CircleViewer();
-    ~CircleViewer();
+    GuiPlusOpenGL();
+    ~GuiPlusOpenGL();
 
     void UpdateSimulation(double dt);
 

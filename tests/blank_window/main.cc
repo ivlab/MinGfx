@@ -5,12 +5,8 @@
 
 int main(int argc, char **argv) {
 
-    MinGfx::InitGraphics();
-
     GraphicsApp *app = new GraphicsApp(1024, 768, "A Blank Window!");
     app->Run();
-
-    MinGfx::ShutdownGraphics();
 
     return 0;
 }

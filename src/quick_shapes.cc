@@ -317,9 +317,6 @@ QuickShapes::QuickShapes() {
 
     s_brushVAO = 0;
     s_brushVBO = 0;
-
-    s_cubbieVAO = 0;
-    s_cubbieVBO = 0;
 }
 
 
@@ -424,30 +421,29 @@ void QuickShapes::initCyl() {
     
     const int nslices = 20;
     for (int s=1; s<nslices+1; s++) {
-        GLfloat xlast = std::cos(TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat zlast = std::sin(TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat xnew = std::cos(TWOPI * (float)(s)/(float)nslices);
-        GLfloat znew = std::sin(TWOPI * (float)(s)/(float)nslices);
+        GLfloat xlast = std::cos(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat zlast = std::sin(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat xnew = std::cos(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat znew = std::sin(-TWOPI * (float)(s)/(float)nslices);
         
         // one triangle on the top
         verts.push_back(top);
-        verts.push_back(Vertex(xnew,1,znew, 0,1,0));
         verts.push_back(Vertex(xlast,1,zlast, 0,1,0));
+        verts.push_back(Vertex(xnew,1,znew, 0,1,0));
 
         // two triangles to create a rect on the side
-        verts.push_back(Vertex(xlast,-1,zlast, xlast,0,zlast));
         verts.push_back(Vertex(xlast,1,zlast, xlast,0,zlast));
+        verts.push_back(Vertex(xlast,-1,zlast, xlast,0,zlast));
         verts.push_back(Vertex(xnew,1,znew, xnew,0,znew));
         
-        verts.push_back(Vertex(xnew,1,znew, xnew,0,znew));
         verts.push_back(Vertex(xnew,-1,znew, xnew,0,znew));
+        verts.push_back(Vertex(xnew,1,znew, xnew,0,znew));
         verts.push_back(Vertex(xlast,-1,zlast, xlast,0,zlast));
         
         // one triangle on the bottom
         verts.push_back(bot);
         verts.push_back(Vertex(xnew,-1,znew, 0,-1,0));
         verts.push_back(Vertex(xlast,-1,zlast, 0,-1,0));
-
     }
     
     GLfloat *vertices = new GLfloat[3*verts.size()];
@@ -519,19 +515,19 @@ void QuickShapes::initSph() {
     const int nslices = 40;
     const int nstacks = 40;
     for (int s=1; s<nslices+1; s++) {
-        GLfloat xlast = std::cos(TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat zlast = std::sin(TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat xnew = std::cos(TWOPI * (float)(s)/(float)nslices);
-        GLfloat znew = std::sin(TWOPI * (float)(s)/(float)nslices);
+        GLfloat xlast = std::cos(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat zlast = std::sin(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat xnew = std::cos(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat znew = std::sin(-TWOPI * (float)(s)/(float)nslices);
         
         float stackstep = PI/(float)nstacks;
         
         // one triangle on the top
         verts.push_back(top);
-        verts.push_back(Vertex(std::sin(stackstep)*xnew,std::cos(stackstep),std::sin(stackstep)*znew,
-                               std::sin(stackstep)*xnew,std::cos(stackstep),std::sin(stackstep)*znew));
         verts.push_back(Vertex(std::sin(stackstep)*xlast,std::cos(stackstep),std::sin(stackstep)*zlast,
                                std::sin(stackstep)*xlast,std::cos(stackstep),std::sin(stackstep)*zlast));
+        verts.push_back(Vertex(std::sin(stackstep)*xnew,std::cos(stackstep),std::sin(stackstep)*znew,
+                               std::sin(stackstep)*xnew,std::cos(stackstep),std::sin(stackstep)*znew));
         
         for (int t=2; t<nstacks; t++) {
             GLfloat ylast = std::cos(PI*(float)(t-1)/(float)nstacks);
@@ -552,10 +548,10 @@ void QuickShapes::initSph() {
         
         // one triangle on the bottom
         verts.push_back(bot);
-        verts.push_back(Vertex(std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew,
-                               std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew));
         verts.push_back(Vertex(std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast,
                                std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast));
+        verts.push_back(Vertex(std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew,
+                               std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew));
     }
     
     GLfloat *vertices = new GLfloat[3*verts.size()];
@@ -811,146 +807,6 @@ void QuickShapes::drawBrush(const float *modelMatrix, const float *viewMatrix,
 
 
 
-
-
-// ------------  CUBBIE  ------------
-
-
-void QuickShapes::initCubbie() {
-    GLfloat vertices[]  = {
-        // Outer Box
-         1.0f, 1.0f, 1.0f,  -1.0f, 1.0f, 1.0f,  -1.0f,-1.0f, 1.0f,      // v0-v1-v2 (front)
-        -1.0f,-1.0f, 1.0f,   1.0f,-1.0f, 1.0f,   1.0f, 1.0f, 1.0f,      // v2-v3-v0
-        
-         1.0f, 1.0f, 1.0f,   1.0f,-1.0f, 1.0f,   1.0f,-1.0f,-1.0f,      // v0-v3-v4 (right)
-         1.0f,-1.0f,-1.0f,   1.0f, 1.0f,-1.0f,   1.0f, 1.0f, 1.0f,      // v4-v5-v0
-        
-        -1.0f, 1.0f, 1.0f,  -1.0f, 1.0f,-1.0f,  -1.0f,-1.0f,-1.0f,      // v1-v6-v7 (left)
-        -1.0f,-1.0f,-1.0f,  -1.0f,-1.0f, 1.0f,  -1.0f, 1.0f, 1.0f,      // v7-v2-v1
-        
-        -1.0f,-1.0f,-1.0f,   1.0f,-1.0f,-1.0f,   1.0f,-1.0f, 1.0f,      // v7-v4-v3 (bottom)
-         1.0f,-1.0f, 1.0f,  -1.0f,-1.0f, 1.0f,  -1.0f,-1.0f,-1.0f,      // v3-v2-v7
-        
-         1.0f,-1.0f,-1.0f,  -1.0f,-1.0f,-1.0f,  -1.0f, 1.0f,-1.0f,      // v4-v7-v6 (back)
-        -1.0f, 1.0f,-1.0f,   1.0f, 1.0f,-1.0f,   1.0f,-1.0f,-1.0f,      // v6-v5-v4
-
-        // Inner Box
-        -0.9f,-0.9f, 0.9f,  -0.9f, 1.0f, 0.9f,   0.9f, 1.0f, 0.9f,      // v8-v9-v10 (front)
-         0.9f, 1.0f, 0.9f,   0.9f,-0.9f, 0.9f,  -0.9f,-0.9f, 0.9f,      // v10-v11-v8
-        
-         0.9f,-0.9f,-0.9f,   0.9f,-0.9f, 0.9f,   0.9f, 1.0f, 0.9f,      // v8-v11-v12 (right)
-         0.9f, 1.0f, 0.9f,   0.9f, 1.0f,-0.9f,   0.9f,-0.9f,-0.9f,      // v12-v13-v8
-        
-        -0.9f,-0.9f,-0.9f,  -0.9f, 1.0f,-0.9f,  -0.9f, 1.0f, 0.9f,      // v9-v14-v15 (left)
-        -0.9f, 1.0f, 0.9f,  -0.9f,-0.9f, 0.9f,  -0.9f,-0.9f,-0.9f,      // v15-v10-v9
-        
-         0.9f,-0.9f, 0.9f,   0.9f,-0.9f,-0.9f,  -0.9f,-0.9f,-0.9f,      // v15-v12-v11 (bottom)
-        -0.9f,-0.9f,-0.9f,  -0.9f,-0.9f, 0.9f,   0.9f,-0.9f, 0.9f,      // v11-v10-v15
-        
-        -0.9f, 1.0f,-0.9f,  -0.9f,-0.9f,-0.9f,   0.9f,-0.9f,-0.9f,      // v12-v15-v14 (back)
-         0.9f,-0.9f,-0.9f,   0.9f, 1.0f,-0.9f,  -0.9f, 1.0f,-0.9f,      // v14-v13-v12
-    
-        // Top Edges
-        // v0-v5 and v10-v13
-        1.0f, 1.0f, 1.0f,   1.0f, 1.0f,-1.0f, 0.9f, 1.0f, 0.9f,  // v0-v5-v10
-        1.0f, 1.0f,-1.0f,  0.9f, 1.0f,-0.9f,  0.9f, 1.0f, 0.9f, // v5-v13-v10
-        
-        
-        // v5-v6 and v13-v14
-        1.0f, 1.0f,-1.0f,  -1.0f, 1.0f,-1.0f,  0.9f, 1.0f,-0.9f, // v5-v6-v13
-        -1.0f, 1.0f,-1.0f,   -0.9f, 1.0f,-0.9f, 0.9f, 1.0f,-0.9f, // v6-v14-v13
-        
-        
-        // v6-v1 and v14-v9
-        -1.0f, 1.0f,-1.0f,  -1.0f, 1.0f, 1.0f,   -0.9f, 1.0f,-0.9f, // v6-v1-v14
-         -1.0f, 1.0f, 1.0f,  -0.9f, 1.0f, 0.9f,  -0.9f, 1.0f,-0.9f, // v1-v9-v14
-        
-        // v1-v0 and v9-v8
-        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f, 1.0f, -0.9f, 1.0f, 0.9f, // v1-v0-v9
-         1.0f, 1.0f, 1.0f, 0.9f, 1.0f, 0.9f, -0.9f, 1.0f, 0.9f, // v0-v8-v9
-
-    };
-    
-    GLfloat normals[]   = {
-        // Outer Box
-        0, 0, 1,   0, 0, 1,   0, 0, 1,      // v0-v1-v2 (front)
-        0, 0, 1,   0, 0, 1,   0, 0, 1,      // v2-v3-v0
-        
-        1, 0, 0,   1, 0, 0,   1, 0, 0,      // v0-v3-v4 (right)
-        1, 0, 0,   1, 0, 0,   1, 0, 0,      // v4-v5-v0
-        
-        -1, 0, 0,  -1, 0, 0,  -1, 0, 0,     // v1-v6-v7 (left)
-        -1, 0, 0,  -1, 0, 0,  -1, 0, 0,     // v7-v2-v1
-        
-        0,-1, 0,   0,-1, 0,   0,-1, 0,      // v7-v4-v3 (bottom)
-        0,-1, 0,   0,-1, 0,   0,-1, 0,      // v3-v2-v7
-        
-        0, 0,-1,   0, 0,-1,   0, 0,-1,      // v4-v7-v6 (back)
-        0, 0,-1,   0, 0,-1,   0, 0,-1,      // v6-v5-v4
-
-        // Inner Box
-        0, 0, -1,   0, 0, -1,   0, 0, -1,      // v0-v1-v2 (front)
-        0, 0, -1,   0, 0, -1,   0, 0, -1,      // v2-v3-v0
-        
-        -1, 0, 0,   -1, 0, 0,   -1, 0, 0,      // v0-v3-v4 (right)
-        -1, 0, 0,   -1, 0, 0,   -1, 0, 0,      // v4-v5-v0
-        
-        1, 0, 0,  1, 0, 0,  1, 0, 0,     // v1-v6-v7 (left)
-        1, 0, 0,  1, 0, 0,  1, 0, 0,     // v7-v2-v1
-        
-        0, 1, 0,   0, 1, 0,   0, 1, 0,      // v7-v4-v3 (bottom)
-        0, 1, 0,   0, 1, 0,   0, 1, 0,      // v3-v2-v7
-        
-        0, 0, 1,   0, 0, 1,   0, 0, 1,      // v4-v7-v6 (back)
-        0, 0, 1,   0, 0, 1,   0, 0, 1,      // v6-v5-v4
-        
-        // Top Edges
-        0, 1, 0,   0, 1, 0,   0, 1, 0,
-        0, 1, 0,   0, 1, 0,   0, 1, 0,
-
-        0, 1, 0,   0, 1, 0,   0, 1, 0,
-        0, 1, 0,   0, 1, 0,   0, 1, 0,
-
-        0, 1, 0,   0, 1, 0,   0, 1, 0,
-        0, 1, 0,   0, 1, 0,   0, 1, 0,
-
-        0, 1, 0,   0, 1, 0,   0, 1, 0,
-        0, 1, 0,   0, 1, 0,   0, 1, 0
-    };
-    
-    glGenBuffers(1, &s_cubbieVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, s_cubbieVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(normals), 0, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(normals), normals);
-    
-    glGenVertexArrays(1, &s_cubbieVAO);
-    glBindVertexArray(s_cubbieVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, s_cubbieVBO);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (char*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (char*)0 + sizeof(vertices));
-    glBindVertexArray(0);
-}
-
-
-void QuickShapes::drawCubbie(const float *modelMatrix, const float *viewMatrix,
-                             const float *projectionMatrix, const float *color) {
-    if (s_cubbieVAO == 0) {
-        initCubbie();
-    }
-    
-    ShaderUtils::startSimplePhongShader(modelMatrix, viewMatrix, projectionMatrix,
-                                        s_lightPos, s_lightAmb, s_lightDiff, s_lightSpec,
-                                        color, color, s_matSpec, s_matShin);
-    
-    glBindVertexArray(s_cubbieVAO);
-    glDrawArrays(GL_TRIANGLES, 0, 84);
-    glBindVertexArray(0);
-    
-    ShaderUtils::stopSimpleShader();
-}
 
 
 

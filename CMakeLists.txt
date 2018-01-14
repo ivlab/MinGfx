@@ -188,8 +188,8 @@ h1("CONFIGURING PROGRAMS")
 
 h2("Cofiguring test programs.")
 message(STATUS "Adding all subirectories of tests to the build.")
-add_subdirectory(tests/blankwindow)
-add_subdirectory(tests/circleviewer)
+add_subdirectory(tests/blank_window)
+add_subdirectory(tests/gui_plus_opengl)
 
 
 
