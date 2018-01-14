@@ -11,7 +11,7 @@
 # following line as needed to point to the MinGfx install prefix used on your system.
 
 # !!!!!!!!!!!!! EDIT THE FOLLOWING LINE AS NEEDED !!!!!!!!!!!!! 
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../build/install)
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../build/install ../../..)
 
 # For example, you might have installed to a build tree that now looks like this:
 # /Users/keefe/courses/cs4611/sw/include/MinGfx-1.0/
@@ -142,12 +142,18 @@ add_executable(${PROJECT_NAME} ${SOURCEFILES} ${HEADERFILES} ${EXTRAFILES})
 #### FIND AND ADD DEPENDENCIES ####
 
 h2("Adding Dependencies")
+set(EXTERNAL_DIR external)
+
 
 # MinGfx (linked with an imported cmake target so no need to specify include dirs)
 # This will try to find MinGfxConfig.cmake, which should have been installed under
 # CMAKE_INSTALL_PREFIX/lib/cmake/MinGfx when you installed the MinGfx Toolkit.
 find_package(MinGfx REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC MinGfx::MinGfx)
+
+# Add dependency on OpenGL
+include(UseOpenGL)
+UseOpenGL(${PROJECT_NAME} PUBLIC ${EXTERNAL_DIR})
 
 
 #### INSTALL TARGET(S) ####

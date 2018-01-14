@@ -1,8 +1,6 @@
 
-#include "GraphicsApp.h"
+#include <mingfx.h>
 
-
-namespace cs3081 {
 
 /** An application that opens up a window that includes a few buttons 
     for controlling the simulation and can be used to draw circles and 
@@ -74,5 +72,3 @@ private:
     bool paused_;
     nanogui::Button *pauseBtn_;
 };
-
-} // end namespace cs3081

@@ -1,16 +1,17 @@
 
 #include "CircleViewer.h"
+
+#include <nanogui/nanogui.h>
 #include <iostream>
 
-namespace cs3081 {
 
 CircleViewer::CircleViewer() : GraphicsApp(1024,768, "Circle Simulation") {
-    nanogui::FormHelper *gui = new nanogui::FormHelper(this);
+    nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
     nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Simulation Controls");    
     pauseBtn_ = gui->addButton("Pause", std::bind(&CircleViewer::OnPauseBtnPressed, this));
     gui->addButton("Restart", std::bind(&CircleViewer::OnRestartBtnPressed, this));
 
-    performLayout();
+    screen()->performLayout();
 
     simTime_ = 0.0;
     paused_ = false;
@@ -103,6 +104,4 @@ void CircleViewer::DrawUsingNanoVG(NVGcontext *ctx) {
 void CircleViewer::DrawUsingOpenGL() {
 
 }
-
-} // end namespace cs3081
 
