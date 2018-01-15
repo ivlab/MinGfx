@@ -41,6 +41,13 @@ public:
 	void drawCube(const float *modelMatrix, const float *viewMatrix,
                   const float *projectionMatrix, const float *color);
 
+    
+    /** Draws a square in the X-Y plane with extents -1 to 1 and normal in the
+        +Y direction.  Uses the model, view, and projection matrices provided 
+        and the supplied color as a material property.
+     */
+    void drawSquare(const float *modelMatrix, const float *viewMatrix,
+                    const float *projectionMatrix, const float *color);
 
     /** Draws a cylinder with radius 1 and height y=-1 to 1 given the model, 
         view, and projection matrices provided and using the supplied color as a
@@ -99,6 +106,10 @@ private:
 	GLuint s_cubeVAO;
 	GLuint s_cubeVBO;
 
+    void initSquare();
+    GLuint s_squareVAO;
+    GLuint s_squareVBO;
+    
     void initCyl();
     GLuint s_cylVAO;
     GLuint s_cylVBO;

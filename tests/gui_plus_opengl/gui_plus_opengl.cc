@@ -313,23 +313,26 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
-
+    
+    // reset program
+    glUseProgram(0);
+    
+    
     // Draw several quick shapes
     float col[3] = {0.4, 0.4, 0.8};
     Matrix4 M2 = Matrix4::translation(Vector3(1,1.5,0))*Matrix4::scale(Vector3(0.2, 0.2, 0.2));
-    qs->drawCube(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->drawSphere(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
     qs->drawCylinder(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
-    qs->drawSphere(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->drawCube(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
     qs->drawBrush(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
-    
-    // reset program
-    glUseProgram(0);
+    M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
+    qs->drawSquare(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 }
 

@@ -304,9 +304,12 @@ QuickShapes::QuickShapes() {
     
     s_matShin = 10.0;
 
-    s_cubeVAO = 0;
+    s_squareVAO = 0;
     s_cubeVBO = 0;
 
+    s_squareVAO = 0;
+    s_squareVBO = 0;
+    
     s_cylVAO = 0;
     s_cylVBO = 0;
     s_cylNVerts = 0;
@@ -408,7 +411,60 @@ void QuickShapes::drawCube(const float *modelMatrix, const float *viewMatrix,
 
 
 
+    
+    
+// ------------  SQUARE  ------------
 
+
+void QuickShapes::initSquare() {
+    GLfloat vertices[]  = {
+        1.0f, 0.0f, 1.0f,   1.0f, 0.0f,-1.0f,  -1.0f, 0.0f,-1.0f,      // v0-v5-v6 (top)
+        -1.0f, 0.0f,-1.0f,  -1.0f, 0.0f, 1.0f,   1.0f, 0.0f, 1.0f      // v6-v1-v0
+    };
+    
+    GLfloat normals[]   = {
+        0, 1, 0,   0, 1, 0,   0, 1, 0,      // v0-v5-v6 (top)
+        0, 1, 0,   0, 1, 0,   0, 1, 0      // v6-v1-v0
+    };
+    
+    glGenBuffers(1, &s_squareVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, s_squareVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(normals), 0, GL_STATIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(normals), normals);
+    
+    glGenVertexArrays(1, &s_squareVAO);
+    glBindVertexArray(s_squareVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, s_squareVBO);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (char*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (char*)0 + sizeof(vertices));
+    glBindVertexArray(0);
+}
+
+
+void QuickShapes::drawSquare(const float *modelMatrix, const float *viewMatrix,
+                             const float *projectionMatrix, const float *color) {
+    if (s_squareVAO == 0) {
+        initSquare();
+    }
+    
+    ShaderUtils::startSimplePhongShader(modelMatrix, viewMatrix, projectionMatrix,
+                                        s_lightPos, s_lightAmb, s_lightDiff, s_lightSpec,
+                                        color, color, s_matSpec, s_matShin);
+    
+    glBindVertexArray(s_squareVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+    
+    ShaderUtils::stopSimpleShader();
+}
+
+    
+    
+    
+    
 // ------------  CYLINDER  ------------
 
 
@@ -824,6 +880,13 @@ void QuickShapes::freeGPUMemory() {
         s_cubeVBO = 0;
         glDeleteVertexArrays(1, &s_cubeVAO);
         s_cubeVAO = 0;
+    }
+    
+    if (s_squareVAO != 0) {
+        glDeleteBuffers(1, &s_squareVBO);
+        s_squareVBO = 0;
+        glDeleteVertexArrays(1, &s_squareVAO);
+        s_squareVAO = 0;
     }
     
     if (s_cylVAO != 0) {
