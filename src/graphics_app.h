@@ -58,12 +58,20 @@ public:
 
     virtual void OnRightMouseUp(int x, int y) {}
 
+    /// Transforms a keyboard down event into the actual character typed.
+    /// Modifiers are defined here: http://www.glfw.org/docs/latest/group__mods.html
     virtual void OnKeyDown(const char *c, int modifiers) {}
 
+    /// Transforms a keyboard down event into the actual character typed.
+    /// Modifiers are defined here: http://www.glfw.org/docs/latest/group__mods.html
     virtual void OnKeyUp(const char *c, int modifiers) {}
 
+    /// The values for key, scancode, and modifiers are documented here:
+    /// http://www.glfw.org/docs/latest/group__keys.html
     virtual void OnSpecialKeyDown(int key, int scancode, int modifiers) {}
 
+    /// The values for key, scancode, and modifiers are documented here:
+    /// http://www.glfw.org/docs/latest/group__keys.html
     virtual void OnSpecialKeyUp(int key, int scancode, int modifiers) {}
 
 
@@ -97,6 +105,19 @@ public:
     /// calls.
     virtual void DrawUsingOpenGL() {}
 
+    
+    /// True if the specified is is currently held down.  Uses the GLFW
+    /// key codes found here: http://www.glfw.org/docs/latest/group__keys.html
+    bool is_key_down(int key);
+    
+    /// True if the left mouse button is currently held down.
+    bool is_left_mouse_down();
+    
+    /// True if the middle mouse button is currently held down.
+    bool is_middle_mouse_down();
+    
+    /// True if the right mouse button is currently held down.
+    bool is_right_mouse_down();
     
     /// Returns width/height for the current shape of the window
     float aspect_ratio();

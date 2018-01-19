@@ -44,7 +44,7 @@ Matrix4& Matrix4::operator=(const Matrix4& m2) {
     return *this;
 }
     
-const float * Matrix4::value_ptr() {
+const float * Matrix4::value_ptr() const {
     return m;
 }
 

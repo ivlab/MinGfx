@@ -3,21 +3,27 @@
 
 
 set(HEADERFILES
-  src/graphics_app.h
-  src/matrix4.h
-  src/mingfx.h
-  src/opengl_headers.h
-  src/point3.h
-  src/quick_shapes.h
-  src/vector3.h
+    src/color.h
+    src/graphics_app.h
+    src/matrix4.h
+    src/mingfx.h
+    src/opengl_headers.h
+    src/platform.h
+    src/point3.h
+    src/quick_shapes.h
+    src/texture2d.h
+    src/vector3.h
 )
 
 set(SOURCEFILES
-  src/graphics_app.cc
-  src/matrix4.cc
-  src/point3.cc
-  src/quick_shapes.cc
-  src/vector3.cc
+    src/color.cc
+    src/graphics_app.cc
+    src/matrix4.cc
+    src/platform.cc
+    src/point3.cc
+    src/quick_shapes.cc
+    src/texture2d.cc
+    src/vector3.cc
 )
 
 source_group("Header Files" FILES ${HEADERFILES})

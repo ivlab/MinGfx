@@ -71,7 +71,7 @@ public:
     Vector3 normalize();
 
     /// Returns a const pointer to the raw data array
-    const float * value_ptr();
+    const float * value_ptr() const;
 
 private:
     float v[3];

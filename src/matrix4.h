@@ -52,7 +52,7 @@ public:
 
     /// Returns a pointer to the raw data array used to store the matrix.  This
     /// is a 1D array of 16-elements stored in column-major order.
-    const float * value_ptr();
+    const float * value_ptr() const;
     
     /// Accesses the ith element of the raw data array used to store the matrix.
     /// This is a 1D array of 16-elements stored in column-major order.

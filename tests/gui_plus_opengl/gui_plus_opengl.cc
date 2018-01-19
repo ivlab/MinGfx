@@ -3,9 +3,15 @@
 #include <iostream>
 
 
+#include <stb_image.h>
+
+
+
 QuickShapes *qs;
 GLuint vbo, vao, vshader, fshader, shaderProgram;
 float model[16];
+GLuint texID = 0;
+
 
 GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
     nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
@@ -88,6 +94,7 @@ void GuiPlusOpenGL::OnSpecialKeyUp(int key, int scancode, int modifiers) {
 
 
 void GuiPlusOpenGL::DrawUsingNanoVG(NVGcontext *ctx) {
+    
     // example of drawing some circles
     
     nvgBeginPath(ctx);
@@ -269,33 +276,33 @@ void GuiPlusOpenGL::InitOpenGL() {
     glAttachShader(shaderProgram, vshader);
     glAttachShader(shaderProgram, fshader);
     linkShaderProgram(shaderProgram);
+    
+    
+    int w, h, n;
+    unsigned char* data;
+    stbi_set_unpremultiply_on_load(1);
+    stbi_convert_iphone_png_to_rgb(1);
+    std::string filename = "test.png";
+    data = stbi_load(filename.c_str(), &w, &h, &n, 4);
+    if (data == NULL) {
+        std::cerr << "Failed to load " << filename << " - " << stbi_failure_reason() << std::endl;
+    }
+    
+    glGenTextures(1, &texID);
+    glBindTexture(GL_TEXTURE_2D, texID);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+    stbi_image_free(data);
 }
 
 
 void GuiPlusOpenGL::DrawUsingOpenGL() {
-    // clear screen
-    glClearColor(0, 0, 0, 1);
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-    
-    
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    
-    glFrontFace(GL_CCW);
-
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LEQUAL);
-    
-    glDisable(GL_BLEND);
-    
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_SCISSOR_TEST);
-    
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-
-
-    
     Matrix4 P = Matrix4::perspective(60.0, aspect_ratio(), 0.1, 10.0);
     Matrix4 V = Matrix4::lookAt(Point3(1,1,3), Point3(0,0,0), Vector3(0,1,0));
     Matrix4 M = Matrix4::translation(Vector3(-1,0,0)) * Matrix4::scale(Vector3(0.5, 0.5, 0.5));
@@ -327,6 +334,9 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     qs->drawCylinder(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
+    qs->drawCone(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    
+    M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
     qs->drawCube(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
@@ -334,5 +344,12 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
     qs->drawSquare(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
-}
+    
+    M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
+    qs->drawTexturedSquare(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col, texID);
+    
+    
+    qs->drawLineSegment(Matrix4().value_ptr(), V.value_ptr(), P.value_ptr(),
+                        col, Point3(0,0,0), Point3(1, 1.5, 0), 0.01);
 
+}

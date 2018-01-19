@@ -93,7 +93,7 @@ Vector3 Vector3::normalize() {
 }
 
 
-const float * Vector3::value_ptr() {
+const float * Vector3::value_ptr() const {
     return v;
 }
 

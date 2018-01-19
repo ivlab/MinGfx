@@ -135,13 +135,19 @@ void GraphicsApp::Run() {
         // users who do not want to fill in DrawUsingOpenGL()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
+        // NanoGUI sets these to something other than the OpenGL defaults, which
+        // screws up most OpenGL programs, so we need to reset them each frame here.
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glEnable(GL_DEPTH_TEST);
+        
         // Users may fill this in to do raw OpenGL rendering
         DrawUsingOpenGL();
 
         // This renders the nanogui widgets created on screen_
         screen_->drawContents();
         screen_->drawWidgets();
-
+        
         // Users may fill this in to do additional 2D rendering with the NanoVG library
         DrawUsingNanoVG(screen_->nvgContext());
         
@@ -270,6 +276,25 @@ bool GraphicsApp::resize_glfw_cb(int width, int height) {
 }
 
 
+bool GraphicsApp::is_key_down(int key) {
+    return (glfwGetKey(window_, key) == GLFW_PRESS);
+}
+
+bool GraphicsApp::is_left_mouse_down() {
+    return (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
+}
+
+
+bool GraphicsApp::is_middle_mouse_down() {
+    return (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS);
+}
+
+
+bool GraphicsApp::is_right_mouse_down() {
+    return (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS);
+}
+
+    
 
 float GraphicsApp::aspect_ratio() {
     int width, height;

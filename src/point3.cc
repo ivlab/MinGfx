@@ -65,7 +65,7 @@ float& Point3::operator[](const int i) {
 }
 
     
-const float * Point3::value_ptr() {
+const float * Point3::value_ptr() const {
     return p;
 }
 
