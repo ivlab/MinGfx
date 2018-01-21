@@ -9,10 +9,19 @@
 
 namespace MinGfx {
 
-Texture2D::Texture2D(const std::string &filename, GLenum wrapMode, GLenum filterMode) :
+    
+    
+Texture2D::Texture2D(GLenum wrapMode, GLenum filterMode) :
     data_(NULL), width_(0), height_(0), handleMemInternally_(true), texID_(0),
     wrapMode_(wrapMode), filterMode_(filterMode)
 {
+}
+
+Texture2D::~Texture2D() {
+    // TODO: free texture from OpenGL
+}
+
+bool Texture2D::InitFromFile(const std::string &filename) {
     if (Platform::fileExists(filename)) {
         stbi_set_unpremultiply_on_load(1);
         stbi_convert_iphone_png_to_rgb(1);
@@ -20,20 +29,27 @@ Texture2D::Texture2D(const std::string &filename, GLenum wrapMode, GLenum filter
         data_ = stbi_load(filename.c_str(), &width_, &height_, &numChannels, 4);
         if (data_ == NULL) {
             std::cerr << "Texture2D: Failed to load file " << filename << " - " << stbi_failure_reason() << std::endl;
+            return false;
         }
     }
     else {
         std::cerr << "Texture2D: File " << filename << " does not exist." << std::endl;
+        return false;
     }
+    
+    return InitOpenGL();
 }
 
-Texture2D::Texture2D(int width, int height, unsigned char* data, GLenum wrapMode, GLenum filterMode) :
-    data_(data), width_(width), height_(height), handleMemInternally_(false), texID_(0),
-    wrapMode_(wrapMode), filterMode_(filterMode)
-{
-}
+bool Texture2D::InitFromData(int width, int height, unsigned char* data) {
+    width_ = width;
+    height_ = height;
+    data_ = data;
     
-void Texture2D::InitOpenGL() {
+    return InitOpenGL();
+}
+
+    
+bool Texture2D::InitOpenGL() {
     glGenTextures(1, &texID_);
     glBindTexture(GL_TEXTURE_2D, texID_);
     
@@ -47,23 +63,21 @@ void Texture2D::InitOpenGL() {
     if (handleMemInternally_) {
         stbi_image_free(data_);
     }
+    
+    return true;
 }
 
-Texture2D::~Texture2D() {
-    // TODO: free texture from OpenGL
-}
 
-
-int Texture2D::width() {
+int Texture2D::width() const {
     return width_;
 }
 
-int Texture2D::height() {
+int Texture2D::height() const {
     return height_;
 }
 
 
-GLuint Texture2D::opengl_id() {
+GLuint Texture2D::opengl_id() const {
     if (!initialized()) {
         std::cerr << "Texture2D: Warning, accessing opengl_id() before it has been initialized." << std::endl
         << "You might be calling opengl_id() before InitOpenGL().  Or, there might have been a" << std::endl
@@ -72,11 +86,11 @@ GLuint Texture2D::opengl_id() {
     return texID_;
 }
 
-GLenum Texture2D::wrap_mode() {
+GLenum Texture2D::wrap_mode() const {
     return wrapMode_;
 }
 
-GLenum Texture2D::filter_mode() {
+GLenum Texture2D::filter_mode() const {
     return filterMode_;
 }
 

@@ -1,16 +1,22 @@
 
 #include "gui_plus_opengl.h"
+
+#include "mesh.h"
+#include "shader_program.h"
+#include "texture2d.h"
+#include <stb_image.h>
+
 #include <iostream>
 
 
-#include <stb_image.h>
-
-
-
-QuickShapes *qs;
+Draw *qs;
 GLuint vbo, vao, vshader, fshader, shaderProgram;
 float model[16];
 GLuint texID = 0;
+
+Mesh mesh1;
+ShaderProgram shaderprog1;
+Texture2D tex1;
 
 
 GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
@@ -24,7 +30,19 @@ GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
     simTime_ = 0.0;
     paused_ = false;
     
-    qs = new QuickShapes();
+    qs = new Draw();
+    
+    
+    int i;
+    i = mesh1.AddTriangle(Point3(0,0,0), Point3(1,0,0), Point3(1,1,0));
+    mesh1.SetNormals(i, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));
+    mesh1.SetTexCoords(i, 0, Point2(0,0), Point2(1,0), Point2(1,1));
+    i = mesh1.AddTriangle(Point3(0,0,0), Point3(1,1,0), Point3(0,1,0));
+    mesh1.SetNormals(i, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));
+    mesh1.SetTexCoords(i, 0, Point2(0,0), Point2(1,1), Point2(0,1));
+    
+    //i = mesh1.AppendTriangle(Point3(0,0,0), Point3(0,0,1), Point3(1,1,0));
+    //mesh1.SetNormals(i, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));
 }
 
 
@@ -151,205 +169,144 @@ void linkShaderProgram(GLuint shaderProgram) {
 
 
 void GuiPlusOpenGL::InitOpenGL() {
-    #ifdef _WIN32
-        glewExperimental = GL_TRUE;
-        GLenum err = glewInit();
-        if (GLEW_OK != err) {
-            std::cerr << "Error initializing GLEW." << std::endl;
-        }
-    #endif
     
-    // Init GL
-    glEnable(GL_DEPTH_TEST);
-    glClearDepth(1.0f);
-    glDepthFunc(GL_LEQUAL);
-    glClearColor(0, 0, 0, 1);
+    mesh1.UpdateGPUMemory();
     
-    // Create VBO
-    GLfloat vertices[]  = { 1.0f, 1.0f, 1.0f,  -1.0f, 1.0f, 1.0f,  -1.0f,-1.0f, 1.0f,      // v0-v1-v2 (front)
-        -1.0f,-1.0f, 1.0f,   1.0f,-1.0f, 1.0f,   1.0f, 1.0f, 1.0f,      // v2-v3-v0
-        
-        1.0f, 1.0f, 1.0f,   1.0f,-1.0f, 1.0f,   1.0f,-1.0f,-1.0f,      // v0-v3-v4 (right)
-        1.0f,-1.0f,-1.0f,   1.0f, 1.0f,-1.0f,   1.0f, 1.0f, 1.0f,      // v4-v5-v0
-        
-        1.0f, 1.0f, 1.0f,   1.0f, 1.0f,-1.0f,  -1.0f, 1.0f,-1.0f,      // v0-v5-v6 (top)
-        -1.0f, 1.0f,-1.0f,  -1.0f, 1.0f, 1.0f,   1.0f, 1.0f, 1.0f,      // v6-v1-v0
-        
-        -1.0f, 1.0f, 1.0f,  -1.0f, 1.0f,-1.0f,  -1.0f,-1.0f,-1.0f,      // v1-v6-v7 (left)
-        -1.0f,-1.0f,-1.0f,  -1.0f,-1.0f, 1.0f,  -1.0f, 1.0f, 1.0f,      // v7-v2-v1.0
-        
-        -1.0f,-1.0f,-1.0f,   1.0f,-1.0f,-1.0f,   1.0f,-1.0f, 1.0f,      // v7-v4-v3 (bottom)
-        1.0f,-1.0f, 1.0f,  -1.0f,-1.0f, 1.0f,  -1.0f,-1.0f,-1.0f,      // v3-v2-v7
-        
-        1.0f,-1.0f,-1.0f,  -1.0f,-1.0f,-1.0f,  -1.0f, 1.0f,-1.0f,      // v4-v7-v6 (back)
-        -1.0f, 1.0f,-1.0f,   1.0f, 1.0f,-1.0f,   1.0f,-1.0f,-1.0f };    // v6-v5-v4
     
-    // normal array
-    GLfloat normals[]   = { 0, 0, 1,   0, 0, 1,   0, 0, 1,      // v0-v1-v2 (front)
-        0, 0, 1,   0, 0, 1,   0, 0, 1,      // v2-v3-v0
-        
-        1, 0, 0,   1, 0, 0,   1, 0, 0,      // v0-v3-v4 (right)
-        1, 0, 0,   1, 0, 0,   1, 0, 0,      // v4-v5-v0
-        
-        0, 1, 0,   0, 1, 0,   0, 1, 0,      // v0-v5-v6 (top)
-        0, 1, 0,   0, 1, 0,   0, 1, 0,      // v6-v1-v0
-        
-        -1, 0, 0,  -1, 0, 0,  -1, 0, 0,      // v1-v6-v7 (left)
-        -1, 0, 0,  -1, 0, 0,  -1, 0, 0,      // v7-v2-v1
-        
-        0,-1, 0,   0,-1, 0,   0,-1, 0,      // v7-v4-v3 (bottom)
-        0,-1, 0,   0,-1, 0,   0,-1, 0,      // v3-v2-v7
-        
-        0, 0,-1,   0, 0,-1,   0, 0,-1,      // v4-v7-v6 (back)
-        0, 0,-1,   0, 0,-1,   0, 0,-1 };    // v6-v5-v4
-    
-    // color array
-    GLfloat colors[]    = { 1, 1, 1,   1, 1, 0,   1, 0, 0,      // v0-v1-v2 (front)
-        1, 0, 0,   1, 0, 1,   1, 1, 1,      // v2-v3-v0
-        
-        1, 1, 1,   1, 0, 1,   0, 0, 1,      // v0-v3-v4 (right)
-        0, 0, 1,   0, 1, 1,   1, 1, 1,      // v4-v5-v0
-        
-        1, 1, 1,   0, 1, 1,   0, 1, 0,      // v0-v5-v6 (top)
-        0, 1, 0,   1, 1, 0,   1, 1, 1,      // v6-v1-v0
-        
-        1, 1, 0,   0, 1, 0,   0, 0, 0,      // v1-v6-v7 (left)
-        0, 0, 0,   1, 0, 0,   1, 1, 0,      // v7-v2-v1
-        
-        0, 0, 0,   0, 0, 1,   1, 0, 1,      // v7-v4-v3 (bottom)
-        1, 0, 1,   1, 0, 0,   0, 0, 0,      // v3-v2-v7
-        
-        0, 0, 1,   0, 0, 0,   0, 1, 0,      // v4-v7-v6 (back)
-        0, 1, 0,   0, 1, 1,   0, 0, 1 };    // v6-v5-v4
-    
-    // Allocate space and send Vertex Data
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(normals)+sizeof(colors), 0, GL_STATIC_DRAW);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices), sizeof(normals), normals);
-    glBufferSubData(GL_ARRAY_BUFFER, sizeof(vertices)+sizeof(normals), sizeof(colors), colors);
-    
-    // Create vao
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (char*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (char*)0 + sizeof(vertices));
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), (char*)0 + sizeof(vertices) + sizeof(normals));
-    
-    // Create shader
-    std::string vertexShader =
+    std::string vs =
     "#version 330 \n"
-    "layout(location = 0) in vec3 position; "
-    "layout(location = 1) in vec3 normal; "
-    "layout(location = 2) in vec3 color; "
-    ""
-    "uniform mat4 ProjectionMatrix; "
-    "uniform mat4 ViewMatrix; "
-    "uniform mat4 ModelMatrix; "
-    "uniform mat4 NormalMatrix; "
-    ""
-    "out vec3 col;"
-    ""
-    "void main() { "
-    "	gl_Position = ProjectionMatrix*ViewMatrix*ModelMatrix*vec4(position, 1.0); "
-    "	col = color;"
-    "}";
-    vshader = compileShader(vertexShader, GL_VERTEX_SHADER);
+    "layout(location = 0) in vec3 position; \n"
+    "layout(location = 1) in vec3 normal; \n"
+    "layout(location = 2) in vec4 color; \n"
+    "layout(location = 3) in vec2 texcoord;\n"
+    "\n"
+    "uniform mat4 ModelMatrix; \n"
+    "uniform mat4 ViewMatrix; \n"
+    "uniform mat4 ProjectionMatrix; \n"
+    "uniform mat4 NormalMatrix; \n"
+    "\n"
+    "out vec3 N; \n"
+    "out vec3 v; \n"
+    "out vec2 uv; \n"
+    "out vec4 col_interp; \n"
+    "\n"
+    "void main() { \n"
+    "   v = (ViewMatrix * ModelMatrix * vec4(position, 1)).xyz; \n"
+    "   N = normalize((NormalMatrix * vec4(normal, 0)).xyz); \n"
+    "   uv = texcoord.xy; \n"
+    "   gl_Position	= ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1); \n"
+    "   col_interp = color; \n"
+    "} \n";
     
-    std::string fragmentShader =
+    std::string fs =
     "#version 330 \n"
-    "in vec3 col;"
-    "out vec4 colorOut;"
-    ""
-    "void main() { "
-    "	colorOut = vec4(col, 1.0); "
-    "}";
-    fshader = compileShader(fragmentShader, GL_FRAGMENT_SHADER);
+    "\n"
+    "in vec3 N; \n"
+    "in vec3 v; \n"
+    "in vec2 uv; \n"
+    "in vec4 col_interp; \n"
+    "\n"
+    "out vec4 fragColor; \n"
+    "\n"
+    "uniform vec3 LightPosition; \n"
+    "uniform vec3 LightIntensityAmbient; \n"
+    "uniform vec3 LightIntensityDiffuse; \n"
+    "uniform vec3 LightIntensitySpecular; \n"
+    "\n"
+    "uniform vec3 MatReflectanceAmbient; \n"
+    "uniform vec3 MatReflectanceDiffuse; \n"
+    "uniform vec3 MatReflectanceSpecular; \n"
+    "uniform float MatReflectanceShininess; \n"
+    "\n"
+    "uniform sampler2D SurfaceTexture; \n"
+    "\n"
+    "void main() { \n"
+    "   vec3 L = normalize(LightPosition - v); \n"
+    "   vec3 V = normalize(-v); // eye is at (0,0,0) \n"
+    "   vec3 R = normalize(-reflect(L,N));"
+    "\n"
+    "   vec3 Ia = MatReflectanceAmbient * LightIntensityAmbient; \n"
+    "\n"
+    "   vec3 Id = clamp(MatReflectanceDiffuse * LightIntensityDiffuse * max(dot(N, L), 0.0), 0.0, 1.0); \n"
+    "\n"
+    "   vec3 Is = MatReflectanceSpecular * LightIntensitySpecular * pow(max(dot(R, V), 0.0), MatReflectanceShininess); \n"
+    "   Is = clamp(Is, 0.0, 1.0);"
+    "\n"
+    "   fragColor = col_interp; \n"
+    "   fragColor *= texture(SurfaceTexture, uv); \n"
+    "   fragColor.rgb *= Ia + Id + Is; \n"
+    "   //fragColor.rgb = Ia + Id + Is; \n"
+    "   //fragColor = vec4(1,1,1,1);\n"
+    "} \n";
     
-    // Create shader program
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vshader);
-    glAttachShader(shaderProgram, fshader);
-    linkShaderProgram(shaderProgram);
+    //shaderprog1.AddVertexShaderFromSource(vs);
+    //shaderprog1.AddFragmentShaderFromSource(fs);
     
+    shaderprog1.AddVertexShaderFromFile(Platform::findMinGfxShaderFile("phongtex.vert"));
+    shaderprog1.AddFragmentShaderFromFile(Platform::findMinGfxShaderFile("phongtex.frag"));
+    shaderprog1.LinkProgram();
     
-    int w, h, n;
-    unsigned char* data;
-    stbi_set_unpremultiply_on_load(1);
-    stbi_convert_iphone_png_to_rgb(1);
-    std::string filename = "test.png";
-    data = stbi_load(filename.c_str(), &w, &h, &n, 4);
-    if (data == NULL) {
-        std::cerr << "Failed to load " << filename << " - " << stbi_failure_reason() << std::endl;
-    }
-    
-    glGenTextures(1, &texID);
-    glBindTexture(GL_TEXTURE_2D, texID);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-    stbi_image_free(data);
+    tex1.InitFromFile(Platform::findMinGfxDataFile("test.png"));
 }
 
 
 void GuiPlusOpenGL::DrawUsingOpenGL() {
     Matrix4 P = Matrix4::perspective(60.0, aspect_ratio(), 0.1, 10.0);
-    Matrix4 V = Matrix4::lookAt(Point3(1,1,3), Point3(0,0,0), Vector3(0,1,0));
+    Matrix4 V = Matrix4::lookAt(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0));
     Matrix4 M = Matrix4::translation(Vector3(-1,0,0)) * Matrix4::scale(Vector3(0.5, 0.5, 0.5));
-    
-    // Set shader parameters
-    glUseProgram(shaderProgram);
-    GLint loc = glGetUniformLocation(shaderProgram, "ProjectionMatrix");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, P.value_ptr());
-    loc = glGetUniformLocation(shaderProgram, "ViewMatrix");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, V.value_ptr());
-    loc = glGetUniformLocation(shaderProgram, "ModelMatrix");
-    glUniformMatrix4fv(loc, 1, GL_FALSE, M.value_ptr());
-
-    // Draw color cube
-    glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
-    
-    // reset program
-    glUseProgram(0);
-    
     
     // Draw several quick shapes
     float col[3] = {0.4, 0.4, 0.8};
     Matrix4 M2 = Matrix4::translation(Vector3(1,1.5,0))*Matrix4::scale(Vector3(0.2, 0.2, 0.2));
-    qs->drawSphere(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->Sphere(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
-    qs->drawCylinder(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->Cylinder(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
-    qs->drawCone(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->Cone(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
     
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
-    qs->drawCube(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->Cube(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
-    qs->drawBrush(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->Brush(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
 
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
-    qs->drawSquare(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
+    qs->Square(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col);
     
     M2 = Matrix4::translation(Vector3(0,-0.5,0)) * M2;
-    qs->drawTexturedSquare(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col, texID);
+    qs->Square(M2.value_ptr(), V.value_ptr(), P.value_ptr(), col, tex1);
     
     
-    qs->drawLineSegment(Matrix4().value_ptr(), V.value_ptr(), P.value_ptr(),
+    qs->LineSegment(Matrix4().value_ptr(), V.value_ptr(), P.value_ptr(),
                         col, Point3(0,0,0), Point3(1, 1.5, 0), 0.01);
+    
+    
+    
+    shaderprog1.UseProgram();
+    
+    M = Matrix4();
+    Matrix4 N = (M*V).inverse().transpose();
+
+    shaderprog1.SetUniform("ModelMatrix", M);
+    shaderprog1.SetUniform("ViewMatrix", V);
+    shaderprog1.SetUniform("ProjectionMatrix", P);
+    shaderprog1.SetUniform("NormalMatrix", N);
+    shaderprog1.SetUniform("LightPosition", Point3(10,10,10));
+    shaderprog1.SetUniform("LightIntensityAmbient", Color(0.2, 0.2, 0.2));
+    shaderprog1.SetUniform("LightIntensityDiffuse", Color(0.7, 0.7, 0.7));
+    shaderprog1.SetUniform("LightIntensitySpecular", Color(0.6, 0.6, 0.6));
+    shaderprog1.SetUniform("MatReflectanceAmbient", Color(0.2, 0.2, 0.2));
+    shaderprog1.SetUniform("MatReflectanceDiffuse", Color(0.5, 0.5, 0.5));
+    shaderprog1.SetUniform("MatReflectanceSpecular", Color(0.6, 0.6, 0.6));
+    shaderprog1.SetUniform("MatReflectanceShininess", 20.0);
+    
+    shaderprog1.BindTexture("SurfaceTexture", tex1);
+    
+    mesh1.Draw();
+    
+    shaderprog1.StopProgram();
+    
 
 }

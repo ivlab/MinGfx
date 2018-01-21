@@ -4,32 +4,60 @@
 
 set(HEADERFILES
     src/color.h
+    src/draw.h
+    src/gfxmath.h
     src/graphics_app.h
     src/matrix4.h
+    src/mesh.h
     src/mingfx.h
+    src/mingfx_config.h
     src/opengl_headers.h
     src/platform.h
+    src/point2.h
     src/point3.h
-    src/quick_shapes.h
+    src/shader_program.h
     src/texture2d.h
+    src/vector2.h
     src/vector3.h
 )
 
 set(SOURCEFILES
     src/color.cc
+    src/draw.cc
+    src/gfxmath.cc
     src/graphics_app.cc
     src/matrix4.cc
+    src/mesh.cc
     src/platform.cc
+    src/point2.cc
     src/point3.cc
-    src/quick_shapes.cc
+    src/shader_program.cc
     src/texture2d.cc
+    src/vector2.cc
     src/vector3.cc
 )
 
+set(EXTRAFILES
+    src/mingfx_config.h.in
+)
+
+set(SHADERFILES
+    src/shaders/phong.frag
+    src/shaders/phong.vert
+    src/shaders/phongtex.frag
+    src/shaders/phongtex.vert
+    src/shaders/fullscreen.frag
+    src/shaders/fullscreen.vert
+)
+
+set_source_files_properties(${EXTRAFILES} PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties(${SHADERFILES} PROPERTIES HEADER_FILE_ONLY TRUE)
+
 source_group("Header Files" FILES ${HEADERFILES})
 source_group("Source Files" FILES ${SOURCEFILES})
+source_group("Shaders" FILES ${SHADERFILES})
 
-add_library(MinGfx SHARED ${HEADERFILES} ${SOURCEFILES})
+add_library(MinGfx SHARED ${HEADERFILES} ${SOURCEFILES} ${EXTRAFILES} ${SHADERFILES})
 
 
 # Using target_include_directories() rather than just include_directories() is
@@ -58,3 +86,4 @@ install(TARGETS MinGfx EXPORT MinGfxTargets COMPONENT CoreLib
 )
 
 install(FILES ${HEADERFILES} DESTINATION ${INSTALL_INCLUDE_DEST} COMPONENT CoreLib)
+install(FILES ${SHADERS} DESTINATION ${INSTALL_SHADERS_DEST} COMPONENT CoreLib)

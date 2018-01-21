@@ -58,6 +58,11 @@ public:
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
 
+    /// Special points that are frequently needed
+    static const Point3& origin();
+    static const Point3& zero();
+    static const Point3& one();
+    
 private:
     float p[3];
 };

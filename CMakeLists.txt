@@ -99,19 +99,24 @@ list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
 set(INSTALL_BIN_DEST           bin)
 set(INSTALL_LIB_DEST           lib/MinGfx${MINGFX_VERSION_STR})
 set(INSTALL_INCLUDE_DEST       include/MinGfx${MINGFX_VERSION_STR})
-set(INSTALL_PLUGINLIB_DEST     lib/MinGfx${MINGFX_VERSION_STR})
-set(INSTALL_PLUGINDLL_DEST     bin/MinGfx${MINGFX_VERSION_STR})
-set(INSTALL_PLUGININCLUDE_DEST include/MinGfx${MINGFX_VERSION_STR})
-set(INSTALL_CONFIGFILES_DEST   share/MinGfx${MINGFX_VERSION_STR}/config)
+set(INSTALL_SHADERS_DEST   share/MinGfx${MINGFX_VERSION_STR}/config)
+set(INSTALL_DATA_DEST           share/MinGfx${MINGFX_VERSION_STR}/data)
 set(INSTALL_DOC_DEST           share/MinGfx${MINGFX_VERSION_STR}/doc)
 set(INSTALL_CMAKECONFIG_DEST   lib/cmake/MinGfx${MINGFX_VERSION_STR})
 
 message(STATUS "Tests, other binaries: ${CMAKE_INSTALL_PREFIX}/${INSTALL_BIN_DEST}")
 message(STATUS "MinGfx library: ${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB_DEST}")
 message(STATUS "MinGfx header files: ${CMAKE_INSTALL_PREFIX}/${INSTALL_INCLUDE_DEST}")
+message(STATUS "MinGfx shader programs: ${CMAKE_INSTALL_PREFIX}/${INSTALL_SHADERS_DEST}")
+message(STATUS "MinGfx data files: ${CMAKE_INSTALL_PREFIX}/${INSTALL_DATA_DEST}")
+message(STATUS "MinGfx documentation files: ${CMAKE_INSTALL_PREFIX}/${INSTALL_DOC_DEST}")
 message(STATUS "CMake Config Package for including MinGfx in other projects: ${CMAKE_INSTALL_PREFIX}/${INSTALL_CMAKECONFIG_DEST}")
 
-
+# Configure a header file to pass some of the CMake settings to the source code
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/mingfx_config.h.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/mingfx_config.h
+)
 
 
 #### SET ANY COMPILER FLAGS ####
@@ -184,13 +189,20 @@ include(src/CMakeLists.txt)
 
 #### DEFINE ADDITIONAL BUILD TARGETS, LIKE TEST PROGRAMS, ETC. ####
 
-h1("CONFIGURING PROGRAMS")
+h1("CONFIGURING PROGRAMS AND DATA")
 
 h2("Cofiguring test programs.")
 message(STATUS "Adding all subirectories of tests to the build.")
 add_subdirectory(tests/blank_window)
 add_subdirectory(tests/gui_plus_opengl)
 
+
+h2("Cofiguring data.")
+message(STATUS "Identifying data to install.")
+install(
+    DIRECTORY data/
+    DESTINATION ${INSTALL_DATA_DEST}
+)
 
 
 

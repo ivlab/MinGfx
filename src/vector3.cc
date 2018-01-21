@@ -4,7 +4,20 @@
 
 namespace MinGfx {
 
+static const Vector3 s_zerov3d = Vector3(0,0,0);
+static const Vector3 s_onev3d = Vector3(1,1,1);
+static const Vector3 s_unitxv3d = Vector3(1,0,0);
+static const Vector3 s_unityv3d = Vector3(0,1,0);
+static const Vector3 s_unitzv3d = Vector3(0,0,1);
 
+const Vector3& Vector3::zero() { return s_zerov3d; }
+const Vector3& Vector3::one() { return s_onev3d; }
+const Vector3& Vector3::unitX() { return s_unitxv3d; }
+const Vector3& Vector3::unitY() { return s_unityv3d; }
+const Vector3& Vector3::unitZ() { return s_unitzv3d; }
+
+    
+    
 Vector3::Vector3() {
     v[0] = 0.0;
     v[1] = 0.0;
@@ -65,17 +78,17 @@ float& Vector3::operator[](const int i) {
     return v[i];
 }
   
-float Vector3::dot(const Vector3& other) {
+float Vector3::dot(const Vector3& other) const {
     return v[0]*other[0] + v[1]*other[1] + v[2]*other[2];
 }
 
-Vector3 Vector3::cross(const Vector3& other) {
+Vector3 Vector3::cross(const Vector3& other) const {
     return Vector3(v[1] * other[2] - v[2] * other[1],
                    v[2] * other[0] - v[0] * other[2],
                    v[0] * other[1] - v[1] * other[0]);
 }
 
-float Vector3::length() {
+float Vector3::length() const {
     return sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
 }
 
@@ -86,12 +99,16 @@ Vector3 Vector3::normalize() {
     return Vector3(v); // does nothing to zero vectors;
     } 
     float scaleFactor = (float)1.0/(float)sqrt(sizeSq);
-    float x = v[0] * scaleFactor;
-    float y = v[1] * scaleFactor;
-    float z = v[2] * scaleFactor;
-    return Vector3(x, y, z);
+    v[0] *= scaleFactor;
+    v[1] *= scaleFactor;
+    v[2] *= scaleFactor;
+    return *this;
 }
 
+
+Vector3 Vector3::unit() const {
+    return Vector3(*this).normalize();
+}
 
 const float * Vector3::value_ptr() const {
     return v;

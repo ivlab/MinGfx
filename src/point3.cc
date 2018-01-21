@@ -4,6 +4,14 @@
 
 namespace MinGfx {
 
+static const Point3 s_zerop3d = Point3(0,0,0);
+static const Point3 s_onep3d = Point3(1,1,1);
+
+const Point3& Point3::origin() { return s_zerop3d; }
+const Point3& Point3::zero() { return s_zerop3d; }
+const Point3& Point3::one() { return s_onep3d; }
+    
+    
 Point3::Point3() {
     p[0] = 0.0;
     p[1] = 0.0;

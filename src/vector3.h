@@ -59,20 +59,32 @@ public:
     // --- Vector operations ---
 
     /// Returns "this dot v"
-    float dot(const Vector3& v);
+    float dot(const Vector3& v) const;
 
     /// Returns "this cross v"
-    Vector3 cross(const Vector3& v);
+    Vector3 cross(const Vector3& v) const;
 
     /// Returns the length of the vector
-    float length();
+    float length() const;
 
-    /// Returns a normalized (i.e. unit length) version of the vector
+    /// Normalizes the vector by making it unit length.  The result is returned
+    /// AND 'this' vector is set equal to the result.
     Vector3 normalize();
+
+    /// Returns a normalized (i.e., unit length) version of the vector without
+    /// modifying the original 'this' vector.
+    Vector3 unit() const;
 
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
-
+    
+    /// Special vectors that are frequently needed
+    static const Vector3& zero();
+    static const Vector3& one();
+    static const Vector3& unitX();
+    static const Vector3& unitY();
+    static const Vector3& unitZ();
+    
 private:
     float v[3];
 };

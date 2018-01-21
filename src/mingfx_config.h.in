@@ -1,0 +1,16 @@
+/** 
+*/
+
+
+// The file config.h.in is processed by cmake to produce config.h.  This
+// replaces strings of the form "at"CMAKE_VARIABLE_NAME"at" with the value
+// of the corresponding cmake variable, allowing us to pass directory paths
+// and other information configured with cmake into our C++ code.
+
+
+#define MINGFX_DATA_DIR_BUILD "@CMAKE_CURRENT_SOURCE_DIR@/data"
+#define MINGFX_DATA_DIR_INSTALL "@CMAKE_INSTALL_PREFIX@/@INSTALL_DATA_DEST@"
+
+#define MINGFX_SHADERS_DIR_BUILD "@CMAKE_CURRENT_SOURCE_DIR@/src/shaders"
+#define MINGFX_SHADERS_DIR_INSTALL "@CMAKE_INSTALL_PREFIX@/@INSTALL_SHADERS_DEST@"
+

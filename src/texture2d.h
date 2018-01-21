@@ -17,35 +17,40 @@ namespace MinGfx {
 class Texture2D {
 public:
 
-    Texture2D(const std::string &filename, GLenum wrapMode=GL_REPEAT, GLenum filterMode=GL_LINEAR);
+    Texture2D(GLenum wrapMode=GL_REPEAT, GLenum filterMode=GL_LINEAR);
+    virtual ~Texture2D();
+
     
-    /// With this constructor, you may pass in your own pointer to color data.
+    /// Call this from within the InitOpenGL() function since it will initialize
+    /// not just the Texture2D's internal data but also an OpenGL texture to be
+    /// stored on the graphics card.
+    bool InitFromFile(const std::string &filename);
+    
+    /// Call this from within the InitOpenGL() function since it will initialize
+    /// not just the Texture2D's internal data but also an OpenGL texture to be
+    /// stored on the graphics card.
+    /// With this version of Init, you may pass in your own pointer to color data.
     /// The data argument must point to an array of 4-channel color data stored as
     /// unsigned chars in RGBA format.  You are responsible for managing the memory
-    /// for this array, and you must not free it until after you call InitOpenGL.
-    /// At that point, the data will be copied over into an OpenGL texture, and it
-    /// is fine to free the memory in your data array.
-    Texture2D(int width, int height, unsigned char* data, GLenum wrapMode=GL_REPEAT, GLenum filterMode=GL_LINEAR);
-
-    virtual ~Texture2D();
+    /// for this array.  It is safe to free it as soon as this function returns.
+    bool InitFromData(int width, int height, unsigned char* data);
     
     
-    bool initialized() { return texID_ != 0; }
+    bool initialized() const { return texID_ != 0; }
 
-    void InitOpenGL();
+    int width() const;
+    int height() const;
 
-    
-    int width();
-    int height();
-
-    GLuint opengl_id();
-    GLenum wrap_mode();
-    GLenum filter_mode();
+    GLuint opengl_id() const;
+    GLenum wrap_mode() const;
+    GLenum filter_mode() const;
         
     void set_wrap_mode(GLenum wrapMode);
     void set_filter_mode(GLenum filterMode);
     
 private:
+    
+    bool InitOpenGL();
     
     unsigned char *data_;
     int width_;
