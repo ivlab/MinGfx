@@ -300,7 +300,7 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     shaderprog1.SetUniform("MatReflectanceAmbient", Color(0.2, 0.2, 0.2));
     shaderprog1.SetUniform("MatReflectanceDiffuse", Color(0.5, 0.5, 0.5));
     shaderprog1.SetUniform("MatReflectanceSpecular", Color(0.6, 0.6, 0.6));
-    shaderprog1.SetUniform("MatReflectanceShininess", 20.0);
+    shaderprog1.SetUniform("MatReflectanceShininess", 20.0f);
     
     shaderprog1.BindTexture("SurfaceTexture", tex1);
     

@@ -1,4 +1,20 @@
 
+
+
+
+// We often use the code that is commented out below to load opengl headers in a cross-platform way,
+// but since nanogui uses glad internally, we will just use their approach to load opengl headers
+// so that everything is consistent.
+
+#ifdef WIN32
+#define NANOGUI_GLAD
+#endif
+
+#include <nanogui/opengl.h>
+
+
+/*** Our typical appraoch:
+
 // GLEW is needed on Windows and Linux
 #ifdef _WIN32
 #include "GL/glew.h"
@@ -20,3 +36,5 @@
 #define GL_GLEXT_PROTOTYPES
 #include <GL/gl.h>
 #endif
+
+***/

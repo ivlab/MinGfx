@@ -242,10 +242,10 @@ void ShaderProgram::SetUniform(const std::string &name, float f) {
     glUniform1f(loc, f);
 }
 
-void ShaderProgram::SetUniform(const std::string &name, double d) {
-    GLint loc = glGetUniformLocation(program_, name.c_str());
-    glUniform1d(loc, d);
-}
+//void ShaderProgram::SetUniform(const std::string &name, double d) {
+//    GLint loc = glGetUniformLocation(program_, name.c_str());
+//    glUniform1d(loc, d);
+//}
 
 
 
@@ -265,10 +265,10 @@ void ShaderProgram::SetUniformArray(const std::string &name, float *f, int count
     glUniform1fv(loc, count, f);
 }
 
-void ShaderProgram::SetUniformArray(const std::string &name, double *d, int count) {
-    GLint loc = glGetUniformLocation(program_, name.c_str());
-    glUniform1dv(loc, count, d);
-}
+//void ShaderProgram::SetUniformArray(const std::string &name, double *d, int count) {
+//    GLint loc = glGetUniformLocation(program_, name.c_str());
+//    glUniform1dv(loc, count, d);
+//}
 
 void ShaderProgram::BindTexture(const std::string &name, const Texture2D &tex) {
     int texUnit = 0;

@@ -2,7 +2,13 @@
 #include "texture2d.h"
 #include "platform.h"
 
+#ifdef WIN32
+  // this is not needed on OSX, it must pick up the symbols from libnanogui.so,
+  // but it appears to be needed on Windows.
+  #define STB_IMAGE_IMPLEMENTATION
+#endif
 #include <stb_image.h>
+
 
 #include <iostream>
 

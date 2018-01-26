@@ -18,13 +18,15 @@ set (CONFIGFILES
 add_executable(${PROJECT_NAME} ${HEADERFILES} ${SOURCEFILES})
 
 
-# Setup dependency on libMinGfx:
+# Add dependency on libMinGfx:
 target_include_directories(${PROJECT_NAME} PUBLIC ../../src)
 target_link_libraries(${PROJECT_NAME} PUBLIC MinGfx)
 
-# Setup dependency on NanoGUI
+# Add dependency on NanoGUI
 include(UseNanoGUI)
 UseNanoGUI(${PROJECT_NAME} PUBLIC ${EXTERNAL_DIR})
+
+
 
 # Installation:
 install(TARGETS ${PROJECT_NAME}

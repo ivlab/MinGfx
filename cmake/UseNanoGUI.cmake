@@ -69,6 +69,12 @@ macro(UseNanoGUI YOUR_TARGET INTERFACE_PUBLIC_OR_PRIVATE DOWNLOAD_DIR)
         file(INSTALL ${DOWNLOAD_DIR}/NanoGUI/src/ext/nanovg/src/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include/nanovg    
             FILES_MATCHING PATTERN "*.h")
 
+        if (WIN32)
+            # And, the don't even install the .dll on Windows!  Come on nanogui guys, get your act together!
+            file(INSTALL ${CMAKE_BINARY_DIR}/external/NanoGUI/Debug/nanogui.dll DESTINATION ${CMAKE_INSTALL_PREFIX}/bin OPTIONAL)
+            file(INSTALL ${CMAKE_BINARY_DIR}/external/NanoGUI/Release/nanogui.dll DESTINATION ${CMAKE_INSTALL_PREFIX}/bin OPTIONAL)
+            file(INSTALL ${DOWNLOAD_DIR}/NanoGUI/src/ext/glad/include/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+        endif()
 
         # Try find_package() again
         message(STATUS "Searching (again, right after autobuilding) for NanoGUI library...")
@@ -99,7 +105,7 @@ macro(UseNanoGUI YOUR_TARGET INTERFACE_PUBLIC_OR_PRIVATE DOWNLOAD_DIR)
     target_link_libraries(${YOUR_TARGET} ${INTERFACE_PUBLIC_OR_PRIVATE} ${NANOGUI_LIBRARIES})
     target_include_directories(${YOUR_TARGET} ${INTERFACE_PUBLIC_OR_PRIVATE} ${NANOGUI_INCLUDE_DIRS})
     
-    target_compile_definitions(${YOUR_TARGET} ${INTERFACE_PUBLIC_OR_PRIVATE} -DUSE_NANOGUI)
+    target_compile_definitions(${YOUR_TARGET} ${INTERFACE_PUBLIC_OR_PRIVATE} -DUSE_NANOGUI -DNANOGUI_GLAD -DGLAD_GLAPI_EXPORT)
 
 endmacro()
 

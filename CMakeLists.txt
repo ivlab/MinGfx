@@ -77,9 +77,10 @@ message(STATUS "This build will append the postfix '" ${CMAKE_BUILD_POSTFIX} "' 
 
 #### SETUP DIRECTORIES FOR BUILDING AND INSTALLING ####
 
-h1("CONFIGURING INSTALL LOCATIONS")
+h1("CONFIGURING BUILD/INSTALL LOCATIONS")
 
 h2("Configuring build directories.")
+
 message(STATUS "Tests, other binaries: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 message(STATUS "Libraries: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 

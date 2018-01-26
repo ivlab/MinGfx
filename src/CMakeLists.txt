@@ -57,7 +57,9 @@ source_group("Header Files" FILES ${HEADERFILES})
 source_group("Source Files" FILES ${SOURCEFILES})
 source_group("Shaders" FILES ${SHADERFILES})
 
-add_library(MinGfx SHARED ${HEADERFILES} ${SOURCEFILES} ${EXTRAFILES} ${SHADERFILES})
+#add_library(MinGfx SHARED ${HEADERFILES} ${SOURCEFILES} ${EXTRAFILES} ${SHADERFILES})
+
+add_library(MinGfx ${HEADERFILES} ${SOURCEFILES} ${EXTRAFILES} ${SHADERFILES})
 
 
 # Using target_include_directories() rather than just include_directories() is
@@ -76,7 +78,6 @@ UseNanoGUI(MinGfx PUBLIC ${EXTERNAL_DIR})
 # Add dependency on OpenGL
 include(UseOpenGL)
 UseOpenGL(MinGfx PUBLIC ${EXTERNAL_DIR})
-
 
 
 install(TARGETS MinGfx EXPORT MinGfxTargets COMPONENT CoreLib
