@@ -177,51 +177,55 @@ namespace MinGfx {
     
     
     void Mesh::UpdateGPUMemory() {
-        if (gpuDirty_) {
-            // sanity check -- for each attribute that is added (normals, colors, texcoords)
-            // make sure the number of triangles is equal to the number of tris in the verts
-            // array.
-            if ((norms_.size() != 0) && (norms_.size()/3 != num_vertices())) {
-                std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex normals in the mesh is not equal to the number vertices in the mesh. (N = " << norms_.size()/3 << ", V = " << num_vertices() << ")" << std::endl;
-            }
-            if ((colors_.size() != 0) && (colors_.size()/4 != num_vertices())) {
-                std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex colors in the mesh is not equal to the number vertices in the mesh. (C = " << colors_.size()/4 << ", V = " << num_vertices() << ")" << std::endl;
-            }
-            for (int i=0; i<texCoords_.size(); i++) {
-                if ((texCoords_[i].size() != 0) && (texCoords_[i].size()/2 != num_vertices())) {
-                    std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex texture coordinates (for texture unit #" << i << ") is not equal to the number vertices in the mesh.  (UVs = " << texCoords_[i].size()/2 << ", V = " << num_vertices() << ")" << std::endl;
-                }
-            }
-            
-            GLsizeiptr totalMemSize = 0;
-            
-            GLsizeiptr vertsMemSize = verts_.size()*sizeof(float);
-            GLsizeiptr vertsMemOffset = 0;
-            totalMemSize += vertsMemSize;
-            
-            GLsizeiptr normsMemSize = norms_.size()*sizeof(float);
-            GLsizeiptr normsMemOffset = totalMemSize;
-            totalMemSize += normsMemSize;
-            
-            GLsizeiptr colorsMemSize = colors_.size()*sizeof(float);
-            GLsizeiptr colorsMemOffset = totalMemSize;
-            totalMemSize += colorsMemSize;
-            
-            std::vector<GLsizeiptr> texCoordsMemSize;
-            std::vector<GLsizeiptr> texCoordsMemOffset;
-            for (int i=0; i<texCoords_.size(); i++) {
-                texCoordsMemSize.push_back(texCoords_[i].size()*sizeof(float));
-                texCoordsMemOffset.push_back(totalMemSize);
-                totalMemSize += texCoordsMemSize[i];
-            }
-            
-            glGenBuffers(1, &vertexBuffer_);
-            glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
-            glBufferData(GL_ARRAY_BUFFER, totalMemSize, NULL, GL_STATIC_DRAW);
+		if (gpuDirty_) {
+			// sanity check -- for each attribute that is added (normals, colors, texcoords)
+			// make sure the number of triangles is equal to the number of tris in the verts
+			// array.
+			if ((norms_.size() != 0) && (norms_.size() / 3 != num_vertices())) {
+				std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex normals in the mesh is not equal to the number vertices in the mesh. (N = " << norms_.size() / 3 << ", V = " << num_vertices() << ")" << std::endl;
+			}
+			if ((colors_.size() != 0) && (colors_.size() / 4 != num_vertices())) {
+				std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex colors in the mesh is not equal to the number vertices in the mesh. (C = " << colors_.size() / 4 << ", V = " << num_vertices() << ")" << std::endl;
+			}
+			for (int i = 0; i < texCoords_.size(); i++) {
+				if ((texCoords_[i].size() != 0) && (texCoords_[i].size() / 2 != num_vertices())) {
+					std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex texture coordinates (for texture unit #" << i << ") is not equal to the number vertices in the mesh.  (UVs = " << texCoords_[i].size() / 2 << ", V = " << num_vertices() << ")" << std::endl;
+				}
+			}
 
-            glBufferSubData(GL_ARRAY_BUFFER, vertsMemOffset, vertsMemSize, &verts_[0]);
-            glBufferSubData(GL_ARRAY_BUFFER, normsMemOffset, normsMemSize, &norms_[0]);
-            glBufferSubData(GL_ARRAY_BUFFER, colorsMemOffset, colorsMemSize, &colors_[0]);
+			GLsizeiptr totalMemSize = 0;
+
+			GLsizeiptr vertsMemSize = verts_.size() * sizeof(float);
+			GLsizeiptr vertsMemOffset = 0;
+			totalMemSize += vertsMemSize;
+
+			GLsizeiptr normsMemSize = norms_.size() * sizeof(float);
+			GLsizeiptr normsMemOffset = totalMemSize;
+			totalMemSize += normsMemSize;
+
+			GLsizeiptr colorsMemSize = colors_.size() * sizeof(float);
+			GLsizeiptr colorsMemOffset = totalMemSize;
+			totalMemSize += colorsMemSize;
+
+			std::vector<GLsizeiptr> texCoordsMemSize;
+			std::vector<GLsizeiptr> texCoordsMemOffset;
+			for (int i = 0; i < texCoords_.size(); i++) {
+				texCoordsMemSize.push_back(texCoords_[i].size() * sizeof(float));
+				texCoordsMemOffset.push_back(totalMemSize);
+				totalMemSize += texCoordsMemSize[i];
+			}
+
+			glGenBuffers(1, &vertexBuffer_);
+			glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
+			glBufferData(GL_ARRAY_BUFFER, totalMemSize, NULL, GL_STATIC_DRAW);
+
+			glBufferSubData(GL_ARRAY_BUFFER, vertsMemOffset, vertsMemSize, &verts_[0]);
+			if (norms_.size() > 0) {
+				glBufferSubData(GL_ARRAY_BUFFER, normsMemOffset, normsMemSize, &norms_[0]);
+			}
+			if (colors_.size() > 0) {
+				glBufferSubData(GL_ARRAY_BUFFER, colorsMemOffset, colorsMemSize, &colors_[0]);
+			}
             for (int i=0; i<texCoords_.size(); i++) {
                 glBufferSubData(GL_ARRAY_BUFFER, texCoordsMemOffset[i], texCoordsMemSize[i], &(texCoords_[i][0]));
             }
