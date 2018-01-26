@@ -2,6 +2,8 @@
 
 #include "opengl_headers.h"
 
+#include <sstream>
+#include <fstream>
 
 namespace MinGfx {
     
@@ -301,6 +303,65 @@ namespace MinGfx {
         return verts_.size()/9;
     }
 
+    
+    
+    void Mesh::LoadFromOBJ(const std::string &filename) {
+        std::fstream file(filename.c_str(), std::ios::in);
+        if (!file) {
+            std::cerr << "Failed to load " + filename << std::endl;
+            exit(1);
+        }
+        
+        std::vector<Point3> vertices;
+        std::vector<Vector3> normals;
+        std::vector<Point2> texCoords;
+        
+        while (file) {
+            std::string line;
+            do
+                getline(file, line);
+            while (file && (line.length() == 0 || line[0] == '#'));
+            std::stringstream linestream(line);
+            std::string keyword;
+            linestream >> keyword;
+            if (keyword == "v") {
+                Point3 vertex;
+                linestream >> vertex[0] >> vertex[1] >> vertex[2];
+                vertices.push_back(vertex);
+            } else if (keyword == "vn") {
+                Vector3 normal;
+                linestream >> normal[0] >> normal[1] >> normal[2];
+                normals.push_back(normal);
+            } else if (keyword == "vt") {
+                Point2 texCoord;
+                linestream >> texCoord[0] >> texCoord[1];
+                texCoords.push_back(texCoord);
+            } else if (keyword == "f") {
+                std::vector<int> polygon;
+                std::string word;
+                while (linestream >> word) {
+                    std::stringstream wstream(word);
+                    int v;
+                    wstream >> v;
+                    polygon.push_back(v-1); // In OBJ files, indices start from 1
+                }
+                for (int i = 2; i < polygon.size(); i++) {
+                    //triangles.push_back(ivec3(polygon[0], polygon[i-1], polygon[i]));
+                    int i1 = polygon[0];
+                    int i2 = polygon[i-1];
+                    int i3 = polygon[i];
+                    int t = AddTriangle(vertices[i1], vertices[i2], vertices[i3]);
+                    if (normals.size()) {
+                        SetNormals(t, normals[i1], normals[i2], normals[i3]);
+                    }
+                    if (texCoords.size()) {
+                        SetTexCoords(t, 0, texCoords[i1], texCoords[i2], texCoords[i3]);
+                    }
+                }
+            }
+        }
+        UpdateGPUMemory();
+    }
     
     
 } // end namespace

@@ -39,6 +39,9 @@ public:
     void SetNormals(float *normsArray, int numNorms);
     void SetColors(float *colorsArray, int numColors);
     void SetTexCoords(int textureUnit, float *texCoordsArray, int numTexCoords);
+
+    
+    void LoadFromOBJ(const std::string &filename);
     
     
 private:

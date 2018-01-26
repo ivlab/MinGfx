@@ -14,7 +14,7 @@ GLuint vbo, vao, vshader, fshader, shaderProgram;
 float model[16];
 GLuint texID = 0;
 
-Mesh mesh1;
+Mesh mesh1, mesh2;
 ShaderProgram shaderprog1;
 Texture2D tex1;
 
@@ -172,6 +172,7 @@ void GuiPlusOpenGL::InitOpenGL() {
     
     mesh1.UpdateGPUMemory();
     
+    mesh2.LoadFromOBJ(Platform::findMinGfxDataFile("teapot.obj"));
     
     std::string vs =
     "#version 330 \n"
@@ -305,6 +306,7 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     shaderprog1.BindTexture("SurfaceTexture", tex1);
     
     mesh1.Draw();
+    mesh2.Draw();
     
     shaderprog1.StopProgram();
     
