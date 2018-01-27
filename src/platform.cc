@@ -17,8 +17,11 @@ namespace MinGfx {
     
 bool Platform::fileExists(const std::string &filename) {
 #ifdef WIN32
-    DWORD attr = ::GetFileAttributesW((LPCWSTR)filename.c_str());
-    return (attr != 0xFFFFFFFF);
+	LPCTSTR  szPath = (LPCTSTR)filename.c_str();
+	DWORD dwAttrib = GetFileAttributes(szPath);
+
+	return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
+		!(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 #else
     struct stat buf;
     return (stat(filename.c_str(), &buf) == 0);
