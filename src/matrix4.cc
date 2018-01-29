@@ -144,11 +144,11 @@ Matrix4 Matrix4::rotation(const Point3& p, const Vector3& v, const float a) {
 
     
 Matrix4 Matrix4::lookAt(Point3 eye, Point3 target, Vector3 up) {
-    Vector3 lookDir = (target - eye).normalize();
+    Vector3 lookDir = (target - eye).to_unit();
 
     // desired x,y,z for the camera itself
     Vector3 z = -lookDir;
-    Vector3 x = up.cross(z).normalize();
+    Vector3 x = up.cross(z).to_unit();
     Vector3 y = z.cross(x);
 
     // for the view matrix rotation, we want the inverse of the rotation for the
@@ -211,10 +211,10 @@ Matrix4 Matrix4::fromRowMajorElements(
     
 
 Matrix4 Matrix4::orthonormal() const {
-    Vector3 x = getColumnAsVector3(0).normalize();
+    Vector3 x = getColumnAsVector3(0).to_unit();
     Vector3 y = getColumnAsVector3(1);
-    y = (y - y.dot(x)*x).normalize();
-    Vector3 z = x.cross(y).normalize();
+    y = (y - y.dot(x)*x).to_unit();
+    Vector3 z = x.cross(y).to_unit();
     return Matrix4::fromRowMajorElements(
         x[0], y[0], z[0], m[3],
         x[1], y[1], z[1], m[7],

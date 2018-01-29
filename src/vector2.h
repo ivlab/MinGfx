@@ -56,16 +56,22 @@ public:
     /// Returns the length of the vector
     float length() const;
     
-    /// Normalizes the vector by making it unit length.  The result is returned
-    /// AND the original ('this') vector is set equal to the result.
-    Vector2 normalize();
+    /// Normalizes the vector by making it unit length.
+    void normalize();
     
     /// Returns a normalized (i.e., unit length) version of the vector without
     /// modifying the original ('this') vector.
-    Vector2 unit() const;
+    Vector2 to_unit() const;
     
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
+    
+    /// Returns a new vector that is the unit version of v.
+    static Vector2 normalize(const Vector2 &v);
+    
+    /// Returns v1 dot v2
+    static float dot(const Vector2 &v1, const Vector2 &v2);
+    
     
     /// Special vectors that are frequently needed
     static const Vector2& zero();

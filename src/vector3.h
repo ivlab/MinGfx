@@ -67,13 +67,12 @@ public:
     /// Returns the length of the vector
     float length() const;
 
-    /// Normalizes the vector by making it unit length.  The result is returned
-    /// AND 'this' vector is set equal to the result.
-    Vector3 normalize();
+    /// Normalizes the vector by making it unit length.
+    void normalize();
 
     /// Returns a normalized (i.e., unit length) version of the vector without
     /// modifying the original 'this' vector.
-    Vector3 unit() const;
+    Vector3 to_unit() const;
 
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
@@ -84,6 +83,17 @@ public:
     static const Vector3& unitX();
     static const Vector3& unitY();
     static const Vector3& unitZ();
+    
+
+    /// Returns a new vector that is the unit version of v.
+    static Vector3 normalize(const Vector3 &v);
+    
+    /// Returns v1 cross v2
+    static Vector3 cross(const Vector3 &v1, const Vector3 &v2);
+    
+    /// Returns v1 dot v2
+    static float dot(const Vector3 &v1, const Vector3 &v2);
+    
     
 private:
     float v[3];
@@ -134,6 +144,8 @@ Vector3 operator-(const Point3& p1, const Point3& p2);
 
 // Note: no (vector - point) operator, that's an undefined operation
 
+    
+    
     
 // --- Stream operators ---
 

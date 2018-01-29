@@ -364,8 +364,26 @@ namespace MinGfx {
                 }
             }
         }
-        UpdateGPUMemory();
     }
     
+    
+    
+    Point3 Mesh::vertex(int i) const {
+        return Point3(verts_[3*i], verts_[3*i+1], verts_[3*i+2]);
+    }
+    
+    Vector3 Mesh::normal(int i) const {
+        return Vector3(norms_[3*i], norms_[3*i+1], norms_[3*i+2]);
+    }
+    
+    Color Mesh::color(int i) const {
+        return Color(colors_[4*i], colors_[4*i+1], colors_[4*i+2], colors_[4*i+3]);
+        
+    }
+
+    Point2 Mesh::tex_coords(int textureUnit, int i) const {
+        return Point2(texCoords_[textureUnit][2*i], texCoords_[textureUnit][2*i+1]);
+    }
+
     
 } // end namespace

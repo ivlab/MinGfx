@@ -92,28 +92,42 @@ float Vector3::length() const {
     return sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
 }
 
-Vector3 Vector3::normalize() {
+void Vector3::normalize() {
     // Hill & Kelley provide this:
     float sizeSq =  + v[0]*v[0] + v[1]*v[1] + v[2]*v[2];
     if (sizeSq < MINGFX_MATH_EPSILON) {
-    return Vector3(v); // does nothing to zero vectors;
+        return; // do nothing to zero vectors;
     } 
     float scaleFactor = (float)1.0/(float)sqrt(sizeSq);
     v[0] *= scaleFactor;
     v[1] *= scaleFactor;
     v[2] *= scaleFactor;
-    return *this;
 }
 
 
-Vector3 Vector3::unit() const {
-    return Vector3(*this).normalize();
+Vector3 Vector3::to_unit() const {
+    Vector3 v(*this);
+    v.normalize();
+    return v;
 }
 
 const float * Vector3::value_ptr() const {
     return v;
 }
 
+    
+    
+Vector3 Vector3::normalize(const Vector3 &v) {
+    return v.to_unit();
+}
+
+Vector3 Vector3::cross(const Vector3 &v1, const Vector3 &v2) {
+    return v1.cross(v2);
+}
+
+float Vector3::dot(const Vector3 &v1, const Vector3 &v2) {
+    return v1.dot(v2);
+}
     
 
 Vector3 operator/(const Vector3& v, const float s) {

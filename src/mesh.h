@@ -28,9 +28,18 @@ public:
     
     void UpdateGPUMemory();
     
+    
     int num_vertices() const;
     int num_triangles() const;
     
+
+    // Access to properties indexed by vertex number
+    Point3 vertex(int vertexID) const;
+    Vector3 normal(int vertexID) const;
+    Color color(int vertexID) const;
+    Point2 tex_coords(int textureUnit, int vertexID) const;
+    
+
     void Draw();
 
     

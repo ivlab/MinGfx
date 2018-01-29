@@ -247,8 +247,8 @@ void Draw::initCone() {
         
         // one triangle on the side
         // normals are a bit more complex than for other shapes...
-        Vector3 nlast = Vector3(xlast, 2, zlast).normalize();
-        Vector3 nnew = Vector3(xnew, 2, znew).normalize();
+        Vector3 nlast = Vector3(xlast, 2, zlast).to_unit();
+        Vector3 nnew = Vector3(xnew, 2, znew).to_unit();
         Vector3 ntop = 0.5*(nlast + nnew);
         
         verts.push_back(Vertex(top.x, top.y, top.z, ntop[0], ntop[1], ntop[2]));
@@ -563,10 +563,10 @@ void Draw::LineSegment(const Matrix4 &modelMatrix,
                        float radius)
 {
     Matrix4 S = Matrix4::scale(Vector3(radius, 0.5*(p2-p1).length(), radius));
-    Vector3 y = (p2-p1).normalize();
-    Vector3 z = Vector3(1,0,0).cross(y).normalize();
+    Vector3 y = (p2-p1).to_unit();
+    Vector3 z = Vector3(1,0,0).cross(y).to_unit();
     if (z == Vector3(0,0,0)) {
-        z = Vector3(0,0,1).cross(y).normalize();
+        z = Vector3(0,0,1).cross(y).to_unit();
     }
     Vector3 x = y.cross(z);
     Matrix4 R = Matrix4::fromRowMajorElements(
