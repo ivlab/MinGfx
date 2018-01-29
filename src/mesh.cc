@@ -175,6 +175,14 @@ namespace MinGfx {
         }
     }
     
+    void Mesh::SetIndices(unsigned int *indexArray, int numIndices) {
+        gpuDirty_ = true;
+        indices_.clear();
+        for (int i=0; i<numIndices; i++) {
+            indices_.push_back(indexArray[i]);
+        }
+    }
+    
     
     void Mesh::UpdateGPUMemory() {
 		if (gpuDirty_) {
@@ -275,8 +283,15 @@ namespace MinGfx {
                 }
             }
             
-            
             glBindVertexArray(0);
+            
+            if (indices_.size()) {
+                glGenBuffers(1, &elementBuffer_);
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer_);
+                glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_.size() * sizeof(unsigned int), &indices_[0], GL_STATIC_DRAW);
+            }
+            
+            
             gpuDirty_ = false;
         }
     }
@@ -294,7 +309,15 @@ namespace MinGfx {
         glVertexAttrib2f(4, 0.0, 0.0);           // uv = 0,0 for texture unit 1 (assuming no need to go beyond that)
         
         glBindVertexArray(vertexArray_);
-        glDrawArrays(GL_TRIANGLES, 0, num_vertices());
+        
+        if (indices_.size()) {
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer_);
+            glDrawElements(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, (void*)0);
+        }
+        else {
+            glDrawArrays(GL_TRIANGLES, 0, num_vertices());
+        }
+        
         glBindVertexArray(0);
     }
     
@@ -304,7 +327,12 @@ namespace MinGfx {
     }
 
     int Mesh::num_triangles() const {
-        return verts_.size()/9;
+        if (indices_.size()) {
+            return indices_.size()/3;
+        }
+        else {
+            return verts_.size()/9;
+        }
     }
 
     
@@ -316,6 +344,7 @@ namespace MinGfx {
             exit(1);
         }
         
+        // tmp arrays
         std::vector<Point3> vertices;
         std::vector<Vector3> normals;
         std::vector<Point2> texCoords;
@@ -354,15 +383,39 @@ namespace MinGfx {
                     int i1 = polygon[0];
                     int i2 = polygon[i-1];
                     int i3 = polygon[i];
-                    int t = AddTriangle(vertices[i1], vertices[i2], vertices[i3]);
-                    if (normals.size()) {
-                        SetNormals(t, normals[i1], normals[i2], normals[i3]);
-                    }
-                    if (texCoords.size()) {
-                        SetTexCoords(t, 0, texCoords[i1], texCoords[i2], texCoords[i3]);
-                    }
+                    //int t = AddTriangle(vertices[i1], vertices[i2], vertices[i3]);
+                    //if (normals.size()) {
+                    //    SetNormals(t, normals[i1], normals[i2], normals[i3]);
+                    //}
+                    //if (texCoords.size()) {
+                    //    SetTexCoords(t, 0, texCoords[i1], texCoords[i2], texCoords[i3]);
+                    //}
+                    
+                    indices_.push_back(i1);
+                    indices_.push_back(i2);
+                    indices_.push_back(i3);
                 }
             }
+        }
+        
+        gpuDirty_ = true;
+        std::vector<float> verts, norms, uvs;
+        for (int i=0;i<vertices.size();i++) {
+            verts_.push_back(vertices[i][0]);
+            verts_.push_back(vertices[i][1]);
+            verts_.push_back(vertices[i][2]);
+            if (normals.size()) {
+                norms_.push_back(normals[i][0]);
+                norms_.push_back(normals[i][1]);
+                norms_.push_back(normals[i][2]);
+            }
+            if (texCoords.size()) {
+                uvs.push_back(texCoords[i][0]);
+                uvs.push_back(texCoords[i][1]);
+            }
+        }
+        if (uvs.size()) {
+            texCoords_.push_back(uvs);
         }
     }
     
@@ -383,6 +436,24 @@ namespace MinGfx {
 
     Point2 Mesh::tex_coords(int textureUnit, int i) const {
         return Point2(texCoords_[textureUnit][2*i], texCoords_[textureUnit][2*i+1]);
+    }
+    
+    std::vector<unsigned int> Mesh::triangle(int triangleID) const {
+        std::vector<unsigned int> tri;
+        int i = 3*triangleID;
+        if (indices_.size()) {
+            // indexed faces mode
+            tri.push_back(indices_[i+0]);
+            tri.push_back(indices_[i+1]);
+            tri.push_back(indices_[i+2]);
+        }
+        else {
+            // ordered faces mode
+            tri.push_back(i);
+            tri.push_back(i+1);
+            tri.push_back(i+2);
+        }
+        return tri;
     }
 
     

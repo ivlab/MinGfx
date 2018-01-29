@@ -29,15 +29,22 @@ public:
     void UpdateGPUMemory();
     
     
-    int num_vertices() const;
-    int num_triangles() const;
     
+
+    int num_vertices() const;
 
     // Access to properties indexed by vertex number
     Point3 vertex(int vertexID) const;
     Vector3 normal(int vertexID) const;
     Color color(int vertexID) const;
     Point2 tex_coords(int textureUnit, int vertexID) const;
+
+    
+    int num_triangles() const;
+    
+    /// returns a 3 element array of the indices to the vertices that make up
+    /// the specified triangle.
+    std::vector<unsigned int> triangle(int triangleID) const;
     
 
     void Draw();
@@ -48,6 +55,7 @@ public:
     void SetNormals(float *normsArray, int numNorms);
     void SetColors(float *colorsArray, int numColors);
     void SetTexCoords(int textureUnit, float *texCoordsArray, int numTexCoords);
+    void SetIndices(unsigned int *indexArray, int numIndices);
 
     
     void LoadFromOBJ(const std::string &filename);
@@ -58,11 +66,13 @@ private:
     std::vector<float> norms_;
     std::vector<float> colors_;
     std::vector< std::vector<float> > texCoords_;
+    std::vector<unsigned int> indices_;
     
     bool gpuDirty_;
     
     GLuint vertexBuffer_;
     GLuint vertexArray_;
+    GLuint elementBuffer_;
 };
     
     
