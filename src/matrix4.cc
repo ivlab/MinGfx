@@ -216,10 +216,10 @@ Matrix4 Matrix4::orthonormal() const {
     y = (y - y.dot(x)*x).to_unit();
     Vector3 z = x.cross(y).to_unit();
     return Matrix4::fromRowMajorElements(
-        x[0], y[0], z[0], m[3],
-        x[1], y[1], z[1], m[7],
-        x[2], y[2], z[2], m[11],
-        m[12], m[13], m[14], m[15]
+        x[0], y[0], z[0], m[12],
+        x[1], y[1], z[1], m[13],
+        x[2], y[2], z[2], m[14],
+        m[3], m[7], m[11], m[15]
     );
 }
 
@@ -376,6 +376,12 @@ Matrix4 operator*(const Matrix4& m1, const Matrix4& m2) {
     return m;
 }
 
+Ray operator*(const Matrix4& m, const Ray& r) {
+    Point3 p = m * r.origin();
+    Vector3 d = m * r.direction();
+    return Ray(p, d);
+}
+    
 
 std::ostream & operator<< ( std::ostream &os, const Matrix4 &m) {
     // format:  [[r1c1, r1c2, r1c3, r1c4], [r2c1, r2c2, r2c3, r2c4], etc.. ]

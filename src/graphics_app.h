@@ -5,6 +5,8 @@
 #include <nanogui/nanogui.h>
 #include <iostream>
 
+#include "point2.h"
+#include "vector2.h"
 
 namespace MinGfx {
 
@@ -29,15 +31,19 @@ public:
     // Callback methods -- override these and fill in to respond to user
     // input events.
 
-    virtual void OnMouseMove(int x, int y) {}
+    virtual void OnMouseMove(const Point2 &pos, const Vector2 &delta) {}
 
-    virtual void OnLeftMouseDown(int x, int y) {}
+    virtual void OnLeftMouseDown(const Point2 &pos) {}
+    virtual void OnLeftMouseDrag(const Point2 &pos, const Vector2 &delta) {}
+    virtual void OnLeftMouseUp(const Point2 &pos) {}
 
-    virtual void OnLeftMouseUp(int x, int y) {}
-
-    virtual void OnRightMouseDown(int x, int y) {}
-
-    virtual void OnRightMouseUp(int x, int y) {}
+    virtual void OnMiddleMouseDown(const Point2 &pos) {}
+    virtual void OnMiddleMouseDrag(const Point2 &pos, const Vector2 &delta) {}
+    virtual void OnMiddleMouseUp(const Point2 &pos) {}
+    
+    virtual void OnRightMouseDown(const Point2 &pos) {}
+    virtual void OnRightMouseDrag(const Point2 &pos, const Vector2 &delta) {}
+    virtual void OnRightMouseUp(const Point2 &pos) {}
 
     /// Transforms a keyboard down event into the actual character typed.
     /// Modifiers are defined here: http://www.glfw.org/docs/latest/group__mods.html
@@ -100,9 +106,51 @@ public:
     /// True if the right mouse button is currently held down.
     bool is_right_mouse_down();
     
+    /// Returns the current width of the client area of the window in pixels
+    int window_width();
+    
+    /// Returns the current height of the client area of the window in pixels
+    int window_height();
+    
+    /// Returns the current width of the framebuffer in pixels.  Note that on
+    /// some displays (e.g., Mac Retina) the framebuffer is larger than the
+    /// window.
+    int framebuffer_width();
+    
+    /// Returns the current height of the framebuffer in pixels.  Note that on
+    /// some displays (e.g., Mac Retina) the framebuffer is larger than the
+    /// window.
+    int framebuffer_height();
+
     /// Returns width/height for the current shape of the window
     float aspect_ratio();
     
+    
+    /// Transforms a point in viewport coordinates (pixels where top left = (0,0)
+    /// and bottom right = (window width-1, window height-1)) to normalized
+    /// device coordinates, (top left = (-1,1) bottom right (1,-1)).
+    Point2 pixels_to_normalized_coordinates(Point2 pointInPixels);
+    
+    /// Transforms a point in normalized device coordinates (top left = (-1,1)
+    /// bottom right (1,-1)) to pixels (top left = (0,0), bottom right =
+    /// (window width-1, window height-1))
+    Point2 normalized_coordinates_to_pixels(Point2 pointInNDC);
+    
+    
+    /// Transforms a vector in viewport coordinates (pixels where top left = (0,0)
+    /// and bottom right = (window width-1, window height-1)) to normalized
+    /// device coordinates, (top left = (-1,1) bottom right (1,-1)).
+    Vector2 pixels_to_normalized_coordinates(Vector2 vectorInPixels);
+    
+    /// Transforms a vector in normalized device coordinates (top left = (-1,1)
+    /// bottom right (1,-1)) to pixels (top left = (0,0), bottom right =
+    /// (window width-1, window height-1))
+    Vector2 normalized_coordinates_to_pixels(Vector2 pointInNDC);
+    
+    /// Returns the z buffer value under the specified pixel.  z will be -1 at
+    /// the near plane and +1 at the far plane.
+    float z_value_at_pixel(const Point2 &pointInPixels, unsigned int whichBuffer = GL_BACK);
+
     /// Access to the underlying NanoGUI Screen object
     nanogui::Screen* screen();
 
@@ -122,6 +170,10 @@ private:
     nanogui::Screen *screen_;
     GLFWwindow* window_;
     double lastDrawT_;
+    Point2 lastMouse_;
+    bool leftDown_;
+    bool middleDown_;
+    bool rightDown_;
 };
 
 

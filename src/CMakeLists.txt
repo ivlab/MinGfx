@@ -4,6 +4,7 @@
 
 set(HEADERFILES
     src/color.h
+    src/default_shader.h
     src/draw.h
     src/gfxmath.h
     src/graphics_app.h
@@ -15,14 +16,17 @@ set(HEADERFILES
     src/platform.h
     src/point2.h
     src/point3.h
+    src/ray.h
     src/shader_program.h
     src/texture2d.h
+    src/unicam.h
     src/vector2.h
     src/vector3.h
 )
 
 set(SOURCEFILES
     src/color.cc
+    src/default_shader.cc
     src/draw.cc
     src/gfxmath.cc
     src/graphics_app.cc
@@ -31,8 +35,10 @@ set(SOURCEFILES
     src/platform.cc
     src/point2.cc
     src/point3.cc
+    src/ray.cc
     src/shader_program.cc
     src/texture2d.cc
+    src/unicam.cc
     src/vector2.cc
     src/vector3.cc
 )
@@ -42,10 +48,8 @@ set(EXTRAFILES
 )
 
 set(SHADERFILES
-    src/shaders/phong.frag
-    src/shaders/phong.vert
-    src/shaders/phongtex.frag
-    src/shaders/phongtex.vert
+    src/shaders/default.frag
+    src/shaders/default.vert
     src/shaders/fullscreen.frag
     src/shaders/fullscreen.vert
 )
@@ -87,4 +91,4 @@ install(TARGETS MinGfx EXPORT MinGfxTargets COMPONENT CoreLib
 )
 
 install(FILES ${HEADERFILES} DESTINATION ${INSTALL_INCLUDE_DEST} COMPONENT CoreLib)
-install(FILES ${SHADERS} DESTINATION ${INSTALL_SHADERS_DEST} COMPONENT CoreLib)
+install(FILES ${SHADERFILES} DESTINATION ${INSTALL_SHADERS_DEST} COMPONENT CoreLib)

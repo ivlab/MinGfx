@@ -160,13 +160,33 @@ void GraphicsApp::Run() {
 
 
 bool GraphicsApp::cursor_pos_glfw_cb(double x, double y) {
+    
     if (screen_->cursorPosCallbackEvent(x,y)) {
+        // event was handled by nanogui
+        lastMouse_ = Point2(x,y);
         return true;
     }
     else {
-        OnMouseMove(x,y);
+        Point2 cur(x,y);
+        Vector2 delta = cur - lastMouse_;
+
+        // always generate a mouse move event
+        OnMouseMove(cur, delta);
+        
+        // also generate a mouse drag event if the corresponding button is held down
+        if (leftDown_) {
+            OnLeftMouseDrag(cur, delta);
+        }
+        if (middleDown_) {
+            OnMiddleMouseDrag(cur, delta);
+        }
+        if (rightDown_) {
+            OnRightMouseDrag(cur, delta);
+        }
+        
+        lastMouse_ = cur;
+        return false;
     }
-    return false;
 }
 
 bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
@@ -177,10 +197,25 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            OnLeftMouseDown(x, y);
+            OnLeftMouseDown(Point2(x,y));
+            leftDown_ = true;
         }
         else {
-            OnLeftMouseUp(x, y);
+            OnLeftMouseUp(Point2(x,y));
+            leftDown_ = false;
+        }
+        return true;
+    }
+    else if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
+        double x,y;
+        glfwGetCursorPos(window_, &x, &y);
+        if (action == 1) {
+            OnMiddleMouseDown(Point2(x,y));
+            middleDown_ = true;
+        }
+        else {
+            OnMiddleMouseUp(Point2(x,y));
+            middleDown_ = false;
         }
         return true;
     }
@@ -188,10 +223,12 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            OnRightMouseDown(x, y);
+            OnRightMouseDown(Point2(x,y));
+            rightDown_ = true;
         }
         else {
-            OnRightMouseUp(x, y);
+            OnRightMouseUp(Point2(x,y));
+            rightDown_ = false;
         }
         return true;
     }
@@ -301,7 +338,69 @@ float GraphicsApp::aspect_ratio() {
     glfwGetFramebufferSize(window_, &width, &height);
     return (float)width/(float)height;
 }
+    
+int GraphicsApp::window_width() {
+    int width, height;
+    glfwGetWindowSize(window_, &width, &height);
+    return width;
+}
 
+int GraphicsApp::framebuffer_width() {
+    int width, height;
+    glfwGetFramebufferSize(window_, &width, &height);
+    return width;
+}
+
+int GraphicsApp::window_height() {
+    int width, height;
+    glfwGetWindowSize(window_, &width, &height);
+    return height;
+}
+
+int GraphicsApp::framebuffer_height() {
+    int width, height;
+    glfwGetFramebufferSize(window_, &width, &height);
+    return height;
+}
+    
+Point2 GraphicsApp::pixels_to_normalized_coordinates(Point2 pointInPixels) {
+    float x = (pointInPixels[0] / window_width()) * 2.0 - 1.0;
+    float y = (1.0 - (pointInPixels[1] / window_height())) * 2.0 - 1.0;
+    return Point2(x,y);
+}
+
+Point2 GraphicsApp::normalized_coordinates_to_pixels(Point2 pointInNDC) {
+    float x = 0.5 * (pointInNDC[0] + 1.0) * window_width();
+    float y = (1.0 - (0.5 * (pointInNDC[1] + 1.0))) * window_height();
+    return Point2(x,y);
+}
+
+Vector2 GraphicsApp::pixels_to_normalized_coordinates(Vector2 vectorInPixels) {
+    Point2 tmp(vectorInPixels[0], vectorInPixels[1]);
+    tmp = pixels_to_normalized_coordinates(tmp);
+    return Vector2(tmp[0], tmp[1]);
+}
+
+Vector2 GraphicsApp::normalized_coordinates_to_pixels(Vector2 vectorInNDC) {
+    Point2 tmp(vectorInNDC[0], vectorInNDC[1]);
+    tmp = normalized_coordinates_to_pixels(tmp);
+    return Vector2(tmp[0], tmp[1]);
+}
+
+float GraphicsApp::z_value_at_pixel(const Point2 &pointInPixels, unsigned int whichBuffer) {
+    // scale screen points to framebuffer size, since they are not the same on retina displays
+    float x01 = pointInPixels[0] / window_width();
+    float y01 = pointInPixels[1] / window_height();
+    y01 = 1.0 - y01;
+    
+    float x = x01 * (float)framebuffer_width();
+    float y = y01 * (float)framebuffer_height();
+
+    float z;
+    glReadPixels((int)x, (int)y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+    return z;
+}
+    
     
 nanogui::Screen* GraphicsApp::screen() {
     return screen_;

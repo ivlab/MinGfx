@@ -28,6 +28,8 @@ Texture2D::~Texture2D() {
 }
 
 bool Texture2D::InitFromFile(const std::string &filename) {
+    std::cout << "Loading texture from file: " << filename << std::endl;
+
     if (Platform::fileExists(filename)) {
         stbi_set_unpremultiply_on_load(1);
         stbi_convert_iphone_png_to_rgb(1);

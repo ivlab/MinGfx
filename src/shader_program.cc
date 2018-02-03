@@ -56,6 +56,7 @@ bool ShaderProgram::AddVertexShaderFromSource(const std::string &vertexSource) {
 }
     
 bool ShaderProgram::AddVertexShaderFromFile(const std::string &file) {
+    std::cout << "Loading vertex shader from file: " << file << std::endl;
     std::string source;
     std::string line;
     std::ifstream myfile (file);
@@ -111,6 +112,7 @@ bool ShaderProgram::AddFragmentShaderFromSource(const std::string &fragmentSourc
 
 
 bool ShaderProgram::AddFragmentShaderFromFile(const std::string &file) {
+    std::cout << "Loading fragment shader from file: " << file << std::endl;
     std::string source;
     std::string line;
     std::ifstream myfile (file);
@@ -196,31 +198,37 @@ void ShaderProgram::StopProgram() {
     
 // MinGfx math types
 void ShaderProgram::SetUniform(const std::string &name, const Point2 &p) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform2f(loc, p[0], p[1]);
 }
 
 void ShaderProgram::SetUniform(const std::string &name, const Vector2 &v) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform2f(loc, v[0], v[1]);
 }
 
 void ShaderProgram::SetUniform(const std::string &name, const Point3 &p) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform3f(loc, p[0], p[1], p[2]);
 }
 
 void ShaderProgram::SetUniform(const std::string &name, const Vector3 &v) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform3f(loc, v[0], v[1], v[2]);
 }
 
 void ShaderProgram::SetUniform(const std::string &name, const Matrix4 &m) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniformMatrix4fv(loc, 1, GL_FALSE, m.value_ptr());
 }
 
 void ShaderProgram::SetUniform(const std::string &name, const Color &c) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform4f(loc, c[0], c[1], c[2], c[3]);
 }
@@ -228,49 +236,106 @@ void ShaderProgram::SetUniform(const std::string &name, const Color &c) {
 
 // built-in types
 void ShaderProgram::SetUniform(const std::string &name, int i) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform1i(loc, i);
 }
 
 void ShaderProgram::SetUniform(const std::string &name, unsigned int ui) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform1ui(loc, ui);
 }
 
 void ShaderProgram::SetUniform(const std::string &name, float f) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform1f(loc, f);
 }
 
-//void ShaderProgram::SetUniform(const std::string &name, double d) {
-//    GLint loc = glGetUniformLocation(program_, name.c_str());
-//    glUniform1d(loc, d);
-//}
-
 
 
 // built-in types - arrays
-void ShaderProgram::SetUniformArray(const std::string &name, int *i, int count) {
+void ShaderProgram::SetUniformArray1(const std::string &name, int *i, int count) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform1iv(loc, count, i);
 }
 
-void ShaderProgram::SetUniformArray(const std::string &name, unsigned int *ui, int count) {
+void ShaderProgram::SetUniformArray1(const std::string &name, unsigned int *ui, int count) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform1uiv(loc, count, ui);
 }
 
-void ShaderProgram::SetUniformArray(const std::string &name, float *f, int count) {
+void ShaderProgram::SetUniformArray1(const std::string &name, float *f, int count) {
+    UseProgram();
     GLint loc = glGetUniformLocation(program_, name.c_str());
     glUniform1fv(loc, count, f);
 }
 
-//void ShaderProgram::SetUniformArray(const std::string &name, double *d, int count) {
-//    GLint loc = glGetUniformLocation(program_, name.c_str());
-//    glUniform1dv(loc, count, d);
-//}
+
+void ShaderProgram::SetUniformArray2(const std::string &name, int *i, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform2iv(loc, count, i);
+}
+
+void ShaderProgram::SetUniformArray2(const std::string &name, unsigned int *ui, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform2uiv(loc, count, ui);
+}
+
+void ShaderProgram::SetUniformArray2(const std::string &name, float *f, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform2fv(loc, count, f);
+}
+
+
+void ShaderProgram::SetUniformArray3(const std::string &name, int *i, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform3iv(loc, count, i);
+}
+
+void ShaderProgram::SetUniformArray3(const std::string &name, unsigned int *ui, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform3uiv(loc, count, ui);
+}
+
+void ShaderProgram::SetUniformArray3(const std::string &name, float *f, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform3fv(loc, count, f);
+}
+
+
+void ShaderProgram::SetUniformArray4(const std::string &name, int *i, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform4iv(loc, count, i);
+}
+
+void ShaderProgram::SetUniformArray4(const std::string &name, unsigned int *ui, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform4uiv(loc, count, ui);
+}
+
+void ShaderProgram::SetUniformArray4(const std::string &name, float *f, int count) {
+    UseProgram();
+    GLint loc = glGetUniformLocation(program_, name.c_str());
+    glUniform4fv(loc, count, f);
+}
+
+
 
 void ShaderProgram::BindTexture(const std::string &name, const Texture2D &tex) {
+    UseProgram();
+
     int texUnit = 0;
     
     std::map<std::string,int>::const_iterator it = texBindings_.find(name);
@@ -300,6 +365,8 @@ void ShaderProgram::BindTexture(const std::string &name, const Texture2D &tex) {
 }
 
 void ShaderProgram::BindTexture(const std::string &name, const Texture2D &tex, int texUnit) {
+    UseProgram();
+
     texBindings_[name] = texUnit;
     
     // associate the named shader program sampler variable with the selected texture unit

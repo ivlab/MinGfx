@@ -16,6 +16,7 @@
 
 #include "point3.h"
 #include "vector3.h"
+#include "ray.h"
 
 
 namespace MinGfx {
@@ -183,6 +184,10 @@ Vector3 operator*(const Matrix4& m, const Vector3& v);
 Matrix4 operator*(const Matrix4& m1, const Matrix4& m2);
 
 
+    
+/// Multiply matrix and the point and vector portions of the ray, returns the new ray
+Ray operator*(const Matrix4& m, const Ray& r);
+    
 // --- Stream operators ---
 
 std::ostream & operator<< ( std::ostream &os, const Matrix4 &m);

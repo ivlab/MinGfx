@@ -59,13 +59,23 @@ public:
     void SetUniform(const std::string &name, int i);
     void SetUniform(const std::string &name, unsigned int ui);
     void SetUniform(const std::string &name, float f);
-    //void SetUniform(const std::string &name, double d);
-    
+
     // built-in types (arrays)
-    void SetUniformArray(const std::string &name, int *i, int count);
-    void SetUniformArray(const std::string &name, unsigned int *ui, int count);
-    void SetUniformArray(const std::string &name, float *f, int count);
-    //void SetUniformArray(const std::string &name, double *d, int count);
+    void SetUniformArray1(const std::string &name, int *i, int count);
+    void SetUniformArray1(const std::string &name, unsigned int *ui, int count);
+    void SetUniformArray1(const std::string &name, float *f, int count);
+
+    void SetUniformArray2(const std::string &name, int *i, int count);
+    void SetUniformArray2(const std::string &name, unsigned int *ui, int count);
+    void SetUniformArray2(const std::string &name, float *f, int count);
+
+    void SetUniformArray3(const std::string &name, int *i, int count);
+    void SetUniformArray3(const std::string &name, unsigned int *ui, int count);
+    void SetUniformArray3(const std::string &name, float *f, int count);
+
+    void SetUniformArray4(const std::string &name, int *i, int count);
+    void SetUniformArray4(const std::string &name, unsigned int *ui, int count);
+    void SetUniformArray4(const std::string &name, float *f, int count);
 
     
     // Set Textures (Sampler Variables in the Shader)

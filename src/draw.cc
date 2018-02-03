@@ -33,12 +33,7 @@ public:
     
     
     
-Draw::Draw() :
-    lightPos_(10.0, 10.0, 10.0),
-    lightAmb_(0.2, 0.2, 0.2),
-    lightDiff_(0.7, 0.7, 0.7),
-    matSpec_(0.6, 0.6, 0.6),
-    matShin_(10.0) {
+Draw::Draw() {
 }
 
 Draw::~Draw() {
@@ -103,7 +98,10 @@ void Draw::Cube(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
     if (cubeMesh_.num_vertices() == 0) {
         initCube();
     }
-    DrawWithPhong(modelMatrix, viewMatrix, projectionMatrix, color, &cubeMesh_);
+    defaultMaterial_.ambientReflectance = color;
+    defaultMaterial_.diffuseReflectance = color;
+    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &cubeMesh_, defaultMaterial_);
 }
 
 
@@ -141,7 +139,10 @@ void Draw::Square(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
     if (squareMesh_.num_vertices() == 0) {
         initSquare();
     }
-    DrawWithPhong(modelMatrix, viewMatrix, projectionMatrix, color, &squareMesh_);
+    defaultMaterial_.ambientReflectance = color;
+    defaultMaterial_.diffuseReflectance = color;
+    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &squareMesh_, defaultMaterial_);
 }
     
 
@@ -152,7 +153,10 @@ void Draw::Square(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
     if (squareMesh_.num_vertices() == 0) {
         initSquare();
     }
-    DrawWithPhongTex(modelMatrix, viewMatrix, projectionMatrix, color, &squareMesh_, tex);
+    defaultMaterial_.ambientReflectance = color;
+    defaultMaterial_.diffuseReflectance = color;
+    defaultMaterial_.surfaceTexture = tex;
+    defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &squareMesh_, defaultMaterial_);
 }
     
     
@@ -222,7 +226,10 @@ void Draw::Cylinder(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
     if (cylMesh_.num_vertices() == 0) {
         initCyl();
     }
-    DrawWithPhong(modelMatrix, viewMatrix, projectionMatrix, color, &cylMesh_);
+    defaultMaterial_.ambientReflectance = color;
+    defaultMaterial_.diffuseReflectance = color;
+    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &cylMesh_, defaultMaterial_);
 }
 
 
@@ -287,7 +294,10 @@ void Draw::Cone(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
     if (coneMesh_.num_vertices() == 0) {
         initCone();
     }
-    DrawWithPhong(modelMatrix, viewMatrix, projectionMatrix, color, &coneMesh_);
+    defaultMaterial_.ambientReflectance = color;
+    defaultMaterial_.diffuseReflectance = color;
+    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &coneMesh_, defaultMaterial_);
 }
 
 
@@ -372,7 +382,10 @@ void Draw::Sphere(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
     if (sphereMesh_.num_vertices() == 0) {
         initSph();
     }
-    DrawWithPhong(modelMatrix, viewMatrix, projectionMatrix, color, &sphereMesh_);
+    defaultMaterial_.ambientReflectance = color;
+    defaultMaterial_.diffuseReflectance = color;
+    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &sphereMesh_, defaultMaterial_);
 }
 
 
@@ -546,7 +559,10 @@ void Draw::Brush(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
     if (brushMesh_.num_vertices() == 0) {
         initBrush();
     }
-    DrawWithPhong(modelMatrix, viewMatrix, projectionMatrix, color, &brushMesh_);
+    defaultMaterial_.ambientReflectance = color;
+    defaultMaterial_.diffuseReflectance = color;
+    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &brushMesh_, defaultMaterial_);
 }
 
 
@@ -609,6 +625,46 @@ void Draw::Lines(const Matrix4 &modelMatrix,
 
     
     
+void Draw::Arrow(const Matrix4 &modelMatrix,
+                 const Matrix4 &viewMatrix,
+                 const Matrix4 &projectionMatrix,
+                 const Color &color,
+                 Point3 p, Vector3 dir, float radius)
+{
+    float d = dir.length() - 8.0*radius;
+    LineSegment(modelMatrix, viewMatrix, projectionMatrix, color, p, p + d*dir.to_unit(), radius);
+    
+    Matrix4 S = Matrix4::scale(Vector3(radius*3.0, radius*4.0, radius*3.0));
+    Vector3 y = dir.to_unit();
+    Vector3 z = Vector3(1,0,0).cross(y).to_unit();
+    if (z == Vector3(0,0,0)) {
+        z = Vector3(0,0,1).cross(y).to_unit();
+    }
+    Vector3 x = y.cross(z);
+    Matrix4 R = Matrix4::fromRowMajorElements(
+                                              x[0], y[0], z[0], 0,
+                                              x[1], y[1], z[1], 0,
+                                              x[2], y[2], z[2], 0,
+                                              0,    0,    0, 1
+                                              );
+    Matrix4 T = Matrix4::translation((p + d*dir.to_unit()) - Point3::origin());
+    
+    Matrix4 M = T * R * S * Matrix4::translation(Vector3(0,1,0));
+    
+    Cone(modelMatrix * M, viewMatrix, projectionMatrix, color);
+}
+    
+    
+void Draw::Axes(const Matrix4 &modelMatrix,
+                const Matrix4 &viewMatrix,
+                const Matrix4 &projectionMatrix)
+{
+    Arrow(modelMatrix, viewMatrix, projectionMatrix, Color(1.0, 0.6, 0.6), Point3::origin(), Vector3::unitX(), 0.02);
+    Arrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 1.0, 0.6), Point3::origin(), Vector3::unitY(), 0.02);
+    Arrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 0.6, 1.0), Point3::origin(), Vector3::unitZ(), 0.02);
+
+}
+    
     
 void Draw::initFull() {
     GLfloat vertices[] = {
@@ -642,81 +698,6 @@ void Draw::FullscreenTexture(const Color &color, const Texture2D &tex) {
     
     
     
-
-void Draw::DrawWithPhong(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
-                         const Matrix4 &projectionMatrix, const Color &color, Mesh *mesh)
-{
-    if (!phongShader_.initialized()) {
-        phongShader_.AddVertexShaderFromFile(Platform::findMinGfxShaderFile("phong.vert"));
-        phongShader_.AddFragmentShaderFromFile(Platform::findMinGfxShaderFile("phong.frag"));
-        phongShader_.LinkProgram();
-    }
-    
-    Matrix4 normalMatrix = (modelMatrix*viewMatrix).inverse().transpose();
-    
-    // Activate the shader program
-    phongShader_.UseProgram();
-    
-    // Pass uniforms and textures from C++ to the GPU Shader Program
-    phongShader_.SetUniform("ModelMatrix", modelMatrix);
-    phongShader_.SetUniform("ViewMatrix", viewMatrix);
-    phongShader_.SetUniform("ProjectionMatrix", projectionMatrix);
-    phongShader_.SetUniform("NormalMatrix", normalMatrix);
-    phongShader_.SetUniform("LightPosition", lightPos_);
-    phongShader_.SetUniform("LightIntensityAmbient", lightAmb_);
-    phongShader_.SetUniform("LightIntensityDiffuse", lightDiff_);
-    phongShader_.SetUniform("LightIntensitySpecular", lightSpec_);
-    phongShader_.SetUniform("MatReflectanceAmbient", color);
-    phongShader_.SetUniform("MatReflectanceDiffuse", color);
-    phongShader_.SetUniform("MatReflectanceSpecular", matSpec_);
-    phongShader_.SetUniform("MatReflectanceShininess", matShin_);
-    
-    // Draw the mesh using the shader program
-    mesh->Draw();
-    
-    // Deactivate the shader program
-    phongShader_.StopProgram();
-}
-
-
-void Draw::DrawWithPhongTex(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
-                            const Matrix4 &projectionMatrix, const Color &color,
-                            Mesh *mesh, const Texture2D &tex)
-{
-    if (!phongTexShader_.initialized()) {
-        phongTexShader_.AddVertexShaderFromFile(Platform::findMinGfxShaderFile("phongtex.vert"));
-        phongTexShader_.AddFragmentShaderFromFile(Platform::findMinGfxShaderFile("phongtex.frag"));
-        phongTexShader_.LinkProgram();
-    }
-
-    Matrix4 normalMatrix = (modelMatrix*viewMatrix).inverse().transpose();
-    
-    // Activate the shader program
-    phongTexShader_.UseProgram();
-    
-    // Pass uniforms and textures from C++ to the GPU Shader Program
-    phongTexShader_.SetUniform("ModelMatrix", modelMatrix);
-    phongTexShader_.SetUniform("ViewMatrix", viewMatrix);
-    phongTexShader_.SetUniform("ProjectionMatrix", projectionMatrix);
-    phongTexShader_.SetUniform("NormalMatrix", normalMatrix);
-    phongTexShader_.SetUniform("LightPosition", lightPos_);
-    phongTexShader_.SetUniform("LightIntensityAmbient", lightAmb_);
-    phongTexShader_.SetUniform("LightIntensityDiffuse", lightDiff_);
-    phongTexShader_.SetUniform("LightIntensitySpecular", lightSpec_);
-    phongTexShader_.SetUniform("MatReflectanceAmbient", color);
-    phongTexShader_.SetUniform("MatReflectanceDiffuse", color);
-    phongTexShader_.SetUniform("MatReflectanceSpecular", matSpec_);
-    phongTexShader_.SetUniform("MatReflectanceShininess", matShin_);
-    phongTexShader_.BindTexture("SurfaceTexture", tex);
-    
-    // Draw the mesh using the shader program
-    mesh->Draw();
-    
-    // Deactivate the shader program
-    phongTexShader_.StopProgram();
-}
-    
-    
     
 
 void Draw::DrawWithFullscreen(const Color &color, Mesh *mesh, const Texture2D &tex) {
@@ -744,6 +725,16 @@ void Draw::DrawWithFullscreen(const Color &color, Mesh *mesh, const Texture2D &t
     
     glEnable(GL_DEPTH_TEST);
     glDepthMask(GL_TRUE);
+}
+
+
+DefaultShader* Draw::default_shader() {
+    return &defaultShader_;
+}
+    
+    
+DefaultShader::MaterialProperties* Draw::material() {
+    return &defaultMaterial_;
 }
 
     

@@ -14,6 +14,7 @@
 #define SRC_DRAW_H_
 
 #include "color.h"
+#include "default_shader.h"
 #include "mesh.h"
 #include "point3.h"
 #include "shader_program.h"
@@ -125,6 +126,7 @@ public:
     void Arrow(const Matrix4 &modelMatrix,
                const Matrix4 &viewMatrix,
                const Matrix4 &projectionMatrix,
+               const Color &color,
                Point3 p, Vector3 dir, float radius);
     
     /** Draws a right handed set of axes at the coordinate frame specified by
@@ -161,41 +163,20 @@ public:
     void FullscreenTexture(const Color &color, const Texture2D &texture);
     
     
+    /** Returns a pointer to the default shader used internally by the Draw class
+        so that you may change the default lighting properties if you with. 
+     */
+    DefaultShader* default_shader();
 
-	void set_light_pos(const Point3 &pos) {
-		lightPos_[0] = pos[0];  lightPos_[1] = pos[1]; lightPos_[2] = pos[2];
-	}
+    /** Returns a pointer to the default material properties for the shapes so
+        that you may adjust the reflectance properties used by all the shapes
+        if needed.
+     */
+    DefaultShader::MaterialProperties* material();
 
-	void set_light_intensity_ambient(const Color &i) {
-		lightAmb_[0] = i[0];  lightAmb_[1] = i[1]; lightAmb_[2] = i[2];
-	}
-
-	void set_light_intensity_diffuse(const Color &i) {
-        lightDiff_[0] = i[0];  lightDiff_[1] = i[1]; lightDiff_[2] = i[2];
-	}
-
-	void set_light_intensity_specular(const Color &i) {
-		lightSpec_[0] = i[0];  lightSpec_[1] = i[1]; lightSpec_[2] = i[2];
-	}
-
-	void set_material_reflectance_specular(const Color &r) {
-		matSpec_[0] = r[0];  matSpec_[1] = r[1]; matSpec_[2] = r[2];
-	}
-
-	void set_material_reflectance_shinniness(float s) {
-		matShin_ = s;
-	}
-
+     
 private:
-
-    void DrawWithPhong(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
-                       const Matrix4 &projectionMatrix, const Color &color,
-                       Mesh *mesh);
-    
-    void DrawWithPhongTex(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
-                          const Matrix4 &projectionMatrix, const Color &color,
-                          Mesh *mesh, const Texture2D &tex);
-    
+        
     void DrawWithFullscreen(const Color &color, Mesh *mesh, const Texture2D &tex);
     
     Mesh cubeMesh_;
@@ -219,16 +200,11 @@ private:
     Mesh brushMesh_;
     void initBrush();
 
-    ShaderProgram phongShader_;
-    ShaderProgram phongTexShader_;
-    ShaderProgram fullscreenShader_;
+    DefaultShader defaultShader_;
+    DefaultShader::MaterialProperties defaultMaterial_;
+    Texture2D emptyTex_;
     
-	Point3 lightPos_;
-	Color lightAmb_;
-	Color lightDiff_;
-	Color lightSpec_;
-	Color matSpec_;
-	float matShin_;
+    ShaderProgram fullscreenShader_;
 };
 
 } // end namespace
