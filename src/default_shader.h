@@ -14,7 +14,6 @@
 #define SRC_DEFAULT_SHADER_H_
 
 #include "color.h"
-#include "material.h"
 #include "point3.h"
 #include "shader_program.h"
 #include "texture2d.h"
