@@ -220,27 +220,51 @@ else()
 endif()
 
 if (WITH_DOCUMENTATION)
-  find_package(Doxygen)
-  if(NOT DOXYGEN_FOUND)
-    message(FATAL_ERROR "Doxygen is needed to build the documentation.")
-  endif()
+    find_package(Doxygen)
+    if(NOT DOXYGEN_FOUND)
+        message(FATAL_ERROR "Doxygen is needed to build the documentation.")
+    endif()
 
-  # Process the config file and put it in the build directory.
-  set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in)
-  set(DOXYFILE ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-  configure_file(${DOXYFILE_IN} ${DOXYFILE} @ONLY)
+    set(DOXY_FILES
+        doc/Doxyfile.in
+        doc/api.md
+        doc/installation.md
+        doc/mainpage.md
+        doc/header.html
+        doc/footer.html
+        doc/customdoxygen.css
+    )
 
-  add_custom_target(doc
-    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Generating API documentation with Doxygen"
-    VERBATIM)
+    set(OTHER_DOCS
+        README.md
+        LICENSE.txt
+    )
 
-  install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html 
-    DESTINATION ${INSTALL_DOC_DEST}
-    COMPONENT Docs
-    OPTIONAL
-  )
+    # Process the config file and put it in the build directory.
+    set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in)
+    set(DOXYFILE ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+    configure_file(${DOXYFILE_IN} ${DOXYFILE} @ONLY)
+
+    add_custom_target(doc ALL
+        ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+        DEPENDS ${DOXY_FILES} ${OTHER_DOCS}
+        SOURCES ${DOXY_FILES} ${OTHER_DOCS}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating documentation with Doxygen" 
+        VERBATIM
+    )
+
+    set_source_files_properties(${DOXY_FILES} PROPERTIES HEADER_FILE_ONLY TRUE)
+    source_group("Doxygen Files" FILES ${DOXY_FILES})
+
+    set_source_files_properties(${OTHER_DOCS} PROPERTIES HEADER_FILE_ONLY TRUE)
+    source_group("Other Docs" FILES ${OTHER_DOCS})
+
+    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html 
+        DESTINATION ${INSTALL_DOC_DEST}
+        COMPONENT Docs
+        OPTIONAL
+    )
 endif()
 
 
