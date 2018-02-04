@@ -1,4 +1,14 @@
-/**
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
  */
 
 #ifndef SRC_VECTOR2_H_
@@ -9,11 +19,11 @@
 #include "point2.h"
 
 
-namespace MinGfx {
+namespace mingfx {
 
 
-/** @class Vector2
- * @brief 3D vector (magnitude and direction).
+/** A 2D Vector with floating point coordinates, used for storing 2D translations,
+ mouse movements, and screen-space vectors.
  */
 class Vector2 {
 public:
@@ -21,7 +31,8 @@ public:
     /// Default constructor to create zero vector
     Vector2();
     
-    /// Constructs a vector (x, y, 0)
+    /// Constructs a vector (x,y,0), where the 0 comes from the use of
+    /// homogeneous coordinates in computer graphics.
     Vector2(float x, float y);
     
     /// Constructs a vector given a pointer to x,y,z data
@@ -51,33 +62,39 @@ public:
     // --- Vector operations ---
     
     /// Returns "this dot v"
-    float dot(const Vector2& v) const;
+    float Dot(const Vector2& v) const;
     
     /// Returns the length of the vector
-    float length() const;
+    float Length() const;
     
     /// Normalizes the vector by making it unit length.
-    void normalize();
+    void Normalize();
     
     /// Returns a normalized (i.e., unit length) version of the vector without
     /// modifying the original ('this') vector.
-    Vector2 to_unit() const;
+    Vector2 ToUnit() const;
     
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
     
     /// Returns a new vector that is the unit version of v.
-    static Vector2 normalize(const Vector2 &v);
+    static Vector2 Normalize(const Vector2 &v);
     
     /// Returns v1 dot v2
-    static float dot(const Vector2 &v1, const Vector2 &v2);
+    static float Dot(const Vector2 &v1, const Vector2 &v2);
     
     
-    /// Special vectors that are frequently needed
-    static const Vector2& zero();
-    static const Vector2& one();
-    static const Vector2& unitX();
-    static const Vector2& unitY();
+    /// (0,0) - a shortcut for a special vector that is frequently needed
+    static const Vector2& Zero();
+
+    /// (1,1) - a shortcut for a special vector that is frequently needed
+    static const Vector2& One();
+
+    /// (1,0) - a shortcut for a special vector that is frequently needed
+    static const Vector2& UnitX();
+
+    /// (0,1) - a shortcut for a special vector that is frequently needed
+    static const Vector2& UnitY();
 
 private:
     float v[2];

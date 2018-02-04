@@ -1,15 +1,21 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "point2.h"
 
 #include <math.h>
 
-namespace MinGfx {
+namespace mingfx {
 
 static const Point2 s_zerop2d = Point2(0,0);
 static const Point2 s_onep2d = Point2(1,1);
 
-const Point2& Point2::origin() { return s_zerop2d; }
-const Point2& Point2::zero() { return s_zerop2d; }
-const Point2& Point2::one() { return s_onep2d; }
+const Point2& Point2::Origin() { return s_zerop2d; }
+const Point2& Point2::Zero() { return s_zerop2d; }
+const Point2& Point2::One() { return s_onep2d; }
     
     
 Point2::Point2() {

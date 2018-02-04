@@ -1,6 +1,15 @@
-/**
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
  */
-
 
 #ifndef SRC_TEXTURE2D_H_
 #define SRC_TEXTURE2D_H_
@@ -11,19 +20,37 @@
 #include <string>
 
 
-namespace MinGfx {
+namespace mingfx {
 
-    
+/** A wrapper around a 2D texture that supports loading images from files or
+ setting texture color data directly.  Example:
+ ~~~
+ Texture2D tex1;
+ Texture2D tex2(GL_CLAMP_TO_EDGE);
+ 
+ void MyGraphicsApp::InitOpenGL() {
+     std::vector<std::string> search_path;
+     search_path.push_back(".");
+     search_path.push_back("./data");
+     search_path.push_back("./shaders");
+     tex1.InitFromFile(Platform::FindFile("earth-2k.png", search_path));
+     tex2.InitFromFile(Platform::FindFile("toon-ramp.png", search_path));
+ }
+ ~~~
+ */
 class Texture2D {
 public:
 
+    /// Creates an empty texture.  Optional parameters can be provided to set
+    /// the texture wrap mode and filter mode.
     Texture2D(GLenum wrapMode=GL_REPEAT, GLenum filterMode=GL_LINEAR);
     virtual ~Texture2D();
 
     
     /// Call this from within the InitOpenGL() function since it will initialize
     /// not just the Texture2D's internal data but also an OpenGL texture to be
-    /// stored on the graphics card.
+    /// stored on the graphics card.  Internally, this uses the stbi library to
+    /// load images.  It supports png, jpg, bmp, and other file formats.
     bool InitFromFile(const std::string &filename);
     
     /// Call this from within the InitOpenGL() function since it will initialize
@@ -35,17 +62,26 @@ public:
     /// for this array.  It is safe to free it as soon as this function returns.
     bool InitFromData(int width, int height, unsigned char* data);
     
+    /// Returns true if the texture data has been successfully transferred to OpenGL.
+    bool initialized() const;
     
-    bool initialized() const { return texID_ != 0; }
-
+    /// Returns the width in pixels of the texture.
     int width() const;
+    
+    /// Returns the height in pixels of the texture.
     int height() const;
 
+    /// Returns the unsigned int used as the texture handle by OpenGL
     GLuint opengl_id() const;
+
+    /// Returns an enumerated constant for the OpenGL wrap mode used by the texture.
     GLenum wrap_mode() const;
+
+    /// Returns an enumerated constant for the OpenGL filter mode used by the texture.
     GLenum filter_mode() const;
         
     void set_wrap_mode(GLenum wrapMode);
+
     void set_filter_mode(GLenum filterMode);
     
 private:

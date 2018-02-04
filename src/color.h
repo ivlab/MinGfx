@@ -1,16 +1,42 @@
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
+ */
 
 #ifndef SRC_COLOR_H_
 #define SRC_COLOR_H_
 
 #include <iostream>
 
-namespace MinGfx {
+namespace mingfx {
 
     
-/** @class Color
-  * @brief Represents a 4-component (R,G,B,A) color, stored internally in a
-     float array to be compatable with OpenGL.
-  */
+/** Represents a 4-component (R,G,B,A) color, stored internally in a float array
+ to be compatable with OpenGL.  Example usage:
+ ~~~
+ Color black(0, 0, 0);
+ Color white(1, 1, 1);
+ Color gray(0.5, 0.5, 0.5);
+ Color tranparent_red(1.0, 0.0, 0.0, 0.5);
+ Color orange(1.0, 0.65, 0.0);
+ 
+ float red_component_of_orange = orange[0];
+ float green_component_of_orange = orange[1];
+ float blue_component_of_orange = orange[2];
+ float alpha_component_of_orange = orange[3];
+ 
+ // Use value_ptr() to send the array of floats directly to OpenGL commands
+ glColor4fv(orange.value_ptr());
+ ~~~
+ */
 class Color {
 public:  
     /// Defaults to black

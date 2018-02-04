@@ -1,8 +1,14 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "ray.h"
 
-namespace MinGfx {
+namespace mingfx {
     
-    Ray::Ray() : p_(Point3::origin()), d_(-Vector3::unitZ()) {
+    Ray::Ray() : p_(Point3::Origin()), d_(-Vector3::UnitZ()) {
     }
     
     Ray::Ray(const Point3 &origin, const Vector3 &direction) : p_(origin), d_(direction) {
@@ -22,8 +28,8 @@ namespace MinGfx {
     }
 
     
-    float Ray::length() const {
-        return d_.length();
+    float Ray::Length() const {
+        return d_.Length();
     }
 
     
@@ -41,7 +47,7 @@ namespace MinGfx {
     bool Ray::IntersectPlane(const Point3 &planePt, const Vector3 &planeNormal,
                              float *iTime, Point3 *iPoint) const
     {
-        float dot = planeNormal.dot(d_);
+        float dot = planeNormal.Dot(d_);
         
         // return false if we would hit the back face of the plane
         if (dot > 0.0) {
@@ -53,9 +59,9 @@ namespace MinGfx {
             return false;
         }
         
-        float denom = planeNormal.dot(d_);
+        float denom = planeNormal.Dot(d_);
         if (std::abs(denom) > MINGFX_MATH_EPSILON) {
-            *iTime = (planePt - p_).dot(planeNormal) / denom;
+            *iTime = (planePt - p_).Dot(planeNormal) / denom;
             if (*iTime >= 0) {
                 *iPoint = p_ + (*iTime)*d_;
                 return true;
@@ -71,8 +77,8 @@ namespace MinGfx {
         // find the point of intersection of the ray with the plane of the triangle
         Vector3 AB = B - A;
         Vector3 AC = C - A;
-        Vector3 cross = AB.cross(AC);
-        Vector3 N = cross.to_unit();
+        Vector3 cross = AB.Cross(AC);
+        Vector3 N = cross.ToUnit();
         if (!IntersectPlane(A, N, iTime, iPoint)) {
             return false;
         }
@@ -80,22 +86,22 @@ namespace MinGfx {
         // check to see if iPoint lies within the triangle
         Vector3 edge1 = B - A;
         Vector3 v1 = *iPoint - A;
-        Vector3 check1 = edge1.cross(v1);
-        if (N.dot(check1) < 0.0) {
+        Vector3 check1 = edge1.Cross(v1);
+        if (N.Dot(check1) < 0.0) {
             return false;
         }
 
         Vector3 edge2 = C - B;
         Vector3 v2 = *iPoint - B;
-        Vector3 check2 = edge2.cross(v2);
-        if (N.dot(check2) < 0.0) {
+        Vector3 check2 = edge2.Cross(v2);
+        if (N.Dot(check2) < 0.0) {
             return false;
         }
 
         Vector3 edge3 = A - C;
         Vector3 v3 = *iPoint - C;
-        Vector3 check3 = edge3.cross(v3);
-        if (N.dot(check3) < 0.0) {
+        Vector3 check3 = edge3.Cross(v3);
+        if (N.Dot(check3) < 0.0) {
             return false;
         }
 
@@ -109,8 +115,8 @@ namespace MinGfx {
         // find the point of intersection of the ray with the plane of the quad
         Vector3 AB = B - A;
         Vector3 AC = C - A;
-        Vector3 cross = AB.cross(AC);
-        Vector3 N = cross.to_unit();
+        Vector3 cross = AB.Cross(AC);
+        Vector3 N = cross.ToUnit();
         if (!IntersectPlane(A, N, iTime, iPoint)) {
             return false;
         }
@@ -118,29 +124,29 @@ namespace MinGfx {
         // check to see if iPoint lies within the quad
         Vector3 edge1 = B - A;
         Vector3 v1 = *iPoint - A;
-        Vector3 check1 = edge1.cross(v1);
-        if (N.dot(check1) < 0.0) {
+        Vector3 check1 = edge1.Cross(v1);
+        if (N.Dot(check1) < 0.0) {
             return false;
         }
         
         Vector3 edge2 = C - B;
         Vector3 v2 = *iPoint - B;
-        Vector3 check2 = edge2.cross(v2);
-        if (N.dot(check2) < 0.0) {
+        Vector3 check2 = edge2.Cross(v2);
+        if (N.Dot(check2) < 0.0) {
             return false;
         }
         
         Vector3 edge3 = D - C;
         Vector3 v3 = *iPoint - C;
-        Vector3 check3 = edge3.cross(v3);
-        if (N.dot(check3) < 0.0) {
+        Vector3 check3 = edge3.Cross(v3);
+        if (N.Dot(check3) < 0.0) {
             return false;
         }
 
         Vector3 edge4 = A - D;
         Vector3 v4 = *iPoint - D;
-        Vector3 check4 = edge4.cross(v4);
-        if (N.dot(check4) < 0.0) {
+        Vector3 check4 = edge4.Cross(v4);
+        if (N.Dot(check4) < 0.0) {
             return false;
         }
         
@@ -152,7 +158,7 @@ namespace MinGfx {
                               float *iTime, Point3 *iPoint) const
     {
         
-        Point3 P = p_ + (Point3::origin() - center);
+        Point3 P = p_ + (Point3::Origin() - center);
         Vector3 D = d_;
         
         // A = (Dx^2 + Dy^2 + Dz^2)
@@ -206,7 +212,7 @@ namespace MinGfx {
         for (int i=0; i<mesh.num_triangles(); i++) {
             Point3 p;
             float t;
-            std::vector<unsigned int> indices = mesh.triangle(i);
+            std::vector<unsigned int> indices = mesh.triangle_vertices(i);
             if (IntersectTriangle(mesh.vertex(indices[0]), mesh.vertex(indices[1]), mesh.vertex(indices[2]), &t, &p)) {
                 if ((*iTime < 0.0) || (t < *iTime)) {
                     *iPoint = p;

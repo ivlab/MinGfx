@@ -1,14 +1,19 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
 
 #include "default_shader.h"
 
 #include "platform.h"
 
 
-namespace MinGfx {
+namespace mingfx {
     
     DefaultShader::DefaultShader(bool addDefaultLight) {
         if (addDefaultLight) {
-            add_light(LightProperties());
+            AddLight(LightProperties());
         }
     }
     
@@ -16,12 +21,12 @@ namespace MinGfx {
         
     }
     
-    void DefaultShader::add_light(LightProperties light) {
+    void DefaultShader::AddLight(LightProperties light) {
         lights_.push_back(light);
         update_light_arrays();
     }
     
-    void DefaultShader::set_light(int i, LightProperties light) {
+    void DefaultShader::SetLight(int i, LightProperties light) {
         lights_[i] = light;
         update_light_arrays();
     }
@@ -42,20 +47,20 @@ namespace MinGfx {
             lightPositions_[3*i + 1] = light->position[1];
             lightPositions_[3*i + 2] = light->position[2];
                 
-            lightIas_[4*i + 0] = light->ambientIntensity[0];
-            lightIas_[4*i + 1] = light->ambientIntensity[1];
-            lightIas_[4*i + 2] = light->ambientIntensity[2];
-            lightIas_[4*i + 3] = light->ambientIntensity[3];
+            lightIas_[4*i + 0] = light->ambient_intensity[0];
+            lightIas_[4*i + 1] = light->ambient_intensity[1];
+            lightIas_[4*i + 2] = light->ambient_intensity[2];
+            lightIas_[4*i + 3] = light->ambient_intensity[3];
             
-            lightIds_[4*i + 0] = light->diffuseIntensity[0];
-            lightIds_[4*i + 1] = light->diffuseIntensity[1];
-            lightIds_[4*i + 2] = light->diffuseIntensity[2];
-            lightIds_[4*i + 3] = light->diffuseIntensity[3];
+            lightIds_[4*i + 0] = light->diffuse_intensity[0];
+            lightIds_[4*i + 1] = light->diffuse_intensity[1];
+            lightIds_[4*i + 2] = light->diffuse_intensity[2];
+            lightIds_[4*i + 3] = light->diffuse_intensity[3];
             
-            lightIss_[4*i + 0] = light->specularIntensity[0];
-            lightIss_[4*i + 1] = light->specularIntensity[1];
-            lightIss_[4*i + 2] = light->specularIntensity[2];
-            lightIss_[4*i + 3] = light->specularIntensity[3];
+            lightIss_[4*i + 0] = light->specular_intensity[0];
+            lightIss_[4*i + 1] = light->specular_intensity[1];
+            lightIss_[4*i + 2] = light->specular_intensity[2];
+            lightIss_[4*i + 3] = light->specular_intensity[3];
         }
     }
     
@@ -70,8 +75,8 @@ namespace MinGfx {
 
     
     void DefaultShader::Init() {
-        phongShader_.AddVertexShaderFromFile(Platform::findMinGfxShaderFile("default.vert"));
-        phongShader_.AddFragmentShaderFromFile(Platform::findMinGfxShaderFile("default.frag"));
+        phongShader_.AddVertexShaderFromFile(Platform::FindMinGfxShaderFile("default.vert"));
+        phongShader_.AddFragmentShaderFromFile(Platform::FindMinGfxShaderFile("default.frag"));
         phongShader_.LinkProgram();
     }
     
@@ -96,7 +101,7 @@ namespace MinGfx {
             Init();
         }
         
-        Matrix4 normalMatrix = (model*view).inverse().transpose();
+        Matrix4 normalMatrix = (model*view).Inverse().Transpose();
         
         // Activate the shader program
         phongShader_.UseProgram();
@@ -113,13 +118,13 @@ namespace MinGfx {
         phongShader_.SetUniformArray4("LightIntensitiesDiffuse", lightIds_, MAX_LIGHTS);
         phongShader_.SetUniformArray4("LightIntensitiesSpecular", lightIss_, MAX_LIGHTS);
         
-        phongShader_.SetUniform("MatReflectanceAmbient", material.ambientReflectance);
-        phongShader_.SetUniform("MatReflectanceDiffuse", material.diffuseReflectance);
-        phongShader_.SetUniform("MatReflectanceSpecular", material.specularReflectance);
+        phongShader_.SetUniform("MatReflectanceAmbient", material.ambient_reflectance);
+        phongShader_.SetUniform("MatReflectanceDiffuse", material.diffuse_reflectance);
+        phongShader_.SetUniform("MatReflectanceSpecular", material.specular_reflectance);
         phongShader_.SetUniform("MatReflectanceShininess", material.shinniness);
-        phongShader_.SetUniform("UseSurfaceTexture", material.surfaceTexture.initialized());
-        if (material.surfaceTexture.initialized()) {
-            phongShader_.BindTexture("SurfaceTexture", material.surfaceTexture);
+        phongShader_.SetUniform("UseSurfaceTexture", material.surface_texture.initialized());
+        if (material.surface_texture.initialized()) {
+            phongShader_.BindTexture("SurfaceTexture", material.surface_texture);
         }
     }
     

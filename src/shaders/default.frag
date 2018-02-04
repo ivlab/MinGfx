@@ -1,5 +1,18 @@
 #version 330
 
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
+ */
+
 const int MAX_LIGHTS = 10;
 
 in vec3 N;

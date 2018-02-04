@@ -1,5 +1,10 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
 
-#include "draw.h"
+#include "quick_shapes.h"
 #include "platform.h"
 
 #include <cmath>
@@ -7,7 +12,7 @@
 #include <string>
 
 
-namespace MinGfx {
+namespace mingfx {
     
     
     
@@ -33,10 +38,10 @@ public:
     
     
     
-Draw::Draw() {
+QuickShapes::QuickShapes() {
 }
 
-Draw::~Draw() {
+QuickShapes::~QuickShapes() {
 }
     
     
@@ -45,7 +50,7 @@ Draw::~Draw() {
 // ------------  CUBE  ------------
 
 
-void Draw::initCube() {
+void QuickShapes::initCube() {
     GLfloat vertices[]  = {
         1.0f, 1.0f, 1.0f,  -1.0f, 1.0f, 1.0f,  -1.0f,-1.0f, 1.0f,      // v0-v1-v2 (front)
         -1.0f,-1.0f, 1.0f,   1.0f,-1.0f, 1.0f,   1.0f, 1.0f, 1.0f,      // v2-v3-v0
@@ -92,15 +97,15 @@ void Draw::initCube() {
 }
 
 
-void Draw::Cube(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
+void QuickShapes::DrawCube(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                 const Matrix4 &projectionMatrix, const Color &color)
 {
     if (cubeMesh_.num_vertices() == 0) {
         initCube();
     }
-    defaultMaterial_.ambientReflectance = color;
-    defaultMaterial_.diffuseReflectance = color;
-    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultMaterial_.ambient_reflectance = color;
+    defaultMaterial_.diffuse_reflectance = color;
+    defaultMaterial_.surface_texture = emptyTex_;
     defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &cubeMesh_, defaultMaterial_);
 }
 
@@ -110,7 +115,7 @@ void Draw::Cube(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
 // ------------  SQUARE  ------------
 
 
-void Draw::initSquare() {
+void QuickShapes::initSquare() {
     GLfloat vertices[] = {
         1.0f, 0.0f, 1.0f,   1.0f, 0.0f,-1.0f,  -1.0f, 0.0f,-1.0f,      // v0-v5-v6 (top)
         -1.0f, 0.0f,-1.0f,  -1.0f, 0.0f, 1.0f,   1.0f, 0.0f, 1.0f      // v6-v1-v0
@@ -133,29 +138,29 @@ void Draw::initSquare() {
 }
 
 
-void Draw::Square(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
+void QuickShapes::DrawSquare(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                   const Matrix4 &projectionMatrix, const Color &color)
 {
     if (squareMesh_.num_vertices() == 0) {
         initSquare();
     }
-    defaultMaterial_.ambientReflectance = color;
-    defaultMaterial_.diffuseReflectance = color;
-    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultMaterial_.ambient_reflectance = color;
+    defaultMaterial_.diffuse_reflectance = color;
+    defaultMaterial_.surface_texture = emptyTex_;
     defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &squareMesh_, defaultMaterial_);
 }
     
 
-void Draw::Square(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
+void QuickShapes::DrawSquare(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                   const Matrix4 &projectionMatrix, const Color &color,
                   const Texture2D &tex)
 {
     if (squareMesh_.num_vertices() == 0) {
         initSquare();
     }
-    defaultMaterial_.ambientReflectance = color;
-    defaultMaterial_.diffuseReflectance = color;
-    defaultMaterial_.surfaceTexture = tex;
+    defaultMaterial_.ambient_reflectance = color;
+    defaultMaterial_.diffuse_reflectance = color;
+    defaultMaterial_.surface_texture = tex;
     defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &squareMesh_, defaultMaterial_);
 }
     
@@ -166,7 +171,7 @@ void Draw::Square(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
 // ------------  CYLINDER  ------------
 
 
-void Draw::initCyl() {
+void QuickShapes::initCyl() {
     
     std::vector<Vertex> verts;
     
@@ -220,15 +225,15 @@ void Draw::initCyl() {
 }
 
 
-void Draw::Cylinder(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
+void QuickShapes::DrawCylinder(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                     const Matrix4 &projectionMatrix, const Color &color)
 {
     if (cylMesh_.num_vertices() == 0) {
         initCyl();
     }
-    defaultMaterial_.ambientReflectance = color;
-    defaultMaterial_.diffuseReflectance = color;
-    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultMaterial_.ambient_reflectance = color;
+    defaultMaterial_.diffuse_reflectance = color;
+    defaultMaterial_.surface_texture = emptyTex_;
     defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &cylMesh_, defaultMaterial_);
 }
 
@@ -238,7 +243,7 @@ void Draw::Cylinder(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
 // ------------  CONE  ------------
 
 
-void Draw::initCone() {
+void QuickShapes::initCone() {
     
     std::vector<Vertex> verts;
     
@@ -254,8 +259,8 @@ void Draw::initCone() {
         
         // one triangle on the side
         // normals are a bit more complex than for other shapes...
-        Vector3 nlast = Vector3(xlast, 2, zlast).to_unit();
-        Vector3 nnew = Vector3(xnew, 2, znew).to_unit();
+        Vector3 nlast = Vector3(xlast, 2, zlast).ToUnit();
+        Vector3 nnew = Vector3(xnew, 2, znew).ToUnit();
         Vector3 ntop = 0.5*(nlast + nnew);
         
         verts.push_back(Vertex(top.x, top.y, top.z, ntop[0], ntop[1], ntop[2]));
@@ -288,15 +293,15 @@ void Draw::initCone() {
 }
 
 
-void Draw::Cone(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
+void QuickShapes::DrawCone(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                 const Matrix4 &projectionMatrix, const Color &color)
 {
     if (coneMesh_.num_vertices() == 0) {
         initCone();
     }
-    defaultMaterial_.ambientReflectance = color;
-    defaultMaterial_.diffuseReflectance = color;
-    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultMaterial_.ambient_reflectance = color;
+    defaultMaterial_.diffuse_reflectance = color;
+    defaultMaterial_.surface_texture = emptyTex_;
     defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &coneMesh_, defaultMaterial_);
 }
 
@@ -307,7 +312,7 @@ void Draw::Cone(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
 // ------------  SPHERE  ------------
 
 
-void Draw::initSph() {
+void QuickShapes::initSph() {
     
     std::vector<Vertex> verts;
     
@@ -376,15 +381,15 @@ void Draw::initSph() {
 }
 
 
-void Draw::Sphere(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
+void QuickShapes::DrawSphere(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                   const Matrix4 &projectionMatrix, const Color &color)
 {
     if (sphereMesh_.num_vertices() == 0) {
         initSph();
     }
-    defaultMaterial_.ambientReflectance = color;
-    defaultMaterial_.diffuseReflectance = color;
-    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultMaterial_.ambient_reflectance = color;
+    defaultMaterial_.diffuse_reflectance = color;
+    defaultMaterial_.surface_texture = emptyTex_;
     defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &sphereMesh_, defaultMaterial_);
 }
 
@@ -394,7 +399,7 @@ void Draw::Sphere(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
 // ------------  BRUSH  ------------
 
 
-void Draw::initBrush() {
+void QuickShapes::initBrush() {
     
     // Raw vertices -- points that make up the brush geometry
     const GLfloat v[19][3] = {
@@ -553,15 +558,15 @@ void Draw::initBrush() {
 }
 
 
-void Draw::Brush(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
+void QuickShapes::DrawBrush(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                  const Matrix4 &projectionMatrix, const Color &color)
 {
     if (brushMesh_.num_vertices() == 0) {
         initBrush();
     }
-    defaultMaterial_.ambientReflectance = color;
-    defaultMaterial_.diffuseReflectance = color;
-    defaultMaterial_.surfaceTexture = emptyTex_;
+    defaultMaterial_.ambient_reflectance = color;
+    defaultMaterial_.diffuse_reflectance = color;
+    defaultMaterial_.surface_texture = emptyTex_;
     defaultShader_.Draw(modelMatrix, viewMatrix, projectionMatrix, &brushMesh_, defaultMaterial_);
 }
 
@@ -570,7 +575,7 @@ void Draw::Brush(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
 // ----------------
 
 
-void Draw::LineSegment(const Matrix4 &modelMatrix,
+void QuickShapes::DrawLineSegment(const Matrix4 &modelMatrix,
                        const Matrix4 &viewMatrix,
                        const Matrix4 &projectionMatrix,
                        const Color &color,
@@ -578,29 +583,29 @@ void Draw::LineSegment(const Matrix4 &modelMatrix,
                        const Point3 &p2,
                        float radius)
 {
-    Matrix4 S = Matrix4::scale(Vector3(radius, 0.5*(p2-p1).length(), radius));
-    Vector3 y = (p2-p1).to_unit();
-    Vector3 z = Vector3(1,0,0).cross(y).to_unit();
+    Matrix4 S = Matrix4::Scale(Vector3(radius, 0.5*(p2-p1).Length(), radius));
+    Vector3 y = (p2-p1).ToUnit();
+    Vector3 z = Vector3(1,0,0).Cross(y).ToUnit();
     if (z == Vector3(0,0,0)) {
-        z = Vector3(0,0,1).cross(y).to_unit();
+        z = Vector3(0,0,1).Cross(y).ToUnit();
     }
-    Vector3 x = y.cross(z);
-    Matrix4 R = Matrix4::fromRowMajorElements(
+    Vector3 x = y.Cross(z);
+    Matrix4 R = Matrix4::FromRowMajorElements(
         x[0], y[0], z[0], 0,
         x[1], y[1], z[1], 0,
         x[2], y[2], z[2], 0,
         0,    0,    0, 1
     );
-    Matrix4 T = Matrix4::translation(0.5 * Vector3(p1[0]+p2[0], p1[1]+p2[1], p1[2]+p2[2]));
+    Matrix4 T = Matrix4::Translation(0.5 * Vector3(p1[0]+p2[0], p1[1]+p2[1], p1[2]+p2[2]));
     
     Matrix4 M = T * R * S;
     
-    Cylinder(modelMatrix * M, viewMatrix, projectionMatrix, color);
+    DrawCylinder(modelMatrix * M, viewMatrix, projectionMatrix, color);
 }
 
 
 
-void Draw::Lines(const Matrix4 &modelMatrix,
+void QuickShapes::DrawLines(const Matrix4 &modelMatrix,
                  const Matrix4 &viewMatrix,
                  const Matrix4 &projectionMatrix,
                  const Color &color,
@@ -610,63 +615,63 @@ void Draw::Lines(const Matrix4 &modelMatrix,
 {
     if (ltype == LinesType::LINES) {
         for (int i=0; i<points.size(); i+=2) {
-            LineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[i], points[i+1], radius);
+            DrawLineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[i], points[i+1], radius);
         }
     }
     else {
         for (int i=0; i<points.size()-1; i++) {
-            LineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[i], points[i+1], radius);
+            DrawLineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[i], points[i+1], radius);
         }
         if (ltype == LinesType::LINE_LOOP) {
-            LineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[points.size()-1], points[0], radius);
+            DrawLineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[points.size()-1], points[0], radius);
         }
     }
 }
 
     
     
-void Draw::Arrow(const Matrix4 &modelMatrix,
+void QuickShapes::DrawArrow(const Matrix4 &modelMatrix,
                  const Matrix4 &viewMatrix,
                  const Matrix4 &projectionMatrix,
                  const Color &color,
                  Point3 p, Vector3 dir, float radius)
 {
-    float d = dir.length() - 8.0*radius;
-    LineSegment(modelMatrix, viewMatrix, projectionMatrix, color, p, p + d*dir.to_unit(), radius);
+    float d = dir.Length() - 8.0*radius;
+    DrawLineSegment(modelMatrix, viewMatrix, projectionMatrix, color, p, p + d*dir.ToUnit(), radius);
     
-    Matrix4 S = Matrix4::scale(Vector3(radius*3.0, radius*4.0, radius*3.0));
-    Vector3 y = dir.to_unit();
-    Vector3 z = Vector3(1,0,0).cross(y).to_unit();
+    Matrix4 S = Matrix4::Scale(Vector3(radius*3.0, radius*4.0, radius*3.0));
+    Vector3 y = dir.ToUnit();
+    Vector3 z = Vector3(1,0,0).Cross(y).ToUnit();
     if (z == Vector3(0,0,0)) {
-        z = Vector3(0,0,1).cross(y).to_unit();
+        z = Vector3(0,0,1).Cross(y).ToUnit();
     }
-    Vector3 x = y.cross(z);
-    Matrix4 R = Matrix4::fromRowMajorElements(
+    Vector3 x = y.Cross(z);
+    Matrix4 R = Matrix4::FromRowMajorElements(
                                               x[0], y[0], z[0], 0,
                                               x[1], y[1], z[1], 0,
                                               x[2], y[2], z[2], 0,
                                               0,    0,    0, 1
                                               );
-    Matrix4 T = Matrix4::translation((p + d*dir.to_unit()) - Point3::origin());
+    Matrix4 T = Matrix4::Translation((p + d*dir.ToUnit()) - Point3::Origin());
     
-    Matrix4 M = T * R * S * Matrix4::translation(Vector3(0,1,0));
+    Matrix4 M = T * R * S * Matrix4::Translation(Vector3(0,1,0));
     
-    Cone(modelMatrix * M, viewMatrix, projectionMatrix, color);
+    DrawCone(modelMatrix * M, viewMatrix, projectionMatrix, color);
 }
     
     
-void Draw::Axes(const Matrix4 &modelMatrix,
+void QuickShapes::DrawAxes(const Matrix4 &modelMatrix,
                 const Matrix4 &viewMatrix,
                 const Matrix4 &projectionMatrix)
 {
-    Arrow(modelMatrix, viewMatrix, projectionMatrix, Color(1.0, 0.6, 0.6), Point3::origin(), Vector3::unitX(), 0.02);
-    Arrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 1.0, 0.6), Point3::origin(), Vector3::unitY(), 0.02);
-    Arrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 0.6, 1.0), Point3::origin(), Vector3::unitZ(), 0.02);
+    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(1.0, 0.6, 0.6), Point3::Origin(), Vector3::UnitX(), 0.02);
+    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 1.0, 0.6), Point3::Origin(), Vector3::UnitY(), 0.02);
+    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 0.6, 1.0), Point3::Origin(), Vector3::UnitZ(), 0.02);
 
 }
     
     
-void Draw::initFull() {
+void QuickShapes::initFull() {
     GLfloat vertices[] = {
         -1, -1, 0,   1, -1, 0,  1, 1, 0,
         -1, -1, 0,   1, 1, 0,   -1, 1, 0
@@ -689,7 +694,7 @@ void Draw::initFull() {
 }
     
 
-void Draw::FullscreenTexture(const Color &color, const Texture2D &tex) {
+void QuickShapes::DrawFullscreenTexture(const Color &color, const Texture2D &tex) {
     if (fullMesh_.num_vertices() == 0) {
         initFull();
     }
@@ -700,10 +705,10 @@ void Draw::FullscreenTexture(const Color &color, const Texture2D &tex) {
     
     
 
-void Draw::DrawWithFullscreen(const Color &color, Mesh *mesh, const Texture2D &tex) {
+void QuickShapes::DrawWithFullscreen(const Color &color, Mesh *mesh, const Texture2D &tex) {
     if (!fullscreenShader_.initialized()) {
-        fullscreenShader_.AddVertexShaderFromFile(Platform::findMinGfxShaderFile("fullscreen.vert"));
-        fullscreenShader_.AddFragmentShaderFromFile(Platform::findMinGfxShaderFile("fullscreen.frag"));
+        fullscreenShader_.AddVertexShaderFromFile(Platform::FindMinGfxShaderFile("fullscreen.vert"));
+        fullscreenShader_.AddFragmentShaderFromFile(Platform::FindMinGfxShaderFile("fullscreen.frag"));
         fullscreenShader_.LinkProgram();
     }
 
@@ -728,12 +733,12 @@ void Draw::DrawWithFullscreen(const Color &color, Mesh *mesh, const Texture2D &t
 }
 
 
-DefaultShader* Draw::default_shader() {
+DefaultShader* QuickShapes::default_shader() {
     return &defaultShader_;
 }
     
     
-DefaultShader::MaterialProperties* Draw::material() {
+DefaultShader::MaterialProperties* QuickShapes::material() {
     return &defaultMaterial_;
 }
 

@@ -1,18 +1,93 @@
-# libMinGfx
+[TOC]
 
-This is a minimal library for writing cross-platform (Windows, OSX, linux) graphics programs.  Currently, this is used for instructional purposes in UMN Computer Science courses (e.g., CSCI-3081W, CSCI-4611).
+MinGfx Toolkit Documentation {#pageTitle}
+==========
+
+# Quick Links {#quicklinks}
+
+* [Installation Guide](@ref installation)
+* [Programming Reference](@ref reference)
+* NanoGUI (buttons, sliders, other GUI elements)
+	- [NanoGUI Documentation](https://nanogui.readthedocs.io/en/latest/)
+	- [NanoGUI Code Repo](https://nanogui.readthedocs.io/en/latest/)
+* NanoVG (2D vector graphics)
+	- [NanoVG Documentation](https://github.com/memononen/NanoVG)
+	- [nanovg.h -- the best place to see all the possible commands](https://github.com/memononen/nanovg/blob/master/src/nanovg.h)
+* OpenGL (3D graphics)
+	- google
 
 
-## Quick Start Guide
+# Introduction {#intro}
 
-### Prereqs
+The MinGfx Toolkit is a minimal library for writing cross-platform (Windows, OSX, linux) graphics programs with modern OpenGL 3.3+ support.  Application programmers should subclass from MinGfx::GraphicsApp, which provides callbacks for several styles of rendering and user interfaces.  On-screen graphical user interfaces can be created with built-in support for NanoGUI.  2D vector graphics rendering is supported by linking with NanoVG.  3D graphics rendering is supported via MinGfx::Mesh, MinGfx::Shader, MinGfx::Texture2D, and related classes.  Additionally, application programmers can do whatever custom 2D or 3D rendering is needed with direct calls to OpenGL.
+
+The library is maintained by Prof. Daniel Keefe (dfk@umn.edu) and is used for instructional purposes in UMN computer science courses (CSci-4611, CSci-3081W, ...) as well as some research projects.  See LICENSE.txt for additional details.
+
+
+
+# Programming Reference {#reference}
+
+## API {#api}
+
+### Application Class
+* [GraphicsApp](@ref mingfx::GraphicsApp)
+
+### Graphics Math
+* [Matrix4](@ref mingfx::Matrix4)
+* [Point2](@ref mingfx::Point2)
+* [Point3](@ref mingfx::Point3)
+* [Vector2](@ref mingfx::Vector2)
+* [Vector3](@ref mingfx::Vector3)
+* [Ray](@ref mingfx::Ray)
+* [GfxMath](@ref mingfx::GfxMath)
+
+### 3D Models
+* [QuickShapes](@ref mingfx::QuickShapes)
+* [Mesh](@ref mingfx::Mesh)
+
+### Color and Textures
+* [Color](@ref mingfx::Color)
+* [Texture2D](@ref mingfx::Texture2D)
+
+### Shader Programs
+* [DefaultShader](@ref mingfx::DefaultShader)
+  - [DefaultShader::LightProperties](@ref mingfx::DefaultShader::LightProperties)
+  - [DefaultShader::MaterialProperties](@ref mingfx::DefaultShader::MaterialProperties)
+* [ShaderProgram](@ref mingfx::ShaderProgram)
+
+### User Interface
+* [UniCam](@ref mingfx::UniCam)
+
+### File I/O and System Routines
+* [Platform](@ref mingfx::Platform)
+
+### Data and Shaders
+* Example shaders for use with the Mesh class
+* Simple obj models that can be loaded via the Mesh class
+
+
+
+## Coding Style {#style}
+
+The library follows the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html), in part as an example for students, since this style is also used in several courses.  There are several things that programmers who are not familiar with the Google style might find unusual.  These are the most common style rules to note:
+- C++ source filenames are all lowercase with underscores, and a .cc extension is used instead of .cpp.
+- Variable names are all lowercase with underscores.
+- Class member variables are named the same as regular variables but with a trailing _, as in my\_member\_var\_.
+- Functions start with capital letters unless they are small getter or setter methods.
+- There are many other rules, a solid discussion of pros/cons, and an automated style checker [here](https://google.github.io/styleguide/cppguide.html).
+
+
+
+# Installation Guide {#installation}
+
+## Prereqs {#install-prereqs}
 
 MinGfx is built using the cross-platform CMake tool.  Before building MinGfx, you will need to install CMake version 3.9 or higher (https://cmake.org/).  
 
 If you haven't already, you'll want to clone the MinGfx source code using git, so make sure you have git installed as well.
 
 
-### Background for CMake Beginners
+## Background for CMake Beginners {#cmake-background}
 
 If you are new to CMake, this is the minimum background you should have before building MinGfx.
 
@@ -24,47 +99,48 @@ There are three versions of the cmake application that are provided with the ins
 3. *cmake-gui* is an OS-specific windowed version.  Like ccmake, the GUI provides a useful list all of the available build options.  Unlike ccmake, it also includes a nice scrollable log of all of the status messages.  So, this is the preferred version for new users and for the first time you build a project.
 
 With CMake, it's best to do an out-of-source build.  That means that when you start CMake you must tell it two paths: 1. the path to the MinGfx source tree, AND 2. the path to the place where you would like all the built files to be created.  When running cmake-gui, these can be set interactively with a file selection dialog, but all three versions respond to command line options, and this is generally the easiest way to start up cmake.  So, we suggest starting *cmake-gui* from the command line.  First cd to the directory you wish to use for the built files, then pass a single required command line argument for the path to the MinGfx source tree.  Usually, you will see this written as a series of 3 steps -- the common idiom for cmake builds:
-```
-# from within the root of the project's source directory
+~~~
+// from within the root of the project's source directory
 mkdir build
 cd build
 cmake-gui ..
-```
+~~~
 
 If you are using *cmake* you can pass a variety of other options to CMake on the command line with flags such as -D AUTOBUILD_NANOGUI=ON, to tell MinGfx to autobuild the nanogui library that it depends upon.  With *cmake*, you can end up with a long string of arguments in order to setup the build you want.  With *cmake-gui*, you set all of these build options within the user interface instead, and this is how we will proceed in the instructions that follow.
 
 
-### Setup a New Graphics Build Tree
+## Setup a New Graphics Build Tree {#build-tree}
 
 Here's a complete annotated list of steps to setup a new build tree for creating graphics programs.  In truth, you don't need to create this entire build tree strucutre just to work with MinGfx, but this is good practice, and a good guide for students.
 
-#### 1. Create a Linux-Style Directory Tree
+### 1. Create a Linux-Style Directory Tree
 
 Libraries will get installed to a lib/ directory.  Include files will go in include/, executables in bin/, and we'll put the source we are developing inside dev/.
 
-```
+~~~
 mkdir -p /Users/keefe/courses/csci4611/sw
 cd /Users/courses/csci4611/sw
 mkdir lib
 mkdir include
 mkdir bin
 mkdir dev
-```
+~~~
 
-#### 2. Download the MinGfx Project
-```
+### 2. Download the MinGfx Project
+To download use:
+~~~
 cd dev
 git clone http://github.com/ivlab/MinGfx
-```
+~~~
 
-#### 3. Create an Initial CMake Build Configuration
+### 3. Create an Initial CMake Build Configuration
 
-```
+~~~
 cd MinGfx
 mkdir build
 cd build
 cmake-gui ..
-```
+~~~
 
 Press the 'Configure' button. Then, select the Generator you would like to use from the list provided (e.g., Xcode, Visual Studio, Unix Makefiles).  Click Done.
 
@@ -72,105 +148,103 @@ Wait for CMake to do an initial configuration.  This will populate an initial li
 
 Do you see an error in the CMake output window?  If so, don't worry about this yet, we'll come back to it in a minute.
 
-#### 4. Set the CMAKE_INSTALL_PREFIX Variable to the Root of Your Directory Tree
+### 4. Set the CMAKE_INSTALL_PREFIX Variable to the Root of Your Directory Tree
 
 Now, using cmake-gui, scroll through the table of variables until you find the one named CMAKE_INSTALL_PREFIX.  Click on it and edit its value to point to the root of the directory tree you created in Step 1.  The root for the example tree used in Step 1 would be /Users/keefe/courses/csci4611/sw.  In other words, the root is the last directory before you get to lib, include, bin, and dev.
 
 Once you make this change, you can press the Configure button again.  It doesn't hurt to press Configure multiple times.  You need to do it at least once after every change you make.  Notice how the variables highlighted in red go away when you do this because they are no longer new options -- cmake knows that you have already had a chance to see them once.
 
-#### 5. If Needed, Set AUTOBUILD_NANOGUI to ON and Build Dependencies
+### 5. If Needed, Set AUTOBUILD_NANOGUI to ON and Build Dependencies
 
 Now, take a look at the output window at the bottom of cmake-gui.  If you see the following error there, then we'll address that next.  If not, then nanogui must already be installed on your system, and you can skip to step 6.
-```
+~~~
 TODO: INSERT NANOGUI ERROR PRINTOUT
-```
+~~~
 This error tells us that cmake could not find the nanogui library pre-installed on our system.  Luckily, MinGfx includes support for downloading, building, and installing nanogui for you using the AUTOBUILD_NANOGUI feature.
 
 Scroll through the list of CMake variables again until you find AUTOBUILD_NANOGUI and click on the checkbox next to it to turn it on.  Now, click Configure again.  This time the configure step will take a while, perhaps 5 minutes, to run because it will be downloading, building, and installing nanogui and all of its dependencies.  
 
 This step should finish without an error.  If you do see an error and you are working with this as part of a UMN course, you may need to stop now and ask for help from a TA or on the class forum -- perhaps there is something we haven't planned for in the particular setup of your computer.
 
-#### 6. Generate the Build System / Project Files
+### 6. Generate the Build System / Project Files
 
 Finally, you are ready to press the Generate button.  This is the step that will actually generate the Unix Makefiles, Visual Studio Solution File, or Xcode Project File needed to build MinGfx.  
 
-#### 7. Build MinGfx with the Specified Options
+### 7. Build MinGfx with the Specified Options
 
 Click Open Project if you generated project files for an IDE, or if you generated Unix Makefiles return to your shell and the build directory.  Now, build the project as you normally would in these enviornments.  
 
-For Xcode or Visual Studio ```click the triangle button```.
+For Xcode or Visual Studio `click the triangle button`.
 
-For Unix Makefiles run ```make```.
+For Unix Makefiles run `make`.
 
-#### 8. Run a Test Program
+### 8. Run a Test Program
 
 From within the build directory, you can try running:
 
-```tests/mingfx-blankwindow```
+`tests/mingfx-blankwindow`
 
 or 
 
-```tests/mingfx-circles```
+`tests/mingfx-gui-plus-opengl`
 
-#### 9. Install the Library to your Directory Tree
+### 9. Install the Library to your Directory Tree
 
-For Xcode or Visual Studio ```change the build type to INSTALL or install``` then ```click the triangle button```.
+For Xcode or Visual Studio `change the build type to INSTALL or install` then `click the triangle button`.
 
-For Unix Makefiles run ```make install```.
+For Unix Makefiles run `make install`.
 
 To see if it worked take a look in the lib, include, and bin directories within the root of the tree you setup in Step 1.  You should see the test programs inside bin/ and folders for MinVR-1.0 inside lib/ and include/.
 
 
 
 
-## Create Your Own Graphics Program
+## Create Your Own Graphics Program {#new-program}
 
 *Prereq:* Before getting started, make sure you have installed MinGfx, going all the way through the 9th step above.
 
 The project in the MinGfx/example folder is an example of a stand-alone project that uses a separate cmake build system.  This means we can copy it and move it out of the MinGfx source tree to serve as a starting point for your own project.  Let's do that now.
 
-```
+~~~
 cd /Users/courses/csci4611/sw/dev  (or wherever you put your dev directory)
 cp -r MinGfx/example/ mingfx-example
-```
+~~~
 
 Now, before we build the example, we need to make sure it knows where to find MinGfx.  
-```
+~~~
 cd mingfx-example
 open up the CMakeLists.txt file in your favorite text editor
-```
+~~~
 
 Near the top of the file, find the following lines
-```
+~~~
 # !!!!!!!!!!!!! EDIT THE FOLLOWING LINE AS NEEDED !!!!!!!!!!!!! 
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../build/install)
-```
-and edit these to point to the ROOT of your directory tree, for example:
-```
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../build/install ../../..)
+~~~
+and add a path to the end of the list to point to the ROOT of your directory tree, for example:
+~~~
 # !!!!!!!!!!!!! EDIT THE FOLLOWING LINE AS NEEDED !!!!!!!!!!!!! 
-list(APPEND CMAKE_PREFIX_PATH /Users/keefe/courses/cs4611/sw)
-)
-```
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../build/install ../../.. /Users/keefe/courses/cs4611/sw)
+~~~
 
 Now, we're ready to build this example using the same cmake idiom as before:
-```
+~~~
 mkdir build
 cd build
 cmake-gui ..
-```
+~~~
 Then, click *Configure*.  If you want to install this example program, you may now edit the CMAKE_INSTALL_PREFIX as before and rerun *Configure*.  It should not be necessary to change any of the other cmake variables for this example program.
 
 Next, click *Generate* to produce project files for your IDE or makefiles.  
 
-Next, build the example program within your IDE or by running ```make```.
+Next, build the example program within your IDE or by running `make`.
 
 Finally, you can run your first example graphics program with the command:
-```
+~~~
 ./mingfx-example
-```
+~~~
 
 You can change the name of the executable, add more header and source files to the project and make other changes to the build process by editing the CMakeLists.txt file, but remember that after each change, you must run CMake's *Configure* and *Generate* steps again.  
 
 To reiterate the point above, if you are using an IDE, it is important to remember to add new files to your project by editing the CMakeLists.txt file NOT by using File->Add To Project.. or whatever option is provided inside your IDE.  Since we using CMake to generate the IDE's project files, and we may want to switch to a different IDE or to Makefiles in the future, the CMakeLists.txt file needs to be treated as the master record of all of the build settings.
-
 

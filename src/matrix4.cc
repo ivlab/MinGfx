@@ -1,10 +1,16 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "matrix4.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <string.h>
 
-namespace MinGfx {
+namespace mingfx {
 
     
 Matrix4::Matrix4() {
@@ -68,8 +74,8 @@ float& Matrix4::operator()(const int r, const int c) {
 
 
     
-Matrix4 Matrix4::scale(const Vector3& v) {
-    return Matrix4::fromRowMajorElements(
+Matrix4 Matrix4::Scale(const Vector3& v) {
+    return Matrix4::FromRowMajorElements(
         v[0],    0,    0,  0,
            0, v[1],    0,  0,
            0,    0, v[2],  0,
@@ -78,8 +84,8 @@ Matrix4 Matrix4::scale(const Vector3& v) {
 }
 
     
-Matrix4 Matrix4::translation(const Vector3& v) {
-    return Matrix4::fromRowMajorElements(
+Matrix4 Matrix4::Translation(const Vector3& v) {
+    return Matrix4::FromRowMajorElements(
         1, 0, 0, v[0],
         0, 1, 0, v[1],
         0, 0, 1, v[2],
@@ -88,10 +94,10 @@ Matrix4 Matrix4::translation(const Vector3& v) {
 }
 
     
-Matrix4 Matrix4::rotationX(const float radians) {
+Matrix4 Matrix4::RotationX(const float radians) {
     const float cosTheta = cos(radians);
     const float sinTheta = sin(radians);
-    return Matrix4::fromRowMajorElements(
+    return Matrix4::FromRowMajorElements(
         1, 0, 0, 0,
         0, cosTheta, -sinTheta, 0,
         0, sinTheta, cosTheta, 0,
@@ -100,10 +106,10 @@ Matrix4 Matrix4::rotationX(const float radians) {
 }
 
     
-Matrix4 Matrix4::rotationY(const float radians) {
+Matrix4 Matrix4::RotationY(const float radians) {
     const float cosTheta = cos(radians);
     const float sinTheta = sin(radians);
-    return Matrix4::fromRowMajorElements(
+    return Matrix4::FromRowMajorElements(
         cosTheta, 0, sinTheta, 0,
         0, 1, 0, 0,
         -sinTheta, 0, cosTheta, 0,
@@ -112,10 +118,10 @@ Matrix4 Matrix4::rotationY(const float radians) {
 }
 
     
-Matrix4 Matrix4::rotationZ(const float radians) {
+Matrix4 Matrix4::RotationZ(const float radians) {
     const float cosTheta = cos(radians);
     const float sinTheta = sin(radians);
-    return Matrix4::fromRowMajorElements(
+    return Matrix4::FromRowMajorElements(
         cosTheta, -sinTheta, 0, 0,
         sinTheta, cosTheta, 0, 0,
         0, 0, 1, 0,
@@ -124,37 +130,37 @@ Matrix4 Matrix4::rotationZ(const float radians) {
 }
 
     
-Matrix4 Matrix4::rotation(const Point3& p, const Vector3& v, const float a) {
+Matrix4 Matrix4::Rotation(const Point3& p, const Vector3& v, const float a) {
     // Translate to origin from point p
     const float vZ = v[2];
     const float vX = v[0];
     const float theta = atan2(vZ, vX);
     const float phi   = -atan2((float)v[1], (float)sqrt(vX * vX + vZ * vZ));
 
-    const Matrix4 transToOrigin = Matrix4::translation(-1.0*Vector3(p[0], p[1], p[2]));
-    const Matrix4 A = Matrix4::rotationY(theta);
-    const Matrix4 B = Matrix4::rotationZ(phi);
-    const Matrix4 C = Matrix4::rotationX(a);
-    const Matrix4 invA = Matrix4::rotationY(-theta);
-    const Matrix4 invB = Matrix4::rotationZ(-phi);
-    const Matrix4 transBack = Matrix4::translation(Vector3(p[0], p[1], p[2]));
+    const Matrix4 transToOrigin = Matrix4::Translation(-1.0*Vector3(p[0], p[1], p[2]));
+    const Matrix4 A = Matrix4::RotationY(theta);
+    const Matrix4 B = Matrix4::RotationZ(phi);
+    const Matrix4 C = Matrix4::RotationX(a);
+    const Matrix4 invA = Matrix4::RotationY(-theta);
+    const Matrix4 invB = Matrix4::RotationZ(-phi);
+    const Matrix4 transBack = Matrix4::Translation(Vector3(p[0], p[1], p[2]));
   
     return transBack * invA * invB * C * B * A * transToOrigin;
 }
 
     
-Matrix4 Matrix4::lookAt(Point3 eye, Point3 target, Vector3 up) {
-    Vector3 lookDir = (target - eye).to_unit();
+Matrix4 Matrix4::LookAt(Point3 eye, Point3 target, Vector3 up) {
+    Vector3 lookDir = (target - eye).ToUnit();
 
     // desired x,y,z for the camera itself
     Vector3 z = -lookDir;
-    Vector3 x = up.cross(z).to_unit();
-    Vector3 y = z.cross(x);
+    Vector3 x = up.Cross(z).ToUnit();
+    Vector3 y = z.Cross(x);
 
     // for the view matrix rotation, we want the inverse of the rotation for the
     // camera, and the inverse of a rotation matrix is its transpose, so the
     // x,y,z colums become x,y,z rows.
-    Matrix4 R = Matrix4::fromRowMajorElements(
+    Matrix4 R = Matrix4::FromRowMajorElements(
         x[0], x[1], x[2], 0,
         y[0], y[1], y[2], 0,
         z[0], z[1], z[2], 0,
@@ -162,12 +168,12 @@ Matrix4 Matrix4::lookAt(Point3 eye, Point3 target, Vector3 up) {
     );
     
     // also need to translate by -eye
-    Matrix4 T = Matrix4::translation(Point3(0,0,0) - eye);
+    Matrix4 T = Matrix4::Translation(Point3(0,0,0) - eye);
 
     return R * T;
 }
 
-Matrix4 Matrix4::perspective(float fovyInDegrees, float aspectRatio,
+Matrix4 Matrix4::Perspective(float fovyInDegrees, float aspectRatio,
                              float near, float far)
 {
     // https://www.khronos.org/opengl/wiki/GluPerspective_code
@@ -176,15 +182,15 @@ Matrix4 Matrix4::perspective(float fovyInDegrees, float aspectRatio,
     // ymin = -ymax;
     // xmin = -ymax * aspectRatio;
     xmax = ymax * aspectRatio;
-    return Matrix4::frustum(-xmax, xmax, -ymax, ymax, near, far);
+    return Matrix4::Frustum(-xmax, xmax, -ymax, ymax, near, far);
 }
     
     
-Matrix4 Matrix4::frustum(float left, float right,
+Matrix4 Matrix4::Frustum(float left, float right,
                          float bottom, float top,
                          float near, float far)
 {
-    return Matrix4::fromRowMajorElements(
+    return Matrix4::FromRowMajorElements(
         2.0*near/(right-left), 0, (right+left)/(right-left), 0,
         0, 2.0*near/(top-bottom), (top+bottom)/(top-bottom), 0,
         0, 0, -(far+near)/(far-near), -2.0*far*near/(far-near),
@@ -193,7 +199,7 @@ Matrix4 Matrix4::frustum(float left, float right,
 }
 
     
-Matrix4 Matrix4::fromRowMajorElements(
+Matrix4 Matrix4::FromRowMajorElements(
     const float r1c1, const float r1c2, const float r1c3, const float r1c4,
     const float r2c1, const float r2c2, const float r2c3, const float r2c4,
     const float r3c1, const float r3c2, const float r3c3, const float r3c4,
@@ -210,12 +216,12 @@ Matrix4 Matrix4::fromRowMajorElements(
 
     
 
-Matrix4 Matrix4::orthonormal() const {
-    Vector3 x = getColumnAsVector3(0).to_unit();
-    Vector3 y = getColumnAsVector3(1);
-    y = (y - y.dot(x)*x).to_unit();
-    Vector3 z = x.cross(y).to_unit();
-    return Matrix4::fromRowMajorElements(
+Matrix4 Matrix4::Orthonormal() const {
+    Vector3 x = ColumnToVector3(0).ToUnit();
+    Vector3 y = ColumnToVector3(1);
+    y = (y - y.Dot(x)*x).ToUnit();
+    Vector3 z = x.Cross(y).ToUnit();
+    return Matrix4::FromRowMajorElements(
         x[0], y[0], z[0], m[12],
         x[1], y[1], z[1], m[13],
         x[2], y[2], z[2], m[14],
@@ -224,8 +230,8 @@ Matrix4 Matrix4::orthonormal() const {
 }
 
 
-Matrix4 Matrix4::transpose() const {
-    return Matrix4::fromRowMajorElements(
+Matrix4 Matrix4::Transpose() const {
+    return Matrix4::FromRowMajorElements(
         m[0], m[1], m[2], m[3],
         m[4], m[5], m[6], m[7],
         m[8], m[9], m[10], m[11],
@@ -240,7 +246,7 @@ Matrix4 Matrix4::transpose() const {
 // from the 4x4 matrix.  The formula for the determinant of a 3x3 is discussed on
 // page 705 of Hill & Kelley, but note that there is a typo within the m_ij indices in the 
 // equation in the book that corresponds to the cofactor02 line in the code below.
-float Matrix4::subDeterminant(int excludeRow, int excludeCol) const {
+float Matrix4::SubDeterminant(int excludeRow, int excludeCol) const {
     // Compute non-excluded row and column indices
     int row[3];
     int col[3];
@@ -271,14 +277,14 @@ float Matrix4::subDeterminant(int excludeRow, int excludeCol) const {
 // of the corresponding element m_ij in M.  The cofactor of each element m_ij is defined as (-1)^(i+j) times 
 // the determinant of the "submatrix" formed by deleting the i-th row and j-th column from M.
 // See the definition in section A2.1.4 (page 705) in Hill & Kelley.   
-Matrix4 Matrix4::cofactor() const {
+Matrix4 Matrix4::Cofactor() const {
     Matrix4 out;
     // We'll use i to incrementally compute -1^(r+c)
     int i = 1;
     for (int r = 0; r < 4; ++r) {
         for (int c = 0; c < 4; ++c) {
             // Compute the determinant of the 3x3 submatrix
-            float det = subDeterminant(r, c);
+            float det = SubDeterminant(r, c);
             out(r,c) = i * det;
             i = -i;
         }
@@ -289,17 +295,17 @@ Matrix4 Matrix4::cofactor() const {
 
 // Returns the determinant of the 4x4 matrix
 // See the hint in step 2 in Appendix A2.1.5 (page 706) in Hill & Kelley to learn how to compute this
-float Matrix4::determinant() const {
+float Matrix4::Determinant() const {
     // The determinant is the dot product of any row of C (the cofactor matrix of m) with the corresponding row of m
-    Matrix4 C = cofactor();
+    Matrix4 C = Cofactor();
     return C(0,0)*(*this)(0,0) + C(0,1)*(*this)(0,1) + C(0,2)*(*this)(0,2) + C(0,3)*(*this)(0,3);
 }
 
 // Returns the inverse of the 4x4 matrix if it is nonsingular.  If it is singular, then returns the
 // identity matrix. 
-Matrix4 Matrix4::inverse() const {
+Matrix4 Matrix4::Inverse() const {
     // Check for singular matrix
-    float det = determinant();
+    float det = Determinant();
     if (fabs(det) < 1e-8) {
         return Matrix4();
     }
@@ -307,21 +313,21 @@ Matrix4 Matrix4::inverse() const {
     // m in nonsingular, so compute inverse using the 4-step procedure outlined in Appendix A2.1.5
     // (page 706) in Hill & Kelley
     // 1. Find cofactor matrix C
-    Matrix4 C = cofactor();
+    Matrix4 C = Cofactor();
     // 2. Find the determinant of M as the dot prod of any row of C with the corresponding row of M.
     // det = determinant(m);
     // 3. Transpose C to get Ctrans
-    Matrix4 Ctrans = C.transpose();
+    Matrix4 Ctrans = C.Transpose();
     // 4. Scale each element of Ctrans by (1/det)
     return Ctrans * (1.0f / det);
 }
 
 
-Vector3 Matrix4::getColumnAsVector3(int c) const {
+Vector3 Matrix4::ColumnToVector3(int c) const {
     return Vector3(m[c*4], m[c*4+1], m[c*4+2]);
 }
 
-Point3 Matrix4::getColumnAsPoint3(int c) const {
+Point3 Matrix4::ColumnToPoint3(int c) const {
     return Point3(m[c*4], m[c*4+1], m[c*4+2]);
 }
 
@@ -365,7 +371,7 @@ Vector3 operator*(const Matrix4& m, const Vector3& v) {
 
     
 Matrix4 operator*(const Matrix4& m1, const Matrix4& m2) {
-    Matrix4 m = Matrix4::fromRowMajorElements(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0);
+    Matrix4 m = Matrix4::FromRowMajorElements(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0);
     for (int r = 0; r < 4; r++) {
         for (int c = 0; c < 4; c++) {
             for (int i = 0; i < 4; i++) {

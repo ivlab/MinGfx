@@ -1,6 +1,15 @@
-
-
-
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
+ */
 
 // We often use the code that is commented out below to load opengl headers in a cross-platform way,
 // but since nanogui uses glad internally, we will just use their approach to load opengl headers
@@ -13,7 +22,7 @@
 #include <nanogui/opengl.h>
 
 
-/*** Our typical appraoch:
+/*** Our typical (non-nanogui) appraoch:
 
 // GLEW is needed on Windows and Linux
 #ifdef _WIN32

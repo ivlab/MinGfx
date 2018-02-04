@@ -1,13 +1,15 @@
-/** This small math library provides lightweight support for the
-    graphics math needed inside MinVR. Some aspects (e.g., separate
-    classes for Point3 and Vector3) are inspired the math libraries
-    used in Brown Univ. computer graphics courses.  Also based on some
-    routines introduced in the Hill & Kelley text used in UMN courses.
-    Intended to be lightweight, for use inside MinVR only since
-    application programmers will probably want to use the math package
-    that is native to whatever graphics engine they are pairing with
-    MinVR.
-*/
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
+ */
 
 #ifndef SRC_VECTOR3_H_
 #define SRC_VECTOR3_H_
@@ -17,19 +19,40 @@
 #include "point3.h"
 
 
-namespace MinGfx {
+namespace mingfx {
 
     
-/** @class Vector3
-  * @brief 3D vector (magnitude and direction).
-  */
+/** A 3D Vector with floating point coordinates, used for storing normals and
+ all sorts of other 3D graphics operations.  Vector3s can be transformed by a
+ Matrix4, and a Vector3 can be created by subtracting two Point3s.  Example:
+ ~~~
+ // subtracting two points creates a vector
+ Point3 a(0,0,0);
+ Point3 b(2,0,0);
+ Vector3 c = b - a;
+
+ // vectors can be transformed by Matrix4s
+ Vector3 dir = c.ToUnit();
+ Matrix4 M = Matrix4::RotateX(GfxMath::ToDegrees(30.0));
+ Vector3 dir_transformed = M * dir;
+
+ // vectors can be added and subtracted
+ Vector3 d(1,0,0);
+ Vector3 e = c + d;
+ 
+ // and we can do the usual dot products and cross products too
+ Vector3 f = d.Dot(e);
+ Vector3 g = b.Cross(d);
+ ~~~
+ */
 class Vector3 {
 public:
 
     /// Default constructor to create zero vector
     Vector3();
 
-    /// Constructs a vector (x, y, z, 0)
+    /// Constructs a vector (x,y,z,0), where the 0 comes from the use of
+    /// homogeneous coordinates in computer graphics
     Vector3(float x, float y, float z);
 
     /// Constructs a vector given a pointer to x,y,z data
@@ -58,41 +81,87 @@ public:
 
     // --- Vector operations ---
 
-    /// Returns "this dot v"
-    float dot(const Vector3& v) const;
+    /** Returns "this dot v", for example:
+     ~~~
+     Vector3 a(1,0,0);
+     Vector3 b(0.5,0,0);
+     Vector3 c = a.Dot(b);
+     ~~~
+     */
+    float Dot(const Vector3& v) const;
 
-    /// Returns "this cross v"
-    Vector3 cross(const Vector3& v) const;
+    /** Returns "this cross v", for example:
+    ~~~
+    Vector3 x(1,0,0);
+    Vector3 y(0,1,0);
+    Vector3 z = x.Cross(y);
+    ~~~
+    */
+    Vector3 Cross(const Vector3& v) const;
 
     /// Returns the length of the vector
-    float length() const;
+    float Length() const;
 
     /// Normalizes the vector by making it unit length.
-    void normalize();
+    void Normalize();
 
     /// Returns a normalized (i.e., unit length) version of the vector without
     /// modifying the original 'this' vector.
-    Vector3 to_unit() const;
+    Vector3 ToUnit() const;
 
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
     
-    /// Special vectors that are frequently needed
-    static const Vector3& zero();
-    static const Vector3& one();
-    static const Vector3& unitX();
-    static const Vector3& unitY();
-    static const Vector3& unitZ();
+    /// (0,0,0) - a shortcut for a special vector that is frequently needed
+    static const Vector3& Zero();
+
+    /// (1,1,1) - a shortcut for a special vector that is frequently needed
+    static const Vector3& One();
+
+    /// (1,0,0) - a shortcut for a special vector that is frequently needed
+    static const Vector3& UnitX();
+
+    /// (0,1,0) - a shortcut for a special vector that is frequently needed
+    static const Vector3& UnitY();
+
+    /// (0,0,1) - a shortcut for a special vector that is frequently needed
+    static const Vector3& UnitZ();
     
 
-    /// Returns a new vector that is the unit version of v.
-    static Vector3 normalize(const Vector3 &v);
+    /** Returns a new vector that is the unit version of v.  This is just an
+     alternative syntax for ToUnit().  Example:
+     ~~~
+     Vector3 a(100,150,80);
+     Vector3 b = Vector3::Normalize(a);
+     Vector3 c = a.ToUnit();
+     // b and c are the same.
+     ~~~
+     */
+    static Vector3 Normalize(const Vector3 &v);
     
-    /// Returns v1 cross v2
-    static Vector3 cross(const Vector3 &v1, const Vector3 &v2);
+    /** Returns v1 cross v2.  This is just an alternative syntax for Cross().
+     Example:
+     ~~~
+     Vector3 x(1,0,0);
+     Vector3 y(0,1,0);
+     Vector3 z1 = Vector3::Cross(x,y);
+     Vector3 z2 = x.Cross(y);
+     // z1 and z2 are the same.
+     ~~~
+     */
+    static Vector3 Cross(const Vector3 &v1, const Vector3 &v2);
     
-    /// Returns v1 dot v2
-    static float dot(const Vector3 &v1, const Vector3 &v2);
+    /** Returns v1 dot v2.  This is just an alternative syntax for Dot().
+     Example:
+     ~~~
+     Vector3 a(1,0,0);
+     Vector3 b(0.5,0,0);
+     Vector3 c1 = a.Dot(b);
+     Vector3 c2 = Vector3::Dot(a,b);
+     // c1 and c2 are the same.
+     ~~~
+     */
+    static float Dot(const Vector3 &v1, const Vector3 &v2);
     
     
 private:

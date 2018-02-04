@@ -226,13 +226,13 @@ if (WITH_DOCUMENTATION)
   endif()
 
   # Process the config file and put it in the build directory.
-  set(doxyfile_in ${CMAKE_CURRENT_SOURCE_DIR}/doc/MinGfx.doxygen.in)
-  set(doxyfile ${CMAKE_BINARY_DIR}/MinGfx.doxygen)
-  configure_file(${doxyfile_in} ${doxyfile} @ONLY)
+  set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in)
+  set(DOXYFILE ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+  configure_file(${DOXYFILE_IN} ${DOXYFILE} @ONLY)
 
   add_custom_target(doc
-    COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Generating API documentation with Doxygen"
     VERBATIM)
 

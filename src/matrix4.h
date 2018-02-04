@@ -1,13 +1,15 @@
-/** This small math library provides lightweight support for the
-    graphics math needed inside MinVR. Some aspects (e.g., separate
-    classes for Point3 and Vector3) are inspired the math libraries
-    used in Brown Univ. computer graphics courses.  Also based on some
-    routines introduced in the Hill & Kelley text used in UMN courses.
-    Intended to be lightweight, for use inside MinVR only since
-    application programmers will probably want to use the math package
-    that is native to whatever graphics engine they are pairing with
-    MinVR.
-*/
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2017, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
+ */
 
 #ifndef SRC_MATRIX4_H_
 #define SRC_MATRIX4_H_
@@ -19,16 +21,36 @@
 #include "ray.h"
 
 
-namespace MinGfx {
+namespace mingfx {
 
 
-/** @class Matrix4
-  * @brief A 4x4 transformation matrix
-  */
+/** A 4x4 transformation matrix stored internally as an array of floats in
+ column-major order so as to be compatible with OpenGL.  Examples:
+ ~~~
+ // constructing various matrices:
+ Matrix4 T = Matrix4::Translation(Vector3(1,0,0));
+ Matrix4 S = Matrix4::Scale(Vector3(2,2,2));
+ Matrix4 R = Matrix4::RotateX(GfxMath::toRadians(45.0));
+
+ // compose matrices together by multiplication
+ Matrix4 M = T * R * S;
+ Matrix4 Minv = M.Inverse();
+ 
+ // transforming points, vectors, etc.
+ Point3 p1(1,1,1);
+ Point3 p2 = M * p1;
+ 
+ Vector3 v1(1,1,1);
+ Vector3 v2 = M * v1;
+
+ Ray r1(p1, v1);
+ Ray r2 = M * r1;
+ ~~~
+ */
 class Matrix4 {
 public: 
 
-    /// Default constructor creates an identity matrix:
+    /// The default constructor creates an identity matrix:
     Matrix4();
 
     /// Constructs a matrix given from an array of 16 floats in OpenGL matrix format
@@ -76,21 +98,22 @@ public:
     /// Vector3 xAxis = mat.getColumnAsVector3(0);
     /// Vector3 yAxis = mat.getColumnAsVector3(1);
     /// Vector3 zAxis = mat.getColumnAsVector3(2);
-    Vector3 getColumnAsVector3(int c) const;
+    Vector3 ColumnToVector3(int c) const;
 
     /// Returns the c-th column of the matrix as a Vector type, e.g.,:
     /// Point3 pos = mat.getColumnAsPoint3(3);
-    Point3 getColumnAsPoint3(int c) const;
+    Point3 ColumnToPoint3(int c) const;
 
 
     // --- Static Constructors for Special Matrices ---
     
-    /// Returns a matrix constructed from individual elements passed in row major
-    /// order so that the matrix looks "correct" on the screen as you write this
-    /// constructor on 4 lines of code as below.  Note the that internally the
-    /// matrix constructed will be stored in a 16 element column major array to
-    /// be consistent with OpenGL.
-    static Matrix4 fromRowMajorElements(
+    /** Returns a matrix constructed from individual elements passed in row major
+     order so that the matrix looks "correct" on the screen as you write this
+     constructor on 4 lines of code as below.  Note the that internally the
+     matrix constructed will be stored in a 16 element column major array to
+     be consistent with OpenGL.
+     */
+    static Matrix4 FromRowMajorElements(
         const float r1c1, const float r1c2, const float r1c3, const float r1c4,
         const float r2c1, const float r2c2, const float r2c3, const float r2c4,
         const float r3c1, const float r3c2, const float r3c3, const float r3c4,
@@ -100,62 +123,66 @@ public:
     // --- Model Transformations ---
     
     /// Returns the scale matrix described by the vector
-    static Matrix4 scale(const Vector3& v);
+    static Matrix4 Scale(const Vector3& v);
 
     /// Returns the translation matrix described by the vector
-    static Matrix4 translation(const Vector3& v);
+    static Matrix4 Translation(const Vector3& v);
 
     /// Returns the rotation matrix about the x axis by the specified angle
-    static Matrix4 rotationX(const float radians);
+    static Matrix4 RotationX(const float radians);
 
     /// Returns the rotation matrix about the y axis by the specified angle
-    static Matrix4 rotationY(const float radians);
+    static Matrix4 RotationY(const float radians);
 
     /// Returns the rotation matrix about the z axis by the specified angle
-    static Matrix4 rotationZ(const float radians);
+    static Matrix4 RotationZ(const float radians);
 
     /// Returns the rotation matrix around the vector v placed at point p, rotate by angle a
-    static Matrix4 rotation(const Point3& p, const Vector3& v, const float a);
+    static Matrix4 Rotation(const Point3& p, const Vector3& v, const float a);
 
     // --- View Matrices ---
     
-    /// Returns a view matrix that centers the camera at the 'eye' position and
-    /// orients it to look at the desired 'target' point with the top of the
-    /// screen pointed as closely as possible in the direction of the 'up' vector.
-    static Matrix4 lookAt(Point3 eye, Point3 target, Vector3 up);
+    /** Returns a view matrix that centers the camera at the 'eye' position and
+     orients it to look at the desired 'target' point with the top of the
+     screen pointed as closely as possible in the direction of the 'up' vector.
+     */
+    static Matrix4 LookAt(Point3 eye, Point3 target, Vector3 up);
 
     // --- Projection Matrices ---
     
     /// Returns a perspective projection matrix equivalent to the one gluPerspective
     /// creates.
-    static Matrix4 perspective(float fovyInDegrees, float aspectRatio, float near, float far);
+    static Matrix4 Perspective(float fovyInDegrees, float aspectRatio, float near, float far);
     
     /// Returns a projection matrix equivalent the one glFrustum creates
-    static Matrix4 frustum(float left, float right, float bottom, float top, float near, float far);
+    static Matrix4 Frustum(float left, float right, float bottom, float top, float near, float far);
 
-    // --- Transpose, Inverse, and Other General Matrix Functions ---
+    // --- Inverse, Transposeand Other General Matrix Functions ---
 
-    /// Returns an orthonormal version of the matrix, i.e., guarantees that the
-    /// rotational component of the matrix is built from column vectors that are
-    /// all unit vectors and orthogonal to each other.
-    Matrix4 orthonormal() const;
+    /// Returns the inverse of the 4x4 matrix if it is nonsingular.  If it is
+    /// singular, then returns the identity matrix.
+    Matrix4 Inverse() const;
+    
+    /** Returns an orthonormal version of the matrix, i.e., guarantees that the
+     rotational component of the matrix is built from column vectors that are
+     all unit vectors and orthogonal to each other.
+     */
+    Matrix4 Orthonormal() const;
 
     /// Returns the transpose of the matrix
-    Matrix4 transpose() const;
+    Matrix4 Transpose() const;
 
-    // Returns the determinant of the 3x3 matrix formed by excluding the specified row and column
-    // from the 4x4 matrix.
-    float subDeterminant(int excludeRow, int excludeCol) const;
+    /// Returns the determinant of the 3x3 matrix formed by excluding the specified
+    /// row and column from the 4x4 matrix.
+    float SubDeterminant(int excludeRow, int excludeCol) const;
 
-    // Returns the cofactor matrix.
-    Matrix4 cofactor() const;
+    /// Returns the cofactor matrix.
+    Matrix4 Cofactor() const;
 
-    // Returns the determinant of the 4x4 matrix
-    float determinant() const;
+    /// Returns the determinant of the 4x4 matrix
+    float Determinant() const;
 
-    // Returns the inverse of the 4x4 matrix if it is nonsingular.  If it is singular, then returns the
-    // identity matrix. 
-    Matrix4 inverse() const;
+
 
 private:
     float m[16];

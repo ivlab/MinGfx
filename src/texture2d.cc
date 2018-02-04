@@ -1,3 +1,8 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
 
 #include "texture2d.h"
 #include "platform.h"
@@ -13,7 +18,7 @@
 #include <iostream>
 
 
-namespace MinGfx {
+namespace mingfx {
 
     
     
@@ -30,7 +35,7 @@ Texture2D::~Texture2D() {
 bool Texture2D::InitFromFile(const std::string &filename) {
     std::cout << "Loading texture from file: " << filename << std::endl;
 
-    if (Platform::fileExists(filename)) {
+    if (Platform::FileExists(filename)) {
         stbi_set_unpremultiply_on_load(1);
         stbi_convert_iphone_png_to_rgb(1);
         int numChannels;
@@ -114,6 +119,10 @@ void Texture2D::set_filter_mode(GLenum filterMode) {
     glBindTexture(GL_TEXTURE_2D, texID_);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filterMode_);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filterMode_);
+}
+
+bool Texture2D::initialized() const {
+    return texID_ != 0;
 }
 
     

@@ -44,16 +44,17 @@ public:
     void OnPauseBtnPressed();
 
 
-    void OnMouseMove(int x, int y);
+    void OnMouseMove(const Point2 &pos, const Vector2 &delta);
 
-    void OnLeftMouseDown(int x, int y);
-
-    void OnLeftMouseUp(int x, int y);
-
-    void OnRightMouseDown(int x, int y);
-
-    void OnRightMouseUp(int x, int y);
-
+    void OnLeftMouseDown(const Point2 &pos);
+    void OnLeftMouseDrag(const Point2 &pos, const Vector2 &delta);
+    void OnLeftMouseUp(const Point2 &pos);
+    
+    void OnRightMouseDown(const Point2 &pos);
+    void OnRightMouseDrag(const Point2 &pos, const Vector2 &delta);
+    void OnRightMouseUp(const Point2 &pos);
+    
+    
     void OnKeyDown(const char *c, int modifiers);
 
     void OnKeyUp(const char *c, int modifiers);

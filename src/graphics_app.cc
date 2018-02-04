@@ -1,9 +1,13 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
 
 #include "graphics_app.h"
 
 
-
-namespace MinGfx {
+namespace mingfx {
 
 
 
@@ -170,10 +174,12 @@ bool GraphicsApp::cursor_pos_glfw_cb(double x, double y) {
         Point2 cur(x,y);
         Vector2 delta = cur - lastMouse_;
 
-        // always generate a mouse move event
-        OnMouseMove(cur, delta);
+        // if no buttons are down, generate a mouse move event
+        if (!leftDown_ && !middleDown_ && !rightDown_) {
+            OnMouseMove(cur, delta);
+        }
         
-        // also generate a mouse drag event if the corresponding button is held down
+        // if a button is down, generate a corresponding mouse drag event
         if (leftDown_) {
             OnLeftMouseDrag(cur, delta);
         }
@@ -313,21 +319,21 @@ bool GraphicsApp::resize_glfw_cb(int width, int height) {
 }
 
 
-bool GraphicsApp::is_key_down(int key) {
+bool GraphicsApp::IsKeyDown(int key) {
     return (glfwGetKey(window_, key) == GLFW_PRESS);
 }
 
-bool GraphicsApp::is_left_mouse_down() {
+bool GraphicsApp::IsLeftMouseDown() {
     return (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS);
 }
 
 
-bool GraphicsApp::is_middle_mouse_down() {
+bool GraphicsApp::IsMiddleMouseDown() {
     return (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS);
 }
 
 
-bool GraphicsApp::is_right_mouse_down() {
+bool GraphicsApp::IsRightMouseDown() {
     return (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS);
 }
 
@@ -363,31 +369,31 @@ int GraphicsApp::framebuffer_height() {
     return height;
 }
     
-Point2 GraphicsApp::pixels_to_normalized_coordinates(Point2 pointInPixels) {
+Point2 GraphicsApp::PixelsToNormalizedDeviceCoords(Point2 pointInPixels) {
     float x = (pointInPixels[0] / window_width()) * 2.0 - 1.0;
     float y = (1.0 - (pointInPixels[1] / window_height())) * 2.0 - 1.0;
     return Point2(x,y);
 }
 
-Point2 GraphicsApp::normalized_coordinates_to_pixels(Point2 pointInNDC) {
+Point2 GraphicsApp::NormalizedDeviceCoordsToPixels(Point2 pointInNDC) {
     float x = 0.5 * (pointInNDC[0] + 1.0) * window_width();
     float y = (1.0 - (0.5 * (pointInNDC[1] + 1.0))) * window_height();
     return Point2(x,y);
 }
 
-Vector2 GraphicsApp::pixels_to_normalized_coordinates(Vector2 vectorInPixels) {
+Vector2 GraphicsApp::PixelsToNormalizedDeviceCoords(Vector2 vectorInPixels) {
     Point2 tmp(vectorInPixels[0], vectorInPixels[1]);
-    tmp = pixels_to_normalized_coordinates(tmp);
+    tmp = PixelsToNormalizedDeviceCoords(tmp);
     return Vector2(tmp[0], tmp[1]);
 }
 
-Vector2 GraphicsApp::normalized_coordinates_to_pixels(Vector2 vectorInNDC) {
+Vector2 GraphicsApp::NormalizedDeviceCoordsToPixels(Vector2 vectorInNDC) {
     Point2 tmp(vectorInNDC[0], vectorInNDC[1]);
-    tmp = normalized_coordinates_to_pixels(tmp);
+    tmp = NormalizedDeviceCoordsToPixels(tmp);
     return Vector2(tmp[0], tmp[1]);
 }
 
-float GraphicsApp::z_value_at_pixel(const Point2 &pointInPixels, unsigned int whichBuffer) {
+float GraphicsApp::ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int whichBuffer) {
     // scale screen points to framebuffer size, since they are not the same on retina displays
     float x01 = pointInPixels[0] / window_width();
     float y01 = pointInPixels[1] / window_height();

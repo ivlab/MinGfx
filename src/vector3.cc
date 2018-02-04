@@ -1,8 +1,14 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "vector3.h"
 
 #include <math.h>
 
-namespace MinGfx {
+namespace mingfx {
 
 static const Vector3 s_zerov3d = Vector3(0,0,0);
 static const Vector3 s_onev3d = Vector3(1,1,1);
@@ -10,12 +16,11 @@ static const Vector3 s_unitxv3d = Vector3(1,0,0);
 static const Vector3 s_unityv3d = Vector3(0,1,0);
 static const Vector3 s_unitzv3d = Vector3(0,0,1);
 
-const Vector3& Vector3::zero() { return s_zerov3d; }
-const Vector3& Vector3::one() { return s_onev3d; }
-const Vector3& Vector3::unitX() { return s_unitxv3d; }
-const Vector3& Vector3::unitY() { return s_unityv3d; }
-const Vector3& Vector3::unitZ() { return s_unitzv3d; }
-
+const Vector3& Vector3::Zero() { return s_zerov3d; }
+const Vector3& Vector3::One() { return s_onev3d; }
+const Vector3& Vector3::UnitX() { return s_unitxv3d; }
+const Vector3& Vector3::UnitY() { return s_unityv3d; }
+const Vector3& Vector3::UnitZ() { return s_unitzv3d; }
     
     
 Vector3::Vector3() {
@@ -78,21 +83,21 @@ float& Vector3::operator[](const int i) {
     return v[i];
 }
   
-float Vector3::dot(const Vector3& other) const {
+float Vector3::Dot(const Vector3& other) const {
     return v[0]*other[0] + v[1]*other[1] + v[2]*other[2];
 }
 
-Vector3 Vector3::cross(const Vector3& other) const {
+Vector3 Vector3::Cross(const Vector3& other) const {
     return Vector3(v[1] * other[2] - v[2] * other[1],
                    v[2] * other[0] - v[0] * other[2],
                    v[0] * other[1] - v[1] * other[0]);
 }
 
-float Vector3::length() const {
+float Vector3::Length() const {
     return sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2]);
 }
 
-void Vector3::normalize() {
+void Vector3::Normalize() {
     // Hill & Kelley provide this:
     float sizeSq =  + v[0]*v[0] + v[1]*v[1] + v[2]*v[2];
     if (sizeSq < MINGFX_MATH_EPSILON) {
@@ -105,9 +110,9 @@ void Vector3::normalize() {
 }
 
 
-Vector3 Vector3::to_unit() const {
+Vector3 Vector3::ToUnit() const {
     Vector3 v(*this);
-    v.normalize();
+    v.Normalize();
     return v;
 }
 
@@ -117,16 +122,16 @@ const float * Vector3::value_ptr() const {
 
     
     
-Vector3 Vector3::normalize(const Vector3 &v) {
-    return v.to_unit();
+Vector3 Vector3::Normalize(const Vector3 &v) {
+    return v.ToUnit();
 }
 
-Vector3 Vector3::cross(const Vector3 &v1, const Vector3 &v2) {
-    return v1.cross(v2);
+Vector3 Vector3::Cross(const Vector3 &v1, const Vector3 &v2) {
+    return v1.Cross(v2);
 }
 
-float Vector3::dot(const Vector3 &v1, const Vector3 &v2) {
-    return v1.dot(v2);
+float Vector3::Dot(const Vector3 &v1, const Vector3 &v2) {
+    return v1.Dot(v2);
 }
     
 

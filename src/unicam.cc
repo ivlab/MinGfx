@@ -1,8 +1,14 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "unicam.h"
 
 #include "gfxmath.h"
 
-namespace MinGfx {
+namespace mingfx {
 
 
     /* TODO:
@@ -50,10 +56,10 @@ namespace MinGfx {
             
             hitGeometry_ = (mouseZ < 1.0);
             if (hitGeometry_) {
-                hitPoint_ = filmplane2D_to_world3D(V_, Pdraw_, mousePos, mouseZ);
+                hitPoint_ = GfxMath::ScreenToWorld(V_, Pdraw_, mousePos, mouseZ);
             }
             else {
-                hitPoint_ = filmplane2D_to_plane3D(V_, Pdraw_, Point2(0,0), defaultDepth_);
+                hitPoint_ = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0,0), defaultDepth_);
             }
             showIcon_ = true;
             state_ = PAN_DOLLY_ROT_DECISION;
@@ -106,28 +112,28 @@ namespace MinGfx {
             }
         }
         else if (state_ == PAN) {
-            Matrix4 camMat = V_.inverse();
-            Point3 eye = camMat.getColumnAsPoint3(3);
-            Vector3 look = -camMat.getColumnAsVector3(2);
-            float depth = (hitPoint_ - eye).dot(look);
-            Point3 pWorld1 = filmplane2D_to_plane3D(V_, Pdraw_, mouseLast_, depth);
-            Point3 pWorld2 = filmplane2D_to_plane3D(V_, Pdraw_, mousePos, depth);
-            V_ = V_ * Matrix4::translation(pWorld2 - pWorld1);
+            Matrix4 camMat = V_.Inverse();
+            Point3 eye = camMat.ColumnToPoint3(3);
+            Vector3 look = -camMat.ColumnToVector3(2);
+            float depth = (hitPoint_ - eye).Dot(look);
+            Point3 pWorld1 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, mouseLast_, depth);
+            Point3 pWorld2 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, mousePos, depth);
+            V_ = V_ * Matrix4::Translation(pWorld2 - pWorld1);
         }
         else if (state_ == DOLLY) {
             if (!dollyInitialized_) {
                 // Setup dollyFactor so that if you move the mouse to the bottom of the screen, the point
                 // you clicked on will be right on top of the camera.
-                Matrix4 camMat = V_.inverse();
-                Point3 eye = camMat.getColumnAsPoint3(3);
-                Vector3 look = -camMat.getColumnAsVector3(2);
-                float depth = (hitPoint_ - eye).dot(look);
+                Matrix4 camMat = V_.Inverse();
+                Point3 eye = camMat.ColumnToPoint3(3);
+                Vector3 look = -camMat.ColumnToVector3(2);
+                float depth = (hitPoint_ - eye).Dot(look);
                 float deltaYToBottom = initialClickPos_[1] + 1;
                 dollyFactor_ = depth / deltaYToBottom;
                 dollyInitialized_ = true;
             }
             Vector3 d(0, 0, -dollyFactor_ * (mousePos[1] - mouseLast_[1]));
-            V_ = Matrix4::translation(d) * V_ ;
+            V_ = Matrix4::Translation(d) * V_ ;
         }
         else if (state_ == ROT) {
             if (!rotInitialized_) {
@@ -135,23 +141,23 @@ namespace MinGfx {
                 if (hitGeometry_) {
                     // if we hit some geometry, then make that the center of rotation
                     boundingSphereCtr_ = hitPoint_;
-                    Matrix4 camMat = V_.inverse();
-                    Point3 eye = camMat.getColumnAsPoint3(3);
-                    Vector3 look = -camMat.getColumnAsVector3(2);
-                    depth = (hitPoint_ - eye).dot(look);
+                    Matrix4 camMat = V_.Inverse();
+                    Point3 eye = camMat.ColumnToPoint3(3);
+                    Vector3 look = -camMat.ColumnToVector3(2);
+                    depth = (hitPoint_ - eye).Dot(look);
                 }
                 else {
                     // if we did not hit any geometry, then center the bounding sphere in front of
                     // the camera at a distance that can be configured by the user.
-                    boundingSphereCtr_ = filmplane2D_to_plane3D(V_, Pdraw_, Point2(0,0), defaultDepth_);
+                    boundingSphereCtr_ = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0,0), defaultDepth_);
                     depth = defaultDepth_;
                 }
                 
                 // determine the size of the bounding sphere by projecting a screen-space
                 // distance of 0.75 units to the depth of the sphere center
-                Point3 pWorld1 = filmplane2D_to_plane3D(V_, Pdraw_, Point2(0,0), depth);
-                Point3 pWorld2 = filmplane2D_to_plane3D(V_, Pdraw_, Point2(0.75,0), depth);
-                boundingSphereRad_ = (pWorld2-pWorld1).length();
+                Point3 pWorld1 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0,0), depth);
+                Point3 pWorld2 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0.75,0), depth);
+                boundingSphereRad_ = (pWorld2-pWorld1).Length();
                 
                 rotLastTime_ = elapsedTime_;
                 rotAngularVelBuffer_.clear();
@@ -161,12 +167,12 @@ namespace MinGfx {
                 // Do a trackball rotation based on the mouse movement and the bounding sphere
                 // setup earlier.
 
-                Matrix4 camMat = V_.inverse();
-                Point3 eye = camMat.getColumnAsPoint3(3);
+                Matrix4 camMat = V_.Inverse();
+                Point3 eye = camMat.ColumnToPoint3(3);
                 
                 // last mouse pos
                 bool hit1 = false;
-                Point3 mouse3D1 = filmplane2D_to_nearplane3D(V_, Pdraw_, mouseLast_);
+                Point3 mouse3D1 = GfxMath::ScreenToNearPlane(V_, Pdraw_, mouseLast_);
                 Ray ray1(eye, mouse3D1 - eye);
                 float t1;
                 Point3 iPoint1;
@@ -176,7 +182,7 @@ namespace MinGfx {
                 
                 // current mouse pos
                 bool hit2 = false;
-                Point3 mouse3D2 = filmplane2D_to_nearplane3D(V_, Pdraw_, mousePos);
+                Point3 mouse3D2 = GfxMath::ScreenToNearPlane(V_, Pdraw_, mousePos);
                 Ray ray2(eye, mouse3D2 - eye);
                 float t2;
                 Point3 iPoint2;
@@ -186,15 +192,15 @@ namespace MinGfx {
                 rotLastIPoint_ = iPoint2;
                 
                 if (hit1 && hit2) {
-                    Vector3 v1 = (iPoint1 - boundingSphereCtr_).to_unit();
-                    Vector3 v2 = (iPoint2 - boundingSphereCtr_).to_unit();
+                    Vector3 v1 = (iPoint1 - boundingSphereCtr_).ToUnit();
+                    Vector3 v2 = (iPoint2 - boundingSphereCtr_).ToUnit();
                     
-                    rotAxis_ = v1.cross(v2).to_unit();
-                    float angle = std::acos(v1.dot(v2));
+                    rotAxis_ = v1.Cross(v2).ToUnit();
+                    float angle = std::acos(v1.Dot(v2));
 
                     if (std::isfinite(angle)) {
-                        Matrix4 R = Matrix4::rotation(boundingSphereCtr_, rotAxis_, angle);
-                        R = R.orthonormal();
+                        Matrix4 R = Matrix4::Rotation(boundingSphereCtr_, rotAxis_, angle);
+                        R = R.Orthonormal();
                         V_ = V_ * R;
                         //V_ = V_.orthonormal();
                     
@@ -259,7 +265,7 @@ namespace MinGfx {
             double deltaT = elapsedTime_ - rotLastTime_;
             rotLastTime_ = elapsedTime_;
             double angle = rotAngularVel_ * deltaT;
-            Matrix4 R = Matrix4::rotation(boundingSphereCtr_, rotAxis_, angle);
+            Matrix4 R = Matrix4::Rotation(boundingSphereCtr_, rotAxis_, angle);
             //R = R.orthonormal();
             V_ = V_ * R;
         }
@@ -270,15 +276,15 @@ namespace MinGfx {
         Pdraw_ = projectionMatrix;
         
         if (showIcon_) {
-            Matrix4 camMat = V_.inverse();
-            Point3 eye = camMat.getColumnAsPoint3(3);
-            Vector3 look = -camMat.getColumnAsVector3(2);
-            float depth = (hitPoint_ - eye).dot(look);
-            Point3 pWorld1 = filmplane2D_to_plane3D(V_, Pdraw_, Point2(0,0), depth);
-            Point3 pWorld2 = filmplane2D_to_plane3D(V_, Pdraw_, Point2(0.015,0), depth);
-            float rad = (pWorld2 - pWorld1).length();
-            Matrix4 M = Matrix4::translation(hitPoint_ - Point3::origin()) * Matrix4::scale(Vector3(rad, rad, rad));
-            quickShapes_.Sphere(M, V_, Pdraw_, Color(0,0,0));
+            Matrix4 camMat = V_.Inverse();
+            Point3 eye = camMat.ColumnToPoint3(3);
+            Vector3 look = -camMat.ColumnToVector3(2);
+            float depth = (hitPoint_ - eye).Dot(look);
+            Point3 pWorld1 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0,0), depth);
+            Point3 pWorld2 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0.015,0), depth);
+            float rad = (pWorld2 - pWorld1).Length();
+            Matrix4 M = Matrix4::Translation(hitPoint_ - Point3::Origin()) * Matrix4::Scale(Vector3(rad, rad, rad));
+            quickShapes_.DrawSphere(M, V_, Pdraw_, Color(0,0,0));
         }
     }
     

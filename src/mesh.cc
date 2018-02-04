@@ -1,3 +1,9 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "mesh.h"
 
 #include "opengl_headers.h"
@@ -5,7 +11,7 @@
 #include <sstream>
 #include <fstream>
 
-namespace MinGfx {
+namespace mingfx {
     
     Mesh::Mesh() : gpuDirty_(true) {
     }
@@ -438,7 +444,7 @@ namespace MinGfx {
         return Point2(texCoords_[textureUnit][2*i], texCoords_[textureUnit][2*i+1]);
     }
     
-    std::vector<unsigned int> Mesh::triangle(int triangleID) const {
+    std::vector<unsigned int> Mesh::triangle_vertices(int triangleID) const {
         std::vector<unsigned int> tri;
         int i = 3*triangleID;
         if (indices_.size()) {

@@ -46,25 +46,36 @@ void CircleViewer::OnPauseBtnPressed() {
 }
 
 
-void CircleViewer::OnMouseMove(int x, int y) {
-    std::cout << "Mouse moved to (" << x << ", " << y << ")" << std::endl; 
+void CircleViewer::OnMouseMove(const Point2 &pos, const Vector2 &delta) {
+    std::cout << "Mouse moved by " << delta << " to reach " << pos << std::endl;
 }
 
-void CircleViewer::OnLeftMouseDown(int x, int y) {
-    std::cout << "Left mouse button DOWN (" << x << ", " << y << ")" << std::endl; 
+
+void CircleViewer::OnLeftMouseDown(const Point2 &pos) {
+    std::cout << "Left mouse button DOWN at " << pos << std::endl;
 }
 
-void CircleViewer::OnLeftMouseUp(int x, int y) {
-    std::cout << "Left mouse button UP (" << x << ", " << y << ")" << std::endl; 
+void CircleViewer::OnLeftMouseDrag(const Point2 &pos, const Vector2 &delta) {
+    std::cout << "Mouse dragged (left button) by " << delta << " to reach " << pos << std::endl;
 }
 
-void CircleViewer::OnRightMouseDown(int x, int y) {
-    std::cout << "Right mouse button DOWN (" << x << ", " << y << ")" << std::endl; 
+void CircleViewer::OnLeftMouseUp(const Point2 &pos) {
+    std::cout << "Left mouse button UP at " << pos << std::endl;
 }
 
-void CircleViewer::OnRightMouseUp(int x, int y) {
-    std::cout << "Right mouse button UP (" << x << ", " << y << ")" << std::endl; 
+
+void CircleViewer::OnRightMouseDown(const Point2 &pos) {
+    std::cout << "Right mouse button DOWN at " << pos << std::endl;
 }
+
+void CircleViewer::OnRightMouseDrag(const Point2 &pos, const Vector2 &delta) {
+    std::cout << "Mouse dragged (right button) by " << delta << " to reach " << pos << std::endl;
+}
+
+void CircleViewer::OnRightMouseUp(const Point2 &pos) {
+    std::cout << "Right mouse button UP at " << pos << std::endl;
+}
+
 
 void CircleViewer::OnKeyDown(const char *c, int modifiers) {
     std::cout << "Key DOWN (" << c << ") modifiers=" << modifiers << std::endl; 
@@ -73,6 +84,7 @@ void CircleViewer::OnKeyDown(const char *c, int modifiers) {
 void CircleViewer::OnKeyUp(const char *c, int modifiers) {
     std::cout << "Key UP (" << c << ") modifiers=" << modifiers << std::endl; 
 }
+
 
 void CircleViewer::OnSpecialKeyDown(int key, int scancode, int modifiers) {
     std::cout << "Special Key DOWN key=" << key << " scancode=" << scancode << " modifiers=" << modifiers << std::endl; 

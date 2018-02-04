@@ -1,8 +1,14 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "color.h"
 
 #include <math.h>
 
-namespace MinGfx {
+namespace mingfx {
 
 Color::Color() {
     c[0] = 0.0;

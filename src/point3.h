@@ -1,34 +1,45 @@
-/** This small math library provides lightweight support for the
-    graphics math needed inside MinVR. Some aspects (e.g., separate
-    classes for Point3 and Vector3) are inspired the math libraries
-    used in Brown Univ. computer graphics courses.  Also based on some
-    routines introduced in the Hill & Kelley text used in UMN courses.
-    Intended to be lightweight, for use inside MinVR only since
-    application programmers will probably want to use the math package
-    that is native to whatever graphics engine they are pairing with
-    MinVR.
-*/
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
+ */
 
 #ifndef SRC_POINT3_H_
 #define SRC_POINT3_H_
 
 #include <iostream>
 
-namespace MinGfx {
+namespace mingfx {
 
-// epsilon value used for == and != comparisons
+/// Epsilon value used for == and != comparisons within MinGfx
 #define MINGFX_MATH_EPSILON 1e-8
 
     
-/** @class Point3
-  * @brief 3D Point with floating point coordinates.
-  */
+/** A 3D Point with floating point coordinates, used for storing vertices and
+ all sorts of other 3D graphics operations.  Point3s can be transformed by a
+ Matrix4.  Example:
+ ~~~
+ Point3 a(0,0,1);
+ std::cout << a << std::endl;
+ Matrix4 M = Matrix4::Translation(Vector3(0,0,-1));
+ Point3 b = M * a;
+ std::cout << b << std::endl;
+ ~~~
+ */
 class Point3 {
 public:  
     /// Default point at the origin
     Point3();
 
-    /// Constructs a point given (x,y,z, 1)
+    /// Constructs a point given (x,y,z,1), where the 1 comes from the use of
+    /// homogeneous coordinates in computer graphics.
     Point3(float x, float y, float z);
 
     /// Constructs a point given a pointer to x,y,z data
@@ -58,10 +69,14 @@ public:
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
 
-    /// Special points that are frequently needed
-    static const Point3& origin();
-    static const Point3& zero();
-    static const Point3& one();
+    /// (0,0,0) - a shortcut for a special point that is frequently needed
+    static const Point3& Origin();
+
+    /// (0,0,0) - a shortcut for a special point that is frequently needed
+    static const Point3& Zero();
+    
+    /// (1,1,1) - a shortcut for a special point that is frequently needed
+    static const Point3& One();
     
 private:
     float p[3];

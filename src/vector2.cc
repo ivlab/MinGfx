@@ -1,8 +1,14 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
+
 #include "vector2.h"
 
 #include <math.h>
 
-namespace MinGfx {
+namespace mingfx {
     
     
 static const Vector2 s_zerov2d = Vector2(0,0);
@@ -10,10 +16,10 @@ static const Vector2 s_onev2d = Vector2(1,1);
 static const Vector2 s_unitxv2d = Vector2(1,0);
 static const Vector2 s_unityv2d = Vector2(0,1);
 
-const Vector2& Vector2::zero() { return s_zerov2d; }
-const Vector2& Vector2::one() { return s_onev2d; }
-const Vector2& Vector2::unitX() { return s_unitxv2d; }
-const Vector2& Vector2::unitY() { return s_unityv2d; }
+const Vector2& Vector2::Zero() { return s_zerov2d; }
+const Vector2& Vector2::One() { return s_onev2d; }
+const Vector2& Vector2::UnitX() { return s_unitxv2d; }
+const Vector2& Vector2::UnitY() { return s_unityv2d; }
 
 Vector2::Vector2() {
     v[0] = 0.0;
@@ -68,15 +74,15 @@ float& Vector2::operator[](const int i) {
     return v[i];
 }
 
-float Vector2::dot(const Vector2& other) const {
+float Vector2::Dot(const Vector2& other) const {
     return v[0]*other[0] + v[1]*other[1];
 }
 
-float Vector2::length() const {
+float Vector2::Length() const {
     return sqrt(v[0]*v[0] + v[1]*v[1]);
 }
 
-void Vector2::normalize() {
+void Vector2::Normalize() {
     // Hill & Kelley provide this:
     float sizeSq =  + v[0]*v[0] + v[1]*v[1];
     if (sizeSq < MINGFX_MATH_EPSILON) {
@@ -87,9 +93,9 @@ void Vector2::normalize() {
     v[1] *= scaleFactor;
 }
 
-Vector2 Vector2::to_unit() const {
+Vector2 Vector2::ToUnit() const {
     Vector2 v(*this);
-    v.normalize();
+    v.Normalize();
     return v;}
 
 
@@ -98,13 +104,13 @@ const float * Vector2::value_ptr() const {
 }
 
     
-Vector2 Vector2::normalize(const Vector2 &v) {
-    return v.to_unit();
+Vector2 Vector2::Normalize(const Vector2 &v) {
+    return v.ToUnit();
 }
 
 
-float Vector2::dot(const Vector2 &v1, const Vector2 &v2) {
-    return v1.dot(v2);
+float Vector2::Dot(const Vector2 &v1, const Vector2 &v2) {
+    return v1.Dot(v2);
 }
     
 

@@ -1,3 +1,8 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
 
 #include "shader_program.h"
 
@@ -7,7 +12,7 @@
 #include <fstream>
 
 
-namespace MinGfx {
+namespace mingfx {
 
 
 ShaderProgram::ShaderProgram() : vertexShader_(0), fragmentShader_(0), program_(0) {

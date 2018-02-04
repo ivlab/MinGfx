@@ -1,4 +1,14 @@
-/**
+/*
+ This file is part of the MinGfx Project.
+ 
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ 
+ Original Author(s) of this File:
+	Dan Keefe, 2018, University of Minnesota
+	
+ Author(s) of Significant Updates/Modifications to the File:
+	...
  */
 
 #ifndef SRC_POINT2_H_
@@ -6,24 +16,25 @@
 
 #include <iostream>
 
-namespace MinGfx {
+namespace mingfx {
 
-// epsilon value used for == and != comparisons
+/// Epsilon value used for == and != comparisons within MinGfx
 #define MINGFX_MATH_EPSILON 1e-8
 
 
-/** @class Point2
- * @brief 3D Point with floating point coordinates.
+/** A 2D Point with floating point coordinates, used for storing 2D texture
+ coordinates, screen-space graphics, and mouse input.
  */
 class Point2 {
 public:
     /// Default point at the origin
     Point2();
     
-    /// Constructs a point given (x,y, 1)
+    /// Constructs a point given (x,y,1), where the 1 comes from the use of
+    /// homogeneous coordinates in computer graphics.
     Point2(float x, float y);
     
-    /// Constructs a point given a pointer to x,y,z data
+    /// Constructs a point given a pointer to x,y data
     Point2(float *p);
     
     /// Copy constructor for point
@@ -51,10 +62,14 @@ public:
     const float * value_ptr() const;
     
 
-    /// Special points that are frequently needed
-    static const Point2& origin();
-    static const Point2& zero();
-    static const Point2& one();
+    /// (0,0) - a shortcut for a special point that is frequently needed
+    static const Point2& Origin();
+
+    /// (0,0) - a shortcut for a special point that is frequently needed
+    static const Point2& Zero();
+    
+    /// (1,1) - a shortcut for a special point that is frequently needed
+    static const Point2& One();
 
 private:
     float p[2];

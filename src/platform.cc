@@ -1,3 +1,8 @@
+/*
+ Copyright (c) 2017,2018 Regents of the University of Minnesota.
+ All Rights Reserved.
+ See corresponding header file for details.
+ */
 
 #include "platform.h"
 
@@ -13,9 +18,9 @@
 #endif
 
 
-namespace MinGfx {
+namespace mingfx {
     
-bool Platform::fileExists(const std::string &filename) {
+bool Platform::FileExists(const std::string &filename) {
 #ifdef WIN32
 	LPCTSTR  szPath = (LPCTSTR)filename.c_str();
 	DWORD dwAttrib = GetFileAttributes(szPath);
@@ -29,17 +34,17 @@ bool Platform::fileExists(const std::string &filename) {
 }
     
 
-std::string Platform::findFile(const std::string &basename, const std::vector<std::string> &searchpath) {
+std::string Platform::FindFile(const std::string &basename, const std::vector<std::string> &searchpath) {
     for (int i=0; i<searchpath.size(); i++) {
         std::string fname = searchpath[i] + "/" + basename;
-        if (Platform::fileExists(fname)) {
+        if (Platform::FileExists(fname)) {
             return fname;
         }
     }
     return basename;
 }
 
-std::string Platform::findFile(const std::string &basename, const std::string &searchpath) {
+std::string Platform::FindFile(const std::string &basename, const std::string &searchpath) {
     std::vector<std::string> paths;
     std::stringstream ss(searchpath);
     std::string path;
@@ -48,26 +53,26 @@ std::string Platform::findFile(const std::string &basename, const std::string &s
         if (ss.peek() == ';')
             ss.ignore();
     }
-    return findFile(basename, paths);
+    return FindFile(basename, paths);
 }
 
 
-std::string Platform::findMinGfxDataFile(const std::string &basename) {
+std::string Platform::FindMinGfxDataFile(const std::string &basename) {
     std::vector<std::string> searchpath;
     searchpath.push_back(".");
     searchpath.push_back("data");
     searchpath.push_back(MINGFX_DATA_DIR_INSTALL);
     searchpath.push_back(MINGFX_DATA_DIR_BUILD);
-    return findFile(basename, searchpath);
+    return FindFile(basename, searchpath);
 }
 
-std::string Platform::findMinGfxShaderFile(const std::string &basename) {
+std::string Platform::FindMinGfxShaderFile(const std::string &basename) {
     std::vector<std::string> searchpath;
     searchpath.push_back(".");
     searchpath.push_back("shaders");
     searchpath.push_back(MINGFX_SHADERS_DIR_INSTALL);
     searchpath.push_back(MINGFX_SHADERS_DIR_BUILD);
-    return findFile(basename, searchpath);
+    return FindFile(basename, searchpath);
 }
 
 
