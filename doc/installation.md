@@ -34,6 +34,7 @@ If you are using *cmake* you can pass a variety of other options to CMake on the
 
 Here's a complete annotated list of steps to setup a new build tree for creating graphics programs.  In truth, you don't need to create this entire build tree strucutre just to work with MinGfx, but this is good practice, and a good guide for students.
 
+
 ## 1. Create a Linux-Style Directory Tree
 
 Libraries will get installed to a lib/ directory.  Include files will go in include/, executables in bin/, and we'll put the source we are developing inside dev/.
@@ -47,12 +48,17 @@ mkdir bin
 mkdir dev
 ~~~
 
+IMPORTANT:  On Windows, you will need to add the `bin` directory you just created to your PATH environment variable.  If you have not done this before, you will find many instructions online.  Here is one good description of [how to add a directory to the PATH environment variable on Windows](https://www.java.com/en/download/help/path.xml).
+
+
+
 ## 2. Download the MinGfx Project
 To download use:
 ~~~
 cd dev
 git clone http://github.com/ivlab/MinGfx
 ~~~
+
 
 ## 3. Create an Initial CMake Build Configuration
 
@@ -69,11 +75,13 @@ Wait for CMake to do an initial configuration.  This will populate an initial li
 
 Do you see an error in the CMake output window?  If so, don't worry about this yet, we'll come back to it in a minute.
 
+
 ## 4. Set the CMAKE_INSTALL_PREFIX Variable to the Root of Your Directory Tree
 
 Now, using cmake-gui, scroll through the table of variables until you find the one named CMAKE_INSTALL_PREFIX.  Click on it and edit its value to point to the root of the directory tree you created in Step 1.  The root for the example tree used in Step 1 would be /Users/keefe/courses/csci4611/sw.  In other words, the root is the last directory before you get to lib, include, bin, and dev.
 
 Once you make this change, you can press the Configure button again.  It doesn't hurt to press Configure multiple times.  You need to do it at least once after every change you make.  Notice how the variables highlighted in red go away when you do this because they are no longer new options -- cmake knows that you have already had a chance to see them once.
+
 
 ## 5. If Needed, Set AUTOBUILD_NANOGUI to ON and Build Dependencies
 
@@ -87,35 +95,41 @@ Scroll through the list of CMake variables again until you find AUTOBUILD_NANOGU
 
 This step should finish without an error.  If you do see an error and you are working with this as part of a UMN course, you may need to stop now and ask for help from a TA or on the class forum -- perhaps there is something we haven't planned for in the particular setup of your computer.
 
+
 ## 6. Generate the Build System / Project Files
 
 Finally, you are ready to press the Generate button.  This is the step that will actually generate the Unix Makefiles, Visual Studio Solution File, or Xcode Project File needed to build MinGfx.  
+
 
 ## 7. Build MinGfx with the Specified Options
 
 Click Open Project if you generated project files for an IDE, or if you generated Unix Makefiles return to your shell and the build directory.  Now, build the project as you normally would in these enviornments.  
 
-For Xcode or Visual Studio `click the triangle button`.
+For Xcode: `click the Triangle button to build the ALL_BUILD target`
 
-For Unix Makefiles run `make`.
+For Visual Studio: In the Solution Explorer Window `right click on ALL_BUILD` and select `Build`
 
-## 8. Run a Test Program
+For Unix Makefiles: run `make all`.
 
-From within the build directory, you can try running:
 
-`tests/mingfx-blankwindow`
+## 8. Install the Library to your Directory Tree
 
-or 
+For Xcode: `click on ALL_BUILD to reveal a dropdown list and select install` then `click the Triangle button`
 
-`tests/mingfx-gui-plus-opengl`
+For Visual Studio:  In the Solution Explorer Window `right click on INSTALL` and select `Build`.
 
-## 9. Install the Library to your Directory Tree
-
-For Xcode or Visual Studio `change the build type to INSTALL or install` then `click the triangle button`.
-
-For Unix Makefiles run `make install`.
+For Unix Makefiles: run `make install`.
 
 To see if it worked take a look in the lib, include, and bin directories within the root of the tree you setup in Step 1.  You should see the test programs inside bin/ and folders for MinVR-1.0 inside lib/ and include/.
+
+
+## 9. Run a Test Program
+
+For Xcode: `click on ALL_BUILD to reveal a dropdown list and select mingfx-test-gui-plus-opengl` then `click the Triangle button`
+
+For Visual Studio: In the Solution Explorer Window `right click on mingfx-test-gui-plus-opengl` then selece `Set as StartUp Project`.  Now, `click the green triangle button to run the program`.  IMPORTANT NOTE: When the program runs it will need to find some .dlls that were installed to your `bin` directory in Step 8. So, the bin directory *must be in your windows PATH*.  If you skipped this part of Step 1, go back and add `bin` to your PATH environment variable now.  Then, you may need to restart Visual Studio for it to recognize the new setting.
+
+For Unix Makefiles: from within the build directory run: `tests/mingfx-gui-plus-opengl`
 
 
 

@@ -4,7 +4,7 @@ MinGfx Toolkit Documentation {#mainpage}
 ## Getting Started
 1. [libMinGfx Installation Guide](@ref installation)
 2. [Create Your Own Graphics Program by Copying an Example](@ref example)
-3. [Bookmark the MinGfx Programming Reference](@ref api)
+3. [Bookmark the API - The MinGfx Programming Reference Organized by Topic](@ref api)
 
 ## Programming Guide
 * [MinGfx Programming Reference](@ref api)

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['mingfx_20programming_20reference',['MinGfx Programming Reference',['../api.html',1,'']]],
   ['mainpage_2emd',['mainpage.md',['../mainpage_8md.html',1,'']]],
   ['material',['material',['../classmingfx_1_1_quick_shapes.html#ac8b702a25296cfea15eef1e185333272',1,'mingfx::QuickShapes']]],
   ['materialproperties',['MaterialProperties',['../classmingfx_1_1_default_shader_1_1_material_properties.html',1,'mingfx::DefaultShader']]],

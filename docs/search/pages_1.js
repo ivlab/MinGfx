@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mingfx_20programming_20reference',['MinGfx Programming Reference',['../api.html',1,'']]]
+  ['installation_20guide',['Installation Guide',['../installation.html',1,'']]]
 ];

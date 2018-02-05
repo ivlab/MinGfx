@@ -1,7 +1,7 @@
-MinGfx Programming Reference {#api}
+API - MinGfx Programming Reference Organized by Topic {#api}
 ==========
 
-# API
+# API by Topic
 
 | Application Class |
 |-------------------|

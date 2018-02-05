@@ -69,7 +69,7 @@ h3.groupheader {
 
 h1 {
     font-size: 150%;
-    background-color: black;
+    background-color: rgb(26, 93, 117);
     color: white;
     padding: 4px;
     margin-top: 60px;
@@ -127,22 +127,24 @@ dt {
 .tabs, .tabs2, .tabs3 {
     text-transform:uppercase;
     font-weight:normal;
-    color:rgb(150,150,150);
+    color:rgb(190,190,190);
     background-image: none;
     background-color: black;
     width: 100%;
     z-index: 101;
-    font-size: 12px;
+    font-size: 14px;
     font-family: "Helvetica", "Arial", sans-serif;
     text-shadow: none;
 }
 
 .tabs2 {
+    color: white;
     border-top:1px solid rgb(150,150,150);
     font-size: 10px;
     text-shadow: none;
 }
 .tabs3 {
+    color: white;
     font-size: 9px;
     text-shadow: none;
 }
@@ -160,7 +162,7 @@ dt {
     float: left;
     display: table-cell;
     background-image: none;
-    line-height: 20px;
+    line-height: 30px;
     list-style: none;
     font-weight: normal;
     text-shadow: none;
@@ -194,9 +196,41 @@ dt {
 
 .tablist li.current a {
     background-image: none;
-    color: rgb(193,184,90);
+    color: rgb(42, 153, 193);
     text-shadow: none;
 }
+
+
+.navpath li
+{
+    list-style-type:none;
+    float:left;
+    padding-left:10px;
+    padding-right:15px;
+    background-image:url('bc_s.png');
+    background-repeat:no-repeat;
+    background-position:right;
+    color:white;
+    font-size: 12px;
+}
+
+.navpath li.navelem a
+{
+    height:32px;
+    display:block;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    font-family: 'Lucida Grande',Geneva,Helvetica,Arial,sans-serif;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+}
+
+.navpath li.navelem a:hover
+{
+    color:white;
+}
+
 
 
 div.qindex, div.navpath {
@@ -245,7 +279,7 @@ div.qindex, div.navpath {
 
 a.el {
     font-weight: normal;
-    color: rgb(193,184,90);
+    color: rgb(42, 153, 193);
 }
 
 hr {
@@ -285,7 +319,7 @@ hr.footer {
 
 pre.fragment {
     border: none;
-    border-left: 3px solid rgb(193,184,90);
+    border-left: 3px solid rgb(42, 153, 193);
     background-color: white;
     padding: 4px 6px;
     margin: 4px 2px 4px 30px;
@@ -299,7 +333,7 @@ pre.fragment {
 
 div.fragment {
     border: none;
-    border-left: 3px solid rgb(193,184,90);
+    border-left: 3px solid rgb(42, 153, 193);
     background-color: white;
     padding: 4px 6px;
     margin: 4px 2px 4px 30px;
@@ -437,13 +471,13 @@ span.charliteral {
 
 
 a {
-    color: rgb(193,184,90);
+    color: rgb(42, 153, 193);
     font-weight: normal;
     text-decoration: none;
 }
 
 .contents a:visited {
-    color: rgb(193,184,90);
+    color: rgb(42, 153, 193);
 }
 
 
@@ -457,7 +491,7 @@ span.lineno {
 }
 
 #MSearchBox {
-    margin-top: -2px;
+    margin-top: 2px;
 }
 
 
@@ -483,4 +517,8 @@ table.doxtable th {
     font-weight: normal;
     text-transform: uppercase;
     text-align: left;
+}
+
+p code {
+    background-color: #E8E8E8;
 }

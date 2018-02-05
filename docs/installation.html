@@ -118,7 +118,8 @@ Setup a New Graphics Build Tree</h1>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;mkdir include</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;mkdir bin</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;mkdir dev</div>
-</div><!-- fragment --><h2>2. Download the MinGfx Project</h2>
+</div><!-- fragment --><p>IMPORTANT: On Windows, you will need to add the <code>bin</code> directory you just created to your PATH environment variable. If you have not done this before, you will find many instructions online. Here is one good description of <a href="https://www.java.com/en/download/help/path.xml">how to add a directory to the PATH environment variable on Windows</a>.</p>
+<h2>2. Download the MinGfx Project</h2>
 <p>To download use: </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;cd dev</div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;git clone http://github.com/ivlab/MinGfx</div>
 </div><!-- fragment --><h2>3. Create an Initial CMake Build Configuration</h2>
@@ -141,17 +142,18 @@ Setup a New Graphics Build Tree</h1>
 <p>Finally, you are ready to press the Generate button. This is the step that will actually generate the Unix Makefiles, Visual Studio Solution File, or Xcode Project File needed to build MinGfx.</p>
 <h2>7. Build MinGfx with the Specified Options</h2>
 <p>Click Open Project if you generated project files for an IDE, or if you generated Unix Makefiles return to your shell and the build directory. Now, build the project as you normally would in these enviornments.</p>
-<p>For Xcode or Visual Studio <code>click the triangle button</code>.</p>
-<p>For Unix Makefiles run <code>make</code>.</p>
-<h2>8. Run a Test Program</h2>
-<p>From within the build directory, you can try running:</p>
-<p><code>tests/mingfx-blankwindow</code></p>
-<p>or</p>
-<p><code>tests/mingfx-gui-plus-opengl</code></p>
-<h2>9. Install the Library to your Directory Tree</h2>
-<p>For Xcode or Visual Studio <code>change the build type to INSTALL or install</code> then <code>click the triangle button</code>.</p>
-<p>For Unix Makefiles run <code>make install</code>.</p>
+<p>For Xcode: <code>click the Triangle button to build the ALL_BUILD target</code></p>
+<p>For Visual Studio: In the Solution Explorer Window <code>right click on ALL_BUILD</code> and select <code>Build</code></p>
+<p>For Unix Makefiles: run <code>make all</code>.</p>
+<h2>8. Install the Library to your Directory Tree</h2>
+<p>For Xcode: <code>click on ALL_BUILD to reveal a dropdown list and select install</code> then <code>click the Triangle button</code></p>
+<p>For Visual Studio: In the Solution Explorer Window <code>right click on INSTALL</code> and select <code>Build</code>.</p>
+<p>For Unix Makefiles: run <code>make install</code>.</p>
 <p>To see if it worked take a look in the lib, include, and bin directories within the root of the tree you setup in Step 1. You should see the test programs inside bin/ and folders for MinVR-1.0 inside lib/ and include/.</p>
+<h2>9. Run a Test Program</h2>
+<p>For Xcode: <code>click on ALL_BUILD to reveal a dropdown list and select mingfx-test-gui-plus-opengl</code> then <code>click the Triangle button</code></p>
+<p>For Visual Studio: In the Solution Explorer Window <code>right click on mingfx-test-gui-plus-opengl</code> then selece <code>Set as StartUp Project</code>. Now, <code>click the green triangle button to run the program</code>. IMPORTANT NOTE: When the program runs it will need to find some .dlls that were installed to your <code>bin</code> directory in Step 8. So, the bin directory <em>must be in your windows PATH</em>. If you skipped this part of Step 1, go back and add <code>bin</code> to your PATH environment variable now. Then, you may need to restart Visual Studio for it to recognize the new setting.</p>
+<p>For Unix Makefiles: from within the build directory run: <code>tests/mingfx-gui-plus-opengl</code></p>
 <h1><a class="anchor" id="example"></a>
 Create Your Own Graphics Program</h1>
 <p><em>Prereq:</em> Before getting started, make sure you have installed MinGfx, going all the way through the 9th step above.</p>
