@@ -5,7 +5,8 @@
 
 * [libMinGfx Installation Guide](https://ivlab.github.io/MinGfx/installation.html)
 * [Creating Your Own Graphics Program by Copying an Example](https://ivlab.github.io/MinGfx/installation.html#example)
-* [API Programming Guide](https://ivlab.github.io/MinGfx/api.html)
+* [API Organized by Topic](https://ivlab.github.io/MinGfx/api.html)
+* [Source on GitHub](https://github.com/ivlab/MinGfx)
 
 
 *Project Overview:*
