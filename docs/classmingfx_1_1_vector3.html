@@ -184,6 +184,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aba6bc4f76d28a5913eb02536f703f619"><td class="memItemLeft" align="right" valign="top">const float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector3.html#aba6bc4f76d28a5913eb02536f703f619">value_ptr</a> () const </td></tr>
 <tr class="memdesc:aba6bc4f76d28a5913eb02536f703f619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the raw data array.  <a href="#aba6bc4f76d28a5913eb02536f703f619">More...</a><br /></td></tr>
 <tr class="separator:aba6bc4f76d28a5913eb02536f703f619"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f5484486beb05000907ad37f7a0858f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector3.html#a6f5484486beb05000907ad37f7a0858f">Lerp</a> (const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;b, float alpha) const </td></tr>
+<tr class="memdesc:a6f5484486beb05000907ad37f7a0858f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between this vector and another. Alpha=0.0 returns this vector, and alpha=1.0 returns the other vector, other values blend between the two.  <a href="#a6f5484486beb05000907ad37f7a0858f">More...</a><br /></td></tr>
+<tr class="separator:a6f5484486beb05000907ad37f7a0858f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -211,6 +214,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a235fb20d4075960d2ce6198dc95ac507"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector3.html#a235fb20d4075960d2ce6198dc95ac507">Dot</a> (const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;v1, const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;v2)</td></tr>
 <tr class="memdesc:a235fb20d4075960d2ce6198dc95ac507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns v1 dot v2.  <a href="#a235fb20d4075960d2ce6198dc95ac507">More...</a><br /></td></tr>
 <tr class="separator:a235fb20d4075960d2ce6198dc95ac507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a489b042bedf8fa329ac05fe905ca1c6f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector3.html#a489b042bedf8fa329ac05fe905ca1c6f">Lerp</a> (const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;a, const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;b, float alpha)</td></tr>
+<tr class="memdesc:a489b042bedf8fa329ac05fe905ca1c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between two vectors. Alpha=0.0 returns 'a' and alpha=1.0 returns 'b', other values blend between the two.  <a href="#a489b042bedf8fa329ac05fe905ca1c6f">More...</a><br /></td></tr>
+<tr class="separator:a489b042bedf8fa329ac05fe905ca1c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7f57af8bbecbc793fa17def4521de4dd"></a>
@@ -464,6 +470,76 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the length of the vector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6f5484486beb05000907ad37f7a0858f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> mingfx::Vector3::Lerp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear interpolation between this vector and another. Alpha=0.0 returns this vector, and alpha=1.0 returns the other vector, other values blend between the two. </p>
+
+</div>
+</div>
+<a class="anchor" id="a489b042bedf8fa329ac05fe905ca1c6f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> mingfx::Vector3::Lerp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Linear interpolation between two vectors. Alpha=0.0 returns 'a' and alpha=1.0 returns 'b', other values blend between the two. </p>
 
 </div>
 </div>

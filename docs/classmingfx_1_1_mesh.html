@@ -138,43 +138,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="comment">// then you can draw the same way as in the previous example.</span></div>
 </div><!-- fragment --><p> In the mode used above where you add one triangle at a time there is no way to reuse vertices in multiple triangles. If you need to do this for efficiency or other reasons, then you can use an indexed faces mode where you set the mesh data structures directly.</p>
 <p>Example of creating a mesh that renders in an indexed faces mode: </p><div class="fragment"><div class="line">std::vector&lt;unsigned int&gt; indices;</div>
-<div class="line">std::vector&lt;float&gt; vertices;</div>
-<div class="line">std::vector&lt;float&gt; normals;</div>
-<div class="line">std::vector&lt;float&gt; texcoords;</div>
+<div class="line">std::vector&lt;Point3&gt; vertices;</div>
+<div class="line">std::vector&lt;Vector3&gt; normals;</div>
+<div class="line">std::vector&lt;Point2&gt; texcoords;</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// four vertices, each requires 3 floats: (x,y,z)</span></div>
-<div class="line">vertices.push_back(0); vertices.push_back(0); vertices.push_back(0);</div>
-<div class="line">vertices.push_back(1); vertices.push_back(0); vertices.push_back(0);</div>
-<div class="line">vertices.push_back(1); vertices.push_back(1); vertices.push_back(0);</div>
-<div class="line">vertices.push_back(0); vertices.push_back(1); vertices.push_back(0);</div>
+<div class="line">vertices.push_back(Point3(0,0,0));</div>
+<div class="line">vertices.push_back(Point3(1,0,0));</div>
+<div class="line">vertices.push_back(Point3(1,1,0));</div>
+<div class="line">vertices.push_back(Point3(0,1,0));</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// four normals, each requires 3 floats: (x,y,z)</span></div>
-<div class="line">normals.push_back(0); normals.push_back(0); normals.push_back(1);</div>
-<div class="line">normals.push_back(0); normals.push_back(0); normals.push_back(1);</div>
-<div class="line">normals.push_back(0); normals.push_back(0); normals.push_back(1);</div>
-<div class="line">normals.push_back(0); normals.push_back(0); normals.push_back(1);</div>
+<div class="line">normals.push_back(Vector3(0,0,1));</div>
+<div class="line">normals.push_back(Vector3(0,0,1));</div>
+<div class="line">normals.push_back(Vector3(0,0,1));</div>
+<div class="line">normals.push_back(Vector3(0,0,1));</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// four texture coords, each requires 2 floats: (u,v)</span></div>
-<div class="line">texcoords.push_back(0); texcoords.push_back(0);</div>
-<div class="line">texcoords.push_back(1); texcoords.push_back(0);</div>
-<div class="line">texcoords.push_back(1); texcoords.push_back(1);</div>
-<div class="line">texcoords.push_back(0); texcoords.push_back(1);</div>
+<div class="line">texcoords.push_back(Point2(0,0));</div>
+<div class="line">texcoords.push_back(Point2(1,0));</div>
+<div class="line">texcoords.push_back(Point2(1,1));</div>
+<div class="line">texcoords.push_back(Point2(0,1));</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// indices into the arrays above for the first triangle</span></div>
-<div class="line">indices.push_back(0); indices.push_back(1); indices.push_back(2);</div>
+<div class="line">indices.push_back(0); </div>
+<div class="line">indices.push_back(1); </div>
+<div class="line">indices.push_back(2);</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// indices for the second triangle, note some are reused</span></div>
-<div class="line">indices.push_back(0); indices.push_back(2); indices.push_back(3);</div>
+<div class="line">indices.push_back(0); </div>
+<div class="line">indices.push_back(2); </div>
+<div class="line">indices.push_back(3);</div>
 <div class="line"></div>
 <div class="line"><a class="code" href="classmingfx_1_1_mesh.html#a69613870d54989f4226e50caf4ca9fb9">Mesh</a> mesh1;</div>
-<div class="line">mesh1.SetVertices(&amp;vertices[0], vertices.size());</div>
-<div class="line">mesh1.SetNormals(&amp;normals[0], normals.size());</div>
-<div class="line">mesh1.SetTexCoords(0, &amp;texcoords[0], texcoords.size());</div>
+<div class="line">mesh1.SetVertices(vertices);</div>
+<div class="line">mesh1.SetNormals(normals);</div>
+<div class="line">mesh1.SetTexCoords(0, texcoords);</div>
 <div class="line">mesh1.UpdateGPUMemory();</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// then you can draw the same way as in the previous example.</span></div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00117">117</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00121">121</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="mesh_8h_source.html">mesh.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -191,18 +195,48 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a29eeb2e778704350789033ec4940d55a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a29eeb2e778704350789033ec4940d55a">AddTriangle</a> (<a class="el" href="classmingfx_1_1_point3.html">Point3</a> v1, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v2, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v3)</td></tr>
 <tr class="memdesc:a29eeb2e778704350789033ec4940d55a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a triangle to the mesh datastructure and returns a triangle ID.  <a href="#a29eeb2e778704350789033ec4940d55a">More...</a><br /></td></tr>
 <tr class="separator:a29eeb2e778704350789033ec4940d55a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6476eb95d2df79433489984c5f0526d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a6476eb95d2df79433489984c5f0526d1">UpdateTriangle</a> (int triangleID, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v1, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v2, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v3)</td></tr>
-<tr class="memdesc:a6476eb95d2df79433489984c5f0526d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the vertex positions for a triangle that has already been added to the mesh.  <a href="#a6476eb95d2df79433489984c5f0526d1">More...</a><br /></td></tr>
-<tr class="separator:a6476eb95d2df79433489984c5f0526d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6b4e6b3dce93c807de8e1c6ddd1f77c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#ad6b4e6b3dce93c807de8e1c6ddd1f77c">SetNormals</a> (int triangleID, <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> n1, <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> n2, <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> n3)</td></tr>
-<tr class="memdesc:ad6b4e6b3dce93c807de8e1c6ddd1f77c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the normals for the three vertices of a triangle that has already been added to the mesh.  <a href="#ad6b4e6b3dce93c807de8e1c6ddd1f77c">More...</a><br /></td></tr>
-<tr class="separator:ad6b4e6b3dce93c807de8e1c6ddd1f77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b2bf586295110de786949e4ccc42e65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a6b2bf586295110de786949e4ccc42e65">SetColors</a> (int triangleID, <a class="el" href="classmingfx_1_1_color.html">Color</a> c1, <a class="el" href="classmingfx_1_1_color.html">Color</a> c2, <a class="el" href="classmingfx_1_1_color.html">Color</a> c3)</td></tr>
-<tr class="memdesc:a6b2bf586295110de786949e4ccc42e65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets per-vertex colors for the three vertices of a triangle that has already been added to the mesh.  <a href="#a6b2bf586295110de786949e4ccc42e65">More...</a><br /></td></tr>
-<tr class="separator:a6b2bf586295110de786949e4ccc42e65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcfc8d4b4cfd7e43d908106e24dd9d06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#abcfc8d4b4cfd7e43d908106e24dd9d06">SetTexCoords</a> (int triangleID, int textureUnit, <a class="el" href="classmingfx_1_1_point2.html">Point2</a> uv1, <a class="el" href="classmingfx_1_1_point2.html">Point2</a> uv2, <a class="el" href="classmingfx_1_1_point2.html">Point2</a> uv3)</td></tr>
-<tr class="memdesc:abcfc8d4b4cfd7e43d908106e24dd9d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the texture coordinates for the three vertices of a triangle that has already been added to the mesh.  <a href="#abcfc8d4b4cfd7e43d908106e24dd9d06">More...</a><br /></td></tr>
-<tr class="separator:abcfc8d4b4cfd7e43d908106e24dd9d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e0ac86714f6b7c3f62761ef3952a044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a3e0ac86714f6b7c3f62761ef3952a044">UpdateTriangle</a> (int triangle_id, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v1, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v2, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> v3)</td></tr>
+<tr class="memdesc:a3e0ac86714f6b7c3f62761ef3952a044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the vertex positions for a triangle that has already been added to the mesh.  <a href="#a3e0ac86714f6b7c3f62761ef3952a044">More...</a><br /></td></tr>
+<tr class="separator:a3e0ac86714f6b7c3f62761ef3952a044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d5a5cc3ef742a8c2b5e3f1b4da0903"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a43d5a5cc3ef742a8c2b5e3f1b4da0903">SetNormals</a> (int triangle_id, <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> n1, <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> n2, <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> n3)</td></tr>
+<tr class="memdesc:a43d5a5cc3ef742a8c2b5e3f1b4da0903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the normals for the three vertices of a triangle that has already been added to the mesh.  <a href="#a43d5a5cc3ef742a8c2b5e3f1b4da0903">More...</a><br /></td></tr>
+<tr class="separator:a43d5a5cc3ef742a8c2b5e3f1b4da0903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f59e19b74f4f9dc2ad580756f8b319f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a0f59e19b74f4f9dc2ad580756f8b319f">SetColors</a> (int triangle_id, <a class="el" href="classmingfx_1_1_color.html">Color</a> c1, <a class="el" href="classmingfx_1_1_color.html">Color</a> c2, <a class="el" href="classmingfx_1_1_color.html">Color</a> c3)</td></tr>
+<tr class="memdesc:a0f59e19b74f4f9dc2ad580756f8b319f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets per-vertex colors for the three vertices of a triangle that has already been added to the mesh.  <a href="#a0f59e19b74f4f9dc2ad580756f8b319f">More...</a><br /></td></tr>
+<tr class="separator:a0f59e19b74f4f9dc2ad580756f8b319f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17cb896939007357014c74a1ece6f1f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a17cb896939007357014c74a1ece6f1f3">SetTexCoords</a> (int triangle_id, int texture_unit, <a class="el" href="classmingfx_1_1_point2.html">Point2</a> uv1, <a class="el" href="classmingfx_1_1_point2.html">Point2</a> uv2, <a class="el" href="classmingfx_1_1_point2.html">Point2</a> uv3)</td></tr>
+<tr class="memdesc:a17cb896939007357014c74a1ece6f1f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the texture coordinates for the three vertices of a triangle that has already been added to the mesh.  <a href="#a17cb896939007357014c74a1ece6f1f3">More...</a><br /></td></tr>
+<tr class="separator:a17cb896939007357014c74a1ece6f1f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd243b53826765ba468f505645102a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a1dd243b53826765ba468f505645102a6">SetVertices</a> (const std::vector&lt; <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &gt; &amp;verts)</td></tr>
+<tr class="memdesc:a1dd243b53826765ba468f505645102a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the vertex array for the mesh directly.  <a href="#a1dd243b53826765ba468f505645102a6">More...</a><br /></td></tr>
+<tr class="separator:a1dd243b53826765ba468f505645102a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28dbd5b0ab77bec28f30f618dd9e57d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#ad28dbd5b0ab77bec28f30f618dd9e57d">SetNormals</a> (const std::vector&lt; <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &gt; &amp;norms)</td></tr>
+<tr class="memdesc:ad28dbd5b0ab77bec28f30f618dd9e57d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the normal array for the mesh directly.  <a href="#ad28dbd5b0ab77bec28f30f618dd9e57d">More...</a><br /></td></tr>
+<tr class="separator:ad28dbd5b0ab77bec28f30f618dd9e57d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9b05a77591a9adad12032d513256dae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#ab9b05a77591a9adad12032d513256dae">SetColors</a> (const std::vector&lt; <a class="el" href="classmingfx_1_1_color.html">Color</a> &gt; &amp;colors)</td></tr>
+<tr class="memdesc:ab9b05a77591a9adad12032d513256dae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the per-vertex colors array for the mesh directly.  <a href="#ab9b05a77591a9adad12032d513256dae">More...</a><br /></td></tr>
+<tr class="separator:ab9b05a77591a9adad12032d513256dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba2dfd0ade2d8a728897d411ef3fdaf1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#aba2dfd0ade2d8a728897d411ef3fdaf1">SetTexCoords</a> (int texture_unit, const std::vector&lt; <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &gt; &amp;<a class="el" href="classmingfx_1_1_mesh.html#a49195c61c01caf149a7dda77f382d2de">tex_coords</a>)</td></tr>
+<tr class="memdesc:aba2dfd0ade2d8a728897d411ef3fdaf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a texture coordinates array for the mesh directly.  <a href="#aba2dfd0ade2d8a728897d411ef3fdaf1">More...</a><br /></td></tr>
+<tr class="separator:aba2dfd0ade2d8a728897d411ef3fdaf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f94c9ca7867b65e04f7e02813a06581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a1f94c9ca7867b65e04f7e02813a06581">SetIndices</a> (const std::vector&lt; unsigned int &gt; index_array)</td></tr>
+<tr class="memdesc:a1f94c9ca7867b65e04f7e02813a06581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the indices into the vertex array to use to create the triangles. Each consecutive set of 3 indices forms one triangle: (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ...  <a href="#a1f94c9ca7867b65e04f7e02813a06581">More...</a><br /></td></tr>
+<tr class="separator:a1f94c9ca7867b65e04f7e02813a06581"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a033076b9bf1714c9b9e0eeef11ebcd49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a033076b9bf1714c9b9e0eeef11ebcd49">SetVertices</a> (float *verts_array, int num_verts)</td></tr>
+<tr class="memdesc:a033076b9bf1714c9b9e0eeef11ebcd49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... This version of the function accepts a C-style array rather than std::vector&lt;&gt;  <a href="#a033076b9bf1714c9b9e0eeef11ebcd49">More...</a><br /></td></tr>
+<tr class="separator:a033076b9bf1714c9b9e0eeef11ebcd49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ab1128fab6f969564d3a1329baeade6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a6ab1128fab6f969564d3a1329baeade6">SetNormals</a> (float *norms_array, int num_norms)</td></tr>
+<tr class="memdesc:a6ab1128fab6f969564d3a1329baeade6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the normal array for the mesh directly. Normals are stored as (x,y,z), (x,y,z), (x,y,z), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a1dd243b53826765ba468f505645102a6" title="Sets the vertex array for the mesh directly. ">SetVertices()</a>. This version of the function accepts a C-style array rather than std::vector&lt;&gt;  <a href="#a6ab1128fab6f969564d3a1329baeade6">More...</a><br /></td></tr>
+<tr class="separator:a6ab1128fab6f969564d3a1329baeade6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed172bdd77858f3b59978cb8527e19ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#aed172bdd77858f3b59978cb8527e19ae">SetColors</a> (float *colors_array, int num_colors)</td></tr>
+<tr class="memdesc:aed172bdd77858f3b59978cb8527e19ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the per-vertex colors array for the mesh directly. Colors are stored as (r,g,b,a), (r,g,b,a), (r,g,b,a), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a1dd243b53826765ba468f505645102a6" title="Sets the vertex array for the mesh directly. ">SetVertices()</a>. This version of the function accepts a C-style array rather than std::vector&lt;&gt;  <a href="#aed172bdd77858f3b59978cb8527e19ae">More...</a><br /></td></tr>
+<tr class="separator:aed172bdd77858f3b59978cb8527e19ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9cd4e8d67bb70295a48fcbc72ae32f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#ac9cd4e8d67bb70295a48fcbc72ae32f9">SetTexCoords</a> (int texture_unit, float *tex_coords_array, int num_tex_coords)</td></tr>
+<tr class="memdesc:ac9cd4e8d67bb70295a48fcbc72ae32f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a texture coordinates array for the mesh directly. Tex coords are stored as (u,v), (u,v), (u,v), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a1dd243b53826765ba468f505645102a6" title="Sets the vertex array for the mesh directly. ">SetVertices()</a>. This version of the function accepts a C-style array rather than std::vector&lt;&gt;  <a href="#ac9cd4e8d67bb70295a48fcbc72ae32f9">More...</a><br /></td></tr>
+<tr class="separator:ac9cd4e8d67bb70295a48fcbc72ae32f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84711746b8d37c8d9b12ae748a4c5b8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a84711746b8d37c8d9b12ae748a4c5b8c">SetIndices</a> (unsigned int *index_array, int num_indices)</td></tr>
+<tr class="memdesc:a84711746b8d37c8d9b12ae748a4c5b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the indices into the vertex array to use to create the triangles. Each consecutive set of 3 indices forms one triangle: (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ... This version of the function accepts a C-style array rather than std::vector&lt;&gt;  <a href="#a84711746b8d37c8d9b12ae748a4c5b8c">More...</a><br /></td></tr>
+<tr class="separator:a84711746b8d37c8d9b12ae748a4c5b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac74345bf4b2994de4ee1c509bcc6840e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#ac74345bf4b2994de4ee1c509bcc6840e">UpdateGPUMemory</a> ()</td></tr>
 <tr class="memdesc:ac74345bf4b2994de4ee1c509bcc6840e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This copies the entire mesh data structure to a vertex array in GPU memory, which must happen before you can draw the mesh.  <a href="#ac74345bf4b2994de4ee1c509bcc6840e">More...</a><br /></td></tr>
 <tr class="separator:ac74345bf4b2994de4ee1c509bcc6840e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,39 +246,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3428cc726de5c22fd62e313a9ac4d4de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de">num_vertices</a> () const </td></tr>
 <tr class="memdesc:a3428cc726de5c22fd62e313a9ac4d4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of vertices in the mesh.  <a href="#a3428cc726de5c22fd62e313a9ac4d4de">More...</a><br /></td></tr>
 <tr class="separator:a3428cc726de5c22fd62e313a9ac4d4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d3208d520b05763ec69a01cbd874870"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a8d3208d520b05763ec69a01cbd874870">vertex</a> (int vertexID) const </td></tr>
-<tr class="memdesc:a8d3208d520b05763ec69a01cbd874870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#a8d3208d520b05763ec69a01cbd874870">More...</a><br /></td></tr>
-<tr class="separator:a8d3208d520b05763ec69a01cbd874870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a867c2110eba0aa97eebc106fb0d76c81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a867c2110eba0aa97eebc106fb0d76c81">normal</a> (int vertexID) const </td></tr>
-<tr class="memdesc:a867c2110eba0aa97eebc106fb0d76c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#a867c2110eba0aa97eebc106fb0d76c81">More...</a><br /></td></tr>
-<tr class="separator:a867c2110eba0aa97eebc106fb0d76c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59d6e08a22c04925d0883edb5e09d13e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a59d6e08a22c04925d0883edb5e09d13e">color</a> (int vertexID) const </td></tr>
-<tr class="memdesc:a59d6e08a22c04925d0883edb5e09d13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#a59d6e08a22c04925d0883edb5e09d13e">More...</a><br /></td></tr>
-<tr class="separator:a59d6e08a22c04925d0883edb5e09d13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a155ff73cba71a0a6f5aa846c8d6e33b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point2.html">Point2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a155ff73cba71a0a6f5aa846c8d6e33b0">tex_coords</a> (int textureUnit, int vertexID) const </td></tr>
-<tr class="memdesc:a155ff73cba71a0a6f5aa846c8d6e33b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#a155ff73cba71a0a6f5aa846c8d6e33b0">More...</a><br /></td></tr>
-<tr class="separator:a155ff73cba71a0a6f5aa846c8d6e33b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef38f00ee1a58c3f74408d6acdb8a237"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#aef38f00ee1a58c3f74408d6acdb8a237">vertex</a> (int vertex_id) const </td></tr>
+<tr class="memdesc:aef38f00ee1a58c3f74408d6acdb8a237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#aef38f00ee1a58c3f74408d6acdb8a237">More...</a><br /></td></tr>
+<tr class="separator:aef38f00ee1a58c3f74408d6acdb8a237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebefec839762c6a7e0a0ba53271421cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#aebefec839762c6a7e0a0ba53271421cb">normal</a> (int vertex_id) const </td></tr>
+<tr class="memdesc:aebefec839762c6a7e0a0ba53271421cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#aebefec839762c6a7e0a0ba53271421cb">More...</a><br /></td></tr>
+<tr class="separator:aebefec839762c6a7e0a0ba53271421cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa28bc1ad378a20ac21d62cac0b4677f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#aa28bc1ad378a20ac21d62cac0b4677f8">color</a> (int vertex_id) const </td></tr>
+<tr class="memdesc:aa28bc1ad378a20ac21d62cac0b4677f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#aa28bc1ad378a20ac21d62cac0b4677f8">More...</a><br /></td></tr>
+<tr class="separator:aa28bc1ad378a20ac21d62cac0b4677f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49195c61c01caf149a7dda77f382d2de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point2.html">Point2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a49195c61c01caf149a7dda77f382d2de">tex_coords</a> (int texture_unit, int vertex_id) const </td></tr>
+<tr class="memdesc:a49195c61c01caf149a7dda77f382d2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indexed by vertex number. Also see <a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de" title="The total number of vertices in the mesh. ">num_vertices()</a>.  <a href="#a49195c61c01caf149a7dda77f382d2de">More...</a><br /></td></tr>
+<tr class="separator:a49195c61c01caf149a7dda77f382d2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bf4492b921eeb436578dd90f495a7a1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a5bf4492b921eeb436578dd90f495a7a1">num_triangles</a> () const </td></tr>
 <tr class="memdesc:a5bf4492b921eeb436578dd90f495a7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of triangles in the mesh.  <a href="#a5bf4492b921eeb436578dd90f495a7a1">More...</a><br /></td></tr>
 <tr class="separator:a5bf4492b921eeb436578dd90f495a7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c63fc06d5d595cae809c597ae54b1d0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a6c63fc06d5d595cae809c597ae54b1d0">triangle_vertices</a> (int triangleID) const </td></tr>
-<tr class="memdesc:a6c63fc06d5d595cae809c597ae54b1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a 3 element array of the indices to the vertices that make up the specified triangle.  <a href="#a6c63fc06d5d595cae809c597ae54b1d0">More...</a><br /></td></tr>
-<tr class="separator:a6c63fc06d5d595cae809c597ae54b1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a19e0fdbdd56cabf486a239f78828ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a9a19e0fdbdd56cabf486a239f78828ca">SetVertices</a> (float *vertsArray, int numVerts)</td></tr>
-<tr class="memdesc:a9a19e0fdbdd56cabf486a239f78828ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ...  <a href="#a9a19e0fdbdd56cabf486a239f78828ca">More...</a><br /></td></tr>
-<tr class="separator:a9a19e0fdbdd56cabf486a239f78828ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a365815309fdcc55242b056fa24e66142"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a365815309fdcc55242b056fa24e66142">SetNormals</a> (float *normsArray, int numNorms)</td></tr>
-<tr class="memdesc:a365815309fdcc55242b056fa24e66142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the normal array for the mesh directly. Normals are stored as (x,y,z), (x,y,z), (x,y,z), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a9a19e0fdbdd56cabf486a239f78828ca" title="Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... ">SetVertices()</a>.  <a href="#a365815309fdcc55242b056fa24e66142">More...</a><br /></td></tr>
-<tr class="separator:a365815309fdcc55242b056fa24e66142"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef504e6ac6432ef1d89f7e759bcf50e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#adef504e6ac6432ef1d89f7e759bcf50e">SetColors</a> (float *colorsArray, int numColors)</td></tr>
-<tr class="memdesc:adef504e6ac6432ef1d89f7e759bcf50e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the per-vertex colors array for the mesh directly. Colors are stored as (r,g,b,a), (r,g,b,a), (r,g,b,a), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a9a19e0fdbdd56cabf486a239f78828ca" title="Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... ">SetVertices()</a>.  <a href="#adef504e6ac6432ef1d89f7e759bcf50e">More...</a><br /></td></tr>
-<tr class="separator:adef504e6ac6432ef1d89f7e759bcf50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07eef3586c181ec942b642487fad75d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a07eef3586c181ec942b642487fad75d8">SetTexCoords</a> (int textureUnit, float *texCoordsArray, int numTexCoords)</td></tr>
-<tr class="memdesc:a07eef3586c181ec942b642487fad75d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a texture coordinates array for the mesh directly. Tex coords are stored as (u,v), (u,v), (u,v), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a9a19e0fdbdd56cabf486a239f78828ca" title="Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... ">SetVertices()</a>.  <a href="#a07eef3586c181ec942b642487fad75d8">More...</a><br /></td></tr>
-<tr class="separator:a07eef3586c181ec942b642487fad75d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9154f574cf37402ddb2c21e267d808e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a9154f574cf37402ddb2c21e267d808e0">SetIndices</a> (unsigned int *indexArray, int numIndices)</td></tr>
-<tr class="memdesc:a9154f574cf37402ddb2c21e267d808e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the indices into the vertex array to use to create the triangles. Each consecutive set of 3 indices forms one triangle: (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ...  <a href="#a9154f574cf37402ddb2c21e267d808e0">More...</a><br /></td></tr>
-<tr class="separator:a9154f574cf37402ddb2c21e267d808e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84ff56db7d89ffc641d6ae65f3d67844"><td class="memItemLeft" align="right" valign="top">std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a84ff56db7d89ffc641d6ae65f3d67844">triangle_vertices</a> (int triangle_id) const </td></tr>
+<tr class="memdesc:a84ff56db7d89ffc641d6ae65f3d67844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a 3 element array of the indices to the vertices that make up the specified triangle.  <a href="#a84ff56db7d89ffc641d6ae65f3d67844">More...</a><br /></td></tr>
+<tr class="separator:a84ff56db7d89ffc641d6ae65f3d67844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a69613870d54989f4226e50caf4ca9fb9"></a>
@@ -319,11 +338,11 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a triangle to the mesh datastructure and returns a triangle ID. </p>
-<p>The ID should then be used as the first argument for follow-on calls to <a class="el" href="classmingfx_1_1_mesh.html#ad6b4e6b3dce93c807de8e1c6ddd1f77c" title="Sets the normals for the three vertices of a triangle that has already been added to the mesh...">SetNormals()</a>, <a class="el" href="classmingfx_1_1_mesh.html#a6b2bf586295110de786949e4ccc42e65" title="Sets per-vertex colors for the three vertices of a triangle that has already been added to the mesh...">SetColors()</a>, and <a class="el" href="classmingfx_1_1_mesh.html#abcfc8d4b4cfd7e43d908106e24dd9d06" title="Sets the texture coordinates for the three vertices of a triangle that has already been added to the ...">SetTexCoords()</a>. The vertices must be specified in counter-clockwise order so that the normal of the triangle can be determined following the right-hand rule. </p>
+<p>The ID should then be used as the first argument for follow-on calls to <a class="el" href="classmingfx_1_1_mesh.html#a43d5a5cc3ef742a8c2b5e3f1b4da0903" title="Sets the normals for the three vertices of a triangle that has already been added to the mesh...">SetNormals()</a>, <a class="el" href="classmingfx_1_1_mesh.html#a0f59e19b74f4f9dc2ad580756f8b319f" title="Sets per-vertex colors for the three vertices of a triangle that has already been added to the mesh...">SetColors()</a>, and <a class="el" href="classmingfx_1_1_mesh.html#a17cb896939007357014c74a1ece6f1f3" title="Sets the texture coordinates for the three vertices of a triangle that has already been added to the ...">SetTexCoords()</a>. The vertices must be specified in counter-clockwise order so that the normal of the triangle can be determined following the right-hand rule. </p>
 
 </div>
 </div>
-<a class="anchor" id="a59d6e08a22c04925d0883edb5e09d13e"></a>
+<a class="anchor" id="aa28bc1ad378a20ac21d62cac0b4677f8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -331,7 +350,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classmingfx_1_1_color.html">Color</a> mingfx::Mesh::color </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>vertexID</em></td><td>)</td>
+          <td class="paramname"><em>vertex_id</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -378,7 +397,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a867c2110eba0aa97eebc106fb0d76c81"></a>
+<a class="anchor" id="aebefec839762c6a7e0a0ba53271421cb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -386,7 +405,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> mingfx::Mesh::normal </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>vertexID</em></td><td>)</td>
+          <td class="paramname"><em>vertex_id</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -430,7 +449,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6b2bf586295110de786949e4ccc42e65"></a>
+<a class="anchor" id="a0f59e19b74f4f9dc2ad580756f8b319f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -438,7 +457,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::SetColors </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>triangleID</em>, </td>
+          <td class="paramname"><em>triangle_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -470,7 +489,25 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="adef504e6ac6432ef1d89f7e759bcf50e"></a>
+<a class="anchor" id="ab9b05a77591a9adad12032d513256dae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::SetColors </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classmingfx_1_1_color.html">Color</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>colors</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the per-vertex colors array for the mesh directly. </p>
+
+</div>
+</div>
+<a class="anchor" id="aed172bdd77858f3b59978cb8527e19ae"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -478,13 +515,13 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::SetColors </td>
           <td>(</td>
           <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>colorsArray</em>, </td>
+          <td class="paramname"><em>colors_array</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numColors</em>&#160;</td>
+          <td class="paramname"><em>num_colors</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -494,30 +531,20 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the per-vertex colors array for the mesh directly. Colors are stored as (r,g,b,a), (r,g,b,a), (r,g,b,a), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a9a19e0fdbdd56cabf486a239f78828ca" title="Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... ">SetVertices()</a>. </p>
+<p>Sets the per-vertex colors array for the mesh directly. Colors are stored as (r,g,b,a), (r,g,b,a), (r,g,b,a), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a1dd243b53826765ba468f505645102a6" title="Sets the vertex array for the mesh directly. ">SetVertices()</a>. This version of the function accepts a C-style array rather than std::vector&lt;&gt; </p>
 
 </div>
 </div>
-<a class="anchor" id="a9154f574cf37402ddb2c21e267d808e0"></a>
+<a class="anchor" id="a1f94c9ca7867b65e04f7e02813a06581"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void mingfx::Mesh::SetIndices </td>
           <td>(</td>
-          <td class="paramtype">unsigned int *&#160;</td>
-          <td class="paramname"><em>indexArray</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const std::vector&lt; unsigned int &gt;&#160;</td>
+          <td class="paramname"><em>index_array</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numIndices</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -526,7 +553,35 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad6b4e6b3dce93c807de8e1c6ddd1f77c"></a>
+<a class="anchor" id="a84711746b8d37c8d9b12ae748a4c5b8c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::SetIndices </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int *&#160;</td>
+          <td class="paramname"><em>index_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_indices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the indices into the vertex array to use to create the triangles. Each consecutive set of 3 indices forms one triangle: (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ... This version of the function accepts a C-style array rather than std::vector&lt;&gt; </p>
+
+</div>
+</div>
+<a class="anchor" id="a43d5a5cc3ef742a8c2b5e3f1b4da0903"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -534,7 +589,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::SetNormals </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>triangleID</em>, </td>
+          <td class="paramname"><em>triangle_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -566,7 +621,25 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a365815309fdcc55242b056fa24e66142"></a>
+<a class="anchor" id="ad28dbd5b0ab77bec28f30f618dd9e57d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::SetNormals </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>norms</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the normal array for the mesh directly. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6ab1128fab6f969564d3a1329baeade6"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -574,13 +647,13 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::SetNormals </td>
           <td>(</td>
           <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>normsArray</em>, </td>
+          <td class="paramname"><em>norms_array</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numNorms</em>&#160;</td>
+          <td class="paramname"><em>num_norms</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -590,11 +663,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the normal array for the mesh directly. Normals are stored as (x,y,z), (x,y,z), (x,y,z), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a9a19e0fdbdd56cabf486a239f78828ca" title="Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... ">SetVertices()</a>. </p>
+<p>Sets the normal array for the mesh directly. Normals are stored as (x,y,z), (x,y,z), (x,y,z), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a1dd243b53826765ba468f505645102a6" title="Sets the vertex array for the mesh directly. ">SetVertices()</a>. This version of the function accepts a C-style array rather than std::vector&lt;&gt; </p>
 
 </div>
 </div>
-<a class="anchor" id="abcfc8d4b4cfd7e43d908106e24dd9d06"></a>
+<a class="anchor" id="a17cb896939007357014c74a1ece6f1f3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -602,13 +675,13 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::SetTexCoords </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>triangleID</em>, </td>
+          <td class="paramname"><em>triangle_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>textureUnit</em>, </td>
+          <td class="paramname"><em>texture_unit</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -641,7 +714,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a07eef3586c181ec942b642487fad75d8"></a>
+<a class="anchor" id="aba2dfd0ade2d8a728897d411ef3fdaf1"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -649,19 +722,13 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::SetTexCoords </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>textureUnit</em>, </td>
+          <td class="paramname"><em>texture_unit</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>texCoordsArray</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numTexCoords</em>&#160;</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tex_coords</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -671,11 +738,63 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets a texture coordinates array for the mesh directly. Tex coords are stored as (u,v), (u,v), (u,v), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a9a19e0fdbdd56cabf486a239f78828ca" title="Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... ">SetVertices()</a>. </p>
+<p>Sets a texture coordinates array for the mesh directly. </p>
 
 </div>
 </div>
-<a class="anchor" id="a9a19e0fdbdd56cabf486a239f78828ca"></a>
+<a class="anchor" id="ac9cd4e8d67bb70295a48fcbc72ae32f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::SetTexCoords </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>texture_unit</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>tex_coords_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>num_tex_coords</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets a texture coordinates array for the mesh directly. Tex coords are stored as (u,v), (u,v), (u,v), ... following the same ordering as was used for <a class="el" href="classmingfx_1_1_mesh.html#a1dd243b53826765ba468f505645102a6" title="Sets the vertex array for the mesh directly. ">SetVertices()</a>. This version of the function accepts a C-style array rather than std::vector&lt;&gt; </p>
+
+</div>
+</div>
+<a class="anchor" id="a1dd243b53826765ba468f505645102a6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::SetVertices </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>verts</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the vertex array for the mesh directly. </p>
+
+</div>
+</div>
+<a class="anchor" id="a033076b9bf1714c9b9e0eeef11ebcd49"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -683,13 +802,13 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::SetVertices </td>
           <td>(</td>
           <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>vertsArray</em>, </td>
+          <td class="paramname"><em>verts_array</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numVerts</em>&#160;</td>
+          <td class="paramname"><em>num_verts</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -699,11 +818,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... </p>
+<p>Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... This version of the function accepts a C-style array rather than std::vector&lt;&gt; </p>
 
 </div>
 </div>
-<a class="anchor" id="a155ff73cba71a0a6f5aa846c8d6e33b0"></a>
+<a class="anchor" id="a49195c61c01caf149a7dda77f382d2de"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -711,13 +830,13 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classmingfx_1_1_point2.html">Point2</a> mingfx::Mesh::tex_coords </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>textureUnit</em>, </td>
+          <td class="paramname"><em>texture_unit</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>vertexID</em>&#160;</td>
+          <td class="paramname"><em>vertex_id</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -731,7 +850,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6c63fc06d5d595cae809c597ae54b1d0"></a>
+<a class="anchor" id="a84ff56db7d89ffc641d6ae65f3d67844"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -739,7 +858,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">std::vector&lt;unsigned int&gt; mingfx::Mesh::triangle_vertices </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>triangleID</em></td><td>)</td>
+          <td class="paramname"><em>triangle_id</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -767,7 +886,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a6476eb95d2df79433489984c5f0526d1"></a>
+<a class="anchor" id="a3e0ac86714f6b7c3f62761ef3952a044"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -775,7 +894,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void mingfx::Mesh::UpdateTriangle </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>triangleID</em>, </td>
+          <td class="paramname"><em>triangle_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -807,7 +926,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8d3208d520b05763ec69a01cbd874870"></a>
+<a class="anchor" id="aef38f00ee1a58c3f74408d6acdb8a237"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -815,7 +934,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classmingfx_1_1_point3.html">Point3</a> mingfx::Mesh::vertex </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>vertexID</em></td><td>)</td>
+          <td class="paramname"><em>vertex_id</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>

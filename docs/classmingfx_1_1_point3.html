@@ -151,6 +151,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaac12416982c83d1a68d4004f351c1a3"><td class="memItemLeft" align="right" valign="top">const float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point3.html#aaac12416982c83d1a68d4004f351c1a3">value_ptr</a> () const </td></tr>
 <tr class="memdesc:aaac12416982c83d1a68d4004f351c1a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the raw data array.  <a href="#aaac12416982c83d1a68d4004f351c1a3">More...</a><br /></td></tr>
 <tr class="separator:aaac12416982c83d1a68d4004f351c1a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacbba858c2b681631d25f59e6e134359"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point3.html#aacbba858c2b681631d25f59e6e134359">Lerp</a> (const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;b, float alpha) const </td></tr>
+<tr class="memdesc:aacbba858c2b681631d25f59e6e134359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between this point and another. Alpha=0.0 returns this point, and alpha=1.0 returns the other point, other values blend between the two.  <a href="#aacbba858c2b681631d25f59e6e134359">More...</a><br /></td></tr>
+<tr class="separator:aacbba858c2b681631d25f59e6e134359"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -163,6 +166,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a2cfcbefe652720779e0d7beff1c86ece"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point3.html#a2cfcbefe652720779e0d7beff1c86ece">One</a> ()</td></tr>
 <tr class="memdesc:a2cfcbefe652720779e0d7beff1c86ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">(1,1,1) - a shortcut for a special point that is frequently needed  <a href="#a2cfcbefe652720779e0d7beff1c86ece">More...</a><br /></td></tr>
 <tr class="separator:a2cfcbefe652720779e0d7beff1c86ece"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a206691c31872e537eefbf897603dba74"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point3.html#a206691c31872e537eefbf897603dba74">Lerp</a> (const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;a, const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;b, float alpha)</td></tr>
+<tr class="memdesc:a206691c31872e537eefbf897603dba74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between two points. Alpha=0.0 returns 'a' and alpha=1.0 returns 'b', other values blend between the two.  <a href="#a206691c31872e537eefbf897603dba74">More...</a><br /></td></tr>
+<tr class="separator:a206691c31872e537eefbf897603dba74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae8ab322852c24c6e03bed03cac443664"></a>
@@ -278,6 +284,76 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="aacbba858c2b681631d25f59e6e134359"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_point3.html">Point3</a> mingfx::Point3::Lerp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear interpolation between this point and another. Alpha=0.0 returns this point, and alpha=1.0 returns the other point, other values blend between the two. </p>
+
+</div>
+</div>
+<a class="anchor" id="a206691c31872e537eefbf897603dba74"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classmingfx_1_1_point3.html">Point3</a> mingfx::Point3::Lerp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Linear interpolation between two points. Alpha=0.0 returns 'a' and alpha=1.0 returns 'b', other values blend between the two. </p>
+
+</div>
+</div>
 <a class="anchor" id="a2cfcbefe652720779e0d7beff1c86ece"></a>
 <div class="memitem">
 <div class="memproto">

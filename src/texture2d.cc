@@ -29,6 +29,12 @@ Texture2D::Texture2D(GLenum wrapMode, GLenum filterMode) :
 }
 
 Texture2D::~Texture2D() {
+    if ((handleMemInternally_) && (data_ != NULL)) {
+        // TODO: Not sure why the call below does not seem to work.  There will
+        // be a mem leak unless we can call this somehow.
+        //stbi_image_free(data_);
+    }
+    
     // TODO: free texture from OpenGL
 }
 
@@ -73,10 +79,6 @@ bool Texture2D::InitOpenGL() {
     
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, data_);
 
-    if (handleMemInternally_) {
-        stbi_image_free(data_);
-    }
-    
     return true;
 }
 
@@ -125,6 +127,17 @@ bool Texture2D::initialized() const {
     return texID_ != 0;
 }
 
+    
+Color Texture2D::Pixel(int x, int y) const {
+    int index = y*4*width() + x*4;
+    unsigned char r = data_[index+0];
+    unsigned char g = data_[index+1];
+    unsigned char b = data_[index+2];
+    unsigned char a = data_[index+3];
+    Color c = Color((float)r/255.0, (float)g/255.0, (float)b/255.0, (float)a/255.0);
+    std::cout << c << std::endl;
+    return c;
+}
     
 } // end namespace
 

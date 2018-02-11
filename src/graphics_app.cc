@@ -32,7 +32,7 @@ GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : la
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
     
     // Create a GLFWwindow object
-    window_ = glfwCreateWindow(800, 800, caption.c_str(), nullptr, nullptr);
+    window_ = glfwCreateWindow(width, height, caption.c_str(), nullptr, nullptr);
     if (window_ == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();

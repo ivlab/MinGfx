@@ -28,6 +28,10 @@ float GfxMath::ToDegrees(float radians) {
     return radians * 180.0 / M_PI;
 }
     
+float GfxMath::Lerp(float a, float b, float alpha) {
+    return (1.0f-alpha)*a + alpha*b;
+}
+    
     
 Point3 GfxMath::ScreenToNearPlane(const Matrix4 &V, const Matrix4 &P, const Point2 &ndcPoint) {
     Matrix4 filmPtToWorld = (P*V).Inverse();

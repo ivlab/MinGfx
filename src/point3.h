@@ -69,6 +69,12 @@ public:
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
 
+    /// Linear interpolation between this point and another. Alpha=0.0 returns
+    /// this point, and alpha=1.0 returns the other point, other values blend
+    /// between the two.
+    Point3 Lerp(const Point3 &b, float alpha) const;
+
+    
     /// (0,0,0) - a shortcut for a special point that is frequently needed
     static const Point3& Origin();
 
@@ -77,6 +83,10 @@ public:
     
     /// (1,1,1) - a shortcut for a special point that is frequently needed
     static const Point3& One();
+    
+    /// Linear interpolation between two points.  Alpha=0.0 returns 'a' and
+    /// alpha=1.0 returns 'b', other values blend between the two.
+    static Point3 Lerp(const Point3 &a, const Point3 &b, float alpha);
     
 private:
     float p[3];

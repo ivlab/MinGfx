@@ -72,6 +72,19 @@ float& Point2::operator[](const int i) {
 }
 
 
+Point2 Point2::Lerp(const Point2 &b, float alpha) const {
+    float x = (1.0f-alpha)*(*this)[0] + alpha*b[0];
+    float y = (1.0f-alpha)*(*this)[1] + alpha*b[1];
+    return Point2(x,y);
+}
+
+Point2 Point2::Lerp(const Point2 &a, const Point2 &b, float alpha) {
+    float x = (1.0f-alpha)*a[0] + alpha*b[0];
+    float y = (1.0f-alpha)*a[1] + alpha*b[1];
+    return Point2(x,y);
+}
+
+    
 const float * Point2::value_ptr() const {
     return p;
 }

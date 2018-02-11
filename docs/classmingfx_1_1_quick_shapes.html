@@ -122,9 +122,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line">    Matrix4 m_sphere = <a class="code" href="classmingfx_1_1_matrix4.html#a0232a58d20b1da5374cf8c72fb113a4e">Matrix4::Scale</a>(Vector3(2.5, 2.5, 2.5));</div>
 <div class="line">    quick_shapes.DrawSphere(m_sphere, view, proj, Color(1,1,1));</div>
+<div class="line"></div>
+<div class="line">    Matrix4 m_loop;</div>
+<div class="line">    std::vector&lt;Point3&gt; loop;</div>
+<div class="line">    loop.push_back(Point3( 4.0, 4.0, -4.0));</div>
+<div class="line">    loop.push_back(Point3(-4.0, 4.0, -4.0));</div>
+<div class="line">    loop.push_back(Point3(-4.0, 4.0,  4.0));</div>
+<div class="line">    loop.push_back(Point3( 4.0, 4.0,  4.0));</div>
+<div class="line">    quick_shapes.DrawLines(m_loop, view, proj, Color(1,1,1), loop, QuickShapes::LinesType::LINE_LOOP, 0.1);</div>
 <div class="line">}</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="quick__shapes_8h_source.html#l00061">61</a> of file <a class="el" href="quick__shapes_8h_source.html">quick_shapes.h</a>.</p>
+<p>Definition at line <a class="el" href="quick__shapes_8h_source.html#l00069">69</a> of file <a class="el" href="quick__shapes_8h_source.html">quick_shapes.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="quick__shapes_8h_source.html">quick_shapes.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -204,7 +212,7 @@ Public Member Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p>Definition at line <a class="el" href="quick__shapes_8h_source.html#l00126">126</a> of file <a class="el" href="quick__shapes_8h_source.html">quick_shapes.h</a>.</p>
+<p>Definition at line <a class="el" href="quick__shapes_8h_source.html#l00134">134</a> of file <a class="el" href="quick__shapes_8h_source.html">quick_shapes.h</a>.</p>
 
 </div>
 </div>
@@ -604,8 +612,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Draws a series of line segments. </p>
-<p>Using linesType=LINES connects each consecutive pair of points in the points array with a line. A linesType=LINE_STRIP will connect each point to the next. And, a linesType=LINE_LOOP will connect each point to the next and in addition connect the last to the first. </p>
-
+<p>Using linesType=LINES connects each consecutive pair of points in the points array with a line. A linesType=LINE_STRIP will connect each point to the next. And, a linesType=LINE_LOOP will connect each point to the next and in addition connect the last to the first. Example: </p><div class="fragment"><div class="line">Matrix4 model;</div>
+<div class="line">Matrix4 view = <a class="code" href="classmingfx_1_1_matrix4.html#a4543695a6dfc996d0312b70c2eaa00de">Matrix4::LookAt</a>(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0));</div>
+<div class="line">Matrix4 proj = <a class="code" href="classmingfx_1_1_matrix4.html#a4b8bea805a162fbb267bea63c0a7fe5c">Matrix4::Perspective</a>(60.0, aspect_ratio(), 0.1, 10.0);</div>
+<div class="line">std::vector&lt;Point3&gt; loop;</div>
+<div class="line">loop.push_back(Point3( 4.0, 4.0, -4.0));</div>
+<div class="line">loop.push_back(Point3(-4.0, 4.0, -4.0));</div>
+<div class="line">loop.push_back(Point3(-4.0, 4.0,  4.0));</div>
+<div class="line">loop.push_back(Point3( 4.0, 4.0,  4.0));</div>
+<div class="line">quick_shapes.DrawLines(model, view, proj, Color(1,1,1), loop, QuickShapes::LinesType::LINE_LOOP, 0.1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a class="anchor" id="a0feae19a04d9f315a39e2bdbf659bd7e"></a>

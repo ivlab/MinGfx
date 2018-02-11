@@ -143,19 +143,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">float</span>&amp; <a class="code" href="classmingfx_1_1_color.html#ae439e2ae786d023d28d5946873d37799">operator[]</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> i);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> * <a class="code" href="classmingfx_1_1_color.html#a091ebb84b066f81d0928fe6dfaf39ccd">value_ptr</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">float</span> c[4];</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;std::ostream &amp; <a class="code" href="namespacemingfx.html#a6bc967741341f4f318a505d884192906">operator&lt;&lt; </a>( std::ostream &amp;os, <span class="keyword">const</span> <a class="code" href="classmingfx_1_1_color.html">Color</a> &amp;c);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;std::istream &amp; <a class="code" href="namespacemingfx.html#a6eb31e6e81c6e29144799be4c9db404d">operator&gt;&gt; </a>( std::istream &amp;is, <a class="code" href="classmingfx_1_1_color.html">Color</a> &amp;c);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="classmingfx_1_1_color.html">Color</a> <a class="code" href="classmingfx_1_1_color.html#a074fc1fa1a8d479579705f9cb3491316">Lerp</a>(<span class="keyword">const</span> <a class="code" href="classmingfx_1_1_color.html">Color</a> &amp;b, <span class="keywordtype">float</span> alpha) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <a class="code" href="classmingfx_1_1_color.html">Color</a> <a class="code" href="classmingfx_1_1_color.html#a074fc1fa1a8d479579705f9cb3491316">Lerp</a>(<span class="keyword">const</span> <a class="code" href="classmingfx_1_1_color.html">Color</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classmingfx_1_1_color.html">Color</a> &amp;b, <span class="keywordtype">float</span> alpha);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">float</span> c[4];</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;std::ostream &amp; <a class="code" href="namespacemingfx.html#a6bc967741341f4f318a505d884192906">operator&lt;&lt; </a>( std::ostream &amp;os, <span class="keyword">const</span> <a class="code" href="classmingfx_1_1_color.html">Color</a> &amp;c);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;std::istream &amp; <a class="code" href="namespacemingfx.html#a6eb31e6e81c6e29144799be4c9db404d">operator&gt;&gt; </a>( std::istream &amp;is, <a class="code" href="classmingfx_1_1_color.html">Color</a> &amp;c);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="classmingfx_1_1_color_html_a83f62f459433702ddf50b0f8c6b6df14"><div class="ttname"><a href="classmingfx_1_1_color.html#a83f62f459433702ddf50b0f8c6b6df14">mingfx::Color::operator==</a></div><div class="ttdeci">bool operator==(const Color &amp;p) const </div><div class="ttdoc">Check for equality. </div></div>
 <div class="ttc" id="namespacemingfx_html"><div class="ttname"><a href="namespacemingfx.html">mingfx</a></div><div class="ttdoc">Namespace for the MinGfx Toolkit. </div><div class="ttdef"><b>Definition:</b> <a href="color_8h_source.html#l00019">color.h:19</a></div></div>
 <div class="ttc" id="classmingfx_1_1_color_html_ab4d264b5a1189b73443948c01eab088d"><div class="ttname"><a href="classmingfx_1_1_color.html#ab4d264b5a1189b73443948c01eab088d">mingfx::Color::Color</a></div><div class="ttdeci">Color()</div><div class="ttdoc">Defaults to black. </div></div>
@@ -165,6 +169,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classmingfx_1_1_color_html_ae51a066a9bb018e4f050d9b8cc7f330e"><div class="ttname"><a href="classmingfx_1_1_color.html#ae51a066a9bb018e4f050d9b8cc7f330e">mingfx::Color::operator=</a></div><div class="ttdeci">Color &amp; operator=(const Color &amp;p)</div><div class="ttdoc">Assignment operator. </div></div>
 <div class="ttc" id="classmingfx_1_1_color_html"><div class="ttname"><a href="classmingfx_1_1_color.html">mingfx::Color</a></div><div class="ttdoc">Represents a 4-component (R,G,B,A) color, stored internally in a float array to be compatable with Op...</div><div class="ttdef"><b>Definition:</b> <a href="color_8h_source.html#l00040">color.h:40</a></div></div>
 <div class="ttc" id="classmingfx_1_1_color_html_ae439e2ae786d023d28d5946873d37799"><div class="ttname"><a href="classmingfx_1_1_color.html#ae439e2ae786d023d28d5946873d37799">mingfx::Color::operator[]</a></div><div class="ttdeci">float operator[](const int i) const </div><div class="ttdoc">Accesses the ith component of the color, stored in RGBA order. </div></div>
+<div class="ttc" id="classmingfx_1_1_color_html_a074fc1fa1a8d479579705f9cb3491316"><div class="ttname"><a href="classmingfx_1_1_color.html#a074fc1fa1a8d479579705f9cb3491316">mingfx::Color::Lerp</a></div><div class="ttdeci">Color Lerp(const Color &amp;b, float alpha) const </div><div class="ttdoc">Linear interpolation between this color and another. Alpha=0.0 returns this color, and alpha=1.0 returns the other color, other values blend between the two via a linear interpolation on each color channel. </div></div>
 <div class="ttc" id="classmingfx_1_1_color_html_a091ebb84b066f81d0928fe6dfaf39ccd"><div class="ttname"><a href="classmingfx_1_1_color.html#a091ebb84b066f81d0928fe6dfaf39ccd">mingfx::Color::value_ptr</a></div><div class="ttdeci">const float * value_ptr() const </div><div class="ttdoc">Returns a const pointer to the raw data array. </div></div>
 <div class="ttc" id="namespacemingfx_html_a6eb31e6e81c6e29144799be4c9db404d"><div class="ttname"><a href="namespacemingfx.html#a6eb31e6e81c6e29144799be4c9db404d">mingfx::operator&gt;&gt;</a></div><div class="ttdeci">std::istream &amp; operator&gt;&gt;(std::istream &amp;is, Color &amp;c)</div></div>
 </div><!-- fragment --></div><!-- contents -->

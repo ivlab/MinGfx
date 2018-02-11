@@ -98,6 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classmingfx_1_1_color-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">mingfx::Color Class Reference</div>  </div>
@@ -158,6 +159,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a091ebb84b066f81d0928fe6dfaf39ccd"><td class="memItemLeft" align="right" valign="top">const float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#a091ebb84b066f81d0928fe6dfaf39ccd">value_ptr</a> () const </td></tr>
 <tr class="memdesc:a091ebb84b066f81d0928fe6dfaf39ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the raw data array.  <a href="#a091ebb84b066f81d0928fe6dfaf39ccd">More...</a><br /></td></tr>
 <tr class="separator:a091ebb84b066f81d0928fe6dfaf39ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a074fc1fa1a8d479579705f9cb3491316"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#a074fc1fa1a8d479579705f9cb3491316">Lerp</a> (const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;b, float alpha) const </td></tr>
+<tr class="memdesc:a074fc1fa1a8d479579705f9cb3491316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between this color and another. Alpha=0.0 returns this color, and alpha=1.0 returns the other color, other values blend between the two via a linear interpolation on each color channel.  <a href="#a074fc1fa1a8d479579705f9cb3491316">More...</a><br /></td></tr>
+<tr class="separator:a074fc1fa1a8d479579705f9cb3491316"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a883787431fef36c06c724c3b9ed25363"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#a883787431fef36c06c724c3b9ed25363">Lerp</a> (const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;a, const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;b, float alpha)</td></tr>
+<tr class="memdesc:a883787431fef36c06c724c3b9ed25363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between two colors. Alpha=0.0 returns 'a' and alpha=1.0 returns 'b', other values blend between the two via a linear interpolation on each color channel.  <a href="#a883787431fef36c06c724c3b9ed25363">More...</a><br /></td></tr>
+<tr class="separator:a883787431fef36c06c724c3b9ed25363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab4d264b5a1189b73443948c01eab088d"></a>
@@ -279,6 +289,76 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a074fc1fa1a8d479579705f9cb3491316"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_color.html">Color</a> mingfx::Color::Lerp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Linear interpolation between this color and another. Alpha=0.0 returns this color, and alpha=1.0 returns the other color, other values blend between the two via a linear interpolation on each color channel. </p>
+
+</div>
+</div>
+<a class="anchor" id="a883787431fef36c06c724c3b9ed25363"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classmingfx_1_1_color.html">Color</a> mingfx::Color::Lerp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Linear interpolation between two colors. Alpha=0.0 returns 'a' and alpha=1.0 returns 'b', other values blend between the two via a linear interpolation on each color channel. </p>
+
+</div>
+</div>
 <a class="anchor" id="a12f28ef9454f08831458283f7d00ff83"></a>
 <div class="memitem">
 <div class="memproto">

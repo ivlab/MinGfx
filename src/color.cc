@@ -77,6 +77,23 @@ const float * Color::value_ptr() const {
 }
 
 
+Color Color::Lerp(const Color &b, float alpha) const {
+    float red = (1.0f-alpha)*(*this)[0] + alpha*b[0];
+    float grn = (1.0f-alpha)*(*this)[1] + alpha*b[1];
+    float blu = (1.0f-alpha)*(*this)[2] + alpha*b[2];
+    float alp = (1.0f-alpha)*(*this)[3] + alpha*b[3];
+    return Color(red,grn,blu,alp);
+}
+
+Color Color::Lerp(const Color &a, const Color &b, float alpha) {
+    float red = (1.0f-alpha)*a[0] + alpha*b[0];
+    float grn = (1.0f-alpha)*a[1] + alpha*b[1];
+    float blu = (1.0f-alpha)*a[2] + alpha*b[2];
+    float alp = (1.0f-alpha)*a[3] + alpha*b[3];
+    return Color(red,grn,blu,alp);
+}
+
+    
 std::ostream & operator<< ( std::ostream &os, const Color &c) {
   return os << "(" << c[0] << ", " << c[1] << ", " << c[2] << ", " << c[3] << ")";
 }
