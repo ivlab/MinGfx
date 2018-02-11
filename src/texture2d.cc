@@ -134,9 +134,7 @@ Color Texture2D::Pixel(int x, int y) const {
     unsigned char g = data_[index+1];
     unsigned char b = data_[index+2];
     unsigned char a = data_[index+3];
-    Color c = Color((float)r/255.0, (float)g/255.0, (float)b/255.0, (float)a/255.0);
-    std::cout << c << std::endl;
-    return c;
+    return Color((float)r/255.0, (float)g/255.0, (float)b/255.0, (float)a/255.0);
 }
     
 } // end namespace

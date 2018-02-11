@@ -125,12 +125,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">tri_id = mesh1.AddTriangle(Point3(0,0,0), Point3(1,0,0), Point3(1,1,0));</div>
 <div class="line"><span class="comment">// set attributes for the vertices</span></div>
 <div class="line">mesh1.SetNormals(tri_id, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));</div>
-<div class="line">mesh1.SetTexCoords(tri_id, 0, Point2(0,0), Point2(1,0), Point2(1,1));</div>
+<div class="line">mesh1.SetTexCoords(tri_id, 0, Point2(0,1), Point2(1,1), Point2(1,0));</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// add a second triangle and attributes</span></div>
 <div class="line">tri_id = mesh1.AddTriangle(Point3(0,0,0), Point3(1,1,0), Point3(0,1,0));</div>
 <div class="line">mesh1.SetNormals(tri_id, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));</div>
-<div class="line">mesh1.SetTexCoords(tri_id, 0, Point2(0,0), Point2(1,1), Point2(0,1));</div>
+<div class="line">mesh1.SetTexCoords(tri_id, 0, Point2(0,1), Point2(1,0), Point2(0,0));</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// call this when done to save to the GPU</span></div>
 <div class="line">mesh1.UpdateGPUMemory();</div>
@@ -155,10 +155,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">normals.push_back(Vector3(0,0,1));</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// four texture coords, each requires 2 floats: (u,v)</span></div>
-<div class="line">texcoords.push_back(Point2(0,0));</div>
-<div class="line">texcoords.push_back(Point2(1,0));</div>
-<div class="line">texcoords.push_back(Point2(1,1));</div>
 <div class="line">texcoords.push_back(Point2(0,1));</div>
+<div class="line">texcoords.push_back(Point2(1,1));</div>
+<div class="line">texcoords.push_back(Point2(1,0));</div>
+<div class="line">texcoords.push_back(Point2(0,0));</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// indices into the arrays above for the first triangle</span></div>
 <div class="line">indices.push_back(0); </div>
@@ -174,11 +174,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">mesh1.SetVertices(vertices);</div>
 <div class="line">mesh1.SetNormals(normals);</div>
 <div class="line">mesh1.SetTexCoords(0, texcoords);</div>
+<div class="line">mesh1.SetIndices(indices);</div>
 <div class="line">mesh1.UpdateGPUMemory();</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// then you can draw the same way as in the previous example.</span></div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00121">121</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00122">122</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="mesh_8h_source.html">mesh.h</a>&gt;</code></p>
 <table class="memberdecls">

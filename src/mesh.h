@@ -57,12 +57,12 @@ namespace mingfx {
  tri_id = mesh1.AddTriangle(Point3(0,0,0), Point3(1,0,0), Point3(1,1,0));
  // set attributes for the vertices
  mesh1.SetNormals(tri_id, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));
- mesh1.SetTexCoords(tri_id, 0, Point2(0,0), Point2(1,0), Point2(1,1));
+ mesh1.SetTexCoords(tri_id, 0, Point2(0,1), Point2(1,1), Point2(1,0));
 
  // add a second triangle and attributes
  tri_id = mesh1.AddTriangle(Point3(0,0,0), Point3(1,1,0), Point3(0,1,0));
  mesh1.SetNormals(tri_id, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));
- mesh1.SetTexCoords(tri_id, 0, Point2(0,0), Point2(1,1), Point2(0,1));
+ mesh1.SetTexCoords(tri_id, 0, Point2(0,1), Point2(1,0), Point2(0,0));
  
  // call this when done to save to the GPU
  mesh1.UpdateGPUMemory();
@@ -94,10 +94,10 @@ namespace mingfx {
  normals.push_back(Vector3(0,0,1));
 
  // four texture coords, each requires 2 floats: (u,v)
- texcoords.push_back(Point2(0,0));
- texcoords.push_back(Point2(1,0));
- texcoords.push_back(Point2(1,1));
  texcoords.push_back(Point2(0,1));
+ texcoords.push_back(Point2(1,1));
+ texcoords.push_back(Point2(1,0));
+ texcoords.push_back(Point2(0,0));
  
  // indices into the arrays above for the first triangle
  indices.push_back(0); 
@@ -113,6 +113,7 @@ namespace mingfx {
  mesh1.SetVertices(vertices);
  mesh1.SetNormals(normals);
  mesh1.SetTexCoords(0, texcoords);
+ mesh1.SetIndices(indices);
  mesh1.UpdateGPUMemory();
  
  // then you can draw the same way as in the previous example.
