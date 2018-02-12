@@ -18,7 +18,7 @@
 int main(int argc, char **argv) {
 
     GraphicsApp *app = new GraphicsApp(1024, 768, "A Blank Window!");
-    app->Run();
+    app->Run(); 
 
     return 0;
 }

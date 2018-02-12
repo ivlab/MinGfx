@@ -55,8 +55,8 @@ GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : la
     screen_ = new nanogui::Screen();
     screen_->initialize(window_, true);
     
-    glfwGetFramebufferSize(window_, &width, &height);
-    glViewport(0, 0, width, height);
+    glfwGetFramebufferSize(window_, &width_, &height_);
+    glViewport(0, 0, width_, height_);
     glfwSwapInterval(0);
     glfwSwapBuffers(window_);
     

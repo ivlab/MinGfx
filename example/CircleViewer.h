@@ -36,6 +36,8 @@ public:
     CircleViewer();
     ~CircleViewer();
 
+    void InitGraphics();
+
     void UpdateSimulation(double dt);
 
 

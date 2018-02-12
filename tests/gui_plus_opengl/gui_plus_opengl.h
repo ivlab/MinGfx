@@ -48,6 +48,8 @@ public:
     GuiPlusOpenGL();
     ~GuiPlusOpenGL();
 
+    void InitGraphics();
+
     void UpdateSimulation(double dt);
 
 
