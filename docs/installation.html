@@ -91,7 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="install-prereqs"></a>
 Prereqs</h1>
-<p>MinGfx is built using the cross-platform CMake tool. Before building MinGfx, you will need to install CMake version 3.9 or higher (<a href="https://cmake.org/">https://cmake.org/</a>).</p>
+<p>MinGfx is built using the cross-platform CMake tool. Before building MinGfx, you will need to install CMake version 3.9 or higher (<a href="https://cmake.org/">https://cmake.org/</a>). On Mac, you will need to have Xcode installed as well as the <a href="https://www.embarcadero.com/starthere/xe5/mobdevsetup/ios/en/installing_the_commandline_tools.html">optional Xcode command line tools</a>.</p>
 <p>If you haven't already, you'll want to clone the MinGfx source code using git, so make sure you have git installed as well.</p>
 <h1><a class="anchor" id="cmake-background"></a>
 Background for CMake Beginners</h1>
@@ -134,7 +134,22 @@ Setup a New Graphics Build Tree</h1>
 <p>Now, using cmake-gui, scroll through the table of variables until you find the one named CMAKE_INSTALL_PREFIX. Click on it and edit its value to point to the root of the directory tree you created in Step 1. The root for the example tree used in Step 1 would be /Users/keefe/courses/csci4611/sw. In other words, the root is the last directory before you get to lib, include, bin, and dev.</p>
 <p>Once you make this change, you can press the Configure button again. It doesn't hurt to press Configure multiple times. You need to do it at least once after every change you make. Notice how the variables highlighted in red go away when you do this because they are no longer new options &ndash; cmake knows that you have already had a chance to see them once.</p>
 <h2>5. If Needed, Set AUTOBUILD_NANOGUI to ON and Build Dependencies</h2>
-<p>Now, take a look at the output window at the bottom of cmake-gui. If you see the following error there, then we'll address that next. If not, then nanogui must already be installed on your system, and you can skip to step 6. </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;TODO: INSERT NANOGUI ERROR PRINTOUT</div>
+<p>Now, take a look at the output window at the bottom of cmake-gui. If you see the following error there, then we'll address that next. If not, then nanogui must already be installed on your system, and you can skip to step 6. </p><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;Searching for NanoGUI library...</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;Could NOT find NANOGUI (missing: NANOGUI_LIBRARIES)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;CMake Error at cmake/UseNanoGUI.cmake:96 (message):</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;The NanoGUI library was not found on the system.  You can: (1) install</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;NanoGUI yourself, (2) point cmake to an already-installed version of</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;NanoGUI by adding the installation prefix of NanoGUI to the</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;CMAKE_PREFIX_PATH environment variable, or (3) set AUTOBUILD_NANOGUI to ON</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;and run cmake configure again.  AUTOBUILD_NANOGUI will: 1.  download</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;NanoGUI, 2.  build NanoGUI, and 3.  install NanoGUI to the</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;CMAKE_INSTALL_PREFIX (currently set to</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;/Users/keefe/courses/tmp/MinGfx/build/install).  If you want to use the</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;AUTOBUILD feature, adjust CMAKE_INSTALL_PREFIX as desired now, set</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;AUTOBUILD_NANOGUI to ON, and then run cmake configure again.</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;Call Stack (most recent call first):</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;src/CMakeLists.txt:80 (UseNanoGUI)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;CMakeLists.txt:186 (include)</div>
 </div><!-- fragment --><p> This error tells us that cmake could not find the nanogui library pre-installed on our system. Luckily, MinGfx includes support for downloading, building, and installing nanogui for you using the AUTOBUILD_NANOGUI feature.</p>
 <p>Scroll through the list of CMake variables again until you find AUTOBUILD_NANOGUI and click on the checkbox next to it to turn it on. Now, click Configure again. This time the configure step will take a while, perhaps 5 minutes, to run because it will be downloading, building, and installing nanogui and all of its dependencies.</p>
 <p>This step should finish without an error. If you do see an error and you are working with this as part of a UMN course, you may need to stop now and ask for help from a TA or on the class forum &ndash; perhaps there is something we haven't planned for in the particular setup of your computer.</p>

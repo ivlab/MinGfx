@@ -13,15 +13,14 @@
 
 namespace mingfx {
     
-    Mesh::Mesh() : gpuDirty_(true) {
+    Mesh::Mesh() : gpu_dirty_(true) {
     }
         
     Mesh::~Mesh() {
     }
         
     int Mesh::AddTriangle(Point3 v1, Point3 v2, Point3 v3) {
-        gpuDirty_ = true;
-        gpuDirty_ = true;
+        gpu_dirty_ = true;
 
         verts_.push_back(v1[0]);
         verts_.push_back(v1[1]);
@@ -38,10 +37,10 @@ namespace mingfx {
         return num_triangles()-1;
     }
 
-    void Mesh::UpdateTriangle(int triangleID, Point3 v1, Point3 v2, Point3 v3) {
-        gpuDirty_ = true;
+    void Mesh::UpdateTriangle(int triangle_id, Point3 v1, Point3 v2, Point3 v3) {
+        gpu_dirty_ = true;
         
-        int index = triangleID * 9;
+        int index = triangle_id * 9;
         verts_[index + 0] = v1[0];
         verts_[index + 1] = v1[1];
         verts_[index + 2] = v1[2];
@@ -56,19 +55,19 @@ namespace mingfx {
     }
 
     
-    void Mesh::SetNormals(int triangleID, Vector3 n1, Vector3 n2, Vector3 n3) {
-        gpuDirty_ = true;
+    void Mesh::SetNormals(int triangle_id, Vector3 n1, Vector3 n2, Vector3 n3) {
+        gpu_dirty_ = true;
 
-        if (triangleID >= num_triangles()) {
-            std::cerr << "Mesh::SetNormals() -- warning: cannot set normals for non-existant triangle with ID=" << triangleID << ".  Make sure the triangle has been added first." << std::endl;
+        if (triangle_id >= num_triangles()) {
+            std::cerr << "Mesh::SetNormals() -- warning: cannot set normals for non-existant triangle with ID=" << triangle_id << ".  Make sure the triangle has been added first." << std::endl;
             return;
         }
 
-        int requiredSize = (triangleID+1)*9;
+        int requiredSize = (triangle_id+1)*9;
         if (norms_.size() < requiredSize) {
             norms_.resize(requiredSize);
         }
-        int index = triangleID * 9;
+        int index = triangle_id * 9;
         norms_[index + 0] = n1[0];
         norms_[index + 1] = n1[1];
         norms_[index + 2] = n1[2];
@@ -82,19 +81,19 @@ namespace mingfx {
         norms_[index + 8] = n3[2];
     }
 
-    void Mesh::SetColors(int triangleID, Color c1, Color c2, Color c3) {
-        gpuDirty_ = true;
+    void Mesh::SetColors(int triangle_id, Color c1, Color c2, Color c3) {
+        gpu_dirty_ = true;
 
-        if (triangleID >= num_triangles()) {
-            std::cerr << "Mesh::SetColors() -- warning: cannot set colors for non-existant triangle with ID=" << triangleID << ".  Make sure the triangle has been added first." << std::endl;
+        if (triangle_id >= num_triangles()) {
+            std::cerr << "Mesh::SetColors() -- warning: cannot set colors for non-existant triangle with ID=" << triangle_id << ".  Make sure the triangle has been added first." << std::endl;
             return;
         }
         
-        int requiredSize = (triangleID+1)*12;
+        int requiredSize = (triangle_id+1)*12;
         if (colors_.size() < requiredSize) {
             colors_.resize(requiredSize);
         }
-        int index = triangleID * 12;
+        int index = triangle_id * 12;
         colors_[index + 0] = c1[0];
         colors_[index + 1] = c1[1];
         colors_[index + 2] = c1[2];
@@ -111,38 +110,93 @@ namespace mingfx {
         colors_[index + 11] = c3[3];
     }
 
-    void Mesh::SetTexCoords(int triangleID, int textureUnit, Point2 uv1, Point2 uv2, Point2 uv3) {
-        gpuDirty_ = true;
+    void Mesh::SetTexCoords(int triangle_id, int textureUnit, Point2 uv1, Point2 uv2, Point2 uv3) {
+        gpu_dirty_ = true;
 
-        if (triangleID >= num_triangles()) {
-            std::cerr << "Mesh::SetTexCoords() -- warning: cannot set texture coordinates for non-existant triangle with ID=" << triangleID << ".  Make sure the triangle has been added first." << std::endl;
+        if (triangle_id >= num_triangles()) {
+            std::cerr << "Mesh::SetTexCoords() -- warning: cannot set texture coordinates for non-existant triangle with ID=" << triangle_id << ".  Make sure the triangle has been added first." << std::endl;
             return;
         }
         
         // resize as needed based on the number of textureUnits used
-        if (texCoords_.size() < textureUnit+1) {
-            texCoords_.resize(textureUnit+1);
+        if (tex_coords_.size() < textureUnit+1) {
+            tex_coords_.resize(textureUnit+1);
         }
 
         // resize the textureUnit-specific array based on the number of triangles
-        int requiredSize = (triangleID+1)*6;
-        if (texCoords_[textureUnit].size() < requiredSize) {
-            texCoords_[textureUnit].resize(requiredSize);
+        int requiredSize = (triangle_id+1)*6;
+        if (tex_coords_[textureUnit].size() < requiredSize) {
+            tex_coords_[textureUnit].resize(requiredSize);
         }
-        int index = triangleID * 6;
-        texCoords_[textureUnit][index + 0] = uv1[0];
-        texCoords_[textureUnit][index + 1] = uv1[1];
+        int index = triangle_id * 6;
+        tex_coords_[textureUnit][index + 0] = uv1[0];
+        tex_coords_[textureUnit][index + 1] = uv1[1];
 
-        texCoords_[textureUnit][index + 2] = uv2[0];
-        texCoords_[textureUnit][index + 3] = uv2[1];
+        tex_coords_[textureUnit][index + 2] = uv2[0];
+        tex_coords_[textureUnit][index + 3] = uv2[1];
 
-        texCoords_[textureUnit][index + 4] = uv3[0];
-        texCoords_[textureUnit][index + 5] = uv3[1];
+        tex_coords_[textureUnit][index + 4] = uv3[0];
+        tex_coords_[textureUnit][index + 5] = uv3[1];
     }
 
     
+    void Mesh::SetVertices(const std::vector<Point3> &verts) {
+        gpu_dirty_ = true;
+        verts_.clear();
+        for (int i=0; i<verts.size(); i++) {
+            verts_.push_back(verts[i][0]);
+            verts_.push_back(verts[i][1]);
+            verts_.push_back(verts[i][2]);
+        }
+    }
+    
+    void Mesh::SetNormals(const std::vector<Vector3> &norms) {
+        gpu_dirty_ = true;
+        norms_.clear();
+        for (int i=0; i<norms.size(); i++) {
+            norms_.push_back(norms[i][0]);
+            norms_.push_back(norms[i][1]);
+            norms_.push_back(norms[i][2]);
+        }
+    }
+    
+    void Mesh::SetColors(const std::vector<Color> &colors) {
+        gpu_dirty_ = true;
+        colors_.clear();
+        for (int i=0; i<colors.size(); i++) {
+            colors_.push_back(colors[i][0]);
+            colors_.push_back(colors[i][1]);
+            colors_.push_back(colors[i][2]);
+            colors_.push_back(colors[i][3]);
+        }
+    }
+    
+    void Mesh::SetTexCoords(int texture_unit, const std::vector<Point2> &tex_coords) {
+        gpu_dirty_ = true;
+        // resize as needed based on the number of textureUnits used
+        if (tex_coords_.size() < texture_unit+1) {
+            tex_coords_.resize(texture_unit+1);
+        }
+        tex_coords_[texture_unit].clear();
+        for (int i=0; i<tex_coords.size(); i++) {
+            tex_coords_[texture_unit].push_back(tex_coords[i][0]);
+            tex_coords_[texture_unit].push_back(tex_coords[i][1]);
+        }
+    }
+    
+
+    void Mesh::SetIndices(const std::vector<unsigned int> indices) {
+        gpu_dirty_ = true;
+        indices_.clear();
+        for (int i=0; i<indices.size(); i++) {
+            indices_.push_back(indices[i]);
+        }
+    }
+    
+    
+    
     void Mesh::SetVertices(float *vertsArray, int numVerts) {
-        gpuDirty_ = true;
+        gpu_dirty_ = true;
         verts_.clear();
         int numFloats = numVerts * 3;
         for (int i=0; i<numFloats; i++) {
@@ -151,7 +205,7 @@ namespace mingfx {
     }
     
     void Mesh::SetNormals(float *normsArray, int numNorms) {
-        gpuDirty_ = true;
+        gpu_dirty_ = true;
         norms_.clear();
         int numFloats = numNorms * 3;
         for (int i=0; i<numFloats; i++) {
@@ -160,7 +214,7 @@ namespace mingfx {
     }
     
     void Mesh::SetColors(float *colorsArray, int numColors) {
-        gpuDirty_ = true;
+        gpu_dirty_ = true;
         colors_.clear();
         int numFloats = numColors * 4;
         for (int i=0; i<numFloats; i++) {
@@ -169,20 +223,20 @@ namespace mingfx {
     }
     
     void Mesh::SetTexCoords(int textureUnit, float *texCoordsArray, int numTexCoords) {
-        gpuDirty_ = true;
+        gpu_dirty_ = true;
         // resize as needed based on the number of textureUnits used
-        if (texCoords_.size() < textureUnit+1) {
-            texCoords_.resize(textureUnit+1);
+        if (tex_coords_.size() < textureUnit+1) {
+            tex_coords_.resize(textureUnit+1);
         }
-        texCoords_[textureUnit].clear();
+        tex_coords_[textureUnit].clear();
         int numFloats = numTexCoords * 2;
         for (int i=0; i<numFloats; i++) {
-            texCoords_[textureUnit].push_back(texCoordsArray[i]);
+            tex_coords_[textureUnit].push_back(texCoordsArray[i]);
         }
     }
     
     void Mesh::SetIndices(unsigned int *indexArray, int numIndices) {
-        gpuDirty_ = true;
+        gpu_dirty_ = true;
         indices_.clear();
         for (int i=0; i<numIndices; i++) {
             indices_.push_back(indexArray[i]);
@@ -191,7 +245,7 @@ namespace mingfx {
     
     
     void Mesh::UpdateGPUMemory() {
-		if (gpuDirty_) {
+		if (gpu_dirty_) {
 			// sanity check -- for each attribute that is added (normals, colors, texcoords)
 			// make sure the number of triangles is equal to the number of tris in the verts
 			// array.
@@ -201,9 +255,9 @@ namespace mingfx {
 			if ((colors_.size() != 0) && (colors_.size() / 4 != num_vertices())) {
 				std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex colors in the mesh is not equal to the number vertices in the mesh. (C = " << colors_.size() / 4 << ", V = " << num_vertices() << ")" << std::endl;
 			}
-			for (int i = 0; i < texCoords_.size(); i++) {
-				if ((texCoords_[i].size() != 0) && (texCoords_[i].size() / 2 != num_vertices())) {
-					std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex texture coordinates (for texture unit #" << i << ") is not equal to the number vertices in the mesh.  (UVs = " << texCoords_[i].size() / 2 << ", V = " << num_vertices() << ")" << std::endl;
+			for (int i = 0; i < tex_coords_.size(); i++) {
+				if ((tex_coords_[i].size() != 0) && (tex_coords_[i].size() / 2 != num_vertices())) {
+					std::cerr << "Mesh::UpdateGPUMemory() -- warning: the number of per vertex texture coordinates (for texture unit #" << i << ") is not equal to the number vertices in the mesh.  (UVs = " << tex_coords_[i].size() / 2 << ", V = " << num_vertices() << ")" << std::endl;
 				}
 			}
 
@@ -223,14 +277,14 @@ namespace mingfx {
 
 			std::vector<GLsizeiptr> texCoordsMemSize;
 			std::vector<GLsizeiptr> texCoordsMemOffset;
-			for (int i = 0; i < texCoords_.size(); i++) {
-				texCoordsMemSize.push_back(texCoords_[i].size() * sizeof(float));
+			for (int i = 0; i < tex_coords_.size(); i++) {
+				texCoordsMemSize.push_back(tex_coords_[i].size() * sizeof(float));
 				texCoordsMemOffset.push_back(totalMemSize);
 				totalMemSize += texCoordsMemSize[i];
 			}
 
-			glGenBuffers(1, &vertexBuffer_);
-			glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
+			glGenBuffers(1, &vertex_buffer_);
+			glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
 			glBufferData(GL_ARRAY_BUFFER, totalMemSize, NULL, GL_STATIC_DRAW);
 
 			glBufferSubData(GL_ARRAY_BUFFER, vertsMemOffset, vertsMemSize, &verts_[0]);
@@ -240,13 +294,13 @@ namespace mingfx {
 			if (colors_.size() > 0) {
 				glBufferSubData(GL_ARRAY_BUFFER, colorsMemOffset, colorsMemSize, &colors_[0]);
 			}
-            for (int i=0; i<texCoords_.size(); i++) {
-                glBufferSubData(GL_ARRAY_BUFFER, texCoordsMemOffset[i], texCoordsMemSize[i], &(texCoords_[i][0]));
+            for (int i=0; i<tex_coords_.size(); i++) {
+                glBufferSubData(GL_ARRAY_BUFFER, texCoordsMemOffset[i], texCoordsMemSize[i], &(tex_coords_[i][0]));
             }
             
-            glGenVertexArrays(1, &vertexArray_);
-            glBindVertexArray(vertexArray_);
-            glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer_);
+            glGenVertexArrays(1, &vertex_array_);
+            glBindVertexArray(vertex_array_);
+            glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
             
             // attribute 0 = vertices (required)
             int attribID = 0;
@@ -278,9 +332,9 @@ namespace mingfx {
             
             // attribute(s) 3+ = texture coordinates (optional)
             nComponents = 2;
-            for (int i=0; i<texCoords_.size(); i++) {
+            for (int i=0; i<tex_coords_.size(); i++) {
                 attribID = 3+i;
-                if (texCoords_[i].size()) {
+                if (tex_coords_[i].size()) {
                     glEnableVertexAttribArray(attribID);
                     glVertexAttribPointer(attribID, nComponents, GL_FLOAT, GL_FALSE, nComponents*sizeof(GLfloat), (char*)0 + texCoordsMemOffset[i]);
                 }
@@ -292,19 +346,19 @@ namespace mingfx {
             glBindVertexArray(0);
             
             if (indices_.size()) {
-                glGenBuffers(1, &elementBuffer_);
-                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer_);
+                glGenBuffers(1, &element_buffer_);
+                glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer_);
                 glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_.size() * sizeof(unsigned int), &indices_[0], GL_STATIC_DRAW);
             }
             
             
-            gpuDirty_ = false;
+            gpu_dirty_ = false;
         }
     }
 
     
     void Mesh::Draw() {
-        if (gpuDirty_) {
+        if (gpu_dirty_) {
             UpdateGPUMemory();
         }
         
@@ -314,10 +368,10 @@ namespace mingfx {
         glVertexAttrib2f(3, 0.0, 0.0);           // uv = 0,0 for texture unit 0
         glVertexAttrib2f(4, 0.0, 0.0);           // uv = 0,0 for texture unit 1 (assuming no need to go beyond that)
         
-        glBindVertexArray(vertexArray_);
+        glBindVertexArray(vertex_array_);
         
         if (indices_.size()) {
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer_);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer_);
             glDrawElements(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, (void*)0);
         }
         else {
@@ -404,7 +458,7 @@ namespace mingfx {
             }
         }
         
-        gpuDirty_ = true;
+        gpu_dirty_ = true;
         std::vector<float> verts, norms, uvs;
         for (int i=0;i<vertices.size();i++) {
             verts_.push_back(vertices[i][0]);
@@ -421,7 +475,7 @@ namespace mingfx {
             }
         }
         if (uvs.size()) {
-            texCoords_.push_back(uvs);
+            tex_coords_.push_back(uvs);
         }
     }
     
@@ -441,12 +495,12 @@ namespace mingfx {
     }
 
     Point2 Mesh::tex_coords(int textureUnit, int i) const {
-        return Point2(texCoords_[textureUnit][2*i], texCoords_[textureUnit][2*i+1]);
+        return Point2(tex_coords_[textureUnit][2*i], tex_coords_[textureUnit][2*i+1]);
     }
     
-    std::vector<unsigned int> Mesh::triangle_vertices(int triangleID) const {
+    std::vector<unsigned int> Mesh::triangle_vertices(int triangle_id) const {
         std::vector<unsigned int> tri;
-        int i = 3*triangleID;
+        int i = 3*triangle_id;
         if (indices_.size()) {
             // indexed faces mode
             tri.push_back(indices_[i+0]);

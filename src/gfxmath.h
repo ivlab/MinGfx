@@ -33,7 +33,9 @@ public:
     static float ToRadians(float degrees);
         
     static float ToDegrees(float radians);
-        
+    
+    static float Lerp(float a, float b, float alpha);
+    
     /// Converts a 2D point on the filmplane represented in Normalized Device
     /// Coorindates, which means (-1,1) for the top left corner of the screen and
     /// (1,-1) for the bottom right corner, to a 3D point that lies on the camera's

@@ -55,6 +55,14 @@ namespace mingfx {
 
         Matrix4 m_sphere = Matrix4::Scale(Vector3(2.5, 2.5, 2.5));
         quick_shapes.DrawSphere(m_sphere, view, proj, Color(1,1,1));
+ 
+        Matrix4 m_loop;
+        std::vector<Point3> loop;
+        loop.push_back(Point3( 4.0, 4.0, -4.0));
+        loop.push_back(Point3(-4.0, 4.0, -4.0));
+        loop.push_back(Point3(-4.0, 4.0,  4.0));
+        loop.push_back(Point3( 4.0, 4.0,  4.0));
+        quick_shapes.DrawLines(m_loop, view, proj, Color(1,1,1), loop, QuickShapes::LinesType::LINE_LOOP, 0.1);
     }
     ~~~
  */
@@ -132,7 +140,18 @@ public:
     /** Draws a series of line segments.  Using linesType=LINES connects each
      consecutive pair of points in the points array with a line.  A linesType=LINE_STRIP
      will connect each point to the next.  And, a linesType=LINE_LOOP will connect
-     each point to the next and in addition connect the last to the first.
+     each point to the next and in addition connect the last to the first.  Example:
+     ~~~
+     Matrix4 model;
+     Matrix4 view = Matrix4::LookAt(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0));
+     Matrix4 proj = Matrix4::Perspective(60.0, aspect_ratio(), 0.1, 10.0);
+     std::vector<Point3> loop;
+     loop.push_back(Point3( 4.0, 4.0, -4.0));
+     loop.push_back(Point3(-4.0, 4.0, -4.0));
+     loop.push_back(Point3(-4.0, 4.0,  4.0));
+     loop.push_back(Point3( 4.0, 4.0,  4.0));
+     quick_shapes.DrawLines(model, view, proj, Color(1,1,1), loop, QuickShapes::LinesType::LINE_LOOP, 0.1);
+     ~~~
      */
     void DrawLines(const Matrix4 &modelMatrix,
                    const Matrix4 &viewMatrix,

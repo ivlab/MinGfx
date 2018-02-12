@@ -3,7 +3,7 @@ Installation Guide {#installation}
 
 # Prereqs {#install-prereqs}
 
-MinGfx is built using the cross-platform CMake tool.  Before building MinGfx, you will need to install CMake version 3.9 or higher (https://cmake.org/).  
+MinGfx is built using the cross-platform CMake tool.  Before building MinGfx, you will need to install CMake version 3.9 or higher (https://cmake.org/). On Mac, you will need to have Xcode installed as well as the [optional Xcode command line tools](https://www.embarcadero.com/starthere/xe5/mobdevsetup/ios/en/installing_the_commandline_tools.html). 
 
 If you haven't already, you'll want to clone the MinGfx source code using git, so make sure you have git installed as well.
 
@@ -87,7 +87,22 @@ Once you make this change, you can press the Configure button again.  It doesn't
 
 Now, take a look at the output window at the bottom of cmake-gui.  If you see the following error there, then we'll address that next.  If not, then nanogui must already be installed on your system, and you can skip to step 6.
 ~~~
-TODO: INSERT NANOGUI ERROR PRINTOUT
+Searching for NanoGUI library...
+Could NOT find NANOGUI (missing: NANOGUI_LIBRARIES)
+CMake Error at cmake/UseNanoGUI.cmake:96 (message):
+The NanoGUI library was not found on the system.  You can: (1) install
+NanoGUI yourself, (2) point cmake to an already-installed version of
+NanoGUI by adding the installation prefix of NanoGUI to the
+CMAKE_PREFIX_PATH environment variable, or (3) set AUTOBUILD_NANOGUI to ON
+and run cmake configure again.  AUTOBUILD_NANOGUI will: 1.  download
+NanoGUI, 2.  build NanoGUI, and 3.  install NanoGUI to the
+CMAKE_INSTALL_PREFIX (currently set to
+/Users/keefe/courses/tmp/MinGfx/build/install).  If you want to use the
+AUTOBUILD feature, adjust CMAKE_INSTALL_PREFIX as desired now, set
+AUTOBUILD_NANOGUI to ON, and then run cmake configure again.
+Call Stack (most recent call first):
+src/CMakeLists.txt:80 (UseNanoGUI)
+CMakeLists.txt:186 (include)
 ~~~
 This error tells us that cmake could not find the nanogui library pre-installed on our system.  Luckily, MinGfx includes support for downloading, building, and installing nanogui for you using the AUTOBUILD_NANOGUI feature.
 

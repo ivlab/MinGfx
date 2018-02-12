@@ -74,15 +74,21 @@ public:
     /// modifying the original ('this') vector.
     Vector2 ToUnit() const;
     
+    /// Linear interpolation between this vector and another. Alpha=0.0 returns
+    /// this vector, and alpha=1.0 returns the other vector, other values blend
+    /// between the two.
+    Vector2 Lerp(const Vector2 &b, float alpha) const;
+    
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
+
+    
     
     /// Returns a new vector that is the unit version of v.
     static Vector2 Normalize(const Vector2 &v);
     
     /// Returns v1 dot v2
     static float Dot(const Vector2 &v1, const Vector2 &v2);
-    
     
     /// (0,0) - a shortcut for a special vector that is frequently needed
     static const Vector2& Zero();
@@ -95,6 +101,10 @@ public:
 
     /// (0,1) - a shortcut for a special vector that is frequently needed
     static const Vector2& UnitY();
+    
+    /// Linear interpolation between two vectors.  Alpha=0.0 returns 'a' and
+    /// alpha=1.0 returns 'b', other values blend between the two.
+    static Vector2 Lerp(const Vector2 &a, const Vector2 &b, float alpha);
 
 private:
     float v[2];

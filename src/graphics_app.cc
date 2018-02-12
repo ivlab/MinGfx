@@ -11,13 +11,7 @@ namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : lastDrawT_(0.0), width_(width), height_(height), caption_(caption) {
-}
-
-GraphicsApp::~GraphicsApp() {
-}
-
-void GraphicsApp::initWindow() {
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : lastDrawT_(0.0) {
     
     glfwInit();
     
@@ -38,7 +32,7 @@ void GraphicsApp::initWindow() {
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
     
     // Create a GLFWwindow object
-    window_ = glfwCreateWindow(800, 800, caption_.c_str(), nullptr, nullptr);
+    window_ = glfwCreateWindow(width, height, caption.c_str(), nullptr, nullptr);
     if (window_ == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -117,14 +111,15 @@ void GraphicsApp::initWindow() {
             app->resize_glfw_cb(width, height);
         }
     );
+ }
+
+GraphicsApp::~GraphicsApp() {
 }
+
+
     
 void GraphicsApp::Run() {
     
-    initWindow();
-
-    InitGraphics();
-
     InitOpenGL();
     
     // Main program loop

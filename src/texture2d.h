@@ -16,6 +16,7 @@
 
 
 #include "opengl_headers.h"
+#include "color.h"
 
 #include <string>
 
@@ -59,7 +60,9 @@ public:
     /// With this version of Init, you may pass in your own pointer to color data.
     /// The data argument must point to an array of 4-channel color data stored as
     /// unsigned chars in RGBA format.  You are responsible for managing the memory
-    /// for this array.  It is safe to free it as soon as this function returns.
+    /// for this array.  If you will never call Pixel(), then it is safe to free
+    /// data as soon as this function returns.  Otherwise, you need to make sure
+    /// data does not change in memory until you destroy the Texture2D object.
     bool InitFromData(int width, int height, unsigned char* data);
     
     /// Returns true if the texture data has been successfully transferred to OpenGL.
@@ -79,10 +82,16 @@ public:
 
     /// Returns an enumerated constant for the OpenGL filter mode used by the texture.
     GLenum filter_mode() const;
-        
+    
+    /// Uses the OpenGL texture wrap mode arguments
     void set_wrap_mode(GLenum wrapMode);
 
+    /// Uses the OpenGL texture filter mode arguments
     void set_filter_mode(GLenum filterMode);
+    
+    /// Returns the color at the specified pixel.  The top left corner of the
+    /// image is (0,0) and the bottom right is (width()-1, height()-1).
+    Color Pixel(int x, int y) const;
     
 private:
     

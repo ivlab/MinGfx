@@ -134,6 +134,21 @@ float Vector3::Dot(const Vector3 &v1, const Vector3 &v2) {
     return v1.Dot(v2);
 }
     
+Vector3 Vector3::Lerp(const Vector3 &b, float alpha) const {
+    float x = (1.0f-alpha)*(*this)[0] + alpha*b[0];
+    float y = (1.0f-alpha)*(*this)[1] + alpha*b[1];
+    float z = (1.0f-alpha)*(*this)[2] + alpha*b[2];
+    return Vector3(x,y,z);
+}
+
+Vector3 Vector3::Lerp(const Vector3 &a, const Vector3 &b, float alpha) {
+    float x = (1.0f-alpha)*a[0] + alpha*b[0];
+    float y = (1.0f-alpha)*a[1] + alpha*b[1];
+    float z = (1.0f-alpha)*a[2] + alpha*b[2];
+    return Vector3(x,y,z);
+}
+
+    
 
 Vector3 operator/(const Vector3& v, const float s) {
     const float invS = 1 / s;

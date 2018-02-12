@@ -57,12 +57,12 @@ namespace mingfx {
  tri_id = mesh1.AddTriangle(Point3(0,0,0), Point3(1,0,0), Point3(1,1,0));
  // set attributes for the vertices
  mesh1.SetNormals(tri_id, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));
- mesh1.SetTexCoords(tri_id, 0, Point2(0,0), Point2(1,0), Point2(1,1));
+ mesh1.SetTexCoords(tri_id, 0, Point2(0,1), Point2(1,1), Point2(1,0));
 
  // add a second triangle and attributes
  tri_id = mesh1.AddTriangle(Point3(0,0,0), Point3(1,1,0), Point3(0,1,0));
  mesh1.SetNormals(tri_id, Vector3(0,0,1), Vector3(0,0,1), Vector3(0,0,1));
- mesh1.SetTexCoords(tri_id, 0, Point2(0,0), Point2(1,1), Point2(0,1));
+ mesh1.SetTexCoords(tri_id, 0, Point2(0,1), Point2(1,0), Point2(0,0));
  
  // call this when done to save to the GPU
  mesh1.UpdateGPUMemory();
@@ -77,38 +77,43 @@ namespace mingfx {
  Example of creating a mesh that renders in an indexed faces mode:
  ~~~
  std::vector<unsigned int> indices;
- std::vector<float> vertices;
- std::vector<float> normals;
- std::vector<float> texcoords;
+ std::vector<Point3> vertices;
+ std::vector<Vector3> normals;
+ std::vector<Point2> texcoords;
 
  // four vertices, each requires 3 floats: (x,y,z)
- vertices.push_back(0); vertices.push_back(0); vertices.push_back(0);
- vertices.push_back(1); vertices.push_back(0); vertices.push_back(0);
- vertices.push_back(1); vertices.push_back(1); vertices.push_back(0);
- vertices.push_back(0); vertices.push_back(1); vertices.push_back(0);
+ vertices.push_back(Point3(0,0,0));
+ vertices.push_back(Point3(1,0,0));
+ vertices.push_back(Point3(1,1,0));
+ vertices.push_back(Point3(0,1,0));
 
  // four normals, each requires 3 floats: (x,y,z)
- normals.push_back(0); normals.push_back(0); normals.push_back(1);
- normals.push_back(0); normals.push_back(0); normals.push_back(1);
- normals.push_back(0); normals.push_back(0); normals.push_back(1);
- normals.push_back(0); normals.push_back(0); normals.push_back(1);
+ normals.push_back(Vector3(0,0,1));
+ normals.push_back(Vector3(0,0,1));
+ normals.push_back(Vector3(0,0,1));
+ normals.push_back(Vector3(0,0,1));
 
  // four texture coords, each requires 2 floats: (u,v)
- texcoords.push_back(0); texcoords.push_back(0);
- texcoords.push_back(1); texcoords.push_back(0);
- texcoords.push_back(1); texcoords.push_back(1);
- texcoords.push_back(0); texcoords.push_back(1);
+ texcoords.push_back(Point2(0,1));
+ texcoords.push_back(Point2(1,1));
+ texcoords.push_back(Point2(1,0));
+ texcoords.push_back(Point2(0,0));
  
  // indices into the arrays above for the first triangle
- indices.push_back(0); indices.push_back(1); indices.push_back(2);
+ indices.push_back(0); 
+ indices.push_back(1); 
+ indices.push_back(2);
  
  // indices for the second triangle, note some are reused
- indices.push_back(0); indices.push_back(2); indices.push_back(3);
+ indices.push_back(0); 
+ indices.push_back(2); 
+ indices.push_back(3);
  
  Mesh mesh1;
- mesh1.SetVertices(&vertices[0], vertices.size());
- mesh1.SetNormals(&normals[0], normals.size());
- mesh1.SetTexCoords(0, &texcoords[0], texcoords.size());
+ mesh1.SetVertices(vertices);
+ mesh1.SetNormals(normals);
+ mesh1.SetTexCoords(0, texcoords);
+ mesh1.SetIndices(indices);
  mesh1.UpdateGPUMemory();
  
  // then you can draw the same way as in the previous example.
@@ -121,11 +126,18 @@ public:
     
     virtual ~Mesh();
     
+    
     /** This reads a mesh stored in the common Wavefront Obj file format.  The
      loader here is simplistic and not guaranteed to work on all valid .obj
      files, but it should work on many simple ones. UpdateGPUMemory() is
      called automatically after the model is loaded. */
     void LoadFromOBJ(const std::string &filename);
+    
+    
+    
+    // ---- TRIANGLE LIST MODE ----
+    // No indices are stored, each set of 3 vertices forms a triangle, and if the
+    // triangles share vertices, those vertices need to be repeated.
     
     /** Adds a triangle to the mesh datastructure and returns a triangle ID.
      The ID should then be used as the first argument for follow-on calls to 
@@ -136,25 +148,87 @@ public:
     
     /** Updates the vertex positions for a triangle that has already been added
      to the mesh. */
-    void UpdateTriangle(int triangleID, Point3 v1, Point3 v2, Point3 v3);
+    void UpdateTriangle(int triangle_id, Point3 v1, Point3 v2, Point3 v3);
     
     /** Sets the normals for the three vertices of a triangle that has already
      been added to the mesh */
-    void SetNormals(int triangleID, Vector3 n1, Vector3 n2, Vector3 n3);
+    void SetNormals(int triangle_id, Vector3 n1, Vector3 n2, Vector3 n3);
 
     /** Sets per-vertex colors for the three vertices of a triangle that has already
      been added to the mesh */
-    void SetColors(int triangleID, Color c1, Color c2, Color c3);
+    void SetColors(int triangle_id, Color c1, Color c2, Color c3);
     
     /** Sets the texture coordinates for the three vertices of a triangle that 
      has already been added to the mesh.  The first textureUnit is 0, and you
      should always use 0 for this parameter unless you are doing multi-texturing. */
-    void SetTexCoords(int triangleID, int textureUnit, Point2 uv1, Point2 uv2, Point2 uv3);
+    void SetTexCoords(int triangle_id, int texture_unit, Point2 uv1, Point2 uv2, Point2 uv3);
+    
+    
+
+    // ---- INDEXED TRIANGLES MODE ----
+    // Vertices are stored in an array and indices are stored in a separate array
+    // each set of 3 indices into the vertex array defines one triangle.  Here,
+    // you cannot add one triangle at a time to the mesh.  Instead you must set
+    // the arrays of indices, vertices, and other attributes for the mesh at
+    // once.
+    
+    /// Sets the vertex array for the mesh directly.
+    void SetVertices(const std::vector<Point3> &verts);
+    
+    /// Sets the normal array for the mesh directly.
+    void SetNormals(const std::vector<Vector3> &norms);
+    
+    /// Sets the per-vertex colors array for the mesh directly.
+    void SetColors(const std::vector<Color> &colors);
+    
+    /// Sets a texture coordinates array for the mesh directly.
+    void SetTexCoords(int texture_unit, const std::vector<Point2> &tex_coords);
+    
+    /// Sets the indices into the vertex array to use to create the triangles.
+    /// Each consecutive set of 3 indices forms one triangle:
+    /// (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ...
+    void SetIndices(const std::vector<unsigned int> index_array);
+    
+    
+    // ---- These functions can be used instead of the above if you are working with
+    // regular C-style arrays and floats rather than the higher level types like
+    // Point3 and Vector3. ----
+    
+    /// Sets the vertex array for the mesh directly.  Vertices are stored as
+    /// (x,y,z), (x,y,z), (x,y,z), ...
+    /// This version of the function accepts a C-style array rather than std::vector<>
+    void SetVertices(float *verts_array, int num_verts);
+
+    /// Sets the normal array for the mesh directly.  Normals are stored as
+    /// (x,y,z), (x,y,z), (x,y,z), ... following the same ordering as was used
+    /// for SetVertices().
+    /// This version of the function accepts a C-style array rather than std::vector<>
+    void SetNormals(float *norms_array, int num_norms);
+
+    /// Sets the per-vertex colors array for the mesh directly.  Colors are stored as
+    /// (r,g,b,a), (r,g,b,a), (r,g,b,a), ... following the same ordering as was used
+    /// for SetVertices().
+    /// This version of the function accepts a C-style array rather than std::vector<>
+    void SetColors(float *colors_array, int num_colors);
+
+    /// Sets a texture coordinates array for the mesh directly.  Tex coords are stored as
+    /// (u,v), (u,v), (u,v), ... following the same ordering as was used
+    /// for SetVertices().
+    /// This version of the function accepts a C-style array rather than std::vector<>
+    void SetTexCoords(int texture_unit, float *tex_coords_array, int num_tex_coords);
+    
+    /// Sets the indices into the vertex array to use to create the triangles.
+    /// Each consecutive set of 3 indices forms one triangle:
+    /// (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ...
+    /// This version of the function accepts a C-style array rather than std::vector<>
+    void SetIndices(unsigned int *index_array, int num_indices);
+
+    
     
     /** This copies the entire mesh data structure to a vertex array in GPU memory,
-     which must happen before you can draw the mesh.  For large meshes, this can 
-     take some time, so you may want to call this during initialization immediately 
-     after generating the mesh.  If you do not, it will be called automatically 
+     which must happen before you can draw the mesh.  For large meshes, this can
+     take some time, so you may want to call this during initialization immediately
+     after generating the mesh.  If you do not, it will be called automatically
      for you the first time Draw() is called. If the mesh contains normals, per-
      vertex colors and/or texture coordinates these are added as attributes within
      the vertex array. */
@@ -162,78 +236,53 @@ public:
     
     /** This sends the mesh vertices and attributes down the graphics pipe using
      glDrawArrays() for the non-indexed mode and glDrawElements() for the indexed
-     mode.  This is just the geometry -- for anything to show up on the screen, 
+     mode.  This is just the geometry -- for anything to show up on the screen,
      you must already have a ShaderProgram enabled before calling this function. */
     void Draw();
+    
 
     
+    
     // Access to properties indexed by vertex number
-
+    
     /// The total number of vertices in the mesh.
     int num_vertices() const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-    Point3 vertex(int vertexID) const;
+    Point3 vertex(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-    Vector3 normal(int vertexID) const;
+    Vector3 normal(int vertex_id) const;
     
     /// Indexed by vertex number.  Also see num_vertices().
-    Color color(int vertexID) const;
-
+    Color color(int vertex_id) const;
+    
     /// Indexed by vertex number.  Also see num_vertices().
-    Point2 tex_coords(int textureUnit, int vertexID) const;
-
-
+    Point2 tex_coords(int texture_unit, int vertex_id) const;
+    
+    
     // Access to triangles
-
+    
     /// The total number of triangles in the mesh.
     int num_triangles() const;
-
+    
     /// Returns a 3 element array of the indices to the vertices that make up
     /// the specified triangle.
-    std::vector<unsigned int> triangle_vertices(int triangleID) const;
+    std::vector<unsigned int> triangle_vertices(int triangle_id) const;
     
-    
-    // ---- Advanced: set vertices and other attributes for the entire mesh at once ----
-    
-    /// Sets the vertex array for the mesh directly.  Vertices are stored as
-    /// (x,y,z), (x,y,z), (x,y,z), ...
-    void SetVertices(float *vertsArray, int numVerts);
-
-    /// Sets the normal array for the mesh directly.  Normals are stored as
-    /// (x,y,z), (x,y,z), (x,y,z), ... following the same ordering as was used
-    /// for SetVertices().
-    void SetNormals(float *normsArray, int numNorms);
-
-    /// Sets the per-vertex colors array for the mesh directly.  Colors are stored as
-    /// (r,g,b,a), (r,g,b,a), (r,g,b,a), ... following the same ordering as was used
-    /// for SetVertices().
-    void SetColors(float *colorsArray, int numColors);
-
-    /// Sets a texture coordinates array for the mesh directly.  Tex coords are stored as
-    /// (u,v), (u,v), (u,v), ... following the same ordering as was used
-    /// for SetVertices().
-    void SetTexCoords(int textureUnit, float *texCoordsArray, int numTexCoords);
-    
-    /// Sets the indices into the vertex array to use to create the triangles.
-    /// Each consecutive set of 3 indices forms one triangle:
-    /// (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ...
-    void SetIndices(unsigned int *indexArray, int numIndices);
-
    
 private:
     std::vector<float> verts_;
     std::vector<float> norms_;
     std::vector<float> colors_;
-    std::vector< std::vector<float> > texCoords_;
+    std::vector< std::vector<float> > tex_coords_;
     std::vector<unsigned int> indices_;
     
-    bool gpuDirty_;
+    bool gpu_dirty_;
     
-    GLuint vertexBuffer_;
-    GLuint vertexArray_;
-    GLuint elementBuffer_;
+    GLuint vertex_buffer_;
+    GLuint vertex_array_;
+    GLuint element_buffer_;
 };
     
     

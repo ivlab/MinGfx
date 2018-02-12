@@ -111,6 +111,12 @@ public:
 
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
+
+    /// Linear interpolation between this vector and another. Alpha=0.0 returns
+    /// this vector, and alpha=1.0 returns the other vector, other values blend
+    /// between the two.
+    Vector3 Lerp(const Vector3 &b, float alpha) const;
+    
     
     /// (0,0,0) - a shortcut for a special vector that is frequently needed
     static const Vector3& Zero();
@@ -163,6 +169,9 @@ public:
      */
     static float Dot(const Vector3 &v1, const Vector3 &v2);
     
+    /// Linear interpolation between two vectors.  Alpha=0.0 returns 'a' and
+    /// alpha=1.0 returns 'b', other values blend between the two.
+    static Vector3 Lerp(const Vector3 &a, const Vector3 &b, float alpha);
     
 private:
     float v[3];

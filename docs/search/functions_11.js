@@ -6,6 +6,6 @@ var searchData=
   ['unitz',['UnitZ',['../classmingfx_1_1_vector3.html#a4b696b0d1143d6e30a34a2f889d2ca61',1,'mingfx::Vector3']]],
   ['updategpumemory',['UpdateGPUMemory',['../classmingfx_1_1_mesh.html#ac74345bf4b2994de4ee1c509bcc6840e',1,'mingfx::Mesh']]],
   ['updatesimulation',['UpdateSimulation',['../classmingfx_1_1_graphics_app.html#a9e2b4cd7eeabe1ace9d5e9220349fbaa',1,'mingfx::GraphicsApp']]],
-  ['updatetriangle',['UpdateTriangle',['../classmingfx_1_1_mesh.html#a6476eb95d2df79433489984c5f0526d1',1,'mingfx::Mesh']]],
+  ['updatetriangle',['UpdateTriangle',['../classmingfx_1_1_mesh.html#a3e0ac86714f6b7c3f62761ef3952a044',1,'mingfx::Mesh']]],
   ['useprogram',['UseProgram',['../classmingfx_1_1_default_shader.html#a053599d8c7acd9920461aab8ce945ab0',1,'mingfx::DefaultShader::UseProgram()'],['../classmingfx_1_1_shader_program.html#af1c968f1c79f70e183c9d1239d3d205e',1,'mingfx::ShaderProgram::UseProgram()']]]
 ];

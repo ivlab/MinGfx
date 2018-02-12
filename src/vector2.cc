@@ -96,9 +96,23 @@ void Vector2::Normalize() {
 Vector2 Vector2::ToUnit() const {
     Vector2 v(*this);
     v.Normalize();
-    return v;}
+    return v;
+}
 
 
+Vector2 Vector2::Lerp(const Vector2 &b, float alpha) const {
+    float x = (1.0f-alpha)*(*this)[0] + alpha*b[0];
+    float y = (1.0f-alpha)*(*this)[1] + alpha*b[1];
+    return Vector2(x,y);
+}
+
+Vector2 Vector2::Lerp(const Vector2 &a, const Vector2 &b, float alpha) {
+    float x = (1.0f-alpha)*a[0] + alpha*b[0];
+    float y = (1.0f-alpha)*a[1] + alpha*b[1];
+    return Vector2(x,y);
+}
+
+    
 const float * Vector2::value_ptr() const {
     return v;
 }

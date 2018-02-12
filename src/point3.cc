@@ -83,7 +83,21 @@ const float * Point3::value_ptr() const {
     return p;
 }
 
-
+Point3 Point3::Lerp(const Point3 &b, float alpha) const {
+    float x = (1.0f-alpha)*(*this)[0] + alpha*b[0];
+    float y = (1.0f-alpha)*(*this)[1] + alpha*b[1];
+    float z = (1.0f-alpha)*(*this)[2] + alpha*b[2];
+    return Point3(x,y,z);
+}
+    
+Point3 Point3::Lerp(const Point3 &a, const Point3 &b, float alpha) {
+    float x = (1.0f-alpha)*a[0] + alpha*b[0];
+    float y = (1.0f-alpha)*a[1] + alpha*b[1];
+    float z = (1.0f-alpha)*a[2] + alpha*b[2];
+    return Point3(x,y,z);
+}
+    
+    
 std::ostream & operator<< ( std::ostream &os, const Point3 &p) {
   return os << "(" << p[0] << ", " << p[1] << ", " << p[2] << ")";
 }
