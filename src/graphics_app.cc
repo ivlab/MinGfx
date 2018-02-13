@@ -11,7 +11,21 @@ namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : lastDrawT_(0.0) {
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsInConstructor) : lastDrawT_(0.0), width_(width), height_(height), caption_(caption), initGraphicsInConstructor_(initGraphicsInConstructor) {
+// Adding temporary solution for forcing the use of InitGraphics() method for automated testing without graphics.
+#ifdef INIT_GFX_NO_CONSTRUCTOR
+    initGraphicsInConstructor_ = false;
+#endif
+
+    if (initGraphicsInConstructor_) {
+        initWindow(); 
+    }
+}
+
+GraphicsApp::~GraphicsApp() {
+}
+
+void GraphicsApp::initWindow() {
     
     glfwInit();
     
@@ -32,7 +46,7 @@ GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : la
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
     
     // Create a GLFWwindow object
-    window_ = glfwCreateWindow(width, height, caption.c_str(), nullptr, nullptr);
+    window_ = glfwCreateWindow(width_, height_, caption_.c_str(), nullptr, nullptr);
     if (window_ == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -55,8 +69,8 @@ GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : la
     screen_ = new nanogui::Screen();
     screen_->initialize(window_, true);
     
-    glfwGetFramebufferSize(window_, &width, &height);
-    glViewport(0, 0, width, height);
+    glfwGetFramebufferSize(window_, &width_, &height_);
+    glViewport(0, 0, width_, height_);
     glfwSwapInterval(0);
     glfwSwapBuffers(window_);
     
@@ -113,13 +127,16 @@ GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) : la
     );
  }
 
-GraphicsApp::~GraphicsApp() {
-}
-
 
     
 void GraphicsApp::Run() {
-    
+
+    if(!initGraphicsInConstructor_) {
+        initWindow();        
+    }
+
+    InitGraphics();
+
     InitOpenGL();
     
     // Main program loop

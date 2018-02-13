@@ -124,7 +124,7 @@ public:
      \param height The height of the client area of the window in pixels.
      \param caption The caption for the window's title bar.
      */
-    GraphicsApp(int width, int height, const std::string &caption);
+    GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsInConstructor = true);
 
 
     /// The destructor will shutdown the graphics system and window
@@ -233,6 +233,11 @@ public:
      */
     void Run();
     
+    /** Called at the beginning of the Run() method.  This will initialize
+      any graphics window related properties including 2D windows, buttons,
+      sliders, etc...
+     */
+    virtual void InitGraphics() {}
     
     /** Called once per frame.  Override this and fill it in to update your 
      simulation code or any other updates you need to make to your model that 
@@ -331,6 +336,7 @@ public:
 
 private:
     
+    void initWindow();
     bool cursor_pos_glfw_cb(double x, double y);
     bool mouse_button_glfw_cb(int button, int action, int modifiers);
     bool key_glfw_cb(int key, int scancode, int action, int mods);
@@ -339,6 +345,10 @@ private:
     bool scroll_glfw_cb(double x, double y);
     bool resize_glfw_cb(int width, int height);
     
+    bool initGraphicsInConstructor_;
+    int width_;
+    int height_;
+    const std::string &caption_;
     nanogui::Screen *screen_;
     GLFWwindow* window_;
     double lastDrawT_;
