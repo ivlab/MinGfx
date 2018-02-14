@@ -11,21 +11,21 @@ namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsInConstructor) : lastDrawT_(0.0), width_(width), height_(height), caption_(caption), initGraphicsInConstructor_(initGraphicsInConstructor) {
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsContextInConstructor) : lastDrawT_(0.0), width_(width), height_(height), caption_(caption), initGraphicsContextInConstructor_(initGraphicsContextInConstructor) {
 // Adding temporary solution for forcing the use of InitGraphics() method for automated testing without graphics.
-#ifdef INIT_GFX_NO_CONSTRUCTOR
-    initGraphicsInConstructor_ = false;
+#ifndef ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR
+    initGraphicsContextInConstructor_ = false;
 #endif
 
-    if (initGraphicsInConstructor_) {
-        initWindow(); 
+    if (initGraphicsContextInConstructor_) {
+        initGraphicsContext(); 
     }
 }
 
 GraphicsApp::~GraphicsApp() {
 }
 
-void GraphicsApp::initWindow() {
+void GraphicsApp::initGraphicsContext() {
     
     glfwInit();
     
@@ -131,11 +131,11 @@ void GraphicsApp::initWindow() {
     
 void GraphicsApp::Run() {
 
-    if(!initGraphicsInConstructor_) {
-        initWindow();        
+    if(!initGraphicsContextInConstructor_) {
+        initGraphicsContext();        
     }
 
-    InitGraphics();
+    InitNanoGUI();
 
     InitOpenGL();
     

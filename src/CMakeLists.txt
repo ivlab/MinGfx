@@ -83,10 +83,10 @@ UseNanoGUI(MinGfx PUBLIC ${EXTERNAL_DIR})
 include(UseOpenGL)
 UseOpenGL(MinGfx PUBLIC ${EXTERNAL_DIR})
 
-option(INIT_GFX_NO_CONSTRUCTOR "Forces graphics applications to use the InitGraphics() for initializing graphics instead of the constructor." OFF)
+option(ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR "Allows graphics contexts to initialize in the application constructor." ON)
 
-if(INIT_GFX_NO_CONSTRUCTOR)
-    target_compile_definitions(MinGfx PUBLIC -DINIT_GFX_NO_CONSTRUCTOR)
+if(ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR)
+    target_compile_definitions(MinGfx PUBLIC -DALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR)
 endif()
 
 install(TARGETS MinGfx EXPORT MinGfxTargets COMPONENT CoreLib

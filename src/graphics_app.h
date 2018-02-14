@@ -72,6 +72,11 @@ namespace mingfx {
  class MyApp : public GraphcisApp {
  public:
     MyApp() : GraphicsApp(1024,768, "My Amazing App") {
+    }
+    
+    virtual ~MyApp() {}
+
+    void InitNanoGUI() {
         // Setup the GUI window
         nanogui::Window *window = new nanogui::Window(screen(), "My GUI Panel");
         window->setPosition(Eigen::Vector2i(10, 10));
@@ -84,8 +89,6 @@ namespace mingfx {
  
         screen()->performLayout();
     }
-    
-    virtual ~MyApp() {}
  
     void OnMouseMove(const Point2 &pos, const Vector2 &delta) {
         std::cout << "Mouse moved to " << pos << std::endl;
@@ -234,10 +237,10 @@ public:
     void Run();
     
     /** Called at the beginning of the Run() method.  This will initialize
-      any graphics window related properties including 2D windows, buttons,
+      any NanoGUI graphics related properties including 2D windows, buttons,
       sliders, etc...
      */
-    virtual void InitGraphics() {}
+    virtual void InitNanoGUI() {}
     
     /** Called once per frame.  Override this and fill it in to update your 
      simulation code or any other updates you need to make to your model that 
@@ -336,7 +339,7 @@ public:
 
 private:
     
-    void initWindow();
+    void initGraphicsContext();
     bool cursor_pos_glfw_cb(double x, double y);
     bool mouse_button_glfw_cb(int button, int action, int modifiers);
     bool key_glfw_cb(int key, int scancode, int action, int mods);
@@ -345,7 +348,7 @@ private:
     bool scroll_glfw_cb(double x, double y);
     bool resize_glfw_cb(int width, int height);
     
-    bool initGraphicsInConstructor_;
+    bool initGraphicsContextInConstructor_;
     int width_;
     int height_;
     const std::string &caption_;

@@ -36,7 +36,7 @@ public:
     CircleViewer();
     ~CircleViewer();
 
-    void InitGraphics();
+    void InitNanoGUI();
 
     void UpdateSimulation(double dt);
 

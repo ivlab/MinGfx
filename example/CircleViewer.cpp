@@ -15,7 +15,7 @@ CircleViewer::~CircleViewer() {
     
 }
 
-void CircleViewer::InitGraphics() {
+void CircleViewer::InitNanoGUI() {
     nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
     nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Simulation Controls");    
     pauseBtn_ = gui->addButton("Pause", std::bind(&CircleViewer::OnPauseBtnPressed, this));
