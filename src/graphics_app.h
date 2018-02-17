@@ -72,6 +72,11 @@ namespace mingfx {
  class MyApp : public GraphcisApp {
  public:
     MyApp() : GraphicsApp(1024,768, "My Amazing App") {
+    }
+    
+    virtual ~MyApp() {}
+
+    void InitNanoGUI() {
         // Setup the GUI window
         nanogui::Window *window = new nanogui::Window(screen(), "My GUI Panel");
         window->setPosition(Eigen::Vector2i(10, 10));
@@ -84,8 +89,6 @@ namespace mingfx {
  
         screen()->performLayout();
     }
-    
-    virtual ~MyApp() {}
  
     void OnMouseMove(const Point2 &pos, const Vector2 &delta) {
         std::cout << "Mouse moved to " << pos << std::endl;
@@ -124,7 +127,7 @@ public:
      \param height The height of the client area of the window in pixels.
      \param caption The caption for the window's title bar.
      */
-    GraphicsApp(int width, int height, const std::string &caption);
+    GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsInConstructor = true);
 
 
     /// The destructor will shutdown the graphics system and window
@@ -233,6 +236,11 @@ public:
      */
     void Run();
     
+    /** Called at the beginning of the Run() method.  This will initialize
+      any NanoGUI graphics related properties including 2D windows, buttons,
+      sliders, etc...
+     */
+    virtual void InitNanoGUI() {}
     
     /** Called once per frame.  Override this and fill it in to update your 
      simulation code or any other updates you need to make to your model that 
@@ -261,37 +269,37 @@ public:
     
     /// True if the specified is is currently held down.  Uses the GLFW
     /// key codes found here: http://www.glfw.org/docs/latest/group__keys.html
-    bool IsKeyDown(int key);
+    virtual bool IsKeyDown(int key);
     
     /// True if the left mouse button is currently held down.
-    bool IsLeftMouseDown();
+    virtual bool IsLeftMouseDown();
     
     /// True if the middle mouse button is currently held down.
-    bool IsMiddleMouseDown();
+    virtual bool IsMiddleMouseDown();
     
     /// True if the right mouse button is currently held down.
-    bool IsRightMouseDown();
+    virtual bool IsRightMouseDown();
     
     /// Returns the current width of the client area of the window in pixels
-    int window_width();
+    virtual int window_width();
     
     /// Returns the current height of the client area of the window in pixels
-    int window_height();
+    virtual int window_height();
     
     /** Returns the current width of the framebuffer in pixels.  Note that on
      some displays (e.g., Mac Retina) the framebuffer is larger than the
      window.
      */
-    int framebuffer_width();
+    virtual int framebuffer_width();
     
     /** Returns the current height of the framebuffer in pixels.  Note that on
      some displays (e.g., Mac Retina) the framebuffer is larger than the
      window.
      */
-    int framebuffer_height();
+   virtual  int framebuffer_height();
 
     /// Returns width/height for the current shape of the window
-    float aspect_ratio();
+    virtual float aspect_ratio();
     
     
     /** Transforms a point in viewport coordinates (pixels where top left = (0,0)
@@ -321,7 +329,7 @@ public:
     
     /// Returns the z buffer value under the specified pixel.  z will be 0 at
     /// the near plane and +1 at the far plane.
-    float ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int whichBuffer = GL_BACK);
+    virtual float ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int whichBuffer = GL_BACK);
 
     /// Access to the underlying NanoGUI Screen object
     nanogui::Screen* screen();
@@ -331,6 +339,7 @@ public:
 
 private:
     
+    void initGraphicsContext();
     bool cursor_pos_glfw_cb(double x, double y);
     bool mouse_button_glfw_cb(int button, int action, int modifiers);
     bool key_glfw_cb(int key, int scancode, int action, int mods);
@@ -339,6 +348,10 @@ private:
     bool scroll_glfw_cb(double x, double y);
     bool resize_glfw_cb(int width, int height);
     
+    bool initGraphicsContextInConstructor_;
+    int width_;
+    int height_;
+    const std::string &caption_;
     nanogui::Screen *screen_;
     GLFWwindow* window_;
     double lastDrawT_;

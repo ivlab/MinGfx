@@ -5,14 +5,7 @@
 #include <iostream>
 
 
-CircleViewer::CircleViewer() : GraphicsApp(1024,768, "Circle Simulation") {
-    nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
-    nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Simulation Controls");    
-    pauseBtn_ = gui->addButton("Pause", std::bind(&CircleViewer::OnPauseBtnPressed, this));
-    gui->addButton("Restart", std::bind(&CircleViewer::OnRestartBtnPressed, this));
-
-    screen()->performLayout();
-
+CircleViewer::CircleViewer() : GraphicsApp(1024,768, "Circle Simulation",false) {
     simTime_ = 0.0;
     paused_ = false;
 }
@@ -22,6 +15,14 @@ CircleViewer::~CircleViewer() {
     
 }
 
+void CircleViewer::InitNanoGUI() {
+    nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
+    nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Simulation Controls");    
+    pauseBtn_ = gui->addButton("Pause", std::bind(&CircleViewer::OnPauseBtnPressed, this));
+    gui->addButton("Restart", std::bind(&CircleViewer::OnRestartBtnPressed, this));
+
+    screen()->performLayout();
+}
 
 void CircleViewer::UpdateSimulation(double dt) {
     if (!paused_) {

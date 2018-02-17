@@ -37,18 +37,9 @@ Point2 mpos;
 
 
 GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
-    nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
-    nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Simulation Controls");    
-    pauseBtn_ = gui->addButton("Pause", std::bind(&GuiPlusOpenGL::OnPauseBtnPressed, this));
-    gui->addButton("Restart", std::bind(&GuiPlusOpenGL::OnRestartBtnPressed, this));
-
-    screen()->performLayout();
-     
+    
     simTime_ = 0.0;
     paused_ = false;
-    
-    qs = new QuickShapes();
-    
     
     int i;
     i = mesh1.AddTriangle(Point3(0,0,0), Point3(1,0,0), Point3(1,1,0));
@@ -63,10 +54,21 @@ GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
 }
 
 
+
+
 GuiPlusOpenGL::~GuiPlusOpenGL() {
     
 }
 
+void GuiPlusOpenGL::InitNanoGUI() {
+    nanogui::FormHelper *gui = new nanogui::FormHelper(screen());
+    nanogui::ref<nanogui::Window> window = gui->addWindow(Eigen::Vector2i(10, 10), "Simulation Controls");    
+    pauseBtn_ = gui->addButton("Pause", std::bind(&GuiPlusOpenGL::OnPauseBtnPressed, this));
+    gui->addButton("Restart", std::bind(&GuiPlusOpenGL::OnRestartBtnPressed, this));
+
+    screen()->performLayout();
+    qs = new QuickShapes();
+}
 
 void GuiPlusOpenGL::UpdateSimulation(double dt) {
     if (!paused_) {

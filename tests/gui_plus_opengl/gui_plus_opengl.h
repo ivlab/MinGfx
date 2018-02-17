@@ -48,6 +48,8 @@ public:
     GuiPlusOpenGL();
     ~GuiPlusOpenGL();
 
+    void InitNanoGUI();
+
     void UpdateSimulation(double dt);
 
 
