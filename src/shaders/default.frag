@@ -54,17 +54,22 @@ void main() {
     vec3 Ia = vec3(0,0,0);
     vec3 Id = vec3(0,0,0);
     vec3 Is = vec3(0,0,0);
+    
+    vec3 n = normalize(N);
+    
     for (int i=0; i<NumLights; i++) {
         vec3 L = normalize(LightPositions[i] - v);
         vec3 V = normalize(-v); // eye is at (0,0,0)
         vec3 R = normalize(-reflect(L,N));
 
         Ia += MatReflectanceAmbient.rgb * LightIntensitiesAmbient[i].rgb;
+        
+        if (dot(n,L) > 0.0) {
+            Id += clamp(MatReflectanceDiffuse.rgb * LightIntensitiesDiffuse[i].rgb * max(dot(n, L), 0.0), 0.0, 1.0);
 
-        Id += clamp(MatReflectanceDiffuse.rgb * LightIntensitiesDiffuse[i].rgb * max(dot(N, L), 0.0), 0.0, 1.0);
-
-        Is += MatReflectanceSpecular.rgb * LightIntensitiesSpecular[i].rgb * pow(max(dot(R, V), 0.0), MatReflectanceShininess);
-        Is = clamp(Is, 0.0, 1.0);
+            Is += MatReflectanceSpecular.rgb * LightIntensitiesSpecular[i].rgb * pow(max(dot(R, V), 0.0), MatReflectanceShininess);
+            Is = clamp(Is, 0.0, 1.0);
+        }
     }
     fragColor.rgb *= Ia + Id + Is;
 }

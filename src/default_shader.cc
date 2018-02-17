@@ -101,7 +101,14 @@ namespace mingfx {
             Init();
         }
         
-        Matrix4 normalMatrix = (model*view).Inverse().Transpose();
+        Matrix4 normalMatrix = (view*model).Inverse().Transpose();
+        
+        for (int i=0; i<lights_.size(); i++) {
+            Point3 light_in_eye_space = view * lights_[i].position;
+            lightPositions_[3*i + 0] = light_in_eye_space[0];
+            lightPositions_[3*i + 1] = light_in_eye_space[1];
+            lightPositions_[3*i + 2] = light_in_eye_space[2];
+        }
         
         // Activate the shader program
         phongShader_.UseProgram();

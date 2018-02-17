@@ -15,6 +15,7 @@ set(HEADERFILES
     src/platform.h
     src/point2.h
     src/point3.h
+    src/quaternion.h
     src/quick_shapes.h
     src/ray.h
     src/shader_program.h
@@ -34,6 +35,7 @@ set(SOURCEFILES
     src/platform.cc
     src/point2.cc
     src/point3.cc
+    src/quaternion.cc
     src/quick_shapes.cc
     src/ray.cc
     src/shader_program.cc

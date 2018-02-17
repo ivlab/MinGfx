@@ -28,6 +28,7 @@
 #include "platform.h"
 #include "point2.h"
 #include "point3.h"
+#include "quaternion.h"
 #include "quick_shapes.h"
 #include "ray.h"
 #include "shader_program.h"

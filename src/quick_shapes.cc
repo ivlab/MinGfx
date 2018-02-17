@@ -355,10 +355,10 @@ void QuickShapes::initSph() {
         
         // one triangle on the bottom
         verts.push_back(bot);
-        verts.push_back(Vertex(std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast,
-                               std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast));
         verts.push_back(Vertex(std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew,
                                std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew));
+        verts.push_back(Vertex(std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast,
+                               std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast));
     }
     
     GLfloat *vertices = new GLfloat[3*verts.size()];

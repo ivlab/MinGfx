@@ -27,11 +27,22 @@ float GfxMath::ToRadians(float degrees) {
 float GfxMath::ToDegrees(float radians) {
     return radians * 180.0 / M_PI;
 }
+
+Vector3 GfxMath::ToRadians(Vector3 degrees) {
+    return Vector3(ToRadians(degrees[0]), ToRadians(degrees[1]), ToRadians(degrees[2]));
+}
+
+Vector3 GfxMath::ToDegrees(Vector3 radians) {
+    return Vector3(ToDegrees(radians[0]), ToDegrees(radians[1]), ToDegrees(radians[2]));
+}
     
 float GfxMath::Lerp(float a, float b, float alpha) {
     return (1.0f-alpha)*a + alpha*b;
 }
     
+int GfxMath::iLerp(int a, int b, float alpha) {
+    return std::round((1.0f-alpha)*(float)a + alpha*(float)b);
+}
     
 Point3 GfxMath::ScreenToNearPlane(const Matrix4 &V, const Matrix4 &P, const Point2 &ndcPoint) {
     Matrix4 filmPtToWorld = (P*V).Inverse();

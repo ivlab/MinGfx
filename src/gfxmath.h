@@ -16,6 +16,7 @@
 
 #include "point2.h"
 #include "point3.h"
+#include "vector3.h"
 #include "matrix4.h"
 
 namespace mingfx {
@@ -34,8 +35,14 @@ public:
         
     static float ToDegrees(float radians);
     
-    static float Lerp(float a, float b, float alpha);
+    static Vector3 ToRadians(Vector3 degrees);
     
+    static Vector3 ToDegrees(Vector3 radians);
+    
+    static float Lerp(float a, float b, float alpha);
+
+    static int iLerp(int a, int b, float alpha);
+
     /// Converts a 2D point on the filmplane represented in Normalized Device
     /// Coorindates, which means (-1,1) for the top left corner of the screen and
     /// (1,-1) for the bottom right corner, to a 3D point that lies on the camera's
