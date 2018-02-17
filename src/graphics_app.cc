@@ -11,7 +11,10 @@ namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsContextInConstructor) : lastDrawT_(0.0), width_(width), height_(height), caption_(caption), initGraphicsContextInConstructor_(initGraphicsContextInConstructor) {
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsContextInConstructor) :
+    initGraphicsContextInConstructor_(initGraphicsContextInConstructor), width_(width), height_(height),
+    caption_(caption), lastDrawT_(0.0)
+{
 // Adding temporary solution for forcing the use of InitGraphics() method for automated testing without graphics.
 #ifndef ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR
     initGraphicsContextInConstructor_ = false;
