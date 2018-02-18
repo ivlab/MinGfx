@@ -4,6 +4,7 @@ All Rights Reserved.
 See corresponding header file for details.
 */
 
+#define _USE_MATH_DEFINES
 #include "quaternion.h"
 
 #include "gfxmath.h"
