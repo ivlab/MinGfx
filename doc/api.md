@@ -22,13 +22,14 @@ API - MinGfx Programming Reference Organized by Topic {#api}
 
 | Graphics Math |
 |---------------|
-| [Matrix4](@ref mingfx::Matrix4) |
-| [Point2](@ref mingfx::Point2)   |
-| [Point3](@ref mingfx::Point3)   |
-| [Vector2](@ref mingfx::Vector2) |
-| [Vector3](@ref mingfx::Vector3) |
-| [Ray](@ref mingfx::Ray)         |
-| [GfxMath](@ref mingfx::GfxMath) |
+| [Matrix4](@ref mingfx::Matrix4)       |
+| [Point2](@ref mingfx::Point2)         |
+| [Point3](@ref mingfx::Point3)         |
+| [Vector2](@ref mingfx::Vector2)       |
+| [Vector3](@ref mingfx::Vector3)       |
+| [Ray](@ref mingfx::Ray)               |
+| [Quaternion](@ref mingfx::Quaternion) |
+| [GfxMath](@ref mingfx::GfxMath)       |
 
 
 | Shader Programs |
@@ -41,6 +42,7 @@ API - MinGfx Programming Reference Organized by Topic {#api}
 
 | User Interface |
 |----------------|
+| [CraftCam](@ref mingfx::CraftCam) |
 | [UniCam](@ref mingfx::UniCam) |
 
 
