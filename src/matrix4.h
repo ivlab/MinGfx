@@ -123,10 +123,10 @@ public:
     // --- Model Transformations ---
     
     /// Returns the scale matrix described by the vector
-    static Matrix4 Scale(const Vector3& v);
+    static Matrix4 Scale(const Vector3 &v);
 
     /// Returns the translation matrix described by the vector
-    static Matrix4 Translation(const Vector3& v);
+    static Matrix4 Translation(const Vector3 &v);
 
     /// Returns the rotation matrix about the x axis by the specified angle
     static Matrix4 RotationX(const float radians);
@@ -138,8 +138,36 @@ public:
     static Matrix4 RotationZ(const float radians);
 
     /// Returns the rotation matrix around the vector v placed at point p, rotate by angle a
-    static Matrix4 Rotation(const Point3& p, const Vector3& v, const float a);
+    static Matrix4 Rotation(const Point3 &p, const Vector3 &v, const float a);
 
+    /// Creates a transformation matrix that maps a coordinate space, *a*, defined
+    /// one point, *a_p*, and two vectors, *a_v1* and *a_v2*, to a new coordinate
+    /// space, *b*, also defined by one point, *b_p*, and two vectors, *b_v1* and
+    /// *b_v2*.  The transformation will thus include both some rotation and some
+    /// translation.  Pseudocode example of aligning a billboard defined in the
+    /// XY plane with a normal in the +Z direction and that rotates around the Y
+    /// axis with a camera:
+    /// ~~~
+    /// // define a coordiante space for a canonical billboard geometry defined
+    /// // right at the origin.
+    /// Point3 a_p = Point3(0,0,0);     // billboard's initial base position
+    /// Vector3 a_v1 = Vector3(0,1,0);  // billboard's initial up direction
+    /// Vector3 a_v2 = Vector3(0,0,1);  // billboard's initial normal direction
+    ///
+    /// // define a coordinate space for where we want this billboard to go and
+    /// // the direction it should be facing
+    /// Point3 b_p = desired_base_pos;  // new position for the billboard
+    /// Vector3 b_v1 = Vector3(0,1,0);  // +Y is still up, doesn't change
+    /// Vector3 b_v2 = (camera.eye() - desired_base_pos); // the normal should point toward the camera
+    /// b_v2[1] = 0.0;    // with 0 change in Y so the billboard does not tilt
+    /// b_v2.Normalize(); // convert to a unit vector
+    ///
+    /// Matrix4 billboard_model_matrix = Matrix4::Align(a_p, a_v1, a_v2,   b_p, b_v1, b_v2);
+    /// ~~~
+    static Matrix4 Align(const Point3 &a_p, const Vector3 &a_v1, const Vector3 &a_v2,
+                         const Point3 &b_p, const Vector3 &b_v1, const Vector3 &b_v2);
+
+    
     // --- View Matrices ---
     
     /** Returns a view matrix that centers the camera at the 'eye' position and

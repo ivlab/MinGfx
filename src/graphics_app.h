@@ -126,8 +126,11 @@ public:
      \param width The width of the client area of the window in pixels.
      \param height The height of the client area of the window in pixels.
      \param caption The caption for the window's title bar.
+     \param init_graphics_in_constructor Defaults to true for backward compatibility,
+            but new apps should set this to false.  This option was added to support
+            testing graphics functions in batch mode with an off-screen framebuffer.
      */
-    GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsInConstructor = true);
+    GraphicsApp(int width, int height, const std::string &caption, bool init_graphics_in_constructor = true);
 
 
     /// The destructor will shutdown the graphics system and window
@@ -210,7 +213,15 @@ public:
      */
     virtual void OnKeyDown(const char *c, int modifiers) {}
 
-    /** Transforms a keyboard down event into the actual character typed.
+    /** Transforms a keyboard repeat event into the actual character typed.
+     \param c The character for the key that was pressed.
+     \param modifiers If any modifiers (Alt, Ctrl, Shift, etc.) were held
+     at the same time, then these are encoded in this int.  See the detailed
+     description here: http://www.glfw.org/docs/latest/group__mods.html
+     */
+    virtual void OnKeyRepeat(const char *c, int modifiers) {}
+    
+    /** Transforms a keyboard up event into the actual character typed.
      \param c The character for the key that was pressed.
      \param modifiers If any modifiers (Alt, Ctrl, Shift, etc.) were held
      at the same time, then these are encoded in this int.  See the detailed
@@ -218,15 +229,22 @@ public:
      */
     virtual void OnKeyUp(const char *c, int modifiers) {}
 
+    
+    
     /// The values for key, scancode, and modifiers are documented here:
     /// http://www.glfw.org/docs/latest/group__keys.html
     virtual void OnSpecialKeyDown(int key, int scancode, int modifiers) {}
 
     /// The values for key, scancode, and modifiers are documented here:
     /// http://www.glfw.org/docs/latest/group__keys.html
+    virtual void OnSpecialKeyRepeat(int key, int scancode, int modifiers) {}
+    
+    /// The values for key, scancode, and modifiers are documented here:
+    /// http://www.glfw.org/docs/latest/group__keys.html
     virtual void OnSpecialKeyUp(int key, int scancode, int modifiers) {}
 
 
+    
     /** After creating a new GraphicsApp, call this to start the app's
      mainloop.  Each time through the mainloop the app will: 1. respond
      any user input events by calling the On*() callback methods, 2. call
@@ -236,11 +254,13 @@ public:
      */
     void Run();
     
+    
     /** Called at the beginning of the Run() method.  This will initialize
       any NanoGUI graphics related properties including 2D windows, buttons,
       sliders, etc...
      */
     virtual void InitNanoGUI() {}
+    
     
     /** Called once per frame.  Override this and fill it in to update your 
      simulation code or any other updates you need to make to your model that 
@@ -296,7 +316,7 @@ public:
      some displays (e.g., Mac Retina) the framebuffer is larger than the
      window.
      */
-   virtual  int framebuffer_height();
+    virtual  int framebuffer_height();
 
     /// Returns width/height for the current shape of the window
     virtual float aspect_ratio();

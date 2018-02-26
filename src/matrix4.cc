@@ -131,7 +131,6 @@ Matrix4 Matrix4::RotationZ(const float radians) {
 
     
 Matrix4 Matrix4::Rotation(const Point3& p, const Vector3& v, const float a) {
-    // Translate to origin from point p
     const float vZ = v[2];
     const float vX = v[0];
     const float theta = atan2(vZ, vX);
@@ -148,6 +147,31 @@ Matrix4 Matrix4::Rotation(const Point3& p, const Vector3& v, const float a) {
     return transBack * invA * invB * C * B * A * transToOrigin;
 }
 
+    
+Matrix4 Matrix4::Align(const Point3 &a_p, const Vector3 &a_v1, const Vector3 &a_v2,
+                       const Point3 &b_p, const Vector3 &b_v1, const Vector3 &b_v2)
+{
+    Vector3 ax = a_v1.ToUnit();
+    Vector3 ay = a_v2.ToUnit();
+    Vector3 az = ax.Cross(ay).ToUnit();
+    ay = az.Cross(ax);
+    Matrix4 A = Matrix4::FromRowMajorElements(ax[0], ay[0], az[0], a_p[0],
+                                              ax[1], ay[1], az[1], a_p[1],
+                                              ax[2], ay[2], az[2], a_p[2],
+                                              0,     0,     0,     1);
+    
+    Vector3 bx = b_v1.ToUnit();
+    Vector3 by = b_v2.ToUnit();
+    Vector3 bz = bx.Cross(by).ToUnit();
+    by = bz.Cross(bx);
+    Matrix4 B = Matrix4::FromRowMajorElements(bx[0], by[0], bz[0], b_p[0],
+                                              bx[1], by[1], bz[1], b_p[1],
+                                              bx[2], by[2], bz[2], b_p[2],
+                                              0,     0,     0,     1);
+    return B * A.Inverse();
+}
+
+    
     
 Matrix4 Matrix4::LookAt(Point3 eye, Point3 target, Vector3 up) {
     Vector3 lookDir = (target - eye).ToUnit();

@@ -5,6 +5,7 @@
  */
 
 #include "point3.h"
+#include "vector3.h"
 
 #include <math.h>
 
@@ -96,6 +97,37 @@ Point3 Point3::Lerp(const Point3 &a, const Point3 &b, float alpha) {
     float z = (1.0f-alpha)*a[2] + alpha*b[2];
     return Point3(x,y,z);
 }
+    
+
+float Point3::DistanceToPlane(const Point3 &plane_origin, const Vector3 &plane_normal) {
+    return ((*this) - ClosestPointOnPlane(plane_origin, plane_normal)).Length();
+}
+
+
+Point3 Point3::ClosestPointOnPlane(const Point3 &plane_origin, const Vector3 &plane_normal) {
+    Vector3 to_plane_origin = plane_origin - (*this);
+    Vector3 inv_n = -plane_normal;
+    if (to_plane_origin.Dot(inv_n) < 0.0) {
+        inv_n = -inv_n;
+    }
+    
+    Vector3 to_plane = inv_n * to_plane_origin.Dot(inv_n);
+    return (*this) + to_plane;
+}
+
+Point3 Point3::ClosestPoint(const std::vector<Point3> &point_list) {
+    int closest_id = 0;
+    float closest_dist = (point_list[0] - *this).Length();
+    for (int i=1; i<point_list.size(); i++) {
+        float d = (point_list[i] - *this).Length();
+        if (d < closest_dist) {
+            closest_id = i;
+            closest_dist = d;
+        }
+    }
+    return point_list[closest_id];
+}
+
     
     
 std::ostream & operator<< ( std::ostream &os, const Point3 &p) {

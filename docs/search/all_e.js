@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['ray',['Ray',['../classmingfx_1_1_ray.html',1,'mingfx']]],
-  ['ray',['Ray',['../classmingfx_1_1_ray.html#aee3fe586869e00ae657a74bb4bbbbfda',1,'mingfx::Ray::Ray()'],['../classmingfx_1_1_ray.html#ab38cdd0793b3acfe55fa9ebca5ddebf6',1,'mingfx::Ray::Ray(const Point3 &amp;origin, const Vector3 &amp;direction)']]],
-  ['ray_2eh',['ray.h',['../ray_8h.html',1,'']]],
-  ['readzvalueatpixel',['ReadZValueAtPixel',['../classmingfx_1_1_graphics_app.html#af5c5e2d04b0cc0db5e978538e9ba63f6',1,'mingfx::GraphicsApp']]],
-  ['rotation',['Rotation',['../classmingfx_1_1_matrix4.html#acf4abaf4a45826f14b435edf80a8d0e0',1,'mingfx::Matrix4']]],
-  ['rotationx',['RotationX',['../classmingfx_1_1_matrix4.html#a48615deb30590055c0aa9f207eee7f08',1,'mingfx::Matrix4']]],
-  ['rotationy',['RotationY',['../classmingfx_1_1_matrix4.html#aef94f0e9d298a7ba57e0119ef09b71b6',1,'mingfx::Matrix4']]],
-  ['rotationz',['RotationZ',['../classmingfx_1_1_matrix4.html#a4bf1dced8875fdc5827b5b8869e9de93',1,'mingfx::Matrix4']]],
-  ['run',['Run',['../classmingfx_1_1_graphics_app.html#a6cdb979a2a42c9d0e1aab7952e3b0e8e',1,'mingfx::GraphicsApp']]]
+  ['quaternion',['Quaternion',['../classmingfx_1_1_quaternion.html',1,'mingfx']]],
+  ['quaternion',['Quaternion',['../classmingfx_1_1_quaternion.html#ad58ac80804ec63af354912a71361f165',1,'mingfx::Quaternion::Quaternion()'],['../classmingfx_1_1_quaternion.html#a5c6cbe4fc70e8e4ec23142d0a5a2ba97',1,'mingfx::Quaternion::Quaternion(float qx, float qy, float qz, float qw)'],['../classmingfx_1_1_quaternion.html#a07bb09eb7d0b368ef5e8d9da02fbdad6',1,'mingfx::Quaternion::Quaternion(float *ptr)'],['../classmingfx_1_1_quaternion.html#a0be885a1b3f2d54675c6866ec3578243',1,'mingfx::Quaternion::Quaternion(const Quaternion &amp;other)']]],
+  ['quaternion_2eh',['quaternion.h',['../quaternion_8h.html',1,'']]],
+  ['quick_5fshapes_2eh',['quick_shapes.h',['../quick__shapes_8h.html',1,'']]],
+  ['quickshapes',['QuickShapes',['../classmingfx_1_1_quick_shapes.html#a5764a0953013ece013bf3e2a72e4afa2',1,'mingfx::QuickShapes']]],
+  ['quickshapes',['QuickShapes',['../classmingfx_1_1_quick_shapes.html',1,'mingfx']]]
 ];

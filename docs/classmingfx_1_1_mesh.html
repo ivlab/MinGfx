@@ -188,6 +188,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a69613870d54989f4226e50caf4ca9fb9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a69613870d54989f4226e50caf4ca9fb9">Mesh</a> ()</td></tr>
 <tr class="memdesc:a69613870d54989f4226e50caf4ca9fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty mesh.  <a href="#a69613870d54989f4226e50caf4ca9fb9">More...</a><br /></td></tr>
 <tr class="separator:a69613870d54989f4226e50caf4ca9fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76b4977f0a7f156aa8a0027f10dcbdc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a76b4977f0a7f156aa8a0027f10dcbdc1">Mesh</a> (const <a class="el" href="classmingfx_1_1_mesh.html">Mesh</a> &amp;other)</td></tr>
+<tr class="memdesc:a76b4977f0a7f156aa8a0027f10dcbdc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies all data and sets GPU dirty bit for the new mesh.  <a href="#a76b4977f0a7f156aa8a0027f10dcbdc1">More...</a><br /></td></tr>
+<tr class="separator:a76b4977f0a7f156aa8a0027f10dcbdc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace7b23730dbcb581c4886cf2b9998327"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#ace7b23730dbcb581c4886cf2b9998327">~Mesh</a> ()</td></tr>
 <tr class="separator:ace7b23730dbcb581c4886cf2b9998327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d05faf18ef8d170fc3c2a343075823f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a8d05faf18ef8d170fc3c2a343075823f">LoadFromOBJ</a> (const std::string &amp;filename)</td></tr>
@@ -244,6 +247,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a75075d472938fd760477be42585aff5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a75075d472938fd760477be42585aff5c">Draw</a> ()</td></tr>
 <tr class="memdesc:a75075d472938fd760477be42585aff5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This sends the mesh vertices and attributes down the graphics pipe using glDrawArrays() for the non-indexed mode and glDrawElements() for the indexed mode.  <a href="#a75075d472938fd760477be42585aff5c">More...</a><br /></td></tr>
 <tr class="separator:a75075d472938fd760477be42585aff5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a5cea9cfdf4c672ba0c781ee54718f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a1a5cea9cfdf4c672ba0c781ee54718f7">CalcPerFaceNormals</a> ()</td></tr>
+<tr class="memdesc:a1a5cea9cfdf4c672ba0c781ee54718f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This (re)calculates the normals for the mesh and stores them with the mesh data structure.  <a href="#a1a5cea9cfdf4c672ba0c781ee54718f7">More...</a><br /></td></tr>
+<tr class="separator:a1a5cea9cfdf4c672ba0c781ee54718f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7df547b0a2175287cc9f509c04e93c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#acc7df547b0a2175287cc9f509c04e93c">CalcPerVertexNormals</a> ()</td></tr>
+<tr class="memdesc:acc7df547b0a2175287cc9f509c04e93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This (re)calculates the normals for the mesh and stores them with the mesh data structure.  <a href="#acc7df547b0a2175287cc9f509c04e93c">More...</a><br /></td></tr>
+<tr class="separator:acc7df547b0a2175287cc9f509c04e93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3428cc726de5c22fd62e313a9ac4d4de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de">num_vertices</a> () const </td></tr>
 <tr class="memdesc:a3428cc726de5c22fd62e313a9ac4d4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of vertices in the mesh.  <a href="#a3428cc726de5c22fd62e313a9ac4d4de">More...</a><br /></td></tr>
 <tr class="separator:a3428cc726de5c22fd62e313a9ac4d4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -281,6 +290,24 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates an empty mesh. </p>
+
+</div>
+</div>
+<a class="anchor" id="a76b4977f0a7f156aa8a0027f10dcbdc1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mingfx::Mesh::Mesh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies all data and sets GPU dirty bit for the new mesh. </p>
 
 </div>
 </div>
@@ -340,6 +367,42 @@ Public Member Functions</h2></td></tr>
 
 <p>Adds a triangle to the mesh datastructure and returns a triangle ID. </p>
 <p>The ID should then be used as the first argument for follow-on calls to <a class="el" href="classmingfx_1_1_mesh.html#a43d5a5cc3ef742a8c2b5e3f1b4da0903" title="Sets the normals for the three vertices of a triangle that has already been added to the mesh...">SetNormals()</a>, <a class="el" href="classmingfx_1_1_mesh.html#a0f59e19b74f4f9dc2ad580756f8b319f" title="Sets per-vertex colors for the three vertices of a triangle that has already been added to the mesh...">SetColors()</a>, and <a class="el" href="classmingfx_1_1_mesh.html#a17cb896939007357014c74a1ece6f1f3" title="Sets the texture coordinates for the three vertices of a triangle that has already been added to the ...">SetTexCoords()</a>. The vertices must be specified in counter-clockwise order so that the normal of the triangle can be determined following the right-hand rule. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1a5cea9cfdf4c672ba0c781ee54718f7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::CalcPerFaceNormals </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This (re)calculates the normals for the mesh and stores them with the mesh data structure. </p>
+<p>It assumes a faceted mesh, like a cube, where each triangle has separate vertices. The normal is calculated for each triangle face and then the result is associated with each vertex that makes up the triangle. If you have a smooth mesh where vertices are shared between multiple faces then use <a class="el" href="classmingfx_1_1_mesh.html#acc7df547b0a2175287cc9f509c04e93c" title="This (re)calculates the normals for the mesh and stores them with the mesh data structure. ">CalcPerVertexNormals()</a> instead. </p>
+
+</div>
+</div>
+<a class="anchor" id="acc7df547b0a2175287cc9f509c04e93c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::CalcPerVertexNormals </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This (re)calculates the normals for the mesh and stores them with the mesh data structure. </p>
+<p>It assumes a smooth mesh, like a sphere, where each vertex belongs to one or more triangles. Each vertex normal is calculated as a weighted sum of the face normals for adjacent faces. The weighting is based upon the relative areas of the neighboring faces (i.e., a large neighboring triangle contributes more to the vertex normal than a small one). </p>
 
 </div>
 </div>

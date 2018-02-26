@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['z_5fvalue_5fat_5fpixel',['z_value_at_pixel',['../classmingfx_1_1_graphics_app.html#a5b6e2674ddc7cd54b15b6ec870c21c2a',1,'mingfx::GraphicsApp']]],
-  ['zero',['zero',['../classmingfx_1_1_point2.html#a4c415d4145921ff07bd9434f282bc6cb',1,'mingfx::Point2::zero()'],['../classmingfx_1_1_point3.html#ace46410ae8c5f1b8447bed2af27bb08f',1,'mingfx::Point3::zero()'],['../classmingfx_1_1_vector2.html#ae67749510600de3357da92945870c4b1',1,'mingfx::Vector2::zero()'],['../classmingfx_1_1_vector3.html#ae5aeeb2df74796e07582d7ad2dcb3af5',1,'mingfx::Vector3::zero()']]]
+  ['y',['y',['../classmingfx_1_1_point2.html#a53603baff3adc06d04751e385ce1a65a',1,'mingfx::Point2::y()'],['../classmingfx_1_1_point3.html#a8c1ddcac57b0dbc1b7a555e5aeb4c895',1,'mingfx::Point3::y()'],['../classmingfx_1_1_quaternion.html#a8fc76205dd3f2bac1e6e63e96ba8a61d',1,'mingfx::Quaternion::y()'],['../classmingfx_1_1_vector2.html#ab78aee40921e99a8fa559ad36bf661b2',1,'mingfx::Vector2::y()'],['../classmingfx_1_1_vector3.html#a442c8e73645de2754ff13e62a4292841',1,'mingfx::Vector3::y()']]]
 ];

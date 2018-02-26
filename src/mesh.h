@@ -124,6 +124,9 @@ public:
     /// Creates an empty mesh.
     Mesh();
     
+    /// Copies all data and sets GPU dirty bit for the new mesh.
+    Mesh(const Mesh &other);
+    
     virtual ~Mesh();
     
     
@@ -241,6 +244,22 @@ public:
     void Draw();
     
 
+    
+    /** This (re)calculates the normals for the mesh and stores them with the mesh
+     data structure.  It assumes a faceted mesh, like a cube, where each triangle
+     has separate vertices.  The normal is calculated for each triangle face and
+     then the result is associated with each vertex that makes up the triangle.
+     If you have a smooth mesh where vertices are shared between multiple faces
+     then use CalcPerVertexNormals() instead. */
+    void CalcPerFaceNormals();
+    
+    /** This (re)calculates the normals for the mesh and stores them with the mesh
+     data structure.  It assumes a smooth mesh, like a sphere, where each vertex
+     belongs to one or more triangles.  Each vertex normal is calculated as a
+     weighted sum of the face normals for adjacent faces.  The weighting is based
+     upon the relative areas of the neighboring faces (i.e., a large neighboring
+     triangle contributes more to the vertex normal than a small one). */
+    void CalcPerVertexNormals();
     
     
     // Access to properties indexed by vertex number

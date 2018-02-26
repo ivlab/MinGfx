@@ -12,10 +12,12 @@ namespace mingfx {
 
 
 GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsContextInConstructor) :
-    initGraphicsContextInConstructor_(initGraphicsContextInConstructor), width_(width), height_(height),
-    caption_(caption), lastDrawT_(0.0)
+    initGraphicsContextInConstructor_(initGraphicsContextInConstructor),
+    width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
+    leftDown_(false), middleDown_(false), rightDown_(false)
 {
-// Adding temporary solution for forcing the use of InitGraphics() method for automated testing without graphics.
+    // Adding temporary solution for forcing the use of InitGraphics() method
+    // for automated testing without graphics.
 #ifndef ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR
     initGraphicsContextInConstructor_ = false;
 #endif
@@ -271,6 +273,9 @@ bool GraphicsApp::key_glfw_cb(int key, int scancode, int action, int modifiers) 
         if (action == GLFW_PRESS) {
             OnKeyDown(glfwGetKeyName(key, scancode), modifiers);
         }
+        else if (action == GLFW_REPEAT) {
+            OnKeyRepeat(glfwGetKeyName(key, scancode), modifiers);
+        }
         else {
             OnKeyUp(glfwGetKeyName(key, scancode), modifiers);
         }
@@ -279,6 +284,9 @@ bool GraphicsApp::key_glfw_cb(int key, int scancode, int action, int modifiers) 
     else {
         if (action == GLFW_PRESS) {
             OnSpecialKeyDown(key, scancode, modifiers);
+        }
+        else if (action == GLFW_REPEAT) {
+            OnSpecialKeyRepeat(key, scancode, modifiers);
         }
         else {
             OnSpecialKeyUp(key, scancode, modifiers);
@@ -402,15 +410,15 @@ Point2 GraphicsApp::NormalizedDeviceCoordsToPixels(Point2 pointInNDC) {
 }
 
 Vector2 GraphicsApp::PixelsToNormalizedDeviceCoords(Vector2 vectorInPixels) {
-    Point2 tmp(vectorInPixels[0], vectorInPixels[1]);
-    tmp = PixelsToNormalizedDeviceCoords(tmp);
-    return Vector2(tmp[0], tmp[1]);
+    float x = (2.0/window_width()) * vectorInPixels[0];
+    float y = (-2.0/window_height()) * vectorInPixels[1];
+    return Vector2(x,y);
 }
 
 Vector2 GraphicsApp::NormalizedDeviceCoordsToPixels(Vector2 vectorInNDC) {
-    Point2 tmp(vectorInNDC[0], vectorInNDC[1]);
-    tmp = NormalizedDeviceCoordsToPixels(tmp);
-    return Vector2(tmp[0], tmp[1]);
+    float x = (window_width()/2.0) * vectorInNDC[0];
+    float y = (-window_height()/2.0) * vectorInNDC[1];
+    return Vector2(x,y);
 }
 
 float GraphicsApp::ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int whichBuffer) {

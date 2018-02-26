@@ -178,6 +178,15 @@ public:
     Matrix4 view_matrix();
     
     
+    /// Returns the "eye" point (i.e., focal point) of the camera in world
+    /// space coordinates.
+    Point3 eye();
+    
+    /// Returns the look direction (i.e., -Z axis of the camera matrix) in world
+    /// space coordinates.
+    Vector3 look();
+    
+    
     // -------------
     
     /// This is not required, but you may use this if you wish to set an initial

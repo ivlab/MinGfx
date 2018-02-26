@@ -4,6 +4,7 @@
 
 set(HEADERFILES
     src/color.h
+    src/craft_cam.h
     src/default_shader.h
     src/gfxmath.h
     src/graphics_app.h
@@ -27,6 +28,7 @@ set(HEADERFILES
 
 set(SOURCEFILES
     src/color.cc
+    src/craft_cam.cc
     src/default_shader.cc
     src/gfxmath.cc
     src/graphics_app.cc

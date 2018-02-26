@@ -53,11 +53,29 @@ public:
     /// Vector assignment operator
     Vector2& operator=(const Vector2& v);
     
-    /// Returns the ith coordinate of the vector
+    /// Read only access to the ith coordinate of the vector.
     float operator[](const int i) const;
     
-    /// Returns the ith coordinate of the vector
+    /// Returns a reference to the ith coordinate of the vector.  Use this
+    /// accessor if you wish to set the coordinate rather than just request
+    /// its value.  Example:
+    /// ~~~
+    /// Vector2 a;
+    /// a[0] = 5.0; // set the x-coordinate of the vector
+    /// ~~~
     float& operator[](const int i);
+    
+    /// Read only access to the x coordinate.  Can also use my_vector[0].  Use
+    /// the my_vector[0] = 1.0; form if you need to set the value.
+    float x() const { return v[0]; }
+    
+    /// Read only access to the y coordinate.  Can also use my_vector[1].  Use
+    /// the my_vector[1] = 1.0; form if you need to set the value.
+    float y() const { return v[1]; }
+        
+    /// In homogeneous coordinates, the w coordinate for all vectors is 0.0.
+    float w() const { return 0.0; }
+    
     
     // --- Vector operations ---
     

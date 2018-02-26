@@ -137,7 +137,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="keyword">class </span>MyApp : <span class="keyword">public</span> GraphcisApp {</div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">   MyApp() : <a class="code" href="classmingfx_1_1_graphics_app.html#abf0b48c7d8e5325ab038fddbe1c38b5b">GraphicsApp</a>(1024,768, <span class="stringliteral">&quot;My Amazing App&quot;</span>) {</div>
+<div class="line">   MyApp() : <a class="code" href="classmingfx_1_1_graphics_app.html#aa7cf32e2bf6958ed04e44fb8f28ae269">GraphicsApp</a>(1024,768, <span class="stringliteral">&quot;My Amazing App&quot;</span>) {</div>
+<div class="line">   }</div>
+<div class="line"></div>
+<div class="line">   <span class="keyword">virtual</span> ~MyApp() {}</div>
+<div class="line"></div>
+<div class="line">   <span class="keywordtype">void</span> <a class="code" href="classmingfx_1_1_graphics_app.html#adfe77d841f43961b299ea6159477968a">InitNanoGUI</a>() {</div>
 <div class="line">       <span class="comment">// Setup the GUI window</span></div>
 <div class="line">       nanogui::Window *<a class="code" href="classmingfx_1_1_graphics_app.html#a2c333fcd2b191650f4820d6fadc1ea2a">window</a> = <span class="keyword">new</span> nanogui::Window(<a class="code" href="classmingfx_1_1_graphics_app.html#add158e2f27d26468193fc4ba34bf712d">screen</a>(), <span class="stringliteral">&quot;My GUI Panel&quot;</span>);</div>
 <div class="line">       window-&gt;setPosition(Eigen::Vector2i(10, 10));</div>
@@ -151,8 +156,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">       <a class="code" href="classmingfx_1_1_graphics_app.html#add158e2f27d26468193fc4ba34bf712d">screen</a>()-&gt;performLayout();</div>
 <div class="line">   }</div>
 <div class="line"></div>
-<div class="line">   <span class="keyword">virtual</span> ~MyApp() {}</div>
-<div class="line"></div>
 <div class="line">   <span class="keywordtype">void</span> <a class="code" href="classmingfx_1_1_graphics_app.html#a23a780feda9b52eea7319a53b204ce8f">OnMouseMove</a>(<span class="keyword">const</span> Point2 &amp;pos, <span class="keyword">const</span> Vector2 &amp;delta) {</div>
 <div class="line">       std::cout &lt;&lt; <span class="stringliteral">&quot;Mouse moved to &quot;</span> &lt;&lt; pos &lt;&lt; std::endl;</div>
 <div class="line">   }</div>
@@ -164,7 +167,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">   <span class="keywordtype">void</span> <a class="code" href="classmingfx_1_1_graphics_app.html#a5a858fd10651f7617491f37b49dbf8ca">DrawUsingOpenGL</a>() {</div>
 <div class="line">       Matrix4 model = <a class="code" href="classmingfx_1_1_matrix4.html#ae82bab81df82dc03f5eb11e74ba1dd84">Matrix4::Translation</a>(Vector3(-1,0,0)) * <a class="code" href="classmingfx_1_1_matrix4.html#a0232a58d20b1da5374cf8c72fb113a4e">Matrix4::Scale</a>(Vector3(0.5, 0.5, 0.5));</div>
 <div class="line">       Matrix4 view = <a class="code" href="classmingfx_1_1_matrix4.html#a4543695a6dfc996d0312b70c2eaa00de">Matrix4::LookAt</a>(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0));</div>
-<div class="line">       Matrix4 proj = <a class="code" href="classmingfx_1_1_matrix4.html#a4b8bea805a162fbb267bea63c0a7fe5c">Matrix4::Perspective</a>(60.0, <a class="code" href="classmingfx_1_1_graphics_app.html#a29c241f30b13d20f21ada260832208a9">aspect_ratio</a>(), 0.1, 10.0);</div>
+<div class="line">       Matrix4 proj = <a class="code" href="classmingfx_1_1_matrix4.html#a4b8bea805a162fbb267bea63c0a7fe5c">Matrix4::Perspective</a>(60.0, <a class="code" href="classmingfx_1_1_graphics_app.html#ac682691ee96ea32037abafd74d144a23">aspect_ratio</a>(), 0.1, 10.0);</div>
 <div class="line">       quick_shapes_.DrawCube(model, view, proj, Color(1,1,1));</div>
 <div class="line">   }</div>
 <div class="line"></div>
@@ -179,15 +182,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">   <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00118">118</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00121">121</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abf0b48c7d8e5325ab038fddbe1c38b5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#abf0b48c7d8e5325ab038fddbe1c38b5b">GraphicsApp</a> (int width, int height, const std::string &amp;caption)</td></tr>
-<tr class="memdesc:abf0b48c7d8e5325ab038fddbe1c38b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new app but does not yet run it.  <a href="#abf0b48c7d8e5325ab038fddbe1c38b5b">More...</a><br /></td></tr>
-<tr class="separator:abf0b48c7d8e5325ab038fddbe1c38b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7cf32e2bf6958ed04e44fb8f28ae269"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#aa7cf32e2bf6958ed04e44fb8f28ae269">GraphicsApp</a> (int width, int height, const std::string &amp;caption, bool init_graphics_in_constructor=true)</td></tr>
+<tr class="memdesc:aa7cf32e2bf6958ed04e44fb8f28ae269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new app but does not yet run it.  <a href="#aa7cf32e2bf6958ed04e44fb8f28ae269">More...</a><br /></td></tr>
+<tr class="separator:aa7cf32e2bf6958ed04e44fb8f28ae269"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab7925c6b844e6bef428feacf4aa9afb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#aab7925c6b844e6bef428feacf4aa9afb">~GraphicsApp</a> ()</td></tr>
 <tr class="memdesc:aab7925c6b844e6bef428feacf4aa9afb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The destructor will shutdown the graphics system and window.  <a href="#aab7925c6b844e6bef428feacf4aa9afb">More...</a><br /></td></tr>
 <tr class="separator:aab7925c6b844e6bef428feacf4aa9afb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -224,18 +227,27 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a002560456139e537877d079978db4b01"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a002560456139e537877d079978db4b01">OnKeyDown</a> (const char *c, int modifiers)</td></tr>
 <tr class="memdesc:a002560456139e537877d079978db4b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a keyboard down event into the actual character typed.  <a href="#a002560456139e537877d079978db4b01">More...</a><br /></td></tr>
 <tr class="separator:a002560456139e537877d079978db4b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d5831953b37fae615fbd1bf527214b0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a1d5831953b37fae615fbd1bf527214b0">OnKeyRepeat</a> (const char *c, int modifiers)</td></tr>
+<tr class="memdesc:a1d5831953b37fae615fbd1bf527214b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a keyboard repeat event into the actual character typed.  <a href="#a1d5831953b37fae615fbd1bf527214b0">More...</a><br /></td></tr>
+<tr class="separator:a1d5831953b37fae615fbd1bf527214b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8376ef8eb0840b229a2301f995db3f6c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a8376ef8eb0840b229a2301f995db3f6c">OnKeyUp</a> (const char *c, int modifiers)</td></tr>
-<tr class="memdesc:a8376ef8eb0840b229a2301f995db3f6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a keyboard down event into the actual character typed.  <a href="#a8376ef8eb0840b229a2301f995db3f6c">More...</a><br /></td></tr>
+<tr class="memdesc:a8376ef8eb0840b229a2301f995db3f6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a keyboard up event into the actual character typed.  <a href="#a8376ef8eb0840b229a2301f995db3f6c">More...</a><br /></td></tr>
 <tr class="separator:a8376ef8eb0840b229a2301f995db3f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcf1935e92550bcda311cac62f312952"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#abcf1935e92550bcda311cac62f312952">OnSpecialKeyDown</a> (int key, int scancode, int modifiers)</td></tr>
 <tr class="memdesc:abcf1935e92550bcda311cac62f312952"><td class="mdescLeft">&#160;</td><td class="mdescRight">The values for key, scancode, and modifiers are documented here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>.  <a href="#abcf1935e92550bcda311cac62f312952">More...</a><br /></td></tr>
 <tr class="separator:abcf1935e92550bcda311cac62f312952"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8362762489e287edfa59617a6602db22"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a8362762489e287edfa59617a6602db22">OnSpecialKeyRepeat</a> (int key, int scancode, int modifiers)</td></tr>
+<tr class="memdesc:a8362762489e287edfa59617a6602db22"><td class="mdescLeft">&#160;</td><td class="mdescRight">The values for key, scancode, and modifiers are documented here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>.  <a href="#a8362762489e287edfa59617a6602db22">More...</a><br /></td></tr>
+<tr class="separator:a8362762489e287edfa59617a6602db22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0deb6da45fc0d3980e44556a861c7a14"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a0deb6da45fc0d3980e44556a861c7a14">OnSpecialKeyUp</a> (int key, int scancode, int modifiers)</td></tr>
 <tr class="memdesc:a0deb6da45fc0d3980e44556a861c7a14"><td class="mdescLeft">&#160;</td><td class="mdescRight">The values for key, scancode, and modifiers are documented here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>.  <a href="#a0deb6da45fc0d3980e44556a861c7a14">More...</a><br /></td></tr>
 <tr class="separator:a0deb6da45fc0d3980e44556a861c7a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cdb979a2a42c9d0e1aab7952e3b0e8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a6cdb979a2a42c9d0e1aab7952e3b0e8e">Run</a> ()</td></tr>
 <tr class="memdesc:a6cdb979a2a42c9d0e1aab7952e3b0e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">After creating a new <a class="el" href="classmingfx_1_1_graphics_app.html" title="This is the main application base class for the MinGfx Toolkit. ">GraphicsApp</a>, call this to start the app's mainloop.  <a href="#a6cdb979a2a42c9d0e1aab7952e3b0e8e">More...</a><br /></td></tr>
 <tr class="separator:a6cdb979a2a42c9d0e1aab7952e3b0e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfe77d841f43961b299ea6159477968a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#adfe77d841f43961b299ea6159477968a">InitNanoGUI</a> ()</td></tr>
+<tr class="memdesc:adfe77d841f43961b299ea6159477968a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at the beginning of the <a class="el" href="classmingfx_1_1_graphics_app.html#a6cdb979a2a42c9d0e1aab7952e3b0e8e" title="After creating a new GraphicsApp, call this to start the app&#39;s mainloop. ">Run()</a> method.  <a href="#adfe77d841f43961b299ea6159477968a">More...</a><br /></td></tr>
+<tr class="separator:adfe77d841f43961b299ea6159477968a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e2b4cd7eeabe1ace9d5e9220349fbaa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a9e2b4cd7eeabe1ace9d5e9220349fbaa">UpdateSimulation</a> (double dt)</td></tr>
 <tr class="memdesc:a9e2b4cd7eeabe1ace9d5e9220349fbaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once per frame.  <a href="#a9e2b4cd7eeabe1ace9d5e9220349fbaa">More...</a><br /></td></tr>
 <tr class="separator:a9e2b4cd7eeabe1ace9d5e9220349fbaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -248,35 +260,35 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a858fd10651f7617491f37b49dbf8ca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a5a858fd10651f7617491f37b49dbf8ca">DrawUsingOpenGL</a> ()</td></tr>
 <tr class="memdesc:a5a858fd10651f7617491f37b49dbf8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this to draw graphics using raw OpenGL 2D or 3D graphics calls.  <a href="#a5a858fd10651f7617491f37b49dbf8ca">More...</a><br /></td></tr>
 <tr class="separator:a5a858fd10651f7617491f37b49dbf8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff1637a2d5907bf09ea22f792f6d2ebc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#aff1637a2d5907bf09ea22f792f6d2ebc">IsKeyDown</a> (int key)</td></tr>
-<tr class="memdesc:aff1637a2d5907bf09ea22f792f6d2ebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the specified is is currently held down. Uses the GLFW key codes found here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>.  <a href="#aff1637a2d5907bf09ea22f792f6d2ebc">More...</a><br /></td></tr>
-<tr class="separator:aff1637a2d5907bf09ea22f792f6d2ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a970510a624a2c9accc01e83b639404f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a970510a624a2c9accc01e83b639404f6">IsLeftMouseDown</a> ()</td></tr>
-<tr class="memdesc:a970510a624a2c9accc01e83b639404f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the left mouse button is currently held down.  <a href="#a970510a624a2c9accc01e83b639404f6">More...</a><br /></td></tr>
-<tr class="separator:a970510a624a2c9accc01e83b639404f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefa8ae3a7c88f365d0462314dd59ba60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#aefa8ae3a7c88f365d0462314dd59ba60">IsMiddleMouseDown</a> ()</td></tr>
-<tr class="memdesc:aefa8ae3a7c88f365d0462314dd59ba60"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the middle mouse button is currently held down.  <a href="#aefa8ae3a7c88f365d0462314dd59ba60">More...</a><br /></td></tr>
-<tr class="separator:aefa8ae3a7c88f365d0462314dd59ba60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8605f1bec9acd3bbc9aec2ba8312db3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#ac8605f1bec9acd3bbc9aec2ba8312db3">IsRightMouseDown</a> ()</td></tr>
-<tr class="memdesc:ac8605f1bec9acd3bbc9aec2ba8312db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the right mouse button is currently held down.  <a href="#ac8605f1bec9acd3bbc9aec2ba8312db3">More...</a><br /></td></tr>
-<tr class="separator:ac8605f1bec9acd3bbc9aec2ba8312db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43ccd3aa3f7a8f59b9d8f88448f9c2e5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5">window_width</a> ()</td></tr>
-<tr class="memdesc:a43ccd3aa3f7a8f59b9d8f88448f9c2e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current width of the client area of the window in pixels.  <a href="#a43ccd3aa3f7a8f59b9d8f88448f9c2e5">More...</a><br /></td></tr>
-<tr class="separator:a43ccd3aa3f7a8f59b9d8f88448f9c2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23f5f5ffb75725401718132bdf8781b1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1">window_height</a> ()</td></tr>
-<tr class="memdesc:a23f5f5ffb75725401718132bdf8781b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current height of the client area of the window in pixels.  <a href="#a23f5f5ffb75725401718132bdf8781b1">More...</a><br /></td></tr>
-<tr class="separator:a23f5f5ffb75725401718132bdf8781b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5c5dd158878e567030b102f63dbbac3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#ad5c5dd158878e567030b102f63dbbac3">framebuffer_width</a> ()</td></tr>
-<tr class="memdesc:ad5c5dd158878e567030b102f63dbbac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current width of the framebuffer in pixels.  <a href="#ad5c5dd158878e567030b102f63dbbac3">More...</a><br /></td></tr>
-<tr class="separator:ad5c5dd158878e567030b102f63dbbac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73adc0285f2825e135fbb7c1352c46e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a73adc0285f2825e135fbb7c1352c46e6">framebuffer_height</a> ()</td></tr>
-<tr class="memdesc:a73adc0285f2825e135fbb7c1352c46e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current height of the framebuffer in pixels.  <a href="#a73adc0285f2825e135fbb7c1352c46e6">More...</a><br /></td></tr>
-<tr class="separator:a73adc0285f2825e135fbb7c1352c46e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29c241f30b13d20f21ada260832208a9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a29c241f30b13d20f21ada260832208a9">aspect_ratio</a> ()</td></tr>
-<tr class="memdesc:a29c241f30b13d20f21ada260832208a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns width/height for the current shape of the window.  <a href="#a29c241f30b13d20f21ada260832208a9">More...</a><br /></td></tr>
-<tr class="separator:a29c241f30b13d20f21ada260832208a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60688614e5dfeaabf57f8825cdaa08ac"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a60688614e5dfeaabf57f8825cdaa08ac">IsKeyDown</a> (int key)</td></tr>
+<tr class="memdesc:a60688614e5dfeaabf57f8825cdaa08ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the specified is is currently held down. Uses the GLFW key codes found here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>.  <a href="#a60688614e5dfeaabf57f8825cdaa08ac">More...</a><br /></td></tr>
+<tr class="separator:a60688614e5dfeaabf57f8825cdaa08ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b78d79192180a6ef5271d2a2b2d1cc7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a5b78d79192180a6ef5271d2a2b2d1cc7">IsLeftMouseDown</a> ()</td></tr>
+<tr class="memdesc:a5b78d79192180a6ef5271d2a2b2d1cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the left mouse button is currently held down.  <a href="#a5b78d79192180a6ef5271d2a2b2d1cc7">More...</a><br /></td></tr>
+<tr class="separator:a5b78d79192180a6ef5271d2a2b2d1cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a941f7598400073bfa93aa194a3773434"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a941f7598400073bfa93aa194a3773434">IsMiddleMouseDown</a> ()</td></tr>
+<tr class="memdesc:a941f7598400073bfa93aa194a3773434"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the middle mouse button is currently held down.  <a href="#a941f7598400073bfa93aa194a3773434">More...</a><br /></td></tr>
+<tr class="separator:a941f7598400073bfa93aa194a3773434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa30e3d33731178a9162454a81be08d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a4aa30e3d33731178a9162454a81be08d">IsRightMouseDown</a> ()</td></tr>
+<tr class="memdesc:a4aa30e3d33731178a9162454a81be08d"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the right mouse button is currently held down.  <a href="#a4aa30e3d33731178a9162454a81be08d">More...</a><br /></td></tr>
+<tr class="separator:a4aa30e3d33731178a9162454a81be08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c682fa2dd0bce855e1e32ffeac532b0"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0">window_width</a> ()</td></tr>
+<tr class="memdesc:a1c682fa2dd0bce855e1e32ffeac532b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current width of the client area of the window in pixels.  <a href="#a1c682fa2dd0bce855e1e32ffeac532b0">More...</a><br /></td></tr>
+<tr class="separator:a1c682fa2dd0bce855e1e32ffeac532b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a641f7ccf174cd0a059347b623e016"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016">window_height</a> ()</td></tr>
+<tr class="memdesc:ad7a641f7ccf174cd0a059347b623e016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current height of the client area of the window in pixels.  <a href="#ad7a641f7ccf174cd0a059347b623e016">More...</a><br /></td></tr>
+<tr class="separator:ad7a641f7ccf174cd0a059347b623e016"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad596e69d030e7689ad91eaaec6975696"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#ad596e69d030e7689ad91eaaec6975696">framebuffer_width</a> ()</td></tr>
+<tr class="memdesc:ad596e69d030e7689ad91eaaec6975696"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current width of the framebuffer in pixels.  <a href="#ad596e69d030e7689ad91eaaec6975696">More...</a><br /></td></tr>
+<tr class="separator:ad596e69d030e7689ad91eaaec6975696"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af58153eb104f53216a3e67de2a472f32"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#af58153eb104f53216a3e67de2a472f32">framebuffer_height</a> ()</td></tr>
+<tr class="memdesc:af58153eb104f53216a3e67de2a472f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current height of the framebuffer in pixels.  <a href="#af58153eb104f53216a3e67de2a472f32">More...</a><br /></td></tr>
+<tr class="separator:af58153eb104f53216a3e67de2a472f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac682691ee96ea32037abafd74d144a23"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#ac682691ee96ea32037abafd74d144a23">aspect_ratio</a> ()</td></tr>
+<tr class="memdesc:ac682691ee96ea32037abafd74d144a23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns width/height for the current shape of the window.  <a href="#ac682691ee96ea32037abafd74d144a23">More...</a><br /></td></tr>
+<tr class="separator:ac682691ee96ea32037abafd74d144a23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb7a6c799aa7ceb101847401414a95f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point2.html">Point2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#afb7a6c799aa7ceb101847401414a95f2">PixelsToNormalizedDeviceCoords</a> (<a class="el" href="classmingfx_1_1_point2.html">Point2</a> pointInPixels)</td></tr>
-<tr class="memdesc:afb7a6c799aa7ceb101847401414a95f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a point in viewport coordinates (pixels where top left = (0,0) and bottom right = (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1)) to normalized device coordinates, (top left = (-1,1) bottom right (1,-1)).  <a href="#afb7a6c799aa7ceb101847401414a95f2">More...</a><br /></td></tr>
+<tr class="memdesc:afb7a6c799aa7ceb101847401414a95f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a point in viewport coordinates (pixels where top left = (0,0) and bottom right = (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1)) to normalized device coordinates, (top left = (-1,1) bottom right (1,-1)).  <a href="#afb7a6c799aa7ceb101847401414a95f2">More...</a><br /></td></tr>
 <tr class="separator:afb7a6c799aa7ceb101847401414a95f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9332aa658f8b37fcf100116b507207aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point2.html">Point2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a9332aa658f8b37fcf100116b507207aa">NormalizedDeviceCoordsToPixels</a> (<a class="el" href="classmingfx_1_1_point2.html">Point2</a> pointInNDC)</td></tr>
 <tr class="memdesc:a9332aa658f8b37fcf100116b507207aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a point in normalized device coordinates (top left = (-1,1) bottom right (1,-1)) to pixels (top left = (0,0), bottom right = (window width-1, window height-1))  <a href="#a9332aa658f8b37fcf100116b507207aa">More...</a><br /></td></tr>
@@ -287,9 +299,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0365479b5668651f93b63ed1a4f887f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_vector2.html">Vector2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a0365479b5668651f93b63ed1a4f887f9">NormalizedDeviceCoordsToPixels</a> (<a class="el" href="classmingfx_1_1_vector2.html">Vector2</a> pointInNDC)</td></tr>
 <tr class="memdesc:a0365479b5668651f93b63ed1a4f887f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms a vector in normalized device coordinates (top left = (-1,1) bottom right (1,-1)) to pixels (top left = (0,0), bottom right = (window width-1, window height-1))  <a href="#a0365479b5668651f93b63ed1a4f887f9">More...</a><br /></td></tr>
 <tr class="separator:a0365479b5668651f93b63ed1a4f887f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5c5e2d04b0cc0db5e978538e9ba63f6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#af5c5e2d04b0cc0db5e978538e9ba63f6">ReadZValueAtPixel</a> (const <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;pointInPixels, unsigned int whichBuffer=GL_BACK)</td></tr>
-<tr class="memdesc:af5c5e2d04b0cc0db5e978538e9ba63f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the z buffer value under the specified pixel. z will be 0 at the near plane and +1 at the far plane.  <a href="#af5c5e2d04b0cc0db5e978538e9ba63f6">More...</a><br /></td></tr>
-<tr class="separator:af5c5e2d04b0cc0db5e978538e9ba63f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a471951dbf45ffa88027cb92707443646"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#a471951dbf45ffa88027cb92707443646">ReadZValueAtPixel</a> (const <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;pointInPixels, unsigned int whichBuffer=GL_BACK)</td></tr>
+<tr class="memdesc:a471951dbf45ffa88027cb92707443646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the z buffer value under the specified pixel. z will be 0 at the near plane and +1 at the far plane.  <a href="#a471951dbf45ffa88027cb92707443646">More...</a><br /></td></tr>
+<tr class="separator:a471951dbf45ffa88027cb92707443646"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add158e2f27d26468193fc4ba34bf712d"><td class="memItemLeft" align="right" valign="top">nanogui::Screen *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_graphics_app.html#add158e2f27d26468193fc4ba34bf712d">screen</a> ()</td></tr>
 <tr class="memdesc:add158e2f27d26468193fc4ba34bf712d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access to the underlying NanoGUI Screen object.  <a href="#add158e2f27d26468193fc4ba34bf712d">More...</a><br /></td></tr>
 <tr class="separator:add158e2f27d26468193fc4ba34bf712d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,7 +310,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2c333fcd2b191650f4820d6fadc1ea2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="abf0b48c7d8e5325ab038fddbe1c38b5b"></a>
+<a class="anchor" id="aa7cf32e2bf6958ed04e44fb8f28ae269"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -318,7 +330,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>caption</em>&#160;</td>
+          <td class="paramname"><em>caption</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>init_graphics_in_constructor</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -334,6 +352,7 @@ Public Member Functions</h2></td></tr>
     <tr><td class="paramname">width</td><td>The width of the client area of the window in pixels. </td></tr>
     <tr><td class="paramname">height</td><td>The height of the client area of the window in pixels. </td></tr>
     <tr><td class="paramname">caption</td><td>The caption for the window's title bar. </td></tr>
+    <tr><td class="paramname">init_graphics_in_constructor</td><td>Defaults to true for backward compatibility, but new apps should set this to false. This option was added to support testing graphics functions in batch mode with an off-screen framebuffer. </td></tr>
   </table>
   </dd>
 </dl>
@@ -366,17 +385,25 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a29c241f30b13d20f21ada260832208a9"></a>
+<a class="anchor" id="ac682691ee96ea32037abafd74d144a23"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float mingfx::GraphicsApp::aspect_ratio </td>
+          <td class="memname">virtual float mingfx::GraphicsApp::aspect_ratio </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns width/height for the current shape of the window. </p>
@@ -407,7 +434,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Override this to draw graphics using the nanovg vector graphics library, which provides an easy way to draw 2D shapes to the screen. </p>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00248">248</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00276">276</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -434,21 +461,29 @@ Public Member Functions</h2></td></tr>
 
 <p>Override this to draw graphics using raw OpenGL 2D or 3D graphics calls. </p>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00259">259</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00287">287</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a73adc0285f2825e135fbb7c1352c46e6"></a>
+<a class="anchor" id="af58153eb104f53216a3e67de2a472f32"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int mingfx::GraphicsApp::framebuffer_height </td>
+          <td class="memname">virtual int mingfx::GraphicsApp::framebuffer_height </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the current height of the framebuffer in pixels. </p>
@@ -456,21 +491,57 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad5c5dd158878e567030b102f63dbbac3"></a>
+<a class="anchor" id="ad596e69d030e7689ad91eaaec6975696"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int mingfx::GraphicsApp::framebuffer_width </td>
+          <td class="memname">virtual int mingfx::GraphicsApp::framebuffer_width </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the current width of the framebuffer in pixels. </p>
 <p>Note that on some displays (e.g., Mac Retina) the framebuffer is larger than the window. </p>
+
+</div>
+</div>
+<a class="anchor" id="adfe77d841f43961b299ea6159477968a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mingfx::GraphicsApp::InitNanoGUI </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called at the beginning of the <a class="el" href="classmingfx_1_1_graphics_app.html#a6cdb979a2a42c9d0e1aab7952e3b0e8e" title="After creating a new GraphicsApp, call this to start the app&#39;s mainloop. ">Run()</a> method. </p>
+<p>This will initialize any NanoGUI graphics related properties including 2D windows, buttons, sliders, etc... </p>
+
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00262">262</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -498,73 +569,105 @@ Public Member Functions</h2></td></tr>
 <p>Override this to initialize the OpenGL context with textures, vertex buffers, etc. </p>
 <p>that you will use later inside <a class="el" href="classmingfx_1_1_graphics_app.html#a5a858fd10651f7617491f37b49dbf8ca" title="Override this to draw graphics using raw OpenGL 2D or 3D graphics calls. ">DrawUsingOpenGL()</a>. This <a class="el" href="classmingfx_1_1_graphics_app.html#a96196b37f8b488b64072ec74b5d2b0b3" title="Override this to initialize the OpenGL context with textures, vertex buffers, etc. ">InitOpenGL()</a> function is called once on program startup just after the OpenGL drawing context is created. </p>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00255">255</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00283">283</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aff1637a2d5907bf09ea22f792f6d2ebc"></a>
+<a class="anchor" id="a60688614e5dfeaabf57f8825cdaa08ac"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool mingfx::GraphicsApp::IsKeyDown </td>
+          <td class="memname">virtual bool mingfx::GraphicsApp::IsKeyDown </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>True if the specified is is currently held down. Uses the GLFW key codes found here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a970510a624a2c9accc01e83b639404f6"></a>
+<a class="anchor" id="a5b78d79192180a6ef5271d2a2b2d1cc7"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool mingfx::GraphicsApp::IsLeftMouseDown </td>
+          <td class="memname">virtual bool mingfx::GraphicsApp::IsLeftMouseDown </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>True if the left mouse button is currently held down. </p>
 
 </div>
 </div>
-<a class="anchor" id="aefa8ae3a7c88f365d0462314dd59ba60"></a>
+<a class="anchor" id="a941f7598400073bfa93aa194a3773434"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool mingfx::GraphicsApp::IsMiddleMouseDown </td>
+          <td class="memname">virtual bool mingfx::GraphicsApp::IsMiddleMouseDown </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>True if the middle mouse button is currently held down. </p>
 
 </div>
 </div>
-<a class="anchor" id="ac8605f1bec9acd3bbc9aec2ba8312db3"></a>
+<a class="anchor" id="a4aa30e3d33731178a9162454a81be08d"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool mingfx::GraphicsApp::IsRightMouseDown </td>
+          <td class="memname">virtual bool mingfx::GraphicsApp::IsRightMouseDown </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>True if the right mouse button is currently held down. </p>
@@ -648,7 +751,52 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00208">208</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00214">214</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1d5831953b37fae615fbd1bf527214b0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mingfx::GraphicsApp::OnKeyRepeat </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>modifiers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Transforms a keyboard repeat event into the actual character typed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The character for the key that was pressed. </td></tr>
+    <tr><td class="paramname">modifiers</td><td>If any modifiers (Alt, Ctrl, Shift, etc.) were held at the same time, then these are encoded in this int. See the detailed description here: <a href="http://www.glfw.org/docs/latest/group__mods.html">http://www.glfw.org/docs/latest/group__mods.html</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00222">222</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -684,7 +832,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Transforms a keyboard down event into the actual character typed. </p>
+<p>Transforms a keyboard up event into the actual character typed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">c</td><td>The character for the key that was pressed. </td></tr>
@@ -693,7 +841,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00216">216</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00230">230</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -722,12 +870,12 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button was pressed down since the last frame, then this function will be called to notify you. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner. </td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00157">157</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00163">163</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -766,13 +914,13 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button is held down and the mouse has moved in the past frame then this function will be called to tell you that a "dragging" operation is happening. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
     <tr><td class="paramname">delta</td><td>This is the change in the position of the mouse in pixels since the last frame. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00170">170</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00176">176</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -801,12 +949,12 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button was released since the last frame, then this function will be called to notify you. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1) is the bottom right corner. </td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1) is the bottom right corner. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00179">179</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00185">185</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -835,12 +983,12 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button was pressed down since the last frame, then this function will be called to notify you. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner. </td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00183">183</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00189">189</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -879,13 +1027,13 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button is held down and the mouse has moved in the past frame then this function will be called to tell you that a "dragging" operation is happening. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
     <tr><td class="paramname">delta</td><td>This is the change in the position of the mouse in pixels since the last frame. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00186">186</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00192">192</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -914,12 +1062,12 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button was released since the last frame, then this function will be called to notify you. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1) is the bottom right corner. </td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1) is the bottom right corner. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00189">189</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00195">195</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -958,13 +1106,13 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse has moved in the past frame and no mouse buttons are currently pressed, then this callback function will be called to report the new position of the mouse to you. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
     <tr><td class="paramname">delta</td><td>This is the change in the position of the mouse in pixels since the last frame. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00148">148</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00154">154</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -993,12 +1141,12 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button was pressed down since the last frame, then this function will be called to notify you. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner. </td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00193">193</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00199">199</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -1037,13 +1185,13 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button is held down and the mouse has moved in the past frame then this function will be called to tell you that a "dragging" operation is happening. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>) is the bottom right corner.</td></tr>
     <tr><td class="paramname">delta</td><td>This is the change in the position of the mouse in pixels since the last frame. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00196">196</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00202">202</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -1072,12 +1220,12 @@ Public Member Functions</h2></td></tr>
 <p>If the mouse button was released since the last frame, then this function will be called to notify you. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1) is the bottom right corner. </td></tr>
+    <tr><td class="paramname">pos</td><td>This is the current position of the mouse in pixels, where (0,0) is at the top left corner of the screen and (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1) is the bottom right corner. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00199">199</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00205">205</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -1121,7 +1269,51 @@ Public Member Functions</h2></td></tr>
 
 <p>The values for key, scancode, and modifiers are documented here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>. </p>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00220">220</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00236">236</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8362762489e287edfa59617a6602db22"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mingfx::GraphicsApp::OnSpecialKeyRepeat </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>scancode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>modifiers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The values for key, scancode, and modifiers are documented here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>. </p>
+
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00240">240</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -1165,7 +1357,7 @@ Public Member Functions</h2></td></tr>
 
 <p>The values for key, scancode, and modifiers are documented here: <a href="http://www.glfw.org/docs/latest/group__keys.html">http://www.glfw.org/docs/latest/group__keys.html</a>. </p>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00224">224</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00244">244</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -1183,7 +1375,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Transforms a point in viewport coordinates (pixels where top left = (0,0) and bottom right = (<a class="el" href="classmingfx_1_1_graphics_app.html#a43ccd3aa3f7a8f59b9d8f88448f9c2e5" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#a23f5f5ffb75725401718132bdf8781b1" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1)) to normalized device coordinates, (top left = (-1,1) bottom right (1,-1)). </p>
+<p>Transforms a point in viewport coordinates (pixels where top left = (0,0) and bottom right = (<a class="el" href="classmingfx_1_1_graphics_app.html#a1c682fa2dd0bce855e1e32ffeac532b0" title="Returns the current width of the client area of the window in pixels. ">window_width()</a>-1, <a class="el" href="classmingfx_1_1_graphics_app.html#ad7a641f7ccf174cd0a059347b623e016" title="Returns the current height of the client area of the window in pixels. ">window_height()</a>-1)) to normalized device coordinates, (top left = (-1,1) bottom right (1,-1)). </p>
 
 </div>
 </div>
@@ -1205,12 +1397,15 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="af5c5e2d04b0cc0db5e978538e9ba63f6"></a>
+<a class="anchor" id="a471951dbf45ffa88027cb92707443646"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float mingfx::GraphicsApp::ReadZValueAtPixel </td>
+          <td class="memname">virtual float mingfx::GraphicsApp::ReadZValueAtPixel </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;&#160;</td>
           <td class="paramname"><em>pointInPixels</em>, </td>
@@ -1227,6 +1422,11 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the z buffer value under the specified pixel. z will be 0 at the near plane and +1 at the far plane. </p>
@@ -1299,7 +1499,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00243">243</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
+<p>Definition at line <a class="el" href="graphics__app_8h_source.html#l00271">271</a> of file <a class="el" href="graphics__app_8h_source.html">graphics_app.h</a>.</p>
 
 </div>
 </div>
@@ -1320,34 +1520,50 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a23f5f5ffb75725401718132bdf8781b1"></a>
+<a class="anchor" id="ad7a641f7ccf174cd0a059347b623e016"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int mingfx::GraphicsApp::window_height </td>
+          <td class="memname">virtual int mingfx::GraphicsApp::window_height </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the current height of the client area of the window in pixels. </p>
 
 </div>
 </div>
-<a class="anchor" id="a43ccd3aa3f7a8f59b9d8f88448f9c2e5"></a>
+<a class="anchor" id="a1c682fa2dd0bce855e1e32ffeac532b0"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int mingfx::GraphicsApp::window_width </td>
+          <td class="memname">virtual int mingfx::GraphicsApp::window_width </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Returns the current width of the client area of the window in pixels. </p>

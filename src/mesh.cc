@@ -15,7 +15,16 @@ namespace mingfx {
     
     Mesh::Mesh() : gpu_dirty_(true) {
     }
-        
+    
+    Mesh::Mesh(const Mesh &other) {
+        verts_ = other.verts_;
+        norms_ = other.norms_;
+        colors_ = other.colors_;
+        tex_coords_ = other.tex_coords_;
+        indices_ = other.indices_;
+        gpu_dirty_ = true;
+    }
+    
     Mesh::~Mesh() {
     }
         
@@ -516,5 +525,42 @@ namespace mingfx {
         return tri;
     }
 
+    
+    void Mesh::CalcPerFaceNormals() {
+        std::vector<Vector3> norms(num_vertices());
+        for (int i=0; i<num_triangles(); i++) {
+            std::vector<unsigned int> indices = triangle_vertices(i);
+            Point3 a = vertex(indices[0]);
+            Point3 b = vertex(indices[1]);
+            Point3 c = vertex(indices[2]);
+            Vector3 n = Vector3::Cross(b-a, c-a).ToUnit();
+            norms[indices[0]] = n;
+            norms[indices[1]] = n;
+            norms[indices[2]] = n;
+        }
+        SetNormals(norms);
+    }
+    
+    
+    void Mesh::CalcPerVertexNormals() {
+        std::vector<Vector3> norms(num_vertices());
+        for (int i=0; i<num_triangles(); i++) {
+            std::vector<unsigned int> indices = triangle_vertices(i);
+            Point3 a = vertex(indices[0]);
+            Point3 b = vertex(indices[1]);
+            Point3 c = vertex(indices[2]);
+            Vector3 n = Vector3::Cross(b-a, c-a);
+            norms[indices[0]] = norms[indices[0]] + n;
+            norms[indices[1]] = norms[indices[1]] + n;
+            norms[indices[2]] = norms[indices[2]] + n;
+        }
+        
+        for (int i=0; i<norms.size(); i++) {
+            norms[i] = norms[i].ToUnit();
+        }
+        
+        SetNormals(norms);
+    }
+    
     
 } // end namespace

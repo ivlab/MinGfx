@@ -52,11 +52,29 @@ public:
     /// Assignment operator
     Point2& operator=(const Point2& p);
     
-    /// Accesses the ith coordinate of the point
+    /// Read only access to the ith coordinate of the point.
     float operator[](const int i) const;
     
-    /// Accesses the ith coordinate of the point
+    /// Returns a reference to the ith coordinate of the point.  Use this
+    /// accessor if you wish to set the coordinate rather than just request
+    /// its value.  Example:
+    /// ~~~
+    /// Point2 a;
+    /// a[0] = 5.0; // set the x-coordinate of the point
+    /// ~~~
     float& operator[](const int i);
+    
+    /// Read only access to the x coordinate.  Can also use my_point[0].  Use
+    /// the my_point[0] = 1.0; form if you need to set the value.
+    float x() const { return p[0]; }
+    
+    /// Read only access to the y coordinate.  Can also use my_point[1].  Use
+    /// the my_point[1] = 1.0; form if you need to set the value.
+    float y() const { return p[1]; }
+    
+    /// In homogeneous coordinates, the w coordinate for all points is 1.0.
+    float w() const { return 1.0; }
+    
     
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;

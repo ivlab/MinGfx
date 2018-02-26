@@ -18,6 +18,7 @@
 #define SRC_MINGFX_H_
 
 #include "color.h"
+#include "craft_cam.h"
 #include "default_shader.h"
 #include "gfxmath.h"
 #include "graphics_app.h"

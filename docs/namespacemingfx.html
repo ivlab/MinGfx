@@ -105,6 +105,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html">Color</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a 4-component (R,G,B,A) color, stored internally in a float array to be compatable with OpenGL.  <a href="classmingfx_1_1_color.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_craft_cam.html">CraftCam</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This implements a user interface for controlling the camera with the mouse.  <a href="classmingfx_1_1_craft_cam.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_default_shader.html">DefaultShader</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simple GLSL shader for textured per-fragment Phong shading with multiple light sources.  <a href="classmingfx_1_1_default_shader.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +131,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point3.html">Point3</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graphics operations.  <a href="classmingfx_1_1_point3.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A quaternion to represent rotations in 3D space.  <a href="classmingfx_1_1_quaternion.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_quick_shapes.html">QuickShapes</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class provides a quick way to draw shapes for use in debugging or simple scenes.  <a href="classmingfx_1_1_quick_shapes.html#details">More...</a><br /></td></tr>
@@ -187,6 +193,24 @@ Functions</h2></td></tr>
 <tr class="separator:a53ce6bc4f4abdd3797d7af47adecbaf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad95e9b494b9761895d57e2b698b69afd"><td class="memItemLeft" align="right" valign="top">std::istream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#ad95e9b494b9761895d57e2b698b69afd">operator&gt;&gt;</a> (std::istream &amp;is, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;p)</td></tr>
 <tr class="separator:ad95e9b494b9761895d57e2b698b69afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a456bccfb238b9644cf21669cf35b8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a0a456bccfb238b9644cf21669cf35b8c">operator*</a> (const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q1, const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q2)</td></tr>
+<tr class="separator:a0a456bccfb238b9644cf21669cf35b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a444ae88d836b913ac8307fbf4357f7ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a444ae88d836b913ac8307fbf4357f7ed">operator/</a> (const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q, const float s)</td></tr>
+<tr class="separator:a444ae88d836b913ac8307fbf4357f7ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55f694123e83d1649c112e806359d4b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a55f694123e83d1649c112e806359d4b6">operator*</a> (const float s, const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q)</td></tr>
+<tr class="separator:a55f694123e83d1649c112e806359d4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb96b0188d1ceda03ed8d297817502c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#adb96b0188d1ceda03ed8d297817502c9">operator*</a> (const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q, const float s)</td></tr>
+<tr class="separator:adb96b0188d1ceda03ed8d297817502c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f5a225a54f07164d5172a3721a3aee6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a2f5a225a54f07164d5172a3721a3aee6">operator-</a> (const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q)</td></tr>
+<tr class="separator:a2f5a225a54f07164d5172a3721a3aee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad49375487853a642b3f372c95cff1a96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#ad49375487853a642b3f372c95cff1a96">operator+</a> (const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q1, const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q2)</td></tr>
+<tr class="separator:ad49375487853a642b3f372c95cff1a96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61f2d974c78e8884bb64c2759e455101"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a61f2d974c78e8884bb64c2759e455101">operator-</a> (const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q1, const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q2)</td></tr>
+<tr class="separator:a61f2d974c78e8884bb64c2759e455101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4b78a682ff8d1ec298e0df7f742658d"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#ac4b78a682ff8d1ec298e0df7f742658d">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q)</td></tr>
+<tr class="separator:ac4b78a682ff8d1ec298e0df7f742658d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59fb7a99df5c572849e31065884b2235"><td class="memItemLeft" align="right" valign="top">std::istream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a59fb7a99df5c572849e31065884b2235">operator&gt;&gt;</a> (std::istream &amp;is, <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;q)</td></tr>
+<tr class="separator:a59fb7a99df5c572849e31065884b2235"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7c839e598b7be6c1b407330dfacc980"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#ad7c839e598b7be6c1b407330dfacc980">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;r)</td></tr>
 <tr class="separator:ad7c839e598b7be6c1b407330dfacc980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0412270963460363fa015b9b4785cc59"><td class="memItemLeft" align="right" valign="top">std::istream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a0412270963460363fa015b9b4785cc59">operator&gt;&gt;</a> (std::istream &amp;is, <a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;r)</td></tr>
@@ -261,6 +285,84 @@ Functions</h2></td></tr>
 <tr class="separator:a8cc2f52569661416cb2ca67c516b7c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a0a456bccfb238b9644cf21669cf35b8c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> mingfx::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a55f694123e83d1649c112e806359d4b6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> mingfx::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adb96b0188d1ceda03ed8d297817502c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> mingfx::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a8bc25e621d21323fdd96f2c4a4141432"></a>
 <div class="memitem">
 <div class="memproto">
@@ -541,6 +643,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad49375487853a642b3f372c95cff1a96"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> mingfx::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ac71c01d7c300671cb343a24b68a875bf"></a>
 <div class="memitem">
 <div class="memproto">
@@ -706,6 +834,48 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a vector and a vector, returns a vector. </p>
+
+</div>
+</div>
+<a class="anchor" id="a2f5a225a54f07164d5172a3721a3aee6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> mingfx::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a61f2d974c78e8884bb64c2759e455101"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> mingfx::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -913,6 +1083,32 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a444ae88d836b913ac8307fbf4357f7ed"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> mingfx::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a79ffb6c38c6c0b68ce1fdb7ae76ea6bd"></a>
 <div class="memitem">
 <div class="memproto">
@@ -969,32 +1165,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a58ddc500b8c3e12f8af4515f258540cb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; mingfx::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;&#160;</td>
-          <td class="paramname"><em>p</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a6bc967741341f4f318a505d884192906"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1021,7 +1191,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a53ce6bc4f4abdd3797d7af47adecbaf6"></a>
+<a class="anchor" id="a58ddc500b8c3e12f8af4515f258540cb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1034,7 +1204,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;&#160;</td>
           <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
@@ -1062,6 +1232,58 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">const <a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;&#160;</td>
           <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac4b78a682ff8d1ec298e0df7f742658d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; mingfx::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a53ce6bc4f4abdd3797d7af47adecbaf6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; mingfx::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1151,32 +1373,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a256924759a6718882a2b40e17d3e523d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::istream&amp; mingfx::operator&gt;&gt; </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>is</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;&#160;</td>
-          <td class="paramname"><em>p</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a6eb31e6e81c6e29144799be4c9db404d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1203,7 +1399,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad95e9b494b9761895d57e2b698b69afd"></a>
+<a class="anchor" id="a256924759a6718882a2b40e17d3e523d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -1216,7 +1412,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;&#160;</td>
           <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
@@ -1244,6 +1440,58 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;&#160;</td>
           <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a59fb7a99df5c572849e31065884b2235"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::istream&amp; mingfx::operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>is</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_quaternion.html">Quaternion</a> &amp;&#160;</td>
+          <td class="paramname"><em>q</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad95e9b494b9761895d57e2b698b69afd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::istream&amp; mingfx::operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>is</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

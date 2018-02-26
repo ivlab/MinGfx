@@ -215,6 +215,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:acf4abaf4a45826f14b435edf80a8d0e0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#acf4abaf4a45826f14b435edf80a8d0e0">Rotation</a> (const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;p, const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;v, const float a)</td></tr>
 <tr class="memdesc:acf4abaf4a45826f14b435edf80a8d0e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation matrix around the vector v placed at point p, rotate by angle a.  <a href="#acf4abaf4a45826f14b435edf80a8d0e0">More...</a><br /></td></tr>
 <tr class="separator:acf4abaf4a45826f14b435edf80a8d0e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae61cdabb318a03cd4dae8a1c8ecafa4d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#ae61cdabb318a03cd4dae8a1c8ecafa4d">Align</a> (const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;a_p, const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;a_v1, const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;a_v2, const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;b_p, const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;b_v1, const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;b_v2)</td></tr>
+<tr class="memdesc:ae61cdabb318a03cd4dae8a1c8ecafa4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a transformation matrix that maps a coordinate space, <em>a</em>, defined one point, <em>a_p</em>, and two vectors, <em>a_v1</em> and <em>a_v2</em>, to a new coordinate space, <em>b</em>, also defined by one point, <em>b_p</em>, and two vectors, <em>b_v1</em> and <em>b_v2</em>. The transformation will thus include both some rotation and some translation. Pseudocode example of aligning a billboard defined in the XY plane with a normal in the +Z direction and that rotates around the Y axis with a camera: ~~~ // define a coordiante space for a canonical billboard geometry defined // right at the origin. <a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a> a_p = Point3(0,0,0); // billboard's initial base position <a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a> a_v1 = Vector3(0,1,0); // billboard's initial up direction <a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a> a_v2 = Vector3(0,0,1); // billboard's initial normal direction.  <a href="#ae61cdabb318a03cd4dae8a1c8ecafa4d">More...</a><br /></td></tr>
+<tr class="separator:ae61cdabb318a03cd4dae8a1c8ecafa4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4543695a6dfc996d0312b70c2eaa00de"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#a4543695a6dfc996d0312b70c2eaa00de">LookAt</a> (<a class="el" href="classmingfx_1_1_point3.html">Point3</a> eye, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> target, <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> up)</td></tr>
 <tr class="memdesc:a4543695a6dfc996d0312b70c2eaa00de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a view matrix that centers the camera at the 'eye' position and orients it to look at the desired 'target' point with the top of the screen pointed as closely as possible in the direction of the 'up' vector.  <a href="#a4543695a6dfc996d0312b70c2eaa00de">More...</a><br /></td></tr>
 <tr class="separator:a4543695a6dfc996d0312b70c2eaa00de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -305,6 +308,68 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ae61cdabb318a03cd4dae8a1c8ecafa4d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> mingfx::Matrix4::Align </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramname"><em>a_p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>a_v1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>a_v2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b_p</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b_v1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;&#160;</td>
+          <td class="paramname"><em>b_v2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a transformation matrix that maps a coordinate space, <em>a</em>, defined one point, <em>a_p</em>, and two vectors, <em>a_v1</em> and <em>a_v2</em>, to a new coordinate space, <em>b</em>, also defined by one point, <em>b_p</em>, and two vectors, <em>b_v1</em> and <em>b_v2</em>. The transformation will thus include both some rotation and some translation. Pseudocode example of aligning a billboard defined in the XY plane with a normal in the +Z direction and that rotates around the Y axis with a camera: ~~~ // define a coordiante space for a canonical billboard geometry defined // right at the origin. <a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a> a_p = Point3(0,0,0); // billboard's initial base position <a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a> a_v1 = Vector3(0,1,0); // billboard's initial up direction <a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a> a_v2 = Vector3(0,0,1); // billboard's initial normal direction. </p>
+<p>// define a coordinate space for where we want this billboard to go and // the direction it should be facing <a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a> b_p = desired_base_pos; // new position for the billboard <a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a> b_v1 = Vector3(0,1,0); // +Y is still up, doesn't change <a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a> b_v2 = (camera.eye() - desired_base_pos); // the normal should point toward the camera b_v2[1] = 0.0; // with 0 change in Y so the billboard does not tilt b_v2.Normalize(); // convert to a unit vector</p>
+<p><a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a> billboard_model_matrix = Matrix4::Align(a_p, a_v1, a_v2,   b_p, b_v1, b_v2); ~~~ </p>
+
+</div>
+</div>
 <a class="anchor" id="aed30c7a329c65185cda1646a76351f09"></a>
 <div class="memitem">
 <div class="memproto">

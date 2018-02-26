@@ -142,7 +142,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="keywordtype">void</span> MyGraphicsApp::DrawOpenGL() {</div>
 <div class="line">    <span class="comment">// draw your scene using the view matrix from UniCam</span></div>
 <div class="line">    Matrix4 proj_matrix = <a class="code" href="classmingfx_1_1_matrix4.html#a4b8bea805a162fbb267bea63c0a7fe5c">Matrix4::Perspective</a>(60, aspect_ratio(), 0.001, 10);;</div>
-<div class="line">    Matrix4 <a class="code" href="classmingfx_1_1_uni_cam.html#af7e7276f9390ec57ca577092c99d6ca3">view_matrix</a> = uniCam.view_matrix();</div>
+<div class="line">    Matrix4 view_matrix = uniCam.view_matrix();</div>
 <div class="line">    Matrix4 model_matrix = Matrix4::RotateY(to_radians(45.0));</div>
 <div class="line">    quickShapes.DrawCube(model_matrix, view_matirx, proj_matrix, Color(1,1,1));</div>
 <div class="line"></div>
@@ -196,6 +196,12 @@ Public Member Functions</h2></td></tr>
 <div class="line">quick_shapes.DrawCube(M, V, P, Color(1,1,1));</div>
 </div><!-- fragment --><p>.  <a href="#af7e7276f9390ec57ca577092c99d6ca3">More...</a><br /></td></tr>
 <tr class="separator:af7e7276f9390ec57ca577092c99d6ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65d5735b4b3a8e38f2b30df4133cadd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_uni_cam.html#a65d5735b4b3a8e38f2b30df4133cadd2">eye</a> ()</td></tr>
+<tr class="memdesc:a65d5735b4b3a8e38f2b30df4133cadd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the "eye" point (i.e., focal point) of the camera in world space coordinates.  <a href="#a65d5735b4b3a8e38f2b30df4133cadd2">More...</a><br /></td></tr>
+<tr class="separator:a65d5735b4b3a8e38f2b30df4133cadd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8363576bf0f85c74d80ced697bd73d40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_uni_cam.html#a8363576bf0f85c74d80ced697bd73d40">look</a> ()</td></tr>
+<tr class="memdesc:a8363576bf0f85c74d80ced697bd73d40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the look direction (i.e., -Z axis of the camera matrix) in world space coordinates.  <a href="#a8363576bf0f85c74d80ced697bd73d40">More...</a><br /></td></tr>
+<tr class="separator:a8363576bf0f85c74d80ced697bd73d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b17bab82595ca468a3c638512011e5b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_uni_cam.html#a6b17bab82595ca468a3c638512011e5b">set_view_matrix</a> (<a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> viewMatrix)</td></tr>
 <tr class="memdesc:a6b17bab82595ca468a3c638512011e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is not required, but you may use this if you wish to set an initial view matrix or reset the view matrix.  <a href="#a6b17bab82595ca468a3c638512011e5b">More...</a><br /></td></tr>
 <tr class="separator:a6b17bab82595ca468a3c638512011e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -298,6 +304,40 @@ Public Member Functions</h2></td></tr>
 
 <p>Finally, attach this to your draw callback routine. Within <a class="el" href="classmingfx_1_1_graphics_app.html#a5a858fd10651f7617491f37b49dbf8ca" title="Override this to draw graphics using raw OpenGL 2D or 3D graphics calls. ">GraphicsApp::DrawUsingOpenGL()</a>, use: </p><div class="fragment"><div class="line">uniCam.Draw(projMatrix);</div>
 </div><!-- fragment --><p>. </p>
+
+</div>
+</div>
+<a class="anchor" id="a65d5735b4b3a8e38f2b30df4133cadd2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_point3.html">Point3</a> mingfx::UniCam::eye </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the "eye" point (i.e., focal point) of the camera in world space coordinates. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8363576bf0f85c74d80ced697bd73d40"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> mingfx::UniCam::look </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the look direction (i.e., -Z axis of the camera matrix) in world space coordinates. </p>
 
 </div>
 </div>

@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['normal',['normal',['../classmingfx_1_1_mesh.html#aebefec839762c6a7e0a0ba53271421cb',1,'mingfx::Mesh']]],
-  ['normalize',['Normalize',['../classmingfx_1_1_vector2.html#a632ddd5b06c48fa0f6f39550e91082c0',1,'mingfx::Vector2::Normalize()'],['../classmingfx_1_1_vector2.html#a06d6c283aba957bddc2b9849698838b2',1,'mingfx::Vector2::Normalize(const Vector2 &amp;v)'],['../classmingfx_1_1_vector3.html#a9b8e9ecbe10477adec527842f62d0dca',1,'mingfx::Vector3::Normalize()'],['../classmingfx_1_1_vector3.html#aeff0177e2111139469b60733248fad8d',1,'mingfx::Vector3::Normalize(const Vector3 &amp;v)']]],
-  ['normalizeddevicecoordstopixels',['NormalizedDeviceCoordsToPixels',['../classmingfx_1_1_graphics_app.html#a9332aa658f8b37fcf100116b507207aa',1,'mingfx::GraphicsApp::NormalizedDeviceCoordsToPixels(Point2 pointInNDC)'],['../classmingfx_1_1_graphics_app.html#a0365479b5668651f93b63ed1a4f887f9',1,'mingfx::GraphicsApp::NormalizedDeviceCoordsToPixels(Vector2 pointInNDC)']]],
-  ['num_5flights',['num_lights',['../classmingfx_1_1_default_shader.html#ac5b779672a983df8aa67c9cbe026e0c2',1,'mingfx::DefaultShader']]],
-  ['num_5ftriangles',['num_triangles',['../classmingfx_1_1_mesh.html#a5bf4492b921eeb436578dd90f495a7a1',1,'mingfx::Mesh']]],
-  ['num_5fvertices',['num_vertices',['../classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de',1,'mingfx::Mesh']]]
+  ['material',['material',['../classmingfx_1_1_quick_shapes.html#ac8b702a25296cfea15eef1e185333272',1,'mingfx::QuickShapes']]],
+  ['materialproperties',['MaterialProperties',['../classmingfx_1_1_default_shader_1_1_material_properties.html#aa24361a9c6eb0a87355d0ad00e47dd96',1,'mingfx::DefaultShader::MaterialProperties']]],
+  ['matrix4',['Matrix4',['../classmingfx_1_1_matrix4.html#a50990f00b756d640670a0b02129afd22',1,'mingfx::Matrix4::Matrix4()'],['../classmingfx_1_1_matrix4.html#a09a366a3ef940ff355f8d5c521baa57d',1,'mingfx::Matrix4::Matrix4(const float *a)'],['../classmingfx_1_1_matrix4.html#a4bcf311614006c551f57d2b0dcd32d87',1,'mingfx::Matrix4::Matrix4(const Matrix4 &amp;m2)']]],
+  ['mesh',['Mesh',['../classmingfx_1_1_mesh.html#a69613870d54989f4226e50caf4ca9fb9',1,'mingfx::Mesh::Mesh()'],['../classmingfx_1_1_mesh.html#a76b4977f0a7f156aa8a0027f10dcbdc1',1,'mingfx::Mesh::Mesh(const Mesh &amp;other)']]]
 ];

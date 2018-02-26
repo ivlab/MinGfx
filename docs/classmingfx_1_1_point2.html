@@ -116,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2e5869d810b52be4ba43c8a4f4e117a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a2e5869d810b52be4ba43c8a4f4e117a1">Point2</a> ()</td></tr>
 <tr class="memdesc:a2e5869d810b52be4ba43c8a4f4e117a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default point at the origin.  <a href="#a2e5869d810b52be4ba43c8a4f4e117a1">More...</a><br /></td></tr>
 <tr class="separator:a2e5869d810b52be4ba43c8a4f4e117a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a716fcff21456f29561ec27118a646483"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a716fcff21456f29561ec27118a646483">Point2</a> (float x, float y)</td></tr>
+<tr class="memitem:a716fcff21456f29561ec27118a646483"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a716fcff21456f29561ec27118a646483">Point2</a> (float <a class="el" href="classmingfx_1_1_point2.html#abbe2571c9cb941fe1b1e0d28e0b2284f">x</a>, float <a class="el" href="classmingfx_1_1_point2.html#a53603baff3adc06d04751e385ce1a65a">y</a>)</td></tr>
 <tr class="memdesc:a716fcff21456f29561ec27118a646483"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a point given (x,y,1), where the 1 comes from the use of homogeneous coordinates in computer graphics.  <a href="#a716fcff21456f29561ec27118a646483">More...</a><br /></td></tr>
 <tr class="separator:a716fcff21456f29561ec27118a646483"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ba487a2038ebc78b461b66f1987053f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a4ba487a2038ebc78b461b66f1987053f">Point2</a> (float *p)</td></tr>
@@ -138,11 +138,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:afc68153cce7dc528e95cf5ad81c63902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator.  <a href="#afc68153cce7dc528e95cf5ad81c63902">More...</a><br /></td></tr>
 <tr class="separator:afc68153cce7dc528e95cf5ad81c63902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86ca64dd27a9bfba5dd7d4d2bf604478"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a86ca64dd27a9bfba5dd7d4d2bf604478">operator[]</a> (const int i) const </td></tr>
-<tr class="memdesc:a86ca64dd27a9bfba5dd7d4d2bf604478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the ith coordinate of the point.  <a href="#a86ca64dd27a9bfba5dd7d4d2bf604478">More...</a><br /></td></tr>
+<tr class="memdesc:a86ca64dd27a9bfba5dd7d4d2bf604478"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read only access to the ith coordinate of the point.  <a href="#a86ca64dd27a9bfba5dd7d4d2bf604478">More...</a><br /></td></tr>
 <tr class="separator:a86ca64dd27a9bfba5dd7d4d2bf604478"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50f09df619fd226e6dc3ccff452abab3"><td class="memItemLeft" align="right" valign="top">float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a50f09df619fd226e6dc3ccff452abab3">operator[]</a> (const int i)</td></tr>
-<tr class="memdesc:a50f09df619fd226e6dc3ccff452abab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the ith coordinate of the point.  <a href="#a50f09df619fd226e6dc3ccff452abab3">More...</a><br /></td></tr>
+<tr class="memdesc:a50f09df619fd226e6dc3ccff452abab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the ith coordinate of the point. Use this accessor if you wish to set the coordinate rather than just request its value. Example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_point2.html#a2e5869d810b52be4ba43c8a4f4e117a1">Point2</a> a;</div>
+<div class="line">a[0] = 5.0; <span class="comment">// set the x-coordinate of the point</span></div>
+</div><!-- fragment --><p>.  <a href="#a50f09df619fd226e6dc3ccff452abab3">More...</a><br /></td></tr>
 <tr class="separator:a50f09df619fd226e6dc3ccff452abab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe2571c9cb941fe1b1e0d28e0b2284f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#abbe2571c9cb941fe1b1e0d28e0b2284f">x</a> () const </td></tr>
+<tr class="memdesc:abbe2571c9cb941fe1b1e0d28e0b2284f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read only access to the x coordinate. Can also use my_point[0]. Use the my_point[0] = 1.0; form if you need to set the value.  <a href="#abbe2571c9cb941fe1b1e0d28e0b2284f">More...</a><br /></td></tr>
+<tr class="separator:abbe2571c9cb941fe1b1e0d28e0b2284f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53603baff3adc06d04751e385ce1a65a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a53603baff3adc06d04751e385ce1a65a">y</a> () const </td></tr>
+<tr class="memdesc:a53603baff3adc06d04751e385ce1a65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read only access to the y coordinate. Can also use my_point[1]. Use the my_point[1] = 1.0; form if you need to set the value.  <a href="#a53603baff3adc06d04751e385ce1a65a">More...</a><br /></td></tr>
+<tr class="separator:a53603baff3adc06d04751e385ce1a65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa58dca0492ee827a4f984853989a63"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a3fa58dca0492ee827a4f984853989a63">w</a> () const </td></tr>
+<tr class="memdesc:a3fa58dca0492ee827a4f984853989a63"><td class="mdescLeft">&#160;</td><td class="mdescRight">In homogeneous coordinates, the w coordinate for all points is 1.0.  <a href="#a3fa58dca0492ee827a4f984853989a63">More...</a><br /></td></tr>
+<tr class="separator:a3fa58dca0492ee827a4f984853989a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95b3831b659bb57dfa07be778924d72e"><td class="memItemLeft" align="right" valign="top">const float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_point2.html#a95b3831b659bb57dfa07be778924d72e">value_ptr</a> () const </td></tr>
 <tr class="memdesc:a95b3831b659bb57dfa07be778924d72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the raw data array.  <a href="#a95b3831b659bb57dfa07be778924d72e">More...</a><br /></td></tr>
 <tr class="separator:a95b3831b659bb57dfa07be778924d72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -436,7 +447,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Accesses the ith coordinate of the point. </p>
+<p>Read only access to the ith coordinate of the point. </p>
 
 </div>
 </div>
@@ -454,7 +465,9 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Accesses the ith coordinate of the point. </p>
+<p>Returns a reference to the ith coordinate of the point. Use this accessor if you wish to set the coordinate rather than just request its value. Example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_point2.html#a2e5869d810b52be4ba43c8a4f4e117a1">Point2</a> a;</div>
+<div class="line">a[0] = 5.0; <span class="comment">// set the x-coordinate of the point</span></div>
+</div><!-- fragment --><p>. </p>
 
 </div>
 </div>
@@ -497,6 +510,87 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a const pointer to the raw data array. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3fa58dca0492ee827a4f984853989a63"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mingfx::Point2::w </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In homogeneous coordinates, the w coordinate for all points is 1.0. </p>
+
+<p>Definition at line <a class="el" href="point2_8h_source.html#l00076">76</a> of file <a class="el" href="point2_8h_source.html">point2.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="abbe2571c9cb941fe1b1e0d28e0b2284f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mingfx::Point2::x </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read only access to the x coordinate. Can also use my_point[0]. Use the my_point[0] = 1.0; form if you need to set the value. </p>
+
+<p>Definition at line <a class="el" href="point2_8h_source.html#l00069">69</a> of file <a class="el" href="point2_8h_source.html">point2.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a53603baff3adc06d04751e385ce1a65a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mingfx::Point2::y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read only access to the y coordinate. Can also use my_point[1]. Use the my_point[1] = 1.0; form if you need to set the value. </p>
+
+<p>Definition at line <a class="el" href="point2_8h_source.html#l00073">73</a> of file <a class="el" href="point2_8h_source.html">point2.h</a>.</p>
 
 </div>
 </div>

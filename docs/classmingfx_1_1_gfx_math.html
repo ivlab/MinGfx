@@ -106,7 +106,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class holds a variety of static math functions that are useful to have defined with creating graphics programs. </p>
 
-<p>Definition at line <a class="el" href="gfxmath_8h_source.html#l00027">27</a> of file <a class="el" href="gfxmath_8h_source.html">gfxmath.h</a>.</p>
+<p>Definition at line <a class="el" href="gfxmath_8h_source.html#l00028">28</a> of file <a class="el" href="gfxmath_8h_source.html">gfxmath.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="gfxmath_8h_source.html">gfxmath.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -119,8 +119,14 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a1336de2695bc3bb750b23fb0ea211637"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39a2b5973249fb3aefc210b18b0fdff3"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a39a2b5973249fb3aefc210b18b0fdff3">ToDegrees</a> (float radians)</td></tr>
 <tr class="separator:a39a2b5973249fb3aefc210b18b0fdff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38927f1f8ea4625d909e64efa93c5190"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a38927f1f8ea4625d909e64efa93c5190">ToRadians</a> (<a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> degrees)</td></tr>
+<tr class="separator:a38927f1f8ea4625d909e64efa93c5190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5411a7d8bfc8e47d596362a328dbde8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#aa5411a7d8bfc8e47d596362a328dbde8">ToDegrees</a> (<a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> radians)</td></tr>
+<tr class="separator:aa5411a7d8bfc8e47d596362a328dbde8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace452fb6b86eb638897b474e9dd51647"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#ace452fb6b86eb638897b474e9dd51647">Lerp</a> (float a, float b, float alpha)</td></tr>
 <tr class="separator:ace452fb6b86eb638897b474e9dd51647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af255bde64498e9b55be466abeea97f4d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#af255bde64498e9b55be466abeea97f4d">iLerp</a> (int a, int b, float alpha)</td></tr>
+<tr class="separator:af255bde64498e9b55be466abeea97f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2086a2f885f887fb53da8a5adb5860f0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a2086a2f885f887fb53da8a5adb5860f0">ScreenToNearPlane</a> (const <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> &amp;viewMatrix, const <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> &amp;projMatrix, const <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;normalizedScreenPt)</td></tr>
 <tr class="memdesc:a2086a2f885f887fb53da8a5adb5860f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 2D point on the filmplane represented in Normalized Device Coorindates, which means (-1,1) for the top left corner of the screen and (1,-1) for the bottom right corner, to a 3D point that lies on the camera's near plane. Useful for converting mouse coordinates into a 3D point. Remember that this uses NORMALIZED device coordinates for the screenPt, not pixels. <a class="el" href="classmingfx_1_1_graphics_app.html" title="This is the main application base class for the MinGfx Toolkit. ">GraphicsApp</a> and most other graphics engines report mouse move events in pixels, so you need to convert these to normalized device coordinates first. If you are using <a class="el" href="classmingfx_1_1_graphics_app.html" title="This is the main application base class for the MinGfx Toolkit. ">GraphicsApp</a>, you can do this with: <a class="el" href="classmingfx_1_1_point2.html" title="A 2D Point with floating point coordinates, used for storing 2D texture coordinates, screen-space graphics, and mouse input. ">Point2</a> normPos = graphicsApp-&gt;pixels_to_normalized_coordinates(mousePos);.  <a href="#a2086a2f885f887fb53da8a5adb5860f0">More...</a><br /></td></tr>
 <tr class="separator:a2086a2f885f887fb53da8a5adb5860f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,6 +177,46 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a if x is less than a and b if x is greater than b. </p>
+
+</div>
+</div>
+<a class="anchor" id="af255bde64498e9b55be466abeea97f4d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int mingfx::GfxMath::iLerp </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>alpha</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -376,6 +422,30 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa5411a7d8bfc8e47d596362a328dbde8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> mingfx::GfxMath::ToDegrees </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td>
+          <td class="paramname"><em>radians</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a1336de2695bc3bb750b23fb0ea211637"></a>
 <div class="memitem">
 <div class="memproto">
@@ -387,6 +457,30 @@ Static Public Member Functions</h2></td></tr>
           <td class="memname">static float mingfx::GfxMath::ToRadians </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>degrees</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a38927f1f8ea4625d909e64efa93c5190"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> mingfx::GfxMath::ToRadians </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td>
           <td class="paramname"><em>degrees</em></td><td>)</td>
           <td></td>
         </tr>

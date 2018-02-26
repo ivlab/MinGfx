@@ -153,65 +153,70 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> <a class="code" href="classmingfx_1_1_uni_cam.html#af7e7276f9390ec57ca577092c99d6ca3">view_matrix</a>();</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    </div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="comment">// -------------</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classmingfx_1_1_uni_cam.html#a6b17bab82595ca468a3c638512011e5b">set_view_matrix</a>(<a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> viewMatrix);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classmingfx_1_1_uni_cam.html#a71e0351ac19a18b9c02215a60dc51068">set_default_depth</a>(<span class="keywordtype">float</span> d);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <a class="code" href="classmingfx_1_1_point3.html">Point3</a> <a class="code" href="classmingfx_1_1_uni_cam.html#a65d5735b4b3a8e38f2b30df4133cadd2">eye</a>();</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <a class="code" href="classmingfx_1_1_vector3.html">Vector3</a> <a class="code" href="classmingfx_1_1_uni_cam.html#a8363576bf0f85c74d80ced697bd73d40">look</a>();</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="comment">// -------------</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classmingfx_1_1_uni_cam.html#a6b17bab82595ca468a3c638512011e5b">set_view_matrix</a>(<a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> viewMatrix);</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordtype">void</span> recalc_angular_vel();</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keyword">enum</span> UniCamState {</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        START,</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        PAN_DOLLY_ROT_DECISION,</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        PAN_DOLLY_DECISION,</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        ROT_WAIT_FOR_SECOND_CLICK,</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        PAN,</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        DOLLY,</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        ROT,</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        SPINNING</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    };</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    UniCamState state_;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <a class="code" href="classmingfx_1_1_point2.html">Point2</a>  mouseLast_;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">double</span>  elapsedTime_;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <a class="code" href="classmingfx_1_1_point2.html">Point2</a>  initialClickPos_;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordtype">bool</span>    hitGeometry_;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <a class="code" href="classmingfx_1_1_point3.html">Point3</a>  hitPoint_;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordtype">bool</span>    rotInitialized_;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <a class="code" href="classmingfx_1_1_point3.html">Point3</a>  rotLastIPoint_;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordtype">float</span>   boundingSphereRad_;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <a class="code" href="classmingfx_1_1_point3.html">Point3</a>  boundingSphereCtr_;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordtype">double</span>  rotLastTime_;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    std::vector&lt;std::pair&lt;float, float&gt;&gt; rotAngularVelBuffer_;</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">float</span> rotAngularVel_;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <a class="code" href="classmingfx_1_1_vector3.html">Vector3</a> rotAxis_;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">bool</span>    dollyInitialized_;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">float</span>   dollyFactor_;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordtype">float</span>   defaultDepth_;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">bool</span>    showIcon_;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <a class="code" href="classmingfx_1_1_quick_shapes.html">QuickShapes</a> quickShapes_;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> V_;</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> Vstart_;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="comment">// saved from the last draw call in order to unproject the mouse pos</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> Pdraw_;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;};</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    </div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;} <span class="comment">// end namespace</span></div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classmingfx_1_1_uni_cam.html#a71e0351ac19a18b9c02215a60dc51068">set_default_depth</a>(<span class="keywordtype">float</span> d);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">void</span> recalc_angular_vel();</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keyword">enum</span> UniCamState {</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        START,</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        PAN_DOLLY_ROT_DECISION,</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        PAN_DOLLY_DECISION,</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        ROT_WAIT_FOR_SECOND_CLICK,</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        PAN,</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        DOLLY,</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        ROT,</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        SPINNING</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    };</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    UniCamState state_;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    </div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <a class="code" href="classmingfx_1_1_point2.html">Point2</a>  mouseLast_;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordtype">double</span>  elapsedTime_;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <a class="code" href="classmingfx_1_1_point2.html">Point2</a>  initialClickPos_;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keywordtype">bool</span>    hitGeometry_;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <a class="code" href="classmingfx_1_1_point3.html">Point3</a>  hitPoint_;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">bool</span>    rotInitialized_;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <a class="code" href="classmingfx_1_1_point3.html">Point3</a>  rotLastIPoint_;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    <span class="keywordtype">float</span>   boundingSphereRad_;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <a class="code" href="classmingfx_1_1_point3.html">Point3</a>  boundingSphereCtr_;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordtype">double</span>  rotLastTime_;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    std::vector&lt;std::pair&lt;float, float&gt;&gt; rotAngularVelBuffer_;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordtype">float</span> rotAngularVel_;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <a class="code" href="classmingfx_1_1_vector3.html">Vector3</a> rotAxis_;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordtype">bool</span>    dollyInitialized_;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keywordtype">float</span>   dollyFactor_;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordtype">float</span>   defaultDepth_;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordtype">bool</span>    showIcon_;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <a class="code" href="classmingfx_1_1_quick_shapes.html">QuickShapes</a> quickShapes_;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> V_;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> Vstart_;</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="comment">// saved from the last draw call in order to unproject the mouse pos</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <a class="code" href="classmingfx_1_1_matrix4.html">Matrix4</a> Pdraw_;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;};</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;} <span class="comment">// end namespace</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
 <div class="ttc" id="classmingfx_1_1_uni_cam_html_a6b17bab82595ca468a3c638512011e5b"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#a6b17bab82595ca468a3c638512011e5b">mingfx::UniCam::set_view_matrix</a></div><div class="ttdeci">void set_view_matrix(Matrix4 viewMatrix)</div><div class="ttdoc">This is not required, but you may use this if you wish to set an initial view matrix or reset the vie...</div></div>
 <div class="ttc" id="vector3_8h_html"><div class="ttname"><a href="vector3_8h.html">vector3.h</a></div></div>
 <div class="ttc" id="namespacemingfx_html"><div class="ttname"><a href="namespacemingfx.html">mingfx</a></div><div class="ttdoc">Namespace for the MinGfx Toolkit. </div><div class="ttdef"><b>Definition:</b> <a href="color_8h_source.html#l00019">color.h:19</a></div></div>
@@ -221,10 +226,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="quick__shapes_8h_html"><div class="ttname"><a href="quick__shapes_8h.html">quick_shapes.h</a></div></div>
 <div class="ttc" id="classmingfx_1_1_uni_cam_html"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html">mingfx::UniCam</a></div><div class="ttdoc">This implements a user interface for controlling the camera with the mouse. </div><div class="ttdef"><b>Definition:</b> <a href="unicam_8h_source.html#l00105">unicam.h:105</a></div></div>
 <div class="ttc" id="classmingfx_1_1_uni_cam_html_af7e7276f9390ec57ca577092c99d6ca3"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#af7e7276f9390ec57ca577092c99d6ca3">mingfx::UniCam::view_matrix</a></div><div class="ttdeci">Matrix4 view_matrix()</div><div class="ttdoc">Access the camera view matrix created by the UniCam interactions via this method and use it to draw t...</div></div>
-<div class="ttc" id="classmingfx_1_1_point3_html"><div class="ttname"><a href="classmingfx_1_1_point3.html">mingfx::Point3</a></div><div class="ttdoc">A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...</div><div class="ttdef"><b>Definition:</b> <a href="point3_8h_source.html#l00036">point3.h:36</a></div></div>
+<div class="ttc" id="classmingfx_1_1_point3_html"><div class="ttname"><a href="classmingfx_1_1_point3.html">mingfx::Point3</a></div><div class="ttdoc">A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...</div><div class="ttdef"><b>Definition:</b> <a href="point3_8h_source.html#l00040">point3.h:40</a></div></div>
+<div class="ttc" id="classmingfx_1_1_uni_cam_html_a65d5735b4b3a8e38f2b30df4133cadd2"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#a65d5735b4b3a8e38f2b30df4133cadd2">mingfx::UniCam::eye</a></div><div class="ttdeci">Point3 eye()</div><div class="ttdoc">Returns the "eye" point (i.e., focal point) of the camera in world space coordinates. </div></div>
 <div class="ttc" id="classmingfx_1_1_matrix4_html"><div class="ttname"><a href="classmingfx_1_1_matrix4.html">mingfx::Matrix4</a></div><div class="ttdoc">A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...</div><div class="ttdef"><b>Definition:</b> <a href="matrix4_8h_source.html#l00050">matrix4.h:50</a></div></div>
 <div class="ttc" id="point3_8h_html"><div class="ttname"><a href="point3_8h.html">point3.h</a></div></div>
 <div class="ttc" id="classmingfx_1_1_uni_cam_html_a85afba6e8792636f3c6ba2433db1c52f"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#a85afba6e8792636f3c6ba2433db1c52f">mingfx::UniCam::OnButtonDown</a></div><div class="ttdeci">void OnButtonDown(const Point2 &amp;normalizedMousePos, float mouseZ)</div><div class="ttdoc">Attach this to whatever mouse button you wish, for example, call this from within GraphicsApp::OnRigh...</div></div>
+<div class="ttc" id="classmingfx_1_1_uni_cam_html_a8363576bf0f85c74d80ced697bd73d40"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#a8363576bf0f85c74d80ced697bd73d40">mingfx::UniCam::look</a></div><div class="ttdeci">Vector3 look()</div><div class="ttdoc">Returns the look direction (i.e., -Z axis of the camera matrix) in world space coordinates. </div></div>
 <div class="ttc" id="classmingfx_1_1_uni_cam_html_aab253d966af52ac277ac51194745085c"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#aab253d966af52ac277ac51194745085c">mingfx::UniCam::AdvanceAnimation</a></div><div class="ttdeci">void AdvanceAnimation(double dt)</div><div class="ttdoc">Attach this to a callback that can be used to control animation. Within GraphicsApp::UpdateSimulation...</div></div>
 <div class="ttc" id="classmingfx_1_1_uni_cam_html_ae45f3c80c205a539baeb4f1b8787777d"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#ae45f3c80c205a539baeb4f1b8787777d">mingfx::UniCam::Draw</a></div><div class="ttdeci">void Draw(const Matrix4 &amp;projectionMatrix)</div><div class="ttdoc">Finally, attach this to your draw callback routine. Within GraphicsApp::DrawUsingOpenGL(), use: uniCam.Draw(projMatrix);. </div></div>
 <div class="ttc" id="classmingfx_1_1_uni_cam_html_a2a9431dc3943c8dc485994d88ce2a58a"><div class="ttname"><a href="classmingfx_1_1_uni_cam.html#a2a9431dc3943c8dc485994d88ce2a58a">mingfx::UniCam::OnButtonUp</a></div><div class="ttdeci">void OnButtonUp(const Point2 &amp;normalizedMousePos)</div><div class="ttdoc">Attach this to the corresponding button up event, for example, call this from within GraphicsApp::OnR...</div></div>

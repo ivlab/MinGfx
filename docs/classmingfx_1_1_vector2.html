@@ -116,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a962433a7e3158cf6b224604a0463852f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#a962433a7e3158cf6b224604a0463852f">Vector2</a> ()</td></tr>
 <tr class="memdesc:a962433a7e3158cf6b224604a0463852f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor to create zero vector.  <a href="#a962433a7e3158cf6b224604a0463852f">More...</a><br /></td></tr>
 <tr class="separator:a962433a7e3158cf6b224604a0463852f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc16337b6b06ebea2fde4c4bd1be7abd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#acc16337b6b06ebea2fde4c4bd1be7abd">Vector2</a> (float x, float y)</td></tr>
+<tr class="memitem:acc16337b6b06ebea2fde4c4bd1be7abd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#acc16337b6b06ebea2fde4c4bd1be7abd">Vector2</a> (float <a class="el" href="classmingfx_1_1_vector2.html#ad1b2a7c5079f08439457f69a3d31f0ab">x</a>, float <a class="el" href="classmingfx_1_1_vector2.html#ab78aee40921e99a8fa559ad36bf661b2">y</a>)</td></tr>
 <tr class="memdesc:acc16337b6b06ebea2fde4c4bd1be7abd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a vector (x,y,0), where the 0 comes from the use of homogeneous coordinates in computer graphics.  <a href="#acc16337b6b06ebea2fde4c4bd1be7abd">More...</a><br /></td></tr>
 <tr class="separator:acc16337b6b06ebea2fde4c4bd1be7abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e3d063a7080bfe199acc70cd5afded2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#a6e3d063a7080bfe199acc70cd5afded2">Vector2</a> (float *v)</td></tr>
@@ -138,11 +138,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a28c44a323e5bd1a251dee9e00e2e1769"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector assignment operator.  <a href="#a28c44a323e5bd1a251dee9e00e2e1769">More...</a><br /></td></tr>
 <tr class="separator:a28c44a323e5bd1a251dee9e00e2e1769"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80a43bfa10cd4340381a2602898fac9a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#a80a43bfa10cd4340381a2602898fac9a">operator[]</a> (const int i) const </td></tr>
-<tr class="memdesc:a80a43bfa10cd4340381a2602898fac9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ith coordinate of the vector.  <a href="#a80a43bfa10cd4340381a2602898fac9a">More...</a><br /></td></tr>
+<tr class="memdesc:a80a43bfa10cd4340381a2602898fac9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read only access to the ith coordinate of the vector.  <a href="#a80a43bfa10cd4340381a2602898fac9a">More...</a><br /></td></tr>
 <tr class="separator:a80a43bfa10cd4340381a2602898fac9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93acf7f4f150cfe53859e31d90eddd1e"><td class="memItemLeft" align="right" valign="top">float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#a93acf7f4f150cfe53859e31d90eddd1e">operator[]</a> (const int i)</td></tr>
-<tr class="memdesc:a93acf7f4f150cfe53859e31d90eddd1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ith coordinate of the vector.  <a href="#a93acf7f4f150cfe53859e31d90eddd1e">More...</a><br /></td></tr>
+<tr class="memdesc:a93acf7f4f150cfe53859e31d90eddd1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the ith coordinate of the vector. Use this accessor if you wish to set the coordinate rather than just request its value. Example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_vector2.html#a962433a7e3158cf6b224604a0463852f">Vector2</a> a;</div>
+<div class="line">a[0] = 5.0; <span class="comment">// set the x-coordinate of the vector</span></div>
+</div><!-- fragment --><p>.  <a href="#a93acf7f4f150cfe53859e31d90eddd1e">More...</a><br /></td></tr>
 <tr class="separator:a93acf7f4f150cfe53859e31d90eddd1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1b2a7c5079f08439457f69a3d31f0ab"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#ad1b2a7c5079f08439457f69a3d31f0ab">x</a> () const </td></tr>
+<tr class="memdesc:ad1b2a7c5079f08439457f69a3d31f0ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read only access to the x coordinate. Can also use my_vector[0]. Use the my_vector[0] = 1.0; form if you need to set the value.  <a href="#ad1b2a7c5079f08439457f69a3d31f0ab">More...</a><br /></td></tr>
+<tr class="separator:ad1b2a7c5079f08439457f69a3d31f0ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab78aee40921e99a8fa559ad36bf661b2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#ab78aee40921e99a8fa559ad36bf661b2">y</a> () const </td></tr>
+<tr class="memdesc:ab78aee40921e99a8fa559ad36bf661b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read only access to the y coordinate. Can also use my_vector[1]. Use the my_vector[1] = 1.0; form if you need to set the value.  <a href="#ab78aee40921e99a8fa559ad36bf661b2">More...</a><br /></td></tr>
+<tr class="separator:ab78aee40921e99a8fa559ad36bf661b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5423c8544b08c4f17d24762e33b60953"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#a5423c8544b08c4f17d24762e33b60953">w</a> () const </td></tr>
+<tr class="memdesc:a5423c8544b08c4f17d24762e33b60953"><td class="mdescLeft">&#160;</td><td class="mdescRight">In homogeneous coordinates, the w coordinate for all vectors is 0.0.  <a href="#a5423c8544b08c4f17d24762e33b60953">More...</a><br /></td></tr>
+<tr class="separator:a5423c8544b08c4f17d24762e33b60953"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59e28b2097f13c674160576025c8ae5a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector2.html#a59e28b2097f13c674160576025c8ae5a">Dot</a> (const <a class="el" href="classmingfx_1_1_vector2.html">Vector2</a> &amp;v) const </td></tr>
 <tr class="memdesc:a59e28b2097f13c674160576025c8ae5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "this dot v".  <a href="#a59e28b2097f13c674160576025c8ae5a">More...</a><br /></td></tr>
 <tr class="separator:a59e28b2097f13c674160576025c8ae5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -571,7 +582,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the ith coordinate of the vector. </p>
+<p>Read only access to the ith coordinate of the vector. </p>
 
 </div>
 </div>
@@ -589,7 +600,9 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the ith coordinate of the vector. </p>
+<p>Returns a reference to the ith coordinate of the vector. Use this accessor if you wish to set the coordinate rather than just request its value. Example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_vector2.html#a962433a7e3158cf6b224604a0463852f">Vector2</a> a;</div>
+<div class="line">a[0] = 5.0; <span class="comment">// set the x-coordinate of the vector</span></div>
+</div><!-- fragment --><p>. </p>
 
 </div>
 </div>
@@ -674,6 +687,87 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a const pointer to the raw data array. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5423c8544b08c4f17d24762e33b60953"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mingfx::Vector2::w </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In homogeneous coordinates, the w coordinate for all vectors is 0.0. </p>
+
+<p>Definition at line <a class="el" href="vector2_8h_source.html#l00077">77</a> of file <a class="el" href="vector2_8h_source.html">vector2.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad1b2a7c5079f08439457f69a3d31f0ab"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mingfx::Vector2::x </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read only access to the x coordinate. Can also use my_vector[0]. Use the my_vector[0] = 1.0; form if you need to set the value. </p>
+
+<p>Definition at line <a class="el" href="vector2_8h_source.html#l00070">70</a> of file <a class="el" href="vector2_8h_source.html">vector2.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab78aee40921e99a8fa559ad36bf661b2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mingfx::Vector2::y </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Read only access to the y coordinate. Can also use my_vector[1]. Use the my_vector[1] = 1.0; form if you need to set the value. </p>
+
+<p>Definition at line <a class="el" href="vector2_8h_source.html#l00074">74</a> of file <a class="el" href="vector2_8h_source.html">vector2.h</a>.</p>
 
 </div>
 </div>
