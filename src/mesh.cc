@@ -13,7 +13,7 @@
 
 namespace mingfx {
     
-    Mesh::Mesh() : gpu_dirty_(true) {
+    Mesh::Mesh() : gpu_dirty_(true), bvh_dirty_(true) {
     }
     
     Mesh::Mesh(const Mesh &other) {
@@ -23,6 +23,7 @@ namespace mingfx {
         tex_coords_ = other.tex_coords_;
         indices_ = other.indices_;
         gpu_dirty_ = true;
+        bvh_dirty_ = true;
     }
     
     Mesh::~Mesh() {
@@ -30,6 +31,7 @@ namespace mingfx {
         
     int Mesh::AddTriangle(Point3 v1, Point3 v2, Point3 v3) {
         gpu_dirty_ = true;
+        bvh_dirty_ = true;
 
         verts_.push_back(v1[0]);
         verts_.push_back(v1[1]);
@@ -48,6 +50,7 @@ namespace mingfx {
 
     void Mesh::UpdateTriangle(int triangle_id, Point3 v1, Point3 v2, Point3 v3) {
         gpu_dirty_ = true;
+        bvh_dirty_ = true;
         
         int index = triangle_id * 9;
         verts_[index + 0] = v1[0];
@@ -151,6 +154,8 @@ namespace mingfx {
     
     void Mesh::SetVertices(const std::vector<Point3> &verts) {
         gpu_dirty_ = true;
+        bvh_dirty_ = true;
+
         verts_.clear();
         for (int i=0; i<verts.size(); i++) {
             verts_.push_back(verts[i][0]);
@@ -196,6 +201,8 @@ namespace mingfx {
 
     void Mesh::SetIndices(const std::vector<unsigned int> indices) {
         gpu_dirty_ = true;
+        bvh_dirty_ = true;
+
         indices_.clear();
         for (int i=0; i<indices.size(); i++) {
             indices_.push_back(indices[i]);
@@ -206,6 +213,8 @@ namespace mingfx {
     
     void Mesh::SetVertices(float *vertsArray, int numVerts) {
         gpu_dirty_ = true;
+        bvh_dirty_ = true;
+
         verts_.clear();
         int numFloats = numVerts * 3;
         for (int i=0; i<numFloats; i++) {
@@ -246,6 +255,8 @@ namespace mingfx {
     
     void Mesh::SetIndices(unsigned int *indexArray, int numIndices) {
         gpu_dirty_ = true;
+        bvh_dirty_ = true;
+
         indices_.clear();
         for (int i=0; i<numIndices; i++) {
             indices_.push_back(indexArray[i]);
@@ -363,6 +374,20 @@ namespace mingfx {
             
             gpu_dirty_ = false;
         }
+    }
+    
+    
+    void Mesh::BuildBVH() {
+        bvh_.CreateFromMesh(this);
+        bvh_dirty_ = false;
+    }
+    
+    
+    BVH* Mesh::bvh_ptr() {
+        if (bvh_dirty_) {
+            BuildBVH();
+        }
+        return &bvh_;
     }
 
     

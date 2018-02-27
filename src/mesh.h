@@ -14,6 +14,7 @@
 #ifndef SRC_MESH_H_
 #define SRC_MESH_H_
 
+#include "bvh.h"
 #include "color.h"
 #include "opengl_headers.h"
 #include "point2.h"
@@ -262,6 +263,17 @@ public:
     void CalcPerVertexNormals();
     
     
+    /** This (re)calculates a Bounding Volume Hierarchy for the mesh, which can
+     be used together with Ray::FastIntersectMesh() to do faster ray-mesh
+     intersection testing. */
+    void BuildBVH();
+    
+    /** Returns a pointer to the underlying BVH data structure.  If the data
+     struture has not yet been build or needs to be updated due to a change in
+     the geometry of the mesh, then the BVH is recalculated before returning
+     the pointer. */
+    BVH* bvh_ptr();
+    
     // Access to properties indexed by vertex number
     
     /// The total number of vertices in the mesh.
@@ -298,10 +310,12 @@ private:
     std::vector<unsigned int> indices_;
     
     bool gpu_dirty_;
-    
     GLuint vertex_buffer_;
     GLuint vertex_array_;
     GLuint element_buffer_;
+    
+    bool bvh_dirty_;
+    BVH bvh_;
 };
     
     

@@ -17,6 +17,8 @@
 #ifndef SRC_MINGFX_H_
 #define SRC_MINGFX_H_
 
+#include "aabb.h"
+#include "bvh.h"
 #include "color.h"
 #include "craft_cam.h"
 #include "default_shader.h"

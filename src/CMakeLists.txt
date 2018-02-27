@@ -3,6 +3,8 @@
 
 
 set(HEADERFILES
+    src/aabb.h
+    src/bvh.h
     src/color.h
     src/craft_cam.h
     src/default_shader.h
@@ -27,6 +29,8 @@ set(HEADERFILES
 )
 
 set(SOURCEFILES
+    src/aabb.cc
+    src/bvh.cc
     src/color.cc
     src/craft_cam.cc
     src/default_shader.cc

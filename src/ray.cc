@@ -71,9 +71,42 @@ namespace mingfx {
     }
     
     
-    bool Ray::IntersectTriangle(const Point3 &A, const Point3 &B, const Point3 &C,
+    bool Ray::IntersectTriangle(const Point3 &vertex0, const Point3 &vertex1, const Point3 &vertex2,
                                 float *iTime, Point3 *iPoint) const
     {
+        // Implementation of the Möller–Trumbore intersection algorithm
+        // https://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
+
+        Vector3 edge1, edge2, h, s, q;
+        float a,f,u,v;
+        edge1 = vertex1 - vertex0;
+        edge2 = vertex2 - vertex0;
+        h = d_.Cross(edge2);
+        a = edge1.Dot(h);
+        if (a > -MINGFX_MATH_EPSILON && a < MINGFX_MATH_EPSILON)
+            return false;
+        f = 1/a;
+        s = p_ - vertex0;
+        u = f * (s.Dot(h));
+        if (u < 0.0 || u > 1.0)
+            return false;
+        q = s.Cross(edge1);
+        v = f * d_.Dot(q);
+        if (v < 0.0 || u + v > 1.0)
+            return false;
+        // At this stage we can compute t to find out where the intersection point is on the line.
+        *iTime = f * edge2.Dot(q);
+        if (*iTime > MINGFX_MATH_EPSILON) { // ray intersection
+            *iPoint = p_ + d_ * (*iTime);
+            return true;
+        }
+        else // This means that there is a line intersection but not a ray intersection.
+            return false;
+        
+        
+        /***
+        // A basic implementation
+         
         // find the point of intersection of the ray with the plane of the triangle
         Vector3 AB = B - A;
         Vector3 AC = C - A;
@@ -106,58 +139,28 @@ namespace mingfx {
         }
 
         return true;
+         ***/
     }
 
     
     bool Ray::IntersectQuad(const Point3 &A, const Point3 &B, const Point3 &C, const Point3 &D,
                             float *iTime, Point3 *iPoint) const
     {
-        // find the point of intersection of the ray with the plane of the quad
-        Vector3 AB = B - A;
-        Vector3 AC = C - A;
-        Vector3 cross = AB.Cross(AC);
-        Vector3 N = cross.ToUnit();
-        if (!IntersectPlane(A, N, iTime, iPoint)) {
+        if (IntersectTriangle(A, B, C, iTime, iPoint)) {
+            return true;
+        }
+        else if (IntersectTriangle(A, C, D, iTime, iPoint)) {
+            return true;
+        }
+        else {
             return false;
         }
-        
-        // check to see if iPoint lies within the quad
-        Vector3 edge1 = B - A;
-        Vector3 v1 = *iPoint - A;
-        Vector3 check1 = edge1.Cross(v1);
-        if (N.Dot(check1) < 0.0) {
-            return false;
-        }
-        
-        Vector3 edge2 = C - B;
-        Vector3 v2 = *iPoint - B;
-        Vector3 check2 = edge2.Cross(v2);
-        if (N.Dot(check2) < 0.0) {
-            return false;
-        }
-        
-        Vector3 edge3 = D - C;
-        Vector3 v3 = *iPoint - C;
-        Vector3 check3 = edge3.Cross(v3);
-        if (N.Dot(check3) < 0.0) {
-            return false;
-        }
-
-        Vector3 edge4 = A - D;
-        Vector3 v4 = *iPoint - D;
-        Vector3 check4 = edge4.Cross(v4);
-        if (N.Dot(check4) < 0.0) {
-            return false;
-        }
-        
-        return true;
     }
 
     
     bool Ray::IntersectSphere(const Point3 &center, float radius,
                               float *iTime, Point3 *iPoint) const
     {
-        
         Point3 P = p_ + (Point3::Origin() - center);
         Vector3 D = d_;
         
@@ -224,6 +227,68 @@ namespace mingfx {
         return (*iTime > 0.0);
     }
 
+    bool Ray::FastIntersectMesh(Mesh *mesh, float *iTime,
+                                Point3 *iPoint, int *iTriangleID) const
+    {
+        std::vector<int> tri_ids = mesh->bvh_ptr()->IntersectAndReturnUserData(*this);
+        if (tri_ids.size()) {
+            *iTime = -1.0;
+            for (int i=0; i<tri_ids.size(); i++) {
+                Point3 p;
+                float t;
+                std::vector<unsigned int> indices = mesh->triangle_vertices(tri_ids[i]);
+                if (IntersectTriangle(mesh->vertex(indices[0]), mesh->vertex(indices[1]), mesh->vertex(indices[2]), &t, &p)) {
+                    if ((*iTime < 0.0) || (t < *iTime)) {
+                        *iPoint = p;
+                        *iTime = t;
+                        *iTriangleID = i;
+                    }
+                }
+            }
+            return (*iTime > 0.0);
+        }
+        else {
+            return false;
+        }
+    }
+    
+    
+    bool Ray::IntersectAABB(const AABB &box, float *iTime) const {
+        // https://gamedev.stackexchange.com/questions/18436/most-efficient-aabb-vs-ray-collision-algorithms
+        
+        Point3 origin = p_;
+        
+        Vector3 invdir = d_;
+        invdir[0] = 1.0 / invdir[0];
+        invdir[1] = 1.0 / invdir[1];
+        invdir[2] = 1.0 / invdir[2];
+        
+        float t1 = (box.min()[0] - origin[0])*invdir[0];
+        float t2 = (box.max()[0] - origin[0])*invdir[0];
+        float t3 = (box.min()[1] - origin[1])*invdir[1];
+        float t4 = (box.max()[1] - origin[1])*invdir[1];
+        float t5 = (box.min()[2] - origin[2])*invdir[2];
+        float t6 = (box.max()[2] - origin[2])*invdir[2];
+        
+        float tmin = std::max(std::max(std::min(t1, t2), std::min(t3, t4)), std::min(t5, t6));
+        float tmax = std::min(std::min(std::max(t1, t2), std::max(t3, t4)), std::max(t5, t6));
+        
+        // if tmax < 0, ray (line) is intersecting AABB, but the whole AABB is behind us
+        if (tmax < 0) {
+            *iTime = tmax;
+            return false;
+        }
+        
+        // if tmin > tmax, ray doesn't intersect AABB
+        if (tmin > tmax) {
+            *iTime = tmax;
+            return false;
+        }
+        
+        *iTime = tmin;
+        return true;
+    }
+    
     
     void Ray::set(Point3 newOrigin, Vector3 newDir) {
         p_ = newOrigin;
@@ -243,5 +308,6 @@ namespace mingfx {
         r.set(p, d);
         return is;
     }
+    
     
 } // end namespace

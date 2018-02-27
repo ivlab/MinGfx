@@ -117,9 +117,7 @@ float CraftCam::look_scale() {
 }
 
 void CraftCam::UpdateHeight(float new_y_value) {
-    Vector3 offset = Vector3(0, new_y_value - eye()[1], 0);
-    std::cout << "offset " << offset << std::endl;
-    
+    Vector3 offset = Vector3(0, new_y_value - eye()[1], 0);    
     base_head_ = Matrix4::Translation(-offset) * base_head_;
 }
 

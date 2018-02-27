@@ -16,12 +16,14 @@
 
 #include <iostream>
 
+#include "aabb.h"
 #include "point3.h"
 #include "vector3.h"
 #include "mesh.h"
 
 
 namespace mingfx {
+
     
 /** Stores the mathematical object of a ray that begins at an origin (a 3D
  point) and points in a direction (a unit 3D vector).  Rays can intersect
@@ -111,6 +113,33 @@ public:
      */
     bool IntersectMesh(const Mesh &mesh, float *iTime,
                        Point3 *iPoint, int *iTriangleID) const;
+    
+    /** Checks to see if the ray intersects a triangle mesh.  This uses a BVH
+     (Bounding Volume Hierarchy) to accelerate the ray-triangle intersection tests.
+     Each mesh can optionally store a BVH.  If a BVH has already been calculated
+     for the mesh (done with Mesh::CalculateBVH()), then this function will be 
+     much faster than the brute-force IntersectMesh() function.  If a BVH has 
+     not already been calculated for the mesh, the first call to FastIntersectMesh()
+     will trigger the mesh to create a BVH (not a fast operation) but then 
+     subsequent calls to FastIntersectMesh() will be fast.
+     */
+    bool FastIntersectMesh(Mesh *mesh, float *iTime,
+                           Point3 *iPoint, int *iTriangleID) const;
+    
+    /** Checks to see if the ray intersects an AABB (Axis-Aligned Bounding Box).
+     Typically, this is the first step of a more detailed intersection test and
+     we don't care about the actual point of intersection, just whether it
+     intersects or not.  So, we don't bother calculating the iPoint.  We get the
+     iTime for free though, so we do return that.  You can calc the iPoint if
+     you want using:
+     ~~~
+     float t;
+     if (ray.IntersectAABB(box, &t)) {
+       Point3 iPoint = ray.origin() + t*ray.direction();
+     }
+     ~~~
+     */
+     bool IntersectAABB(const AABB &box, float *iTime) const;
     
     /// Returns the origin
     Point3 origin() const;
