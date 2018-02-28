@@ -40,10 +40,10 @@ public:
     AABB(const Point3 &a, const Point3 &b, const Point3 &c);
 
     /// Box that contains a whole mesh
-    AABB(Mesh *mesh);
+    AABB(const Mesh &mesh);
 
     /// Box that contains just triangle number "tri_id" from the specified mesh.
-    AABB(Mesh *mesh, unsigned int tri_id);
+    AABB(const Mesh &mesh, unsigned int tri_id);
     
     virtual ~AABB();
     

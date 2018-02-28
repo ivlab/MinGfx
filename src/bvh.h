@@ -54,7 +54,7 @@ public:
      created, it can be used to perform fast ray-mesh intersection tests.  See
      Ray::FastIntersectMesh().
      */
-    void CreateFromMesh(Mesh *mesh);
+    void CreateFromMesh(const Mesh &mesh);
     
     
     /** Creates a BVH where each leaf node contains one of the boxes passed in

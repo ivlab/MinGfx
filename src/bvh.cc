@@ -16,11 +16,11 @@ BVH::~BVH() {
     FreeNodeRecursive(root_);
 }
     
-void BVH::CreateFromMesh(Mesh *mesh) {
+void BVH::CreateFromMesh(const Mesh &mesh) {
     FreeNodeRecursive(root_);
     
     std::vector<AABB> tri_boxes;
-    for (int i=0; i<mesh->num_triangles(); i++) {
+    for (int i=0; i<mesh.num_triangles(); i++) {
         AABB box = AABB(mesh, i);
         box.set_user_data(i);
         tri_boxes.push_back(box);
@@ -31,6 +31,8 @@ void BVH::CreateFromMesh(Mesh *mesh) {
 }
 
 void BVH::CreateFromListOfBoxes(const std::vector<AABB> &boxes) {
+    FreeNodeRecursive(root_);
+
     root_ = new Node();
     BuildHierarchyRecursive(root_, boxes);
 }

@@ -378,7 +378,7 @@ namespace mingfx {
     
     
     void Mesh::BuildBVH() {
-        bvh_.CreateFromMesh(this);
+        bvh_.CreateFromMesh(*this);
         bvh_dirty_ = false;
     }
     
