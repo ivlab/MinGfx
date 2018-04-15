@@ -18,6 +18,8 @@ layout(location = 1) in vec3 normal;
 layout(location = 2) in vec4 color; 
 layout(location = 3) in vec2 texcoord;
 
+layout(location = 8) in mat4 instance_xform;
+
 uniform mat4 ModelMatrix; 
 uniform mat4 ViewMatrix; 
 uniform mat4 ProjectionMatrix; 
@@ -32,6 +34,6 @@ void main() {
    v = (ViewMatrix * ModelMatrix * vec4(position, 1)).xyz; 
    N = normalize((NormalMatrix * vec4(normal, 0)).xyz); 
    uv = texcoord.xy; 
-   gl_Position	= ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1); 
+   gl_Position	= ProjectionMatrix * ViewMatrix * instance_xform * ModelMatrix * vec4(position, 1);
    col_interp = color; 
 } 
