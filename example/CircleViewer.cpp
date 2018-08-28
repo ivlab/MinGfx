@@ -5,9 +5,11 @@
 #include <iostream>
 
 
-CircleViewer::CircleViewer() : GraphicsApp(1024,768, "Circle Simulation",false) {
+CircleViewer::CircleViewer() : GraphicsApp(1024,768, "Circle Simulation") {
     simTime_ = 0.0;
     paused_ = false;
+    
+    //InitGraphicsContext();
 }
 
 

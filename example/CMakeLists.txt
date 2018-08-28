@@ -151,9 +151,10 @@ set(EXTERNAL_DIR external)
 find_package(MinGfx REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC MinGfx::MinGfx)
 
-# Add dependency on OpenGL
-include(UseOpenGL)
-UseOpenGL(${PROJECT_NAME} PUBLIC ${EXTERNAL_DIR})
+# Add external dependency on OpenGL
+include(AutoBuildOpenGL)
+AutoBuild_use_package_OpenGL(${PROJECT_NAME} PUBLIC)
+
 
 
 #### INSTALL TARGET(S) ####

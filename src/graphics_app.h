@@ -371,7 +371,6 @@ public:
     /// Access to the underlying GLFWwindow object
     GLFWwindow* window();
 
-protected:
 
     /** Users cannot make any graphics calls (e.g., setting the clear color,
      saving mesh data to the GPU) until the graphics context is initialized
@@ -395,7 +394,7 @@ private:
     bool graphicsInitialized_;
     int width_;
     int height_;
-    const std::string &caption_;
+    const std::string caption_;
     nanogui::Screen *screen_;
     GLFWwindow* window_;
     double lastDrawT_;

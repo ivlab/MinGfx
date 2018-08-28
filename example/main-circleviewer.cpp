@@ -4,8 +4,8 @@
 
 int main(int argc, char **argv) {
 
-    CircleViewer *app = new CircleViewer();
-    app->Run();
+    CircleViewer app;
+    app.Run();
 
     return 0;
 }
