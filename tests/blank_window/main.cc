@@ -14,6 +14,7 @@
 // The GraphicsApp base class can also run as its own app, but it just displays a blank screen
 
 #include <mingfx.h>
+using namespace mingfx;
 
 int main(int argc, char **argv) {
 

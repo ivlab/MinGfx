@@ -25,7 +25,12 @@ Matrix4::Matrix4(const float* a) {
     memcpy(m,a,16*sizeof(float));
 }
 
-  
+Matrix4::Matrix4(const std::vector<float> &a) {
+    for (int i=0;i<16;i++) {
+        m[i] = a[i];
+    }
+}
+    
 Matrix4::Matrix4(const Matrix4& m2) { 
     memcpy(m,m2.m,16*sizeof(float));
 }
@@ -70,6 +75,14 @@ float Matrix4::operator()(const int r, const int c) const {
   
 float& Matrix4::operator()(const int r, const int c) { 
     return m[c*4+r];
+}
+    
+std::vector<float> Matrix4::ToVector() const {
+    std::vector<float> v;
+    for (int i=0;i<16;i++) {
+        v.push_back(m[i]);
+    }
+    return v;
 }
 
 

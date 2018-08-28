@@ -38,7 +38,15 @@ public:
     
     /// Box that contains a triangle defined by 3 points
     AABB(const Point3 &a, const Point3 &b, const Point3 &c);
+    
+    /// Box centered at the origin with width, height, and depth specified by
+    /// the vector.
+    AABB(const Vector3 &extents);
 
+    /// Box centered at the center with width, height, and depth specified by
+    /// the vector.
+    AABB(const Point3 &center, const Vector3 &extents);
+    
     /// Box that contains a whole mesh
     AABB(const Mesh &mesh);
 

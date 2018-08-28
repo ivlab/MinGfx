@@ -198,18 +198,18 @@ bool GraphicsApp::cursor_pos_glfw_cb(double x, double y) {
 
         // if no buttons are down, generate a mouse move event
         if (!leftDown_ && !middleDown_ && !rightDown_) {
-            OnMouseMove(cur, delta);
+            mouse_move(cur, delta);
         }
         
         // if a button is down, generate a corresponding mouse drag event
         if (leftDown_) {
-            OnLeftMouseDrag(cur, delta);
+            left_mouse_drag(cur, delta);
         }
         if (middleDown_) {
-            OnMiddleMouseDrag(cur, delta);
+            middle_mouse_drag(cur, delta);
         }
         if (rightDown_) {
-            OnRightMouseDrag(cur, delta);
+            right_mouse_drag(cur, delta);
         }
         
         lastMouse_ = cur;
@@ -225,11 +225,11 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            OnLeftMouseDown(Point2(x,y));
+            left_mouse_down(Point2(x,y));
             leftDown_ = true;
         }
         else {
-            OnLeftMouseUp(Point2(x,y));
+            left_mouse_up(Point2(x,y));
             leftDown_ = false;
         }
         return true;
@@ -238,11 +238,11 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            OnMiddleMouseDown(Point2(x,y));
+            middle_mouse_down(Point2(x,y));
             middleDown_ = true;
         }
         else {
-            OnMiddleMouseUp(Point2(x,y));
+            middle_mouse_up(Point2(x,y));
             middleDown_ = false;
         }
         return true;
@@ -251,11 +251,11 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            OnRightMouseDown(Point2(x,y));
+            right_mouse_down(Point2(x,y));
             rightDown_ = true;
         }
         else {
-            OnRightMouseUp(Point2(x,y));
+            right_mouse_up(Point2(x,y));
             rightDown_ = false;
         }
         return true;
@@ -271,25 +271,25 @@ bool GraphicsApp::key_glfw_cb(int key, int scancode, int action, int modifiers) 
     else {
     if (glfwGetKeyName(key, scancode) != NULL) {
         if (action == GLFW_PRESS) {
-            OnKeyDown(glfwGetKeyName(key, scancode), modifiers);
+            key_down(glfwGetKeyName(key, scancode), modifiers);
         }
         else if (action == GLFW_REPEAT) {
-            OnKeyRepeat(glfwGetKeyName(key, scancode), modifiers);
+            key_repeat(glfwGetKeyName(key, scancode), modifiers);
         }
         else {
-            OnKeyUp(glfwGetKeyName(key, scancode), modifiers);
+            key_up(glfwGetKeyName(key, scancode), modifiers);
         }
         return true;
     }
     else {
         if (action == GLFW_PRESS) {
-            OnSpecialKeyDown(key, scancode, modifiers);
+            special_key_down(key, scancode, modifiers);
         }
         else if (action == GLFW_REPEAT) {
-            OnSpecialKeyRepeat(key, scancode, modifiers);
+            special_key_repeat(key, scancode, modifiers);
         }
         else {
-            OnSpecialKeyUp(key, scancode, modifiers);
+            special_key_up(key, scancode, modifiers);
         }
         return true;
     }
@@ -397,25 +397,25 @@ int GraphicsApp::framebuffer_height() {
     return height;
 }
     
-Point2 GraphicsApp::PixelsToNormalizedDeviceCoords(Point2 pointInPixels) {
+Point2 GraphicsApp::PixelsToNormalizedDeviceCoords(const Point2 &pointInPixels) {
     float x = (pointInPixels[0] / window_width()) * 2.0 - 1.0;
     float y = (1.0 - (pointInPixels[1] / window_height())) * 2.0 - 1.0;
     return Point2(x,y);
 }
 
-Point2 GraphicsApp::NormalizedDeviceCoordsToPixels(Point2 pointInNDC) {
+Point2 GraphicsApp::NormalizedDeviceCoordsToPixels(const Point2 &pointInNDC) {
     float x = 0.5 * (pointInNDC[0] + 1.0) * window_width();
     float y = (1.0 - (0.5 * (pointInNDC[1] + 1.0))) * window_height();
     return Point2(x,y);
 }
 
-Vector2 GraphicsApp::PixelsToNormalizedDeviceCoords(Vector2 vectorInPixels) {
+Vector2 GraphicsApp::PixelsToNormalizedDeviceCoords(const Vector2 &vectorInPixels) {
     float x = (2.0/window_width()) * vectorInPixels[0];
     float y = (-2.0/window_height()) * vectorInPixels[1];
     return Vector2(x,y);
 }
 
-Vector2 GraphicsApp::NormalizedDeviceCoordsToPixels(Vector2 vectorInNDC) {
+Vector2 GraphicsApp::NormalizedDeviceCoordsToPixels(const Vector2 &vectorInNDC) {
     float x = (window_width()/2.0) * vectorInNDC[0];
     float y = (-window_height()/2.0) * vectorInNDC[1];
     return Vector2(x,y);

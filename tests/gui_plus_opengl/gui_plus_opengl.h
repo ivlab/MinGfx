@@ -12,6 +12,7 @@
  */
 
 #include <mingfx.h>
+using namespace mingfx;
 
 
 /** An application that opens up a window that includes a few buttons 

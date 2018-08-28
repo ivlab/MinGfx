@@ -15,6 +15,7 @@
 #define SRC_COLOR_H_
 
 #include <iostream>
+#include <vector>
 
 namespace mingfx {
 
@@ -48,6 +49,9 @@ public:
     /// Constructs a point given a pointer to float array
     Color(float *p);
 
+    /// Constructs a point given a 3 or 4-element vector of floats
+    Color(const std::vector<float> &vals);
+
     /// Copy constructor
     Color(const Color& p);
 
@@ -72,6 +76,8 @@ public:
     /// Returns a const pointer to the raw data array
     const float * value_ptr() const;
     
+    std::vector<float> ToVector() const;
+
     /// Linear interpolation between this color and another. Alpha=0.0 returns
     /// this color, and alpha=1.0 returns the other color, other values blend
     /// between the two via a linear interpolation on each color channel.
@@ -81,7 +87,8 @@ public:
     /// alpha=1.0 returns 'b', other values blend between the two via a linear
     /// interpolation on each color channel.
     static Color Lerp(const Color &a, const Color &b, float alpha);
-
+    
+ 
 private:
     float c[4];
 };

@@ -35,11 +35,12 @@
 #include "quick_shapes.h"
 #include "ray.h"
 #include "shader_program.h"
+#include "text_shader.h"
 #include "texture2d.h"
 #include "unicam.h"
 #include "vector2.h"
 #include "vector3.h"
 
-using namespace mingfx;
+//using namespace mingfx;
 
 #endif

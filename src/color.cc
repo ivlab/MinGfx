@@ -38,6 +38,19 @@ Color::Color(const Color& other) {
     c[3] = other[3];
 }
   
+Color::Color(const std::vector<float> &vals) {
+    c[0] = vals[0];
+    c[1] = vals[1];
+    c[2] = vals[2];
+    if (vals.size() > 3) {
+        c[3] = vals[3];
+    }
+    else {
+        c[3] = 1.0;
+    }
+}
+
+    
 Color::~Color() {
 }
   
@@ -76,7 +89,16 @@ const float * Color::value_ptr() const {
     return c;
 }
 
-
+std::vector<float> Color::ToVector() const {
+    std::vector<float> v;
+    v.push_back(c[0]);
+    v.push_back(c[1]);
+    v.push_back(c[2]);
+    v.push_back(c[3]);
+    return v;
+}
+    
+    
 Color Color::Lerp(const Color &b, float alpha) const {
     float red = (1.0f-alpha)*(*this)[0] + alpha*b[0];
     float grn = (1.0f-alpha)*(*this)[1] + alpha*b[1];

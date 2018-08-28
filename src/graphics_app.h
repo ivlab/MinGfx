@@ -252,7 +252,7 @@ public:
      Run() does not return until the user closes the app and the program
      is ready to shutdown.
      */
-    void Run();
+    virtual void Run();
     
     
     /** Called at the beginning of the Run() method.  This will initialize
@@ -326,38 +326,39 @@ public:
      and bottom right = (window_width()-1, window_height()-1)) to normalized
      device coordinates, (top left = (-1,1) bottom right (1,-1)).
      */
-     Point2 PixelsToNormalizedDeviceCoords(Point2 pointInPixels);
+    virtual Point2 PixelsToNormalizedDeviceCoords(const Point2 &pointInPixels);
     
     /** Transforms a point in normalized device coordinates (top left = (-1,1)
      bottom right (1,-1)) to pixels (top left = (0,0), bottom right =
      (window width-1, window height-1))
      */
-    Point2 NormalizedDeviceCoordsToPixels(Point2 pointInNDC);
+    virtual Point2 NormalizedDeviceCoordsToPixels(const Point2 &pointInNDC);
     
     
     /** Transforms a vector in viewport coordinates (pixels where top left = (0,0)
      and bottom right = (window width-1, window height-1)) to normalized
      device coordinates, (top left = (-1,1) bottom right (1,-1)).
      */
-    Vector2 PixelsToNormalizedDeviceCoords(Vector2 vectorInPixels);
+    virtual Vector2 PixelsToNormalizedDeviceCoords(const Vector2 &vectorInPixels);
     
     /** Transforms a vector in normalized device coordinates (top left = (-1,1)
      bottom right (1,-1)) to pixels (top left = (0,0), bottom right =
      (window width-1, window height-1))
      */
-    Vector2 NormalizedDeviceCoordsToPixels(Vector2 pointInNDC);
+    virtual Vector2 NormalizedDeviceCoordsToPixels(const Vector2 &pointInNDC);
     
     /// Returns the z buffer value under the specified pixel.  z will be 0 at
     /// the near plane and +1 at the far plane.
     virtual float ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int whichBuffer = GL_BACK);
 
     /// Access to the underlying NanoGUI Screen object
-    nanogui::Screen* screen();
+    virtual nanogui::Screen* screen();
 
     /// Access to the underlying GLFWwindow object
-    GLFWwindow* window();
+    virtual GLFWwindow* window();
 
-private:
+    
+protected:
     
     void initGraphicsContext();
     bool cursor_pos_glfw_cb(double x, double y);
@@ -368,6 +369,55 @@ private:
     bool scroll_glfw_cb(double x, double y);
     bool resize_glfw_cb(int width, int height);
     
+    virtual void mouse_move(const Point2 &pos, const Vector2 &delta) {
+        OnMouseMove(pos, delta);
+    }
+    virtual void left_mouse_down(const Point2 &pos) {
+        OnLeftMouseDown(pos);
+    }
+    virtual void left_mouse_drag(const Point2 &pos, const Vector2 &delta) {
+        OnLeftMouseDrag(pos, delta);
+    }
+    virtual void left_mouse_up(const Point2 &pos) {
+        OnLeftMouseUp(pos);
+    }
+    virtual void middle_mouse_down(const Point2 &pos) {
+        OnMiddleMouseDown(pos);
+    }
+    virtual void middle_mouse_drag(const Point2 &pos, const Vector2 &delta) {
+        OnMiddleMouseDrag(pos, delta);
+    }
+    virtual void middle_mouse_up(const Point2 &pos) {
+        OnMiddleMouseUp(pos);
+    }
+    virtual void right_mouse_down(const Point2 &pos) {
+        OnRightMouseDown(pos);
+    }
+    virtual void right_mouse_drag(const Point2 &pos, const Vector2 &delta) {
+        OnRightMouseDrag(pos, delta);
+    }
+    virtual void right_mouse_up(const Point2 &pos) {
+        OnRightMouseUp(pos);
+    }
+    virtual void key_down(const char *c, int modifiers) {
+        OnKeyDown(c, modifiers);
+    }
+    virtual void key_repeat(const char *c, int modifiers) {
+        OnKeyRepeat(c, modifiers);
+    }
+    virtual void key_up(const char *c, int modifiers) {
+        OnKeyUp(c, modifiers);
+    }
+    virtual void special_key_down(int key, int scancode, int modifiers) {
+        OnSpecialKeyDown(key, scancode, modifiers);
+    }
+    virtual void special_key_repeat(int key, int scancode, int modifiers) {
+        OnSpecialKeyRepeat(key, scancode, modifiers);
+    }
+    virtual void special_key_up(int key, int scancode, int modifiers) {
+        OnSpecialKeyUp(key, scancode, modifiers);
+    }
+
     bool initGraphicsContextInConstructor_;
     int width_;
     int height_;

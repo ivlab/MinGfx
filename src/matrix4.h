@@ -56,6 +56,10 @@ public:
     /// Constructs a matrix given from an array of 16 floats in OpenGL matrix format
     /// (i.e., column major).
     Matrix4(const float* a);
+    
+    /// Constructs a matrix given from a vector of 16 floats in OpenGL matrix format
+    /// (i.e., column major).
+    Matrix4(const std::vector<float> &a);
 
     /// Copy constructor
     Matrix4(const Matrix4& m2);
@@ -103,6 +107,8 @@ public:
     /// Returns the c-th column of the matrix as a Vector type, e.g.,:
     /// Point3 pos = mat.getColumnAsPoint3(3);
     Point3 ColumnToPoint3(int c) const;
+    
+    std::vector<float> ToVector() const;
 
 
     // --- Static Constructors for Special Matrices ---

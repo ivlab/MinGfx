@@ -204,6 +204,31 @@ void TextShader::SetTextMesh(const std::string &text, MeshData *md) {
         if (p[1] > md->max[1]) md->max[1] = p[1];
     }
 }
+
+Vector2 TextShader::TextExtents(const std::string &text, TextFormat format, bool cache) {
+    MeshData *md = NULL;
+    std::map<std::string, MeshData>::iterator it = cache_.find(text);
+    if (it != cache_.end()) {
+        // use an existing cached mesh
+        md = &(it->second);
+    }
+    else {
+        // need to create a new mesh, add a new one to the cache or use the tmp_mesh
+        if (cache) {
+            MeshData new_md;
+            cache_[text] = new_md;
+            md = &(cache_[text]);
+        }
+        else {
+            md = &tmp_md_;
+        }
+        
+        // set appropriate vertices and texcoords for this text string
+        SetTextMesh(text, md);
+    }
+
+    return format.size / native_font_size_ * (md->max - md->min);
+}
     
 
 } // end namespace

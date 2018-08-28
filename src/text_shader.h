@@ -78,6 +78,8 @@ public:
                 const std::string &text, TextFormat format, bool cache=false);
 
     
+    Vector2 TextExtents(const std::string &text, TextFormat format, bool cache=false);
+    
     float native_font_size();
     
 private:
