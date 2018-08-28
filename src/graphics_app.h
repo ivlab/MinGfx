@@ -371,7 +371,7 @@ public:
     /// Access to the underlying GLFWwindow object
     GLFWwindow* window();
 
-private:
+protected:
 
     /** Users cannot make any graphics calls (e.g., setting the clear color,
      saving mesh data to the GPU) until the graphics context is initialized
@@ -381,6 +381,8 @@ private:
      those two methods.
      */
     void InitGraphicsContext();
+
+private:
 
     bool cursor_pos_glfw_cb(double x, double y);
     bool mouse_button_glfw_cb(int button, int action, int modifiers);

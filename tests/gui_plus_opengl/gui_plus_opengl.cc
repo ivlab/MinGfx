@@ -41,6 +41,8 @@ TextShader ts;
 
 
 GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
+
+    InitGraphicsContext();
     
     simTime_ = 0.0;
     paused_ = false;
