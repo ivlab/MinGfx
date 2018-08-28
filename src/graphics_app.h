@@ -383,6 +383,14 @@ public:
 
 private:
 
+    bool cursor_pos_glfw_cb(double x, double y);
+    bool mouse_button_glfw_cb(int button, int action, int modifiers);
+    bool key_glfw_cb(int key, int scancode, int action, int mods);
+    bool char_glfw_cb(unsigned int codepoint);
+    bool drop_glfw_cb(int count, const char **filenames);
+    bool scroll_glfw_cb(double x, double y);
+    bool resize_glfw_cb(int width, int height);
+    
     virtual void mouse_move(const Point2 &pos, const Vector2 &delta) {
         OnMouseMove(pos, delta);
     }
