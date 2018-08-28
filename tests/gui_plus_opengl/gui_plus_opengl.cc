@@ -213,7 +213,15 @@ void GuiPlusOpenGL::InitOpenGL() {
     uniCam.set_view_matrix(V);
 
     mesh1.UpdateGPUMemory();
+    
     mesh2.LoadFromOBJ(Platform::FindMinGfxDataFile("teapot.obj"));
+    std::vector<Matrix4> xforms;
+    for (float x=-4.0; x <= 4.0; x += 1.0) {
+        //xforms.push_back(Matrix4());
+        xforms.push_back(Matrix4::Translation(Vector3(x,0,0)));
+    }
+    mesh2.SetInstanceTransforms(xforms);
+    
     
     tex1.InitFromFile(Platform::FindMinGfxDataFile("test.png"));
     mat1.surface_texture = tex1;
