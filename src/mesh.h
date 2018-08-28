@@ -14,6 +14,8 @@
 #ifndef SRC_MESH_H_
 #define SRC_MESH_H_
 
+
+
 #include "bvh.h"
 #include "color.h"
 #include "opengl_headers.h"
@@ -25,6 +27,8 @@
 
 
 namespace mingfx {
+
+class Matrix4;
     
 /** A triangle mesh data structure that can be rendered with a ShaderProgram
  like DefaultShader.  The mesh can be created algorithmically by adding triangles
@@ -194,6 +198,9 @@ public:
     void SetIndices(const std::vector<unsigned int> index_array);
     
     
+    void SetInstanceTransforms(const std::vector<Matrix4> &xforms);
+    
+    
     // ---- These functions can be used instead of the above if you are working with
     // regular C-style arrays and floats rather than the higher level types like
     // Point3 and Vector3. ----
@@ -308,6 +315,7 @@ private:
     std::vector<float> colors_;
     std::vector< std::vector<float> > tex_coords_;
     std::vector<unsigned int> indices_;
+    std::vector<float> instance_xforms_;
     
     bool gpu_dirty_;
     GLuint vertex_buffer_;

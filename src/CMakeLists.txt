@@ -22,6 +22,7 @@ set(HEADERFILES
     src/quick_shapes.h
     src/ray.h
     src/shader_program.h
+    src/text_shader.h
     src/texture2d.h
     src/unicam.h
     src/vector2.h
@@ -45,6 +46,7 @@ set(SOURCEFILES
     src/quick_shapes.cc
     src/ray.cc
     src/shader_program.cc
+    src/text_shader.cc
     src/texture2d.cc
     src/unicam.cc
     src/vector2.cc
@@ -60,6 +62,8 @@ set(SHADERFILES
     src/shaders/default.vert
     src/shaders/fullscreen.frag
     src/shaders/fullscreen.vert
+    src/shaders/text.frag
+    src/shaders/text.vert
 )
 
 set_source_files_properties(${EXTRAFILES} PROPERTIES HEADER_FILE_ONLY TRUE)

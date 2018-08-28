@@ -10,6 +10,7 @@
 #include "mesh.h"
 #include "shader_program.h"
 #include "texture2d.h"
+#include "text_shader.h"
 #include "unicam.h"
 #include <stb_image.h>
 
@@ -34,6 +35,9 @@ Ray pickRay;
 UniCam uniCam;
 
 Point2 mpos;
+
+
+TextShader ts;
 
 
 GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
@@ -67,8 +71,9 @@ void GuiPlusOpenGL::InitNanoGUI() {
     gui->addButton("Restart", std::bind(&GuiPlusOpenGL::OnRestartBtnPressed, this));
 
     screen()->performLayout();
-    qs = new QuickShapes();
 }
+
+
 
 void GuiPlusOpenGL::UpdateSimulation(double dt) {
     if (!paused_) {
@@ -198,12 +203,25 @@ void GuiPlusOpenGL::DrawUsingNanoVG(NVGcontext *ctx) {
 
 
 void GuiPlusOpenGL::InitOpenGL() {
+    std::string fname = Platform::FindMinGfxDataFile("Futura_Medium_BT.ttf");
+    ts.Init(fname, 42);
+        
+    qs = new QuickShapes();
+
     P = Matrix4::Perspective(60.0, aspect_ratio(), 0.1, 10.0);
     V = Matrix4::LookAt(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0));
     uniCam.set_view_matrix(V);
 
     mesh1.UpdateGPUMemory();
+    
     mesh2.LoadFromOBJ(Platform::FindMinGfxDataFile("teapot.obj"));
+    std::vector<Matrix4> xforms;
+    for (float x=-4.0; x <= 4.0; x += 1.0) {
+        //xforms.push_back(Matrix4());
+        xforms.push_back(Matrix4::Translation(Vector3(x,0,0)));
+    }
+    mesh2.SetInstanceTransforms(xforms);
+    
     
     tex1.InitFromFile(Platform::FindMinGfxDataFile("test.png"));
     mat1.surface_texture = tex1;
@@ -212,6 +230,7 @@ void GuiPlusOpenGL::InitOpenGL() {
     l.position = Point3(-10, 5, 5);
     l.diffuse_intensity = Color(1,0,0);
     dShader.AddLight(l);
+    
 }
 
 
@@ -267,6 +286,60 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     }
     
     uniCam.Draw(P);
+    
+    
+    Matrix4 M3 = Matrix4::Translation(Vector3(-1,0,0));
+    TextShader::TextFormat f;
+    
+    
+    f.color = Color(1,1,0);
+    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VERT_ALIGN_TOP;
+    ts.Draw3D(M3, V, P, "TOPgg", f, true);
+    
+    f.color = Color(0,1,1);
+    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VERT_ALIGN_CENTER;
+    ts.Draw3D(M3, V, P, "V_CENTERyy", f, true);
+    
+    f.color = Color(1,0,1);
+    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VERT_ALIGN_BOTTOM;
+    ts.Draw3D(M3, V, P, "BOTTOMgg", f, true);
+    
+    f.color = Color(1,1,1);
+    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VERT_ALIGN_BASELINE;
+    ts.Draw3D(M3, V, P, "Hello good buddy", f, true);
+    
+    qs->DrawLineSegment(M3, V, P, col, Point3(0,0,0), Point3(1, 0, 0), 0.01);
+
+    M3 = M3 * Matrix4::Translation(Vector3(0,0.5,0));
+
+    
+     f.color = Color(1,0,0);
+     f.h_align = TextShader::HORIZ_ALIGN_LEFT;
+     f.v_align = TextShader::VERT_ALIGN_TOP;
+     ts.Draw3D(M3, V, P, "LEFT", f, true);
+     
+     f.color = Color(0,1,0);
+     f.h_align = TextShader::HORIZ_ALIGN_CENTER;
+     f.v_align = TextShader::VERT_ALIGN_TOP;
+     ts.Draw3D(M3, V, P, "CENTER", f, true);
+     
+     f.color = Color(0,0,1);
+     f.h_align = TextShader::HORIZ_ALIGN_RIGHT;
+     f.v_align = TextShader::VERT_ALIGN_TOP;
+     ts.Draw3D(M3, V, P, "RIGHT", f, true);
+     
+     
+    M3 = Matrix4::Translation(Vector3(0,0,1));
+    f.color = Color(1,1,1);
+    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VERT_ALIGN_BASELINE;
+    f.size = 0.25;
+    ts.Draw3D(M3, V, P, "Hello good buddy", f, true);
+    
     
     //std::cout << mpos << " z = " << z_value_at_pixel(mpos) << std::endl;
 }
