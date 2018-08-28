@@ -22,9 +22,9 @@ add_executable(${PROJECT_NAME} ${HEADERFILES} ${SOURCEFILES})
 target_include_directories(${PROJECT_NAME} PUBLIC ../../src)
 target_link_libraries(${PROJECT_NAME} PUBLIC MinGfx)
 
-# Add dependency on NanoGUI
-include(UseNanoGUI)
-UseNanoGUI(${PROJECT_NAME} PUBLIC ${EXTERNAL_DIR})
+# Add external dependency on NanoGUI
+include(AutoBuildNanoGUI)
+AutoBuild_use_package_NanoGUI(${PROJECT_NAME} PUBLIC)
 
 
 

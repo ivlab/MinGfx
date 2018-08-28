@@ -11,26 +11,16 @@ namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsContextInConstructor) :
-    initGraphicsContextInConstructor_(initGraphicsContextInConstructor),
-    width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
+    graphicsInitialized_(false), width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
     leftDown_(false), middleDown_(false), rightDown_(false)
 {
-    // Adding temporary solution for forcing the use of InitGraphics() method
-    // for automated testing without graphics.
-#ifndef ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR
-    initGraphicsContextInConstructor_ = false;
-#endif
-
-    if (initGraphicsContextInConstructor_) {
-        initGraphicsContext(); 
-    }
 }
 
 GraphicsApp::~GraphicsApp() {
 }
 
-void GraphicsApp::initGraphicsContext() {
+void GraphicsApp::InitGraphicsContext() {
     
     glfwInit();
     
@@ -130,14 +120,16 @@ void GraphicsApp::initGraphicsContext() {
             app->resize_glfw_cb(width, height);
         }
     );
+
+    graphicsInitialized_ = true;
  }
 
 
     
 void GraphicsApp::Run() {
 
-    if(!initGraphicsContextInConstructor_) {
-        initGraphicsContext();        
+    if (!graphicsInitialized_) {
+        InitGraphicsContext();        
     }
 
     InitNanoGUI();

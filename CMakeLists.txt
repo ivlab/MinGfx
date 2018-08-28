@@ -40,8 +40,10 @@ include(MessageMacros)
 
 # If you "autobuild" external dependencies as part of the cmake configure process, then they will be
 # downloaded to this directory.
-set(EXTERNAL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external)
+set(AUTOBUILD_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/external" CACHE STRING "Location for external project sources downloaded by AutoBuild.")
 
+include(AutoBuild)
+AutoBuild_init()
 
 
 #### ADJUST NAMES OF OUTPUT FILES BASED ON BUILD TYPE ####
@@ -127,6 +129,7 @@ h1("CONFIGURING COMPLIER FLAGS")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 message(STATUS "Building for " ${CMAKE_SYSTEM_NAME} ".")
+message(STATUS "Compiler supported features = ${CMAKE_CXX_COMPILE_FEATURES}")
 
 
 # Linux specific
@@ -374,4 +377,6 @@ install(
     ${INSTALL_CMAKECONFIG_DEST}
 )
 
+
+AutoBuild_check_status()
 
