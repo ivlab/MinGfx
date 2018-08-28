@@ -11,26 +11,16 @@ namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, bool initGraphicsContextInConstructor) :
-    initGraphicsContextInConstructor_(initGraphicsContextInConstructor),
-    width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
+    graphicsInitialized_(false), width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
     leftDown_(false), middleDown_(false), rightDown_(false)
 {
-    // Adding temporary solution for forcing the use of InitGraphics() method
-    // for automated testing without graphics.
-#ifndef ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR
-    initGraphicsContextInConstructor_ = false;
-#endif
-
-    if (initGraphicsContextInConstructor_) {
-        initGraphicsContext(); 
-    }
 }
 
 GraphicsApp::~GraphicsApp() {
 }
 
-void GraphicsApp::initGraphicsContext() {
+void GraphicsApp::InitGraphicsContext() {
     
     glfwInit();
     
@@ -50,8 +40,15 @@ void GraphicsApp::initGraphicsContext() {
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
     
+    
+    // on OSX, glfwCreateWindow bombs if we pass caption_.c_str() in for the 3rd
+    // parameter perhaps because it's const.  so, copying to a tmp char array here.
+    char *title = new char[caption_.size() + 1];
+    strcpy(title, caption_.c_str());
+    std::cout << caption_ << std::endl;
+    
     // Create a GLFWwindow object
-    window_ = glfwCreateWindow(width_, height_, caption_.c_str(), nullptr, nullptr);
+    window_ = glfwCreateWindow(width_, height_, title, NULL, NULL);
     if (window_ == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -60,6 +57,9 @@ void GraphicsApp::initGraphicsContext() {
     glfwMakeContextCurrent(window_);
     glfwSetWindowUserPointer(window_, this);
 
+    // cleanup tmp title hack
+    delete [] title;
+    
     
 #if defined(NANOGUI_GLAD)
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
@@ -130,14 +130,16 @@ void GraphicsApp::initGraphicsContext() {
             app->resize_glfw_cb(width, height);
         }
     );
+
+    graphicsInitialized_ = true;
  }
 
 
     
 void GraphicsApp::Run() {
 
-    if(!initGraphicsContextInConstructor_) {
-        initGraphicsContext();        
+    if (!graphicsInitialized_) {
+        InitGraphicsContext();        
     }
 
     InitNanoGUI();

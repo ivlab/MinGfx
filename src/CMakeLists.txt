@@ -87,13 +87,13 @@ target_include_directories(MinGfx PUBLIC
     $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DEST}>        # for client in install mode
 )
 
-# Add dependency on NanoGUI
-include(UseNanoGUI)
-UseNanoGUI(MinGfx PUBLIC ${EXTERNAL_DIR})
+# Add external dependency on NanoGUI
+include(AutoBuildNanoGUI)
+AutoBuild_use_package_NanoGUI(MinGfx PUBLIC)
 
-# Add dependency on OpenGL
-include(UseOpenGL)
-UseOpenGL(MinGfx PUBLIC ${EXTERNAL_DIR})
+# Add external dependency on OpenGL
+include(AutoBuildOpenGL)
+AutoBuild_use_package_OpenGL(MinGfx PUBLIC)
 
 option(ALLOW_INIT_GFX_CTX_IN_CONSTRUCTOR "Allows graphics contexts to initialize in the application constructor." ON)
 
