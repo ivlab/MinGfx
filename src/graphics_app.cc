@@ -342,8 +342,11 @@ bool GraphicsApp::resize_glfw_cb(int width, int height) {
         return true;
     }
     else {
-        // TODO: could add another virtual function to GraphicsApp to
-        // respond to this if needed
+        // the width and height reported here are the new framebuffer size
+        // we will query/save/report the new window size instead
+        width_ = window_width();
+        height_ = window_height();
+        OnWindowResize(width_, height_);
     }
     return false;
 }
@@ -445,6 +448,17 @@ nanogui::Screen* GraphicsApp::screen() {
 GLFWwindow* GraphicsApp::window() {
     return window_;
 }
+    
+    
+void GraphicsApp::ResizeWindow(int new_width, int new_height) {
+    glfwSetWindowSize(window_, new_width, new_height);
+    width_ = new_width;
+    height_ = new_height;
+    OnWindowResize(new_width, new_height);
+}
+
+    
+    
 
 
 } // end namespace

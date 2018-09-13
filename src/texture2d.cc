@@ -8,8 +8,8 @@
 #include "platform.h"
 
 #ifdef WIN32
-  // this is not needed on OSX, it must pick up the symbols from libnanogui.so,
-  // but it appears to be needed on Windows.
+  // this is not needed on OSX or Linux, it must pick up the symbols from
+  // libnanogui.so, but it appears to be needed on Windows.
   #define STB_IMAGE_IMPLEMENTATION
 #endif
 #include <stb_image.h>
@@ -23,30 +23,38 @@ namespace mingfx {
     
     
 Texture2D::Texture2D(GLenum wrapMode, GLenum filterMode) :
-    data_(NULL), width_(0), height_(0), handleMemInternally_(true), texID_(0),
+    dataType_(GL_UNSIGNED_BYTE), data_ubyte_(NULL), data_float_(NULL),
+    width_(0), height_(0), handleMemInternally_(true), texID_(0),
     wrapMode_(wrapMode), filterMode_(filterMode)
 {
 }
 
 Texture2D::~Texture2D() {
-    if ((handleMemInternally_) && (data_ != NULL)) {
-        // TODO: Not sure why the call below does not seem to work.  There will
-        // be a mem leak unless we can call this somehow.
+    
+    // Mem handled internally is always of type data_ubyte_ because that is
+    // what the stbi image loading library returns
+    if ((handleMemInternally_) && (data_ubyte_ != NULL)) {
+        // BUG, TODO: Not sure why the call below does not seem to work.
+        // There will be a mem leak unless we can call this somehow.
         //stbi_image_free(data_);
     }
-    
-    // TODO: free texture from OpenGL
+
+    // Delete GL's version of the texture on the GPU
+    glDeleteTextures(1, &texID_);
 }
 
+    
 bool Texture2D::InitFromFile(const std::string &filename) {
+    handleMemInternally_ = true;
+
     std::cout << "Loading texture from file: " << filename << std::endl;
 
     if (Platform::FileExists(filename)) {
         stbi_set_unpremultiply_on_load(1);
         stbi_convert_iphone_png_to_rgb(1);
         int numChannels;
-        data_ = stbi_load(filename.c_str(), &width_, &height_, &numChannels, 4);
-        if (data_ == NULL) {
+        data_ubyte_ = stbi_load(filename.c_str(), &width_, &height_, &numChannels, 4);
+        if (data_ubyte_ == NULL) {
             std::cerr << "Texture2D: Failed to load file " << filename << " - " << stbi_failure_reason() << std::endl;
             return false;
         }
@@ -59,14 +67,25 @@ bool Texture2D::InitFromFile(const std::string &filename) {
     return InitOpenGL();
 }
 
-bool Texture2D::InitFromData(int width, int height, unsigned char* data) {
+bool Texture2D::InitFromBytes(int width, int height, const unsigned char * data) {
+    handleMemInternally_ = false;
     width_ = width;
     height_ = height;
-    data_ = data;
+    data_ubyte_ = data;
+    dataType_ = GL_UNSIGNED_BYTE;
     
     return InitOpenGL();
 }
 
+bool Texture2D::InitFromFloats(int width, int height, const float * data) {
+    handleMemInternally_ = false;
+    width_ = width;
+    height_ = height;
+    data_float_ = data;
+    dataType_ = GL_FLOAT;
+    
+    return InitOpenGL();
+}
     
 bool Texture2D::InitOpenGL() {
     glGenTextures(1, &texID_);
@@ -77,12 +96,45 @@ bool Texture2D::InitOpenGL() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filterMode_);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filterMode_);
     
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, GL_UNSIGNED_BYTE, data_);
+    if (dataType_ == GL_UNSIGNED_BYTE) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, dataType_, data_ubyte_);
+    }
+    else if (dataType_ == GL_FLOAT) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, dataType_, data_float_);
+    }
+    else {
+        std::cerr << "Texture2D: Unsupported texture data type " << dataType_ << "." << std::endl;
+        return false;
+    }
 
     return true;
 }
 
+    
+bool Texture2D::UpdateFromBytes(const unsigned char * data) {
+    dataType_ = GL_UNSIGNED_BYTE;
+    data_ubyte_ = data;
+    glBindTexture(GL_TEXTURE_2D, texID_);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, dataType_, data_ubyte_);
+    // presumably glTexSubImage2D is faster, but this crashes on OSX for some reason
+    //glActiveTexture(texID_);
+    //glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width_, height_, GL_RGBA, dataType_, data_ubyte_);
+    return true;
+}
 
+bool Texture2D::UpdateFromFloats(const float * data) {
+    dataType_ = GL_FLOAT;
+    data_float_ = data;
+    glBindTexture(GL_TEXTURE_2D, texID_);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_, height_, 0, GL_RGBA, dataType_, data_float_);
+    // presumably glTexSubImage2D is faster, but this crashes on OSX for some reason
+    //glActiveTexture(texID_);
+    //glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width_, height_, GL_RGBA, dataType_, data_ubyte_);
+    return true;
+}
+    
+
+    
 int Texture2D::width() const {
     return width_;
 }
@@ -130,11 +182,25 @@ bool Texture2D::initialized() const {
     
 Color Texture2D::Pixel(int x, int y) const {
     int index = y*4*width() + x*4;
-    unsigned char r = data_[index+0];
-    unsigned char g = data_[index+1];
-    unsigned char b = data_[index+2];
-    unsigned char a = data_[index+3];
-    return Color((float)r/255.0, (float)g/255.0, (float)b/255.0, (float)a/255.0);
+    
+    if (dataType_ == GL_UNSIGNED_BYTE) {
+        unsigned char r = data_ubyte_[index+0];
+        unsigned char g = data_ubyte_[index+1];
+        unsigned char b = data_ubyte_[index+2];
+        unsigned char a = data_ubyte_[index+3];
+        return Color((float)r/255.0, (float)g/255.0, (float)b/255.0, (float)a/255.0);
+    }
+    else if (dataType_ == GL_FLOAT) {
+        float r = data_float_[index+0];
+        float g = data_float_[index+1];
+        float b = data_float_[index+2];
+        float a = data_float_[index+3];
+        return Color(r, g, b, a);
+    }
+    else {
+        std::cerr << "Texture2D: Unsupported texture data type " << dataType_ << "." << std::endl;
+        return Color();
+    }
 }
     
 } // end namespace

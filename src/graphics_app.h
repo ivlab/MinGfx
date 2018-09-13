@@ -244,6 +244,11 @@ public:
     virtual void OnSpecialKeyUp(int key, int scancode, int modifiers) {}
 
 
+    /// Override this to respond when the graphics window and/or framebuffer
+    /// are resized, either by the user dragging the window or through a call
+    /// to ResizeWindow().
+    virtual void OnWindowResize(int new_width, int new_height) {}
+    
     
     /** After creating a new GraphicsApp, call this to start the app's
      mainloop.  Each time through the mainloop the app will: 1. respond
@@ -372,6 +377,11 @@ public:
     virtual GLFWwindow* window();
 
 
+    /// Cause the graphics windows to resize programmatically rather than by dragging
+    /// on the corner manually.
+    virtual void ResizeWindow(int new_width, int new_height);
+    
+    
     /** Users cannot make any graphics calls (e.g., setting the clear color,
      saving mesh data to the GPU) until the graphics context is initialized
      by calling this method.  It is called automatically by the Run() method

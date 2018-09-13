@@ -63,7 +63,30 @@ public:
     /// for this array.  If you will never call Pixel(), then it is safe to free
     /// data as soon as this function returns.  Otherwise, you need to make sure
     /// data does not change in memory until you destroy the Texture2D object.
-    bool InitFromData(int width, int height, unsigned char* data);
+    bool InitFromBytes(int width, int height, const unsigned char * data);
+    
+    /// Call this from within the InitOpenGL() function since it will initialize
+    /// not just the Texture2D's internal data but also an OpenGL texture to be
+    /// stored on the graphics card.
+    /// With this version of Init, you may pass in your own pointer to color data.
+    /// The data argument must point to an array of 4-channel color data stored as
+    /// floats in RGBA format.  You are responsible for managing the memory
+    /// for this array.  If you will never call Pixel(), then it is safe to free
+    /// data as soon as this function returns.  Otherwise, you need to make sure
+    /// data does not change in memory until you destroy the Texture2D object.
+    bool InitFromFloats(int width, int height, const float * data);
+
+    
+    /// This function may be called to re-read the texture data from an array
+    /// formated the same as in InitFromBytes.  The width and height of the
+    /// texture must remain the same.
+    bool UpdateFromBytes(const unsigned char * data);
+
+    /// This function may be called to re-read the texture data from an array
+    /// formated the same as in InitFromFloats.  The width and height of the
+    /// texture must remain the same.
+    bool UpdateFromFloats(const float * data);
+
     
     /// Returns true if the texture data has been successfully transferred to OpenGL.
     bool initialized() const;
@@ -97,7 +120,10 @@ private:
     
     bool InitOpenGL();
     
-    unsigned char *data_;
+    GLenum dataType_; // GL_UNSIGNED_BYTE or GL_FLOAT
+    const unsigned char * data_ubyte_;
+    const float * data_float_;
+    
     int width_;
     int height_;
     bool handleMemInternally_;

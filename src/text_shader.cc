@@ -73,7 +73,7 @@ bool TextShader::Init(const std::string &filename, int font_size) {
             bitmap4D[4*i + 3] = bitmap[i];
         }
         
-        atlas_.InitFromData(atlas_width, atlas_height, bitmap4D);
+        atlas_.InitFromBytes(atlas_width, atlas_height, bitmap4D);
         
         delete [] ttf_buffer;
         delete [] bitmap;
