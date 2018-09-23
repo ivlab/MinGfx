@@ -4,8 +4,9 @@
  See corresponding header file for details.
  */
 
-#include "gui_plus_opengl.h"
 
+#define _USE_MATH_DEFINES
+#include "gui_plus_opengl.h"
 #include "default_shader.h"
 #include "mesh.h"
 #include "shader_program.h"
@@ -41,8 +42,12 @@ public:
         title_bgcol_ = Color(85.0/255.0, 83.0/255.0, 83.0/255.0);
         title_highcol_ = Color(19.0/255.0, 0.0/255.0, 239.0/255.0);
         for (int i=0; i<title_.length(); i++) {
-            title_[i] = std::toupper(title_[i]);
-        }
+#ifdef WIN32
+            title_[i] = ::toupper(title_[i]);
+#else
+			title_[i] = std::toupper(title_[i]);
+#endif
+		}
         
         item_format_.color = Color(0,0,0);
         item_format_.h_align = TextShader::HORIZ_ALIGN_LEFT;
