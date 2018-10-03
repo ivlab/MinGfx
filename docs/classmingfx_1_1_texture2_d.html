@@ -131,9 +131,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8eded044ccdf9bd3e1e5bcfe74526bdc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html#a8eded044ccdf9bd3e1e5bcfe74526bdc">InitFromFile</a> (const std::string &amp;filename)</td></tr>
 <tr class="memdesc:a8eded044ccdf9bd3e1e5bcfe74526bdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this from within the InitOpenGL() function since it will initialize not just the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a>'s internal data but also an OpenGL texture to be stored on the graphics card. Internally, this uses the stbi library to load images. It supports png, jpg, bmp, and other file formats.  <a href="#a8eded044ccdf9bd3e1e5bcfe74526bdc">More...</a><br /></td></tr>
 <tr class="separator:a8eded044ccdf9bd3e1e5bcfe74526bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9f72a31d0953a68a629248675d498b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html#aa9f72a31d0953a68a629248675d498b4">InitFromData</a> (int <a class="el" href="classmingfx_1_1_texture2_d.html#a364e2e22ad4ec17cd7dfcfae7bc0524b">width</a>, int <a class="el" href="classmingfx_1_1_texture2_d.html#aeb8ac1e730e881771ae2801fd11eee2c">height</a>, unsigned char *data)</td></tr>
-<tr class="memdesc:aa9f72a31d0953a68a629248675d498b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this from within the InitOpenGL() function since it will initialize not just the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a>'s internal data but also an OpenGL texture to be stored on the graphics card. With this version of Init, you may pass in your own pointer to color data. The data argument must point to an array of 4-channel color data stored as unsigned chars in RGBA format. You are responsible for managing the memory for this array. If you will never call <a class="el" href="classmingfx_1_1_texture2_d.html#ab3772cdf917c63a7acfd155bd32eddd1" title="Returns the color at the specified pixel. The top left corner of the image is (0,0) and the bottom ri...">Pixel()</a>, then it is safe to free data as soon as this function returns. Otherwise, you need to make sure data does not change in memory until you destroy the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a> object.  <a href="#aa9f72a31d0953a68a629248675d498b4">More...</a><br /></td></tr>
-<tr class="separator:aa9f72a31d0953a68a629248675d498b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba57b01065096fe9f6483e8f68622944"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html#aba57b01065096fe9f6483e8f68622944">InitFromBytes</a> (int <a class="el" href="classmingfx_1_1_texture2_d.html#a364e2e22ad4ec17cd7dfcfae7bc0524b">width</a>, int <a class="el" href="classmingfx_1_1_texture2_d.html#aeb8ac1e730e881771ae2801fd11eee2c">height</a>, const unsigned char *data)</td></tr>
+<tr class="memdesc:aba57b01065096fe9f6483e8f68622944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this from within the InitOpenGL() function since it will initialize not just the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a>'s internal data but also an OpenGL texture to be stored on the graphics card. With this version of Init, you may pass in your own pointer to color data. The data argument must point to an array of 4-channel color data stored as unsigned chars in RGBA format. You are responsible for managing the memory for this array. If you will never call <a class="el" href="classmingfx_1_1_texture2_d.html#ab3772cdf917c63a7acfd155bd32eddd1" title="Returns the color at the specified pixel. The top left corner of the image is (0,0) and the bottom ri...">Pixel()</a>, then it is safe to free data as soon as this function returns. Otherwise, you need to make sure data does not change in memory until you destroy the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a> object.  <a href="#aba57b01065096fe9f6483e8f68622944">More...</a><br /></td></tr>
+<tr class="separator:aba57b01065096fe9f6483e8f68622944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee8a0aad1795680cb840ffcf544ed7b8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html#aee8a0aad1795680cb840ffcf544ed7b8">InitFromFloats</a> (int <a class="el" href="classmingfx_1_1_texture2_d.html#a364e2e22ad4ec17cd7dfcfae7bc0524b">width</a>, int <a class="el" href="classmingfx_1_1_texture2_d.html#aeb8ac1e730e881771ae2801fd11eee2c">height</a>, const float *data)</td></tr>
+<tr class="memdesc:aee8a0aad1795680cb840ffcf544ed7b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call this from within the InitOpenGL() function since it will initialize not just the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a>'s internal data but also an OpenGL texture to be stored on the graphics card. With this version of Init, you may pass in your own pointer to color data. The data argument must point to an array of 4-channel color data stored as floats in RGBA format. You are responsible for managing the memory for this array. If you will never call <a class="el" href="classmingfx_1_1_texture2_d.html#ab3772cdf917c63a7acfd155bd32eddd1" title="Returns the color at the specified pixel. The top left corner of the image is (0,0) and the bottom ri...">Pixel()</a>, then it is safe to free data as soon as this function returns. Otherwise, you need to make sure data does not change in memory until you destroy the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a> object.  <a href="#aee8a0aad1795680cb840ffcf544ed7b8">More...</a><br /></td></tr>
+<tr class="separator:aee8a0aad1795680cb840ffcf544ed7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0783ad70829ef353aa92344d320b107c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html#a0783ad70829ef353aa92344d320b107c">UpdateFromBytes</a> (const unsigned char *data)</td></tr>
+<tr class="memdesc:a0783ad70829ef353aa92344d320b107c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function may be called to re-read the texture data from an array formated the same as in InitFromBytes. The width and height of the texture must remain the same.  <a href="#a0783ad70829ef353aa92344d320b107c">More...</a><br /></td></tr>
+<tr class="separator:a0783ad70829ef353aa92344d320b107c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7640f0cbda6398a6bb80202b80dd693"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html#ad7640f0cbda6398a6bb80202b80dd693">UpdateFromFloats</a> (const float *data)</td></tr>
+<tr class="memdesc:ad7640f0cbda6398a6bb80202b80dd693"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function may be called to re-read the texture data from an array formated the same as in InitFromFloats. The width and height of the texture must remain the same.  <a href="#ad7640f0cbda6398a6bb80202b80dd693">More...</a><br /></td></tr>
+<tr class="separator:ad7640f0cbda6398a6bb80202b80dd693"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a239f75fa4e01b787183ba73ca999eed4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html#a239f75fa4e01b787183ba73ca999eed4">initialized</a> () const </td></tr>
 <tr class="memdesc:a239f75fa4e01b787183ba73ca999eed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the texture data has been successfully transferred to OpenGL.  <a href="#a239f75fa4e01b787183ba73ca999eed4">More...</a><br /></td></tr>
 <tr class="separator:a239f75fa4e01b787183ba73ca999eed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -249,12 +258,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa9f72a31d0953a68a629248675d498b4"></a>
+<a class="anchor" id="aba57b01065096fe9f6483e8f68622944"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool mingfx::Texture2D::InitFromData </td>
+          <td class="memname">bool mingfx::Texture2D::InitFromBytes </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>width</em>, </td>
@@ -268,7 +277,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned char *&#160;</td>
+          <td class="paramtype">const unsigned char *&#160;</td>
           <td class="paramname"><em>data</em>&#160;</td>
         </tr>
         <tr>
@@ -298,6 +307,40 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Call this from within the InitOpenGL() function since it will initialize not just the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a>'s internal data but also an OpenGL texture to be stored on the graphics card. Internally, this uses the stbi library to load images. It supports png, jpg, bmp, and other file formats. </p>
+
+</div>
+</div>
+<a class="anchor" id="aee8a0aad1795680cb840ffcf544ed7b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mingfx::Texture2D::InitFromFloats </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Call this from within the InitOpenGL() function since it will initialize not just the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a>'s internal data but also an OpenGL texture to be stored on the graphics card. With this version of Init, you may pass in your own pointer to color data. The data argument must point to an array of 4-channel color data stored as floats in RGBA format. You are responsible for managing the memory for this array. If you will never call <a class="el" href="classmingfx_1_1_texture2_d.html#ab3772cdf917c63a7acfd155bd32eddd1" title="Returns the color at the specified pixel. The top left corner of the image is (0,0) and the bottom ri...">Pixel()</a>, then it is safe to free data as soon as this function returns. Otherwise, you need to make sure data does not change in memory until you destroy the <a class="el" href="classmingfx_1_1_texture2_d.html" title="A wrapper around a 2D texture that supports loading images from files or setting texture color data d...">Texture2D</a> object. </p>
 
 </div>
 </div>
@@ -396,6 +439,42 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Uses the OpenGL texture wrap mode arguments. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0783ad70829ef353aa92344d320b107c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mingfx::Texture2D::UpdateFromBytes </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function may be called to re-read the texture data from an array formated the same as in InitFromBytes. The width and height of the texture must remain the same. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad7640f0cbda6398a6bb80202b80dd693"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mingfx::Texture2D::UpdateFromFloats </td>
+          <td>(</td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This function may be called to re-read the texture data from an array formated the same as in InitFromFloats. The width and height of the texture must remain the same. </p>
 
 </div>
 </div>

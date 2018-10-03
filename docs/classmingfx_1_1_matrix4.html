@@ -137,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a09a366a3ef940ff355f8d5c521baa57d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#a09a366a3ef940ff355f8d5c521baa57d">Matrix4</a> (const float *a)</td></tr>
 <tr class="memdesc:a09a366a3ef940ff355f8d5c521baa57d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a matrix given from an array of 16 floats in OpenGL matrix format (i.e., column major).  <a href="#a09a366a3ef940ff355f8d5c521baa57d">More...</a><br /></td></tr>
 <tr class="separator:a09a366a3ef940ff355f8d5c521baa57d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0abaeb690794c4a55e74c9b5fd82d138"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#a0abaeb690794c4a55e74c9b5fd82d138">Matrix4</a> (const std::vector&lt; float &gt; &amp;a)</td></tr>
+<tr class="memdesc:a0abaeb690794c4a55e74c9b5fd82d138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a matrix given from a vector of 16 floats in OpenGL matrix format (i.e., column major).  <a href="#a0abaeb690794c4a55e74c9b5fd82d138">More...</a><br /></td></tr>
+<tr class="separator:a0abaeb690794c4a55e74c9b5fd82d138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bcf311614006c551f57d2b0dcd32d87"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#a4bcf311614006c551f57d2b0dcd32d87">Matrix4</a> (const <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> &amp;m2)</td></tr>
 <tr class="memdesc:a4bcf311614006c551f57d2b0dcd32d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a4bcf311614006c551f57d2b0dcd32d87">More...</a><br /></td></tr>
 <tr class="separator:a4bcf311614006c551f57d2b0dcd32d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,6 +176,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adeca06c7c1e80fd350e4bef38a4c9800"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#adeca06c7c1e80fd350e4bef38a4c9800">ColumnToPoint3</a> (int c) const </td></tr>
 <tr class="memdesc:adeca06c7c1e80fd350e4bef38a4c9800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the c-th column of the matrix as a Vector type, e.g.,: <a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a> pos = mat.getColumnAsPoint3(3);.  <a href="#adeca06c7c1e80fd350e4bef38a4c9800">More...</a><br /></td></tr>
 <tr class="separator:adeca06c7c1e80fd350e4bef38a4c9800"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb48306c63450038a75e4ec4bfd4a7d1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#adb48306c63450038a75e4ec4bfd4a7d1">ToVector</a> () const </td></tr>
+<tr class="separator:adb48306c63450038a75e4ec4bfd4a7d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5add5ab885b4e7520d6e3a1f477dd7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_matrix4.html#ad5add5ab885b4e7520d6e3a1f477dd7e">Inverse</a> () const </td></tr>
 <tr class="memdesc:ad5add5ab885b4e7520d6e3a1f477dd7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the inverse of the 4x4 matrix if it is nonsingular. If it is singular, then returns the identity matrix.  <a href="#ad5add5ab885b4e7520d6e3a1f477dd7e">More...</a><br /></td></tr>
 <tr class="separator:ad5add5ab885b4e7520d6e3a1f477dd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -261,6 +266,24 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs a matrix given from an array of 16 floats in OpenGL matrix format (i.e., column major). </p>
+
+</div>
+</div>
+<a class="anchor" id="a0abaeb690794c4a55e74c9b5fd82d138"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mingfx::Matrix4::Matrix4 </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a matrix given from a vector of 16 floats in OpenGL matrix format (i.e., column major). </p>
 
 </div>
 </div>
@@ -1062,6 +1085,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the determinant of the 3x3 matrix formed by excluding the specified row and column from the 4x4 matrix. </p>
+
+</div>
+</div>
+<a class="anchor" id="adb48306c63450038a75e4ec4bfd4a7d1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; mingfx::Matrix4::ToVector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

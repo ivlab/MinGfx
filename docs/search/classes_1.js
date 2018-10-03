@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['defaultshader',['DefaultShader',['../classmingfx_1_1_default_shader.html',1,'mingfx']]]
+  ['bvh',['BVH',['../classmingfx_1_1_b_v_h.html',1,'mingfx']]]
 ];

@@ -120,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><span class="comment">// Use value_ptr() to send the array of floats directly to OpenGL commands</span></div>
 <div class="line">glColor4fv(orange.value_ptr());</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="color_8h_source.html#l00040">40</a> of file <a class="el" href="color_8h_source.html">color.h</a>.</p>
+<p>Definition at line <a class="el" href="color_8h_source.html#l00041">41</a> of file <a class="el" href="color_8h_source.html">color.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="color_8h_source.html">color.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -135,6 +135,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab4d6c067128e779add5390d83ea3410e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#ab4d6c067128e779add5390d83ea3410e">Color</a> (float *p)</td></tr>
 <tr class="memdesc:ab4d6c067128e779add5390d83ea3410e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a point given a pointer to float array.  <a href="#ab4d6c067128e779add5390d83ea3410e">More...</a><br /></td></tr>
 <tr class="separator:ab4d6c067128e779add5390d83ea3410e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e0ca85141895a108c852f59f7ca00b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#a7e0ca85141895a108c852f59f7ca00b9">Color</a> (const std::vector&lt; float &gt; &amp;vals)</td></tr>
+<tr class="memdesc:a7e0ca85141895a108c852f59f7ca00b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a point given a 3 or 4-element vector of floats.  <a href="#a7e0ca85141895a108c852f59f7ca00b9">More...</a><br /></td></tr>
+<tr class="separator:a7e0ca85141895a108c852f59f7ca00b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accb83cd759b7290ce2817724d57e246a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#accb83cd759b7290ce2817724d57e246a">Color</a> (const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;p)</td></tr>
 <tr class="memdesc:accb83cd759b7290ce2817724d57e246a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#accb83cd759b7290ce2817724d57e246a">More...</a><br /></td></tr>
 <tr class="separator:accb83cd759b7290ce2817724d57e246a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,6 +162,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a091ebb84b066f81d0928fe6dfaf39ccd"><td class="memItemLeft" align="right" valign="top">const float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#a091ebb84b066f81d0928fe6dfaf39ccd">value_ptr</a> () const </td></tr>
 <tr class="memdesc:a091ebb84b066f81d0928fe6dfaf39ccd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const pointer to the raw data array.  <a href="#a091ebb84b066f81d0928fe6dfaf39ccd">More...</a><br /></td></tr>
 <tr class="separator:a091ebb84b066f81d0928fe6dfaf39ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1431e0cdaaee712222bc1ba211ba72d3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#a1431e0cdaaee712222bc1ba211ba72d3">ToVector</a> () const </td></tr>
+<tr class="separator:a1431e0cdaaee712222bc1ba211ba72d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a074fc1fa1a8d479579705f9cb3491316"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html#a074fc1fa1a8d479579705f9cb3491316">Lerp</a> (const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;b, float alpha) const </td></tr>
 <tr class="memdesc:a074fc1fa1a8d479579705f9cb3491316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Linear interpolation between this color and another. Alpha=0.0 returns this color, and alpha=1.0 returns the other color, other values blend between the two via a linear interpolation on each color channel.  <a href="#a074fc1fa1a8d479579705f9cb3491316">More...</a><br /></td></tr>
 <tr class="separator:a074fc1fa1a8d479579705f9cb3491316"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -242,6 +247,24 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs a point given a pointer to float array. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7e0ca85141895a108c852f59f7ca00b9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">mingfx::Color::Color </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; float &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vals</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a point given a 3 or 4-element vector of floats. </p>
 
 </div>
 </div>
@@ -446,6 +469,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Accesses the ith coordinate of the color, stored in RGBA order. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1431e0cdaaee712222bc1ba211ba72d3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; mingfx::Color::ToVector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

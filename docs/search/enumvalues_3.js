@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['rot',['ROT',['../classmingfx_1_1_uni_cam.html#a39ab08dfd510f2e8b13f86b046a771e6ab90a4b5fa195a7b707dc8162e0cd976c',1,'mingfx::UniCam']]],
-  ['rot_5fwait_5ffor_5fsecond_5fclick',['ROT_WAIT_FOR_SECOND_CLICK',['../classmingfx_1_1_uni_cam.html#a39ab08dfd510f2e8b13f86b046a771e6a4003908be7fbbf73debd369085387ec9',1,'mingfx::UniCam']]]
+  ['vert_5falign_5fbaseline',['VERT_ALIGN_BASELINE',['../classmingfx_1_1_text_shader.html#a7624918a2d157cf2880fc8858c00db2aaf1952af576c29c1c7f3bfaf81626a58a',1,'mingfx::TextShader']]],
+  ['vert_5falign_5fbottom',['VERT_ALIGN_BOTTOM',['../classmingfx_1_1_text_shader.html#a7624918a2d157cf2880fc8858c00db2aa363b41efe35eb40eb21aa4766d5ed491',1,'mingfx::TextShader']]],
+  ['vert_5falign_5fcenter',['VERT_ALIGN_CENTER',['../classmingfx_1_1_text_shader.html#a7624918a2d157cf2880fc8858c00db2aae0df397e6a5f983d095986a375d860a6',1,'mingfx::TextShader']]],
+  ['vert_5falign_5ftop',['VERT_ALIGN_TOP',['../classmingfx_1_1_text_shader.html#a7624918a2d157cf2880fc8858c00db2aab67e5c82bd490dd18da572550482d00c',1,'mingfx::TextShader']]]
 ];

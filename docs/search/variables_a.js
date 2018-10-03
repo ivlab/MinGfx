@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['m',['m',['../classmingfx_1_1_matrix4.html#a0d54ff5767f28847e277abb4b39d2daa',1,'mingfx::Matrix4']]],
-  ['max_5flights',['MAX_LIGHTS',['../classmingfx_1_1_default_shader.html#a21c1fd93273eaf643e7ac9b05ba0fb24',1,'mingfx::DefaultShader']]],
-  ['middledown_5f',['middleDown_',['../classmingfx_1_1_graphics_app.html#a130a6cd995bf5d4aba27dc875c3146a1',1,'mingfx::GraphicsApp']]],
-  ['mouselast_5f',['mouseLast_',['../classmingfx_1_1_uni_cam.html#a809a8c027ec6ede87413258615d390e4',1,'mingfx::UniCam']]]
+  ['shinniness',['shinniness',['../classmingfx_1_1_default_shader_1_1_material_properties.html#ad77e4c78a2bf60776c673b91bc4c8a13',1,'mingfx::DefaultShader::MaterialProperties']]],
+  ['size',['size',['../classmingfx_1_1_text_shader_1_1_text_format.html#aeecda817624276f0cfb812ddcdbbc2f0',1,'mingfx::TextShader::TextFormat']]],
+  ['specular_5fintensity',['specular_intensity',['../classmingfx_1_1_default_shader_1_1_light_properties.html#abef7666629dbb9da661b163e0584c9a4',1,'mingfx::DefaultShader::LightProperties']]],
+  ['specular_5freflectance',['specular_reflectance',['../classmingfx_1_1_default_shader_1_1_material_properties.html#acfd78796e08f527a24cce3c1e206148c',1,'mingfx::DefaultShader::MaterialProperties']]],
+  ['surface_5ftexture',['surface_texture',['../classmingfx_1_1_default_shader_1_1_material_properties.html#ae26eed46a279c73e947880858763514e',1,'mingfx::DefaultShader::MaterialProperties']]]
 ];

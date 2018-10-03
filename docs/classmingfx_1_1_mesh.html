@@ -179,7 +179,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"></div>
 <div class="line"><span class="comment">// then you can draw the same way as in the previous example.</span></div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="mesh_8h_source.html#l00122">122</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
+<p>Definition at line <a class="el" href="mesh_8h_source.html#l00127">127</a> of file <a class="el" href="mesh_8h_source.html">mesh.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="mesh_8h_source.html">mesh.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -226,6 +226,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f94c9ca7867b65e04f7e02813a06581"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a1f94c9ca7867b65e04f7e02813a06581">SetIndices</a> (const std::vector&lt; unsigned int &gt; index_array)</td></tr>
 <tr class="memdesc:a1f94c9ca7867b65e04f7e02813a06581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the indices into the vertex array to use to create the triangles. Each consecutive set of 3 indices forms one triangle: (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ...  <a href="#a1f94c9ca7867b65e04f7e02813a06581">More...</a><br /></td></tr>
 <tr class="separator:a1f94c9ca7867b65e04f7e02813a06581"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7175238f5874929e2258458b98421d87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a7175238f5874929e2258458b98421d87">SetInstanceTransforms</a> (const std::vector&lt; <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> &gt; &amp;xforms)</td></tr>
+<tr class="separator:a7175238f5874929e2258458b98421d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a033076b9bf1714c9b9e0eeef11ebcd49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a033076b9bf1714c9b9e0eeef11ebcd49">SetVertices</a> (float *verts_array, int num_verts)</td></tr>
 <tr class="memdesc:a033076b9bf1714c9b9e0eeef11ebcd49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the vertex array for the mesh directly. Vertices are stored as (x,y,z), (x,y,z), (x,y,z), ... This version of the function accepts a C-style array rather than std::vector&lt;&gt;  <a href="#a033076b9bf1714c9b9e0eeef11ebcd49">More...</a><br /></td></tr>
 <tr class="separator:a033076b9bf1714c9b9e0eeef11ebcd49"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -253,6 +255,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acc7df547b0a2175287cc9f509c04e93c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#acc7df547b0a2175287cc9f509c04e93c">CalcPerVertexNormals</a> ()</td></tr>
 <tr class="memdesc:acc7df547b0a2175287cc9f509c04e93c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This (re)calculates the normals for the mesh and stores them with the mesh data structure.  <a href="#acc7df547b0a2175287cc9f509c04e93c">More...</a><br /></td></tr>
 <tr class="separator:acc7df547b0a2175287cc9f509c04e93c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d96c1b5985cd836f2aa2b2994af64c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a8d96c1b5985cd836f2aa2b2994af64c1">BuildBVH</a> ()</td></tr>
+<tr class="memdesc:a8d96c1b5985cd836f2aa2b2994af64c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This (re)calculates a Bounding Volume Hierarchy for the mesh, which can be used together with <a class="el" href="classmingfx_1_1_ray.html#aa4aae905face8752b5cf2d5ab2107286" title="Checks to see if the ray intersects a triangle mesh. ">Ray::FastIntersectMesh()</a> to do faster ray-mesh intersection testing.  <a href="#a8d96c1b5985cd836f2aa2b2994af64c1">More...</a><br /></td></tr>
+<tr class="separator:a8d96c1b5985cd836f2aa2b2994af64c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a978b1341d5613d399a68e40c61c57ba4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_b_v_h.html">BVH</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a978b1341d5613d399a68e40c61c57ba4">bvh_ptr</a> ()</td></tr>
+<tr class="memdesc:a978b1341d5613d399a68e40c61c57ba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the underlying <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a> data structure.  <a href="#a978b1341d5613d399a68e40c61c57ba4">More...</a><br /></td></tr>
+<tr class="separator:a978b1341d5613d399a68e40c61c57ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3428cc726de5c22fd62e313a9ac4d4de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_mesh.html#a3428cc726de5c22fd62e313a9ac4d4de">num_vertices</a> () const </td></tr>
 <tr class="memdesc:a3428cc726de5c22fd62e313a9ac4d4de"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of vertices in the mesh.  <a href="#a3428cc726de5c22fd62e313a9ac4d4de">More...</a><br /></td></tr>
 <tr class="separator:a3428cc726de5c22fd62e313a9ac4d4de"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -367,6 +375,41 @@ Public Member Functions</h2></td></tr>
 
 <p>Adds a triangle to the mesh datastructure and returns a triangle ID. </p>
 <p>The ID should then be used as the first argument for follow-on calls to <a class="el" href="classmingfx_1_1_mesh.html#a43d5a5cc3ef742a8c2b5e3f1b4da0903" title="Sets the normals for the three vertices of a triangle that has already been added to the mesh...">SetNormals()</a>, <a class="el" href="classmingfx_1_1_mesh.html#a0f59e19b74f4f9dc2ad580756f8b319f" title="Sets per-vertex colors for the three vertices of a triangle that has already been added to the mesh...">SetColors()</a>, and <a class="el" href="classmingfx_1_1_mesh.html#a17cb896939007357014c74a1ece6f1f3" title="Sets the texture coordinates for the three vertices of a triangle that has already been added to the ...">SetTexCoords()</a>. The vertices must be specified in counter-clockwise order so that the normal of the triangle can be determined following the right-hand rule. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8d96c1b5985cd836f2aa2b2994af64c1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::BuildBVH </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>This (re)calculates a Bounding Volume Hierarchy for the mesh, which can be used together with <a class="el" href="classmingfx_1_1_ray.html#aa4aae905face8752b5cf2d5ab2107286" title="Checks to see if the ray intersects a triangle mesh. ">Ray::FastIntersectMesh()</a> to do faster ray-mesh intersection testing. </p>
+
+</div>
+</div>
+<a class="anchor" id="a978b1341d5613d399a68e40c61c57ba4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_b_v_h.html">BVH</a>* mingfx::Mesh::bvh_ptr </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the underlying <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a> data structure. </p>
+<p>If the data struture has not yet been build or needs to be updated due to a change in the geometry of the mesh, then the <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a> is recalculated before returning the pointer. </p>
 
 </div>
 </div>
@@ -642,6 +685,22 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the indices into the vertex array to use to create the triangles. Each consecutive set of 3 indices forms one triangle: (v1,v2,v3), (v1,v2,v3), (v1,v2,v3), ... This version of the function accepts a C-style array rather than std::vector&lt;&gt; </p>
+
+</div>
+</div>
+<a class="anchor" id="a7175238f5874929e2258458b98421d87"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mingfx::Mesh::SetInstanceTransforms </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>xforms</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

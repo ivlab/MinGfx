@@ -123,7 +123,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line">   }</div>
 <div class="line">}</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="ray_8h_source.html#l00052">52</a> of file <a class="el" href="ray_8h_source.html">ray.h</a>.</p>
+<p>Definition at line <a class="el" href="ray_8h_source.html#l00054">54</a> of file <a class="el" href="ray_8h_source.html">ray.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="ray_8h_source.html">ray.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -162,6 +162,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3b0bfc9e7d0d6a7b984ade7074731260"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_ray.html#a3b0bfc9e7d0d6a7b984ade7074731260">IntersectMesh</a> (const <a class="el" href="classmingfx_1_1_mesh.html">Mesh</a> &amp;mesh, float *iTime, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> *iPoint, int *iTriangleID) const </td></tr>
 <tr class="memdesc:a3b0bfc9e7d0d6a7b984ade7074731260"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if the ray intersects a triangle mesh.  <a href="#a3b0bfc9e7d0d6a7b984ade7074731260">More...</a><br /></td></tr>
 <tr class="separator:a3b0bfc9e7d0d6a7b984ade7074731260"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4aae905face8752b5cf2d5ab2107286"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_ray.html#aa4aae905face8752b5cf2d5ab2107286">FastIntersectMesh</a> (<a class="el" href="classmingfx_1_1_mesh.html">Mesh</a> *mesh, float *iTime, <a class="el" href="classmingfx_1_1_point3.html">Point3</a> *iPoint, int *iTriangleID) const </td></tr>
+<tr class="memdesc:aa4aae905face8752b5cf2d5ab2107286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if the ray intersects a triangle mesh.  <a href="#aa4aae905face8752b5cf2d5ab2107286">More...</a><br /></td></tr>
+<tr class="separator:aa4aae905face8752b5cf2d5ab2107286"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6261b2a1af04fb025455293d0544d354"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_ray.html#a6261b2a1af04fb025455293d0544d354">IntersectAABB</a> (const <a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a> &amp;box, float *iTime) const </td></tr>
+<tr class="memdesc:a6261b2a1af04fb025455293d0544d354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks to see if the ray intersects an <a class="el" href="classmingfx_1_1_a_a_b_b.html" title="A 3D axis-aligned bounding box defined by two corners (min and max). ">AABB</a> (Axis-Aligned Bounding Box).  <a href="#a6261b2a1af04fb025455293d0544d354">More...</a><br /></td></tr>
+<tr class="separator:a6261b2a1af04fb025455293d0544d354"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86827f8e471415a80159c9716da26e77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_ray.html#a86827f8e471415a80159c9716da26e77">origin</a> () const </td></tr>
 <tr class="memdesc:a86827f8e471415a80159c9716da26e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the origin.  <a href="#a86827f8e471415a80159c9716da26e77">More...</a><br /></td></tr>
 <tr class="separator:a86827f8e471415a80159c9716da26e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,6 +265,79 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the direction. </p>
 
+</div>
+</div>
+<a class="anchor" id="aa4aae905face8752b5cf2d5ab2107286"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mingfx::Ray::FastIntersectMesh </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_mesh.html">Mesh</a> *&#160;</td>
+          <td class="paramname"><em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>iTime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_point3.html">Point3</a> *&#160;</td>
+          <td class="paramname"><em>iPoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>iTriangleID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks to see if the ray intersects a triangle mesh. </p>
+<p>This uses a <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a> (Bounding Volume Hierarchy) to accelerate the ray-triangle intersection tests. Each mesh can optionally store a <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a>. If a <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a> has already been calculated for the mesh (done with Mesh::CalculateBVH()), then this function will be much faster than the brute-force <a class="el" href="classmingfx_1_1_ray.html#a3b0bfc9e7d0d6a7b984ade7074731260" title="Checks to see if the ray intersects a triangle mesh. ">IntersectMesh()</a> function. If a <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a> has not already been calculated for the mesh, the first call to <a class="el" href="classmingfx_1_1_ray.html#aa4aae905face8752b5cf2d5ab2107286" title="Checks to see if the ray intersects a triangle mesh. ">FastIntersectMesh()</a> will trigger the mesh to create a <a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a> (not a fast operation) but then subsequent calls to <a class="el" href="classmingfx_1_1_ray.html#aa4aae905face8752b5cf2d5ab2107286" title="Checks to see if the ray intersects a triangle mesh. ">FastIntersectMesh()</a> will be fast. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6261b2a1af04fb025455293d0544d354"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool mingfx::Ray::IntersectAABB </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a> &amp;&#160;</td>
+          <td class="paramname"><em>box</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>iTime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks to see if the ray intersects an <a class="el" href="classmingfx_1_1_a_a_b_b.html" title="A 3D axis-aligned bounding box defined by two corners (min and max). ">AABB</a> (Axis-Aligned Bounding Box). </p>
+<p>Typically, this is the first step of a more detailed intersection test and we don't care about the actual point of intersection, just whether it intersects or not. So, we don't bother calculating the iPoint. We get the iTime for free though, so we do return that. You can calc the iPoint if you want using: </p><div class="fragment"><div class="line"><span class="keywordtype">float</span> t;</div>
+<div class="line"><span class="keywordflow">if</span> (ray.IntersectAABB(box, &amp;t)) {</div>
+<div class="line">  Point3 iPoint = ray.origin() + t*ray.direction();</div>
+<div class="line">}</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a class="anchor" id="a3b0bfc9e7d0d6a7b984ade7074731260"></a>

@@ -41,7 +41,7 @@ namespace mingfx {
  Vector3 e = c + d;
  
  // and we can do the usual dot products and cross products too
- Vector3 f = d.Dot(e);
+ float f = d.Dot(e);
  Vector3 g = b.Cross(d);
  ~~~
  */

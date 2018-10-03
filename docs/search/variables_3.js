@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['position',['position',['../classmingfx_1_1_default_shader_1_1_light_properties.html#a160b58a0e70294008b9dac8eb6291d3e',1,'mingfx::DefaultShader::LightProperties']]]
+  ['extra',['extra',['../structstbrp__context.html#a0b80e1fbdac125427526f3500d4e7624',1,'stbrp_context']]]
 ];
