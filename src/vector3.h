@@ -43,6 +43,20 @@ namespace mingfx {
  // and we can do the usual dot products and cross products too
  float f = d.Dot(e);
  Vector3 g = b.Cross(d);
+
+ // you can access the individual components of the vector in two ways:
+ Vector3 v(1,2,3);
+ float option1 = v.x();
+ float option2 = v[0];
+
+ // to set an individual component of the vector use the [] operator:
+ Vector3 w;
+ w[0] = 0.4;
+ w[1] = 1.2;
+ w[2] = 3.1;
+
+ // you can print the vector by sending it to stdout:
+ std::cout << v << std::endl;
  ~~~
  */
 class Vector3 {
@@ -107,7 +121,7 @@ public:
      ~~~
      Vector3 a(1,0,0);
      Vector3 b(0.5,0,0);
-     Vector3 c = a.Dot(b);
+     float c = a.Dot(b);
      ~~~
      */
     float Dot(const Vector3& v) const;

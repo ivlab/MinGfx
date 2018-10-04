@@ -32,9 +32,21 @@ class Vector3;
  ~~~
  Point3 a(0,0,1);
  std::cout << a << std::endl;
+
  Matrix4 M = Matrix4::Translation(Vector3(0,0,-1));
  Point3 b = M * a;
  std::cout << b << std::endl;
+ 
+ // you can access the individual components of the point in two ways:
+ Point3 p(1,2,3);
+ float option1 = p.x();
+ float option2 = p[0];
+
+ // to set an individual component of the point use the [] operator:
+ Point3 p2;
+ p2[0] = 0.4;
+ p2[1] = 1.2;
+ p2[2] = 3.1;
  ~~~
  */
 class Point3 {
