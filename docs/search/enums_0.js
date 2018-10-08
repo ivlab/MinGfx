@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['linestype',['LinesType',['../classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603',1,'mingfx::QuickShapes']]]
+  ['horizalign',['HorizAlign',['../classmingfx_1_1_text_shader.html#af464d970e6475a2176f21c3f4b24c63c',1,'mingfx::TextShader']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['gpudirty_5f',['gpuDirty_',['../classmingfx_1_1_mesh.html#adc2d8f425ba3ce529bb5c777a3197c26',1,'mingfx::Mesh']]]
+  ['id',['id',['../structstbrp__rect.html#a92da8626bc99df041c0c3bfd01c25f7a',1,'stbrp_rect']]],
+  ['init_5fmode',['init_mode',['../structstbrp__context.html#a007509feee322404083034e4c2d3dc5d',1,'stbrp_context']]]
 ];

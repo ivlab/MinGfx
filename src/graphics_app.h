@@ -39,6 +39,8 @@ namespace mingfx {
     - DrawUsingNanoVG() is the right place to make 2D drawing calls using the nanovg library.
  
     - DrawUsingOpenGL() is the right place to make 2D or 3D drawing calls using OpenGL.  This includes drawing using the Mesh, QuickShapes, DefaultShader, ShaderProgram, and all other MinGfx classes since these are all based on OpenGL.
+
+    - InitNanoGUI() is the right place to create nanogui windows to add a 2D user interface to your app.
  
     - InitOpenGL() is the right place to load textures, meshes, shaders, and other graphics objects that can only be created after the OpenGL context exists.
  
@@ -46,12 +48,13 @@ namespace mingfx {
  
  Keep in mind that internally the app uses a rendering loop that looks something like this:
  ~~~
- InitOpenGL(); // your hook for initialization after OpenGL is active
+ InitNanoGUI(); // your hook for initializing NanoGUI widgets
+ InitOpenGL();  // your hook for initializing OpenGL graphics
  while (!program_ready_to_close) {
      // user input
      internal_get_input_events_from_operating_system();
      OnMouseMove();  // your hook for processing input
-     On*(); // all other event callbacks -- your hook for processing input
+     On*();          // all other event callbacks -- your hook for processing input
  
      // phyics, etc.
      UpdateSimulation(); // your hook for physics, animation, AI, etc.
@@ -68,6 +71,7 @@ namespace mingfx {
  If you wish to add some buttons, sliders, etc. in your application, you can do this inside GraphicsApp by accessing the NanoGUI library.  You will need to pass NanoGUI a nanogui::screen object, which you can get from the screen() function.  NanoGui setup should be done in the constructor, like this:
  ~~~
  #include <mingfx.h>
+ using namespace mingfx;
  
  class MyApp : public GraphcisApp {
  public:
@@ -76,6 +80,11 @@ namespace mingfx {
     
     virtual ~MyApp() {}
 
+ 
+    void OnMouseMove(const Point2 &pos, const Vector2 &delta) {
+        std::cout << "Mouse moved to " << pos << std::endl;
+    }
+
     void InitNanoGUI() {
         // Setup the GUI window
         nanogui::Window *window = new nanogui::Window(screen(), "My GUI Panel");
@@ -83,17 +92,13 @@ namespace mingfx {
         window->setSize(Eigen::Vector2i(400,200));
         window->setLayout(new nanogui::GroupLayout());
  
-        nanoguiButton pause_btn = new nanogui::Button(window, "Pause");
+        nanogui::Button pause_btn = new nanogui::Button(window, "Pause");
         pause_btn->setCallback(std::bind(&QuakeApp::OnPauseBtnPressed, this));
         pause_btn->setTooltip("Toggle playback.");
  
         screen()->performLayout();
     }
- 
-    void OnMouseMove(const Point2 &pos, const Vector2 &delta) {
-        std::cout << "Mouse moved to " << pos << std::endl;
-    }
- 
+
     void InitOpenGL() {
         glClearColor(0.0, 0.0, 0.0, 1);
     }
@@ -126,9 +131,6 @@ public:
      \param width The width of the client area of the window in pixels.
      \param height The height of the client area of the window in pixels.
      \param caption The caption for the window's title bar.
-     \param init_graphics_in_constructor Defaults to true for backward compatibility,
-            but new apps should set this to false.  This option was added to support
-            testing graphics functions in batch mode with an off-screen framebuffer.
      */
     GraphicsApp(int width, int height, const std::string &caption);
 

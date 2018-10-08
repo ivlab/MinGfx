@@ -108,11 +108,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><p>A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graphics operations. </p>
 <p>Point3s can be transformed by a <a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a>. Example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_point3.html#ae8ab322852c24c6e03bed03cac443664">Point3</a> a(0,0,1);</div>
 <div class="line">std::cout &lt;&lt; a &lt;&lt; std::endl;</div>
+<div class="line"></div>
 <div class="line">Matrix4 M = <a class="code" href="classmingfx_1_1_matrix4.html#ae82bab81df82dc03f5eb11e74ba1dd84">Matrix4::Translation</a>(Vector3(0,0,-1));</div>
 <div class="line"><a class="code" href="classmingfx_1_1_point3.html#ae8ab322852c24c6e03bed03cac443664">Point3</a> b = M * a;</div>
 <div class="line">std::cout &lt;&lt; b &lt;&lt; std::endl;</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// you can access the individual components of the point in two ways:</span></div>
+<div class="line"><a class="code" href="classmingfx_1_1_point3.html#ae8ab322852c24c6e03bed03cac443664">Point3</a> p(1,2,3);</div>
+<div class="line"><span class="keywordtype">float</span> option1 = p.x();</div>
+<div class="line"><span class="keywordtype">float</span> option2 = p[0];</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// to set an individual component of the point use the [] operator:</span></div>
+<div class="line"><a class="code" href="classmingfx_1_1_point3.html#ae8ab322852c24c6e03bed03cac443664">Point3</a> p2;</div>
+<div class="line">p2[0] = 0.4;</div>
+<div class="line">p2[1] = 1.2;</div>
+<div class="line">p2[2] = 3.1;</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="point3_8h_source.html#l00040">40</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
+<p>Definition at line <a class="el" href="point3_8h_source.html#l00052">52</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="point3_8h_source.html">point3.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -633,7 +645,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>In homogeneous coordinates, the w coordinate for all points is 1.0. </p>
 
-<p>Definition at line <a class="el" href="point3_8h_source.html#l00092">92</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
+<p>Definition at line <a class="el" href="point3_8h_source.html#l00104">104</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
 
 </div>
 </div>
@@ -660,7 +672,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Read only access to the x coordinate. Can also use my_point[0]. Use the my_point[0] = 1.0; form if you need to set the value. </p>
 
-<p>Definition at line <a class="el" href="point3_8h_source.html#l00081">81</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
+<p>Definition at line <a class="el" href="point3_8h_source.html#l00093">93</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
 
 </div>
 </div>
@@ -687,7 +699,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Read only access to the y coordinate. Can also use my_point[1]. Use the my_point[1] = 1.0; form if you need to set the value. </p>
 
-<p>Definition at line <a class="el" href="point3_8h_source.html#l00085">85</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
+<p>Definition at line <a class="el" href="point3_8h_source.html#l00097">97</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
 
 </div>
 </div>
@@ -714,7 +726,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Read only access to the z coordinate. Can also use my_point[2]. Use the my_point[2] = 1.0; form if you need to set the value. </p>
 
-<p>Definition at line <a class="el" href="point3_8h_source.html#l00089">89</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
+<p>Definition at line <a class="el" href="point3_8h_source.html#l00101">101</a> of file <a class="el" href="point3_8h_source.html">point3.h</a>.</p>
 
 </div>
 </div>

@@ -121,10 +121,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> e = c + d;</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// and we can do the usual dot products and cross products too</span></div>
-<div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> f = d.Dot(e);</div>
+<div class="line"><span class="keywordtype">float</span> f = d.Dot(e);</div>
 <div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> g = b.Cross(d);</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// you can access the individual components of the vector in two ways:</span></div>
+<div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> v(1,2,3);</div>
+<div class="line"><span class="keywordtype">float</span> option1 = v.x();</div>
+<div class="line"><span class="keywordtype">float</span> option2 = v[0];</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// to set an individual component of the vector use the [] operator:</span></div>
+<div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> <a class="code" href="classmingfx_1_1_vector3.html#a3b31db3f5ec9ac08d369afb922242e2c">w</a>;</div>
+<div class="line">w[0] = 0.4;</div>
+<div class="line">w[1] = 1.2;</div>
+<div class="line">w[2] = 3.1;</div>
+<div class="line"></div>
+<div class="line"><span class="comment">// you can print the vector by sending it to stdout:</span></div>
+<div class="line">std::cout &lt;&lt; v &lt;&lt; std::endl;</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="vector3_8h_source.html#l00048">48</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
+<p>Definition at line <a class="el" href="vector3_8h_source.html#l00062">62</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
 </div>
 <p><code>#include &lt;<a class="el" href="vector3_8h_source.html">vector3.h</a>&gt;</code></p>
 <table class="memberdecls">
@@ -177,7 +191,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b204e5198f02ff1bed065e7f2d29157"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector3.html#a6b204e5198f02ff1bed065e7f2d29157">Dot</a> (const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;v) const </td></tr>
 <tr class="memdesc:a6b204e5198f02ff1bed065e7f2d29157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "this dot v", for example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> a(1,0,0);</div>
 <div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> b(0.5,0,0);</div>
-<div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> c = a.Dot(b);</div>
+<div class="line"><span class="keywordtype">float</span> c = a.Dot(b);</div>
 </div><!-- fragment --><p>.  <a href="#a6b204e5198f02ff1bed065e7f2d29157">More...</a><br /></td></tr>
 <tr class="separator:a6b204e5198f02ff1bed065e7f2d29157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab003dd29643a7851ac4ddf9326a41ce7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_vector3.html">Vector3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_vector3.html#ab003dd29643a7851ac4ddf9326a41ce7">Cross</a> (const <a class="el" href="classmingfx_1_1_vector3.html">Vector3</a> &amp;v) const </td></tr>
@@ -424,7 +438,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Returns "this dot v", for example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> a(1,0,0);</div>
 <div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> b(0.5,0,0);</div>
-<div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> c = a.Dot(b);</div>
+<div class="line"><span class="keywordtype">float</span> c = a.Dot(b);</div>
 </div><!-- fragment --><p>. </p>
 
 </div>
@@ -462,7 +476,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns v1 dot v2. </p>
-<p>This is just an alternative syntax for <a class="el" href="classmingfx_1_1_vector3.html#a6b204e5198f02ff1bed065e7f2d29157" title="Returns &quot;this dot v&quot;, for example: Vector3 a(1,0,0); Vector3 b(0.5,0,0); Vector3 c = a...">Dot()</a>. Example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> a(1,0,0);</div>
+<p>This is just an alternative syntax for <a class="el" href="classmingfx_1_1_vector3.html#a6b204e5198f02ff1bed065e7f2d29157" title="Returns &quot;this dot v&quot;, for example: Vector3 a(1,0,0); Vector3 b(0.5,0,0); float c = a...">Dot()</a>. Example: </p><div class="fragment"><div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> a(1,0,0);</div>
 <div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> b(0.5,0,0);</div>
 <div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> c1 = a.Dot(b);</div>
 <div class="line"><a class="code" href="classmingfx_1_1_vector3.html#a7f57af8bbecbc793fa17def4521de4dd">Vector3</a> c2 = <a class="code" href="classmingfx_1_1_vector3.html#a6b204e5198f02ff1bed065e7f2d29157">Vector3::Dot</a>(a,b);</div>
@@ -853,7 +867,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>In homogeneous coordinates, the w coordinate for all vectors is 0.0. </p>
 
-<p>Definition at line <a class="el" href="vector3_8h_source.html#l00101">101</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
+<p>Definition at line <a class="el" href="vector3_8h_source.html#l00115">115</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
 
 </div>
 </div>
@@ -880,7 +894,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Read only access to the x coordinate. Can also use my_vector[0]. Use the my_vector[0] = 1.0; form if you need to set the value. </p>
 
-<p>Definition at line <a class="el" href="vector3_8h_source.html#l00090">90</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
+<p>Definition at line <a class="el" href="vector3_8h_source.html#l00104">104</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
 
 </div>
 </div>
@@ -907,7 +921,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Read only access to the y coordinate. Can also use my_vector[1]. Use the my_vector[1] = 1.0; form if you need to set the value. </p>
 
-<p>Definition at line <a class="el" href="vector3_8h_source.html#l00094">94</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
+<p>Definition at line <a class="el" href="vector3_8h_source.html#l00108">108</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
 
 </div>
 </div>
@@ -934,7 +948,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Read only access to the z coordinate. Can also use my_vector[2]. Use the my_vector[2] = 1.0; form if you need to set the value. </p>
 
-<p>Definition at line <a class="el" href="vector3_8h_source.html#l00098">98</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
+<p>Definition at line <a class="el" href="vector3_8h_source.html#l00112">112</a> of file <a class="el" href="vector3_8h_source.html">vector3.h</a>.</p>
 
 </div>
 </div>

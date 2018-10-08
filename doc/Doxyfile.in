@@ -105,7 +105,7 @@ INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@/doc @CMAKE_CURRENT_SOURCE_DI
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.h *.md
 RECURSIVE              = YES
-EXCLUDE                =
+EXCLUDE                = @CMAKE_CURRENT_SOURCE_DIR@/src/external @CMAKE_CURRENT_SOURCE_DIR@/src/shaders
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       =
 EXCLUDE_SYMBOLS        =
@@ -197,7 +197,7 @@ EXTRA_SEARCH_MAPPINGS  =
 #---------------------------------------------------------------------------
 # Configuration options related to the LaTeX output
 #---------------------------------------------------------------------------
-GENERATE_LATEX         = YES
+GENERATE_LATEX         = NO
 LATEX_OUTPUT           = latex
 LATEX_CMD_NAME         = latex
 MAKEINDEX_CMD_NAME     = makeindex

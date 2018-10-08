@@ -2,7 +2,7 @@ var searchData=
 [
   ['perspective',['Perspective',['../classmingfx_1_1_matrix4.html#a4b8bea805a162fbb267bea63c0a7fe5c',1,'mingfx::Matrix4']]],
   ['pixel',['Pixel',['../classmingfx_1_1_texture2_d.html#ab3772cdf917c63a7acfd155bd32eddd1',1,'mingfx::Texture2D']]],
-  ['pixelstonormalizeddevicecoords',['PixelsToNormalizedDeviceCoords',['../classmingfx_1_1_graphics_app.html#afb7a6c799aa7ceb101847401414a95f2',1,'mingfx::GraphicsApp::PixelsToNormalizedDeviceCoords(Point2 pointInPixels)'],['../classmingfx_1_1_graphics_app.html#a20fea5e60e2bf7a35a0e6ef27d7b4880',1,'mingfx::GraphicsApp::PixelsToNormalizedDeviceCoords(Vector2 vectorInPixels)']]],
+  ['pixelstonormalizeddevicecoords',['PixelsToNormalizedDeviceCoords',['../classmingfx_1_1_graphics_app.html#a94b19404e61411ef64c0ddde8ad6c07a',1,'mingfx::GraphicsApp::PixelsToNormalizedDeviceCoords(const Point2 &amp;pointInPixels)'],['../classmingfx_1_1_graphics_app.html#a4e8ac965474de9046448b8811bf25dd1',1,'mingfx::GraphicsApp::PixelsToNormalizedDeviceCoords(const Vector2 &amp;vectorInPixels)']]],
   ['platform',['Platform',['../classmingfx_1_1_platform.html',1,'mingfx']]],
   ['platform_2eh',['platform.h',['../platform_8h.html',1,'']]],
   ['point2',['Point2',['../classmingfx_1_1_point2.html',1,'mingfx']]],

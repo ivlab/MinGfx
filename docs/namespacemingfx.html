@@ -102,6 +102,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A 3D axis-aligned bounding box defined by two corners (min and max).  <a href="classmingfx_1_1_a_a_b_b.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_b_v_h.html">BVH</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Bounding Volume Hierarchy (<a class="el" href="classmingfx_1_1_b_v_h.html" title="A Bounding Volume Hierarchy (BVH) data structure that can be used to accelerate ray-object intersecti...">BVH</a>) data structure that can be used to accelerate ray-object intersection tests by carving up space into a hierarchy of partitions represented in a tree.  <a href="classmingfx_1_1_b_v_h.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_color.html">Color</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a 4-component (R,G,B,A) color, stored internally in a float array to be compatable with OpenGL.  <a href="classmingfx_1_1_color.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,6 +150,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_shader_program.html">ShaderProgram</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper around GLSL shader programs.  <a href="classmingfx_1_1_shader_program.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_text_shader.html">TextShader</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_texture2_d.html">Texture2D</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper around a 2D texture that supports loading images from files or setting texture color data directly.  <a href="classmingfx_1_1_texture2_d.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,6 +167,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a3c3b45ed6edf3fe76f98a7fd165dca03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a3c3b45ed6edf3fe76f98a7fd165dca03">operator+</a> (const <a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a> &amp;A, const <a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a> &amp;B)</td></tr>
+<tr class="separator:a3c3b45ed6edf3fe76f98a7fd165dca03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bc967741341f4f318a505d884192906"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a6bc967741341f4f318a505d884192906">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;c)</td></tr>
 <tr class="separator:a6bc967741341f4f318a505d884192906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eb31e6e81c6e29144799be4c9db404d"><td class="memItemLeft" align="right" valign="top">std::istream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemingfx.html#a6eb31e6e81c6e29144799be4c9db404d">operator&gt;&gt;</a> (std::istream &amp;is, <a class="el" href="classmingfx_1_1_color.html">Color</a> &amp;c)</td></tr>
@@ -640,6 +650,32 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Multiply matrix and the point and vector portions of the ray, returns the new ray. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3c3b45ed6edf3fe76f98a7fd165dca03"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a> mingfx::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a> &amp;&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_a_a_b_b.html">AABB</a> &amp;&#160;</td>
+          <td class="paramname"><em>B</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1217,32 +1253,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ad7c839e598b7be6c1b407330dfacc980"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; mingfx::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ac4b78a682ff8d1ec298e0df7f742658d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1284,6 +1294,32 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">const <a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
           <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad7c839e598b7be6c1b407330dfacc980"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; mingfx::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1425,32 +1461,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0412270963460363fa015b9b4785cc59"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::istream&amp; mingfx::operator&gt;&gt; </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>is</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a59fb7a99df5c572849e31065884b2235"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1492,6 +1502,32 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="classmingfx_1_1_point3.html">Point3</a> &amp;&#160;</td>
           <td class="paramname"><em>p</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a0412270963460363fa015b9b4785cc59"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::istream&amp; mingfx::operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype">std::istream &amp;&#160;</td>
+          <td class="paramname"><em>is</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmingfx_1_1_ray.html">Ray</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

@@ -1,6 +1,12 @@
 var searchData=
 [
   ['tex_5fcoords',['tex_coords',['../classmingfx_1_1_mesh.html#a49195c61c01caf149a7dda77f382d2de',1,'mingfx::Mesh']]],
+  ['text_5fshader_2eh',['text_shader.h',['../text__shader_8h.html',1,'']]],
+  ['textextents',['TextExtents',['../classmingfx_1_1_text_shader.html#ac4e9a150311fe6d74e9f6214ebeb6b28',1,'mingfx::TextShader']]],
+  ['textformat',['TextFormat',['../classmingfx_1_1_text_shader_1_1_text_format.html',1,'mingfx::TextShader']]],
+  ['textformat',['TextFormat',['../classmingfx_1_1_text_shader_1_1_text_format.html#a2b7d7e2e540c881952b97b8948b49fcb',1,'mingfx::TextShader::TextFormat']]],
+  ['textshader',['TextShader',['../classmingfx_1_1_text_shader.html',1,'mingfx']]],
+  ['textshader',['TextShader',['../classmingfx_1_1_text_shader.html#a0ec5a6ba22abb3f86c611107925fca67',1,'mingfx::TextShader']]],
   ['texture2d',['Texture2D',['../classmingfx_1_1_texture2_d.html#aa15b86ec3b7312842c220b081c39980d',1,'mingfx::Texture2D']]],
   ['texture2d',['Texture2D',['../classmingfx_1_1_texture2_d.html',1,'mingfx']]],
   ['texture2d_2eh',['texture2d.h',['../texture2d_8h.html',1,'']]],
@@ -8,6 +14,7 @@ var searchData=
   ['toeulerangleszyx',['ToEulerAnglesZYX',['../classmingfx_1_1_quaternion.html#ae6585861f6be784602382c58fcf23c8c',1,'mingfx::Quaternion']]],
   ['toradians',['ToRadians',['../classmingfx_1_1_gfx_math.html#a1336de2695bc3bb750b23fb0ea211637',1,'mingfx::GfxMath::ToRadians(float degrees)'],['../classmingfx_1_1_gfx_math.html#a38927f1f8ea4625d909e64efa93c5190',1,'mingfx::GfxMath::ToRadians(Vector3 degrees)']]],
   ['tounit',['ToUnit',['../classmingfx_1_1_quaternion.html#aa18a4d1913559bf4aab9748fbd4cb620',1,'mingfx::Quaternion::ToUnit()'],['../classmingfx_1_1_vector2.html#a57d441394b731e0117476970f7d27549',1,'mingfx::Vector2::ToUnit()'],['../classmingfx_1_1_vector3.html#ad6d1ee9a543b635a28024c63b169bfeb',1,'mingfx::Vector3::ToUnit()']]],
+  ['tovector',['ToVector',['../classmingfx_1_1_color.html#a1431e0cdaaee712222bc1ba211ba72d3',1,'mingfx::Color::ToVector()'],['../classmingfx_1_1_matrix4.html#adb48306c63450038a75e4ec4bfd4a7d1',1,'mingfx::Matrix4::ToVector()']]],
   ['translation',['Translation',['../classmingfx_1_1_matrix4.html#ae82bab81df82dc03f5eb11e74ba1dd84',1,'mingfx::Matrix4']]],
   ['translation_5fscale',['translation_scale',['../classmingfx_1_1_craft_cam.html#a93567af7acbae2939d57cfd8a72bcef2',1,'mingfx::CraftCam']]],
   ['transpose',['Transpose',['../classmingfx_1_1_matrix4.html#aaa50116fdbf83367ad22e1a9773b419f',1,'mingfx::Matrix4']]],
