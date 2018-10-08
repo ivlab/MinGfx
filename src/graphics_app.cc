@@ -182,7 +182,7 @@ void GraphicsApp::Run() {
         glfwSwapBuffers(window_);
     }
     
-    glfwTerminate();
+    //glfwTerminate();
 }
     
 
