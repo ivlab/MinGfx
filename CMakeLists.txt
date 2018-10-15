@@ -126,7 +126,7 @@ configure_file(
 
 h1("CONFIGURING COMPLIER FLAGS")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 message(STATUS "Building for " ${CMAKE_SYSTEM_NAME} ".")
 message(STATUS "Compiler supported features = ${CMAKE_CXX_COMPILE_FEATURES}")
