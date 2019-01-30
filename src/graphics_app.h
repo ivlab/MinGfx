@@ -259,7 +259,7 @@ public:
      Run() does not return until the user closes the app and the program
      is ready to shutdown.
      */
-    virtual void Run();
+    virtual bool Run();
 
     
     /** Called at the beginning of the Run() method.  Override this to initialize
@@ -391,7 +391,7 @@ public:
      should place all of their graphics initialization code inside one of
      those two methods.
      */
-    virtual void InitGraphicsContext();
+    virtual bool InitGraphicsContext();
 
 private:
 

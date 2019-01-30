@@ -20,7 +20,7 @@ GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
 GraphicsApp::~GraphicsApp() {
 }
 
-void GraphicsApp::InitGraphicsContext() {
+bool GraphicsApp::InitGraphicsContext() {
     
     glfwInit();
     
@@ -52,7 +52,8 @@ void GraphicsApp::InitGraphicsContext() {
     if (window_ == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
-        exit(-1);
+        //exit(-1);
+        return false;
     }
     glfwMakeContextCurrent(window_);
     glfwSetWindowUserPointer(window_, this);
@@ -132,14 +133,17 @@ void GraphicsApp::InitGraphicsContext() {
     );
 
     graphicsInitialized_ = true;
+    return true;
  }
 
 
     
-void GraphicsApp::Run() {
+bool GraphicsApp::Run() {
 
     if (!graphicsInitialized_) {
-        InitGraphicsContext();        
+        if (!InitGraphicsContext()) {
+            return false;
+        }      
     }
 
     InitNanoGUI();
@@ -183,6 +187,7 @@ void GraphicsApp::Run() {
     }
     
     //glfwTerminate();
+    return true;
 }
     
 
