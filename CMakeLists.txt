@@ -143,6 +143,10 @@ endif()
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
   add_definitions(-DOSX)
 
+  # Since for some stupid reason Apple has now deprecated OpenGL
+  #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated")
+  add_definitions(-DGL_SILENCE_DEPRECATION)
+
   # RPATH settings, see https://cmake.org/Wiki/CMake_RPATH_handling
   set(CMAKE_MACOSX_RPATH ON)
 

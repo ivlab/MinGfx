@@ -469,7 +469,7 @@ function(AutoBuild_download_project EXT_PROJECT_NAME)
     message(STATUS "AutoBuild: Building the ${EXT_PROJECT_NAME} download helper project.  (This actually performs the download and may take some time...)")
     execute_process(COMMAND "${CMAKE_COMMAND}" --build . WORKING_DIRECTORY "${AUTOBUILD_DOWNLOAD_DIR}/${EXT_PROJECT_NAME}/download-helper" OUTPUT_VARIABLE stdout ERROR_VARIABLE stderr RESULT_VARIABLE exitcode)
     if(NOT "${exitcode}" STREQUAL "0")
-        message(FATAL_ERROR "AutoBuild: Error running download helper project: ${stdout} ${stderr}")
+        message(SEND_ERROR "AutoBuild: Error running download helper project: ${stdout} ${stderr}")
     endif()
 
     message(STATUS "AutoBuild: Completed download of external project ${EXT_PROJECT_NAME}.")
