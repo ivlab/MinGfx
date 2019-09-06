@@ -211,26 +211,26 @@ Matrix4 Matrix4::LookAt(Point3 eye, Point3 target, Vector3 up) {
 }
 
 Matrix4 Matrix4::Perspective(float fovyInDegrees, float aspectRatio,
-                             float near, float far)
+                             float nearPlane, float farPlane)
 {
     // https://www.khronos.org/opengl/wiki/GluPerspective_code
     float ymax, xmax;
-    ymax = near * tanf(fovyInDegrees * M_PI / 360.0);
+    ymax = nearPlane * tanf(fovyInDegrees * M_PI / 360.0);
     // ymin = -ymax;
     // xmin = -ymax * aspectRatio;
     xmax = ymax * aspectRatio;
-    return Matrix4::Frustum(-xmax, xmax, -ymax, ymax, near, far);
+    return Matrix4::Frustum(-xmax, xmax, -ymax, ymax, nearPlane, farPlane);
 }
     
     
 Matrix4 Matrix4::Frustum(float left, float right,
                          float bottom, float top,
-                         float near, float far)
+                         float nearPlane, float farPlane)
 {
     return Matrix4::FromRowMajorElements(
-        2.0*near/(right-left), 0, (right+left)/(right-left), 0,
-        0, 2.0*near/(top-bottom), (top+bottom)/(top-bottom), 0,
-        0, 0, -(far+near)/(far-near), -2.0*far*near/(far-near),
+        2.0*nearPlane /(right-left), 0, (right+left)/(right-left), 0,
+        0, 2.0*nearPlane /(top-bottom), (top+bottom)/(top-bottom), 0,
+        0, 0, -(farPlane + nearPlane)/(farPlane - nearPlane), -2.0*farPlane*nearPlane /(farPlane - nearPlane),
         0, 0, -1, 0
     );
 }

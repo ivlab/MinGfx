@@ -186,10 +186,10 @@ public:
     
     /// Returns a perspective projection matrix equivalent to the one gluPerspective
     /// creates.
-    static Matrix4 Perspective(float fovyInDegrees, float aspectRatio, float near, float far);
+    static Matrix4 Perspective(float fovyInDegrees, float aspectRatio, float nearPlane, float farPlane);
     
     /// Returns a projection matrix equivalent the one glFrustum creates
-    static Matrix4 Frustum(float left, float right, float bottom, float top, float near, float far);
+    static Matrix4 Frustum(float left, float right, float bottom, float top, float nearPlane, float farPlane);
 
     // --- Inverse, Transposeand Other General Matrix Functions ---
 

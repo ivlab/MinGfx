@@ -35,6 +35,7 @@ macro(AutoBuild_use_package_NanoGUI YOUR_TARGET INTERFACE_PUBLIC_OR_PRIVATE)
                 ${PACKAGE_NAME}
                 .
                 -DNANOGUI_BUILD_PYTHON=OFF
+				-DCMAKE_GENERATOR_PLATFORM=${CMAKE_GENERATOR_PLATFORM}
             )
 
 
