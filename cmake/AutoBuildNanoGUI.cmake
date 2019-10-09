@@ -35,9 +35,8 @@ macro(AutoBuild_use_package_NanoGUI YOUR_TARGET INTERFACE_PUBLIC_OR_PRIVATE)
                 ${PACKAGE_NAME}
                 .
                 -DNANOGUI_BUILD_PYTHON=OFF
-				-DCMAKE_GENERATOR_PLATFORM=${CMAKE_GENERATOR_PLATFORM}
+                -DCMAKE_DEBUG_POSTFIX=d
             )
-
 
             # NanoGUI's install doesn't seem to install its dependencies, so do it manually here.
             file(INSTALL ${AUTOBUILD_DOWNLOAD_DIR}/NanoGUI/src/ext/eigen/Eigen DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
@@ -49,10 +48,11 @@ macro(AutoBuild_use_package_NanoGUI YOUR_TARGET INTERFACE_PUBLIC_OR_PRIVATE)
                  FILES_MATCHING PATTERN "*.h")
 
             if (WIN32)
-                # And, the don't even install the .dll on Windows!  Come on nanogui guys, get your act together!
-                file(INSTALL ${CMAKE_BINARY_DIR}/external/NanoGUI/Debug/nanogui.dll DESTINATION ${CMAKE_INSTALL_PREFIX}/bin OPTIONAL)
-		#file(INSTALL ${CMAKE_BINARY_DIR}/external/NanoGUI/Release/nanogui.dll DESTINATION ${CMAKE_INSTALL_PREFIX}/bin OPTIONAL)
                 file(INSTALL ${AUTOBUILD_DOWNLOAD_DIR}/NanoGUI/src/ext/glad/include/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+
+                # And, the don't even install the .dll on Windows!  Come on nanogui guys, get your act together!
+                file(INSTALL ${CMAKE_BINARY_DIR}/external/NanoGUI/Release/nanogui.dll DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+                file(INSTALL ${CMAKE_BINARY_DIR}/external/NanoGUI/Debug/nanoguid.dll DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
             endif()
 
 
