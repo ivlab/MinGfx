@@ -169,7 +169,7 @@ void GraphicsApp::Run() {
     glfwSetTime(0.0);
     while (!glfwWindowShouldClose(window_)) {
 
-        // Poll for new user input events and call callbacks
+        // Wait for new user input events and call callbacks
         glfwWaitEvents();
 
         // Update the simulation, i.e., perform all non-graphics updates that
@@ -201,6 +201,8 @@ void GraphicsApp::Run() {
         glfwSwapBuffers(window_);
     }
     mainloop_active = false;
+    
+    refresh_thread.join()
     
     glfwTerminate();
 }
