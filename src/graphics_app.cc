@@ -5,14 +5,16 @@
  */
 
 #include "graphics_app.h"
+#include <thread>
+#include <chrono>
 
 
 namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
-    graphicsInitialized_(false), width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, int frameRate) :
+    graphicsInitialized_(false), width_(width), height_(height), frameRate_(frameRate), caption_(caption), lastDrawT_(0.0),
     leftDown_(false), middleDown_(false), rightDown_(false)
 {
 }
@@ -21,16 +23,16 @@ GraphicsApp::~GraphicsApp() {
 }
 
 void GraphicsApp::InitGraphicsContext() {
-    
+
     glfwInit();
-    
+
     glfwSetTime(0);
-    
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    
+
     glfwWindowHint(GLFW_SAMPLES, 0);
     glfwWindowHint(GLFW_RED_BITS, 8);
     glfwWindowHint(GLFW_GREEN_BITS, 8);
@@ -39,14 +41,14 @@ void GraphicsApp::InitGraphicsContext() {
     glfwWindowHint(GLFW_STENCIL_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-    
-    
+
+
     // on OSX, glfwCreateWindow bombs if we pass caption_.c_str() in for the 3rd
     // parameter perhaps because it's const.  so, copying to a tmp char array here.
     char *title = new char[caption_.size() + 1];
     strcpy(title, caption_.c_str());
     std::cout << caption_ << std::endl;
-    
+
     // Create a GLFWwindow object
     window_ = glfwCreateWindow(width_, height_, title, NULL, NULL);
     if (window_ == nullptr) {
@@ -59,26 +61,26 @@ void GraphicsApp::InitGraphicsContext() {
 
     // cleanup tmp title hack
     delete [] title;
-    
-    
+
+
 #if defined(NANOGUI_GLAD)
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
        throw std::runtime_error("Could not initialize GLAD!");
     glGetError(); // pull and ignore unhandled errors like GL_INVALID_ENUM
 #endif
-    
+
     glClearColor(0.2f, 0.25f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    
+
     // Create a nanogui screen and pass the glfw pointer to initialize
     screen_ = new nanogui::Screen();
     screen_->initialize(window_, true);
-    
+
     glfwGetFramebufferSize(window_, &width_, &height_);
     glViewport(0, 0, width_, height_);
     glfwSwapInterval(0);
     glfwSwapBuffers(window_);
-    
+
     screen_->setVisible(true);
     screen_->performLayout();
 
@@ -135,17 +137,17 @@ void GraphicsApp::InitGraphicsContext() {
  }
 
 
-    
+
 void GraphicsApp::Run() {
 
     if (!graphicsInitialized_) {
-        InitGraphicsContext();        
+        InitGraphicsContext();
     }
 
     InitNanoGUI();
 
     InitOpenGL();
-    
+
     // Main program loop
     glfwSetTime(0.0);
     while (!glfwWindowShouldClose(window_)) {
@@ -156,9 +158,23 @@ void GraphicsApp::Run() {
         // Update the simulation, i.e., perform all non-graphics updates that
         // should happen each frame.
         double now = glfwGetTime();
+
+        //If a framerate is specified, sleep until the minimum frame time has elapsed
+        if (frameRate_ != 0) {
+            double dt = now-lastDrawT_;
+            if (dt < 1.0 / frameRate_) {
+                //Not enough time has elapsed. Sleep to make up the difference.
+                int delay = 1000 * (1.0 / frameRate_ - dt);
+                std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+
+                //Since sleeping occured, recalulate 'now' for UpdateSimulation
+                now = glfwGetTime();
+            }
+        }
+
         UpdateSimulation(now-lastDrawT_);
         lastDrawT_ = now;
-        
+
         // Clear is handled in this mainloop so that drawing works even for
         // users who do not want to fill in DrawUsingOpenGL()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -168,27 +184,27 @@ void GraphicsApp::Run() {
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
         glEnable(GL_DEPTH_TEST);
-        
+
         // Users may fill this in to do raw OpenGL rendering
         DrawUsingOpenGL();
 
         // This renders the nanogui widgets created on screen_
         screen_->drawContents();
         screen_->drawWidgets();
-        
+
         // Users may fill this in to do additional 2D rendering with the NanoVG library
         DrawUsingNanoVG(screen_->nvgContext());
-        
+
         glfwSwapBuffers(window_);
     }
-    
+
     glfwTerminate();
 }
-    
+
 
 
 bool GraphicsApp::cursor_pos_glfw_cb(double x, double y) {
-    
+
     if (screen_->cursorPosCallbackEvent(x,y)) {
         // event was handled by nanogui
         lastMouse_ = Point2(x,y);
@@ -202,7 +218,7 @@ bool GraphicsApp::cursor_pos_glfw_cb(double x, double y) {
         if (!leftDown_ && !middleDown_ && !rightDown_) {
             mouse_move(cur, delta);
         }
-        
+
         // if a button is down, generate a corresponding mouse drag event
         if (leftDown_) {
             left_mouse_drag(cur, delta);
@@ -213,7 +229,7 @@ bool GraphicsApp::cursor_pos_glfw_cb(double x, double y) {
         if (rightDown_) {
             right_mouse_drag(cur, delta);
         }
-        
+
         lastMouse_ = cur;
         return false;
     }
@@ -370,14 +386,14 @@ bool GraphicsApp::IsRightMouseDown() {
     return (glfwGetMouseButton(window_, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS);
 }
 
-    
+
 
 float GraphicsApp::aspect_ratio() {
     int width, height;
     glfwGetFramebufferSize(window_, &width, &height);
     return (float)width/(float)height;
 }
-    
+
 int GraphicsApp::window_width() {
     int width, height;
     glfwGetWindowSize(window_, &width, &height);
@@ -401,7 +417,7 @@ int GraphicsApp::framebuffer_height() {
     glfwGetFramebufferSize(window_, &width, &height);
     return height;
 }
-    
+
 Point2 GraphicsApp::PixelsToNormalizedDeviceCoords(const Point2 &pointInPixels) {
     float x = (pointInPixels[0] / window_width()) * 2.0 - 1.0;
     float y = (1.0 - (pointInPixels[1] / window_height())) * 2.0 - 1.0;
@@ -431,7 +447,7 @@ float GraphicsApp::ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int w
     float x01 = pointInPixels[0] / window_width();
     float y01 = pointInPixels[1] / window_height();
     y01 = 1.0 - y01;
-    
+
     float x = x01 * (float)framebuffer_width();
     float y = y01 * (float)framebuffer_height();
 
@@ -439,8 +455,8 @@ float GraphicsApp::ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int w
     glReadPixels((int)x, (int)y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
     return z;
 }
-    
-    
+
+
 nanogui::Screen* GraphicsApp::screen() {
     return screen_;
 }
@@ -448,8 +464,8 @@ nanogui::Screen* GraphicsApp::screen() {
 GLFWwindow* GraphicsApp::window() {
     return window_;
 }
-    
-    
+
+
 void GraphicsApp::ResizeWindow(int new_width, int new_height) {
     glfwSetWindowSize(window_, new_width, new_height);
     width_ = new_width;
@@ -457,8 +473,8 @@ void GraphicsApp::ResizeWindow(int new_width, int new_height) {
     OnWindowResize(new_width, new_height);
 }
 
-    
-    
+
+
 
 
 } // end namespace
