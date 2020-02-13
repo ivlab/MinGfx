@@ -202,7 +202,7 @@ void GraphicsApp::Run() {
     }
     mainloop_active = false;
     
-    refresh_thread.join()
+    refresh_thread.join();
     
     glfwTerminate();
 }
