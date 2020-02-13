@@ -135,7 +135,8 @@ void GraphicsApp::InitGraphicsContext() {
     graphicsInitialized_ = true;
  }
 
-
+static bool mainloop_active = false;
+static std::chrono::milliseconds time(refresh);
     
 void GraphicsApp::Run() {
 
@@ -147,30 +148,33 @@ void GraphicsApp::Run() {
 
     InitOpenGL();
     
+    mainloop_active = true;
+    
+    //Set up an alternate thread for event polling
+    std::thread refresh_thread;
+    /* If there are no mouse/keyboard events, try to refresh the
+         view roughly every 17 ms (default); this is to support smooth
+         graphics while keeping the system load reasonably low */
+    int refresh = 1000 * (1.0 / frameRate_);
+    refresh_thread = std::thread(
+        [refresh]() {
+            while (mainloop_active) {
+                std::this_thread::sleep_for(time);
+                glfwPostEmptyEvent();
+            }
+        }
+    );
+    
     // Main program loop
     glfwSetTime(0.0);
     while (!glfwWindowShouldClose(window_)) {
 
         // Poll for new user input events and call callbacks
-        glfwPollEvents();
+        glfwWaitEvents();
 
         // Update the simulation, i.e., perform all non-graphics updates that
         // should happen each frame.
         double now = glfwGetTime();
-        
-        //If a framerate is specified, sleep until the minimum frame time has elapsed
-        if (frameRate_ != 0) {
-            double dt = now-lastDrawT_;
-            if (dt < 1.0 / frameRate_) {
-                //Not enough time has elapsed. Sleep to make up the difference.
-                int delay = 1000 * (1.0 / frameRate_ - dt);
-                std::this_thread::sleep_for(std::chrono::milliseconds(delay));
-
-                //Since sleeping occured, recalulate 'now' for UpdateSimulation
-                now = glfwGetTime();
-            }
-        }
-        
         UpdateSimulation(now-lastDrawT_);
         lastDrawT_ = now;
         
@@ -196,6 +200,7 @@ void GraphicsApp::Run() {
         
         glfwSwapBuffers(window_);
     }
+    mainloop_active = false;
     
     glfwTerminate();
 }

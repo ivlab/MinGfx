@@ -132,7 +132,7 @@ public:
      \param height The height of the client area of the window in pixels.
      \param caption The caption for the window's title bar.
      */
-    GraphicsApp(int width, int height, const std::string &caption, int frameRate=0);
+    GraphicsApp(int width, int height, const std::string &caption, int frameRate=60);
 
 
     /// The destructor will shutdown the graphics system and window
