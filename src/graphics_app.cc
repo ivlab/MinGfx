@@ -136,7 +136,6 @@ void GraphicsApp::InitGraphicsContext() {
  }
 
 static bool mainloop_active = false;
-static std::chrono::milliseconds time(refresh);
     
 void GraphicsApp::Run() {
 
@@ -158,6 +157,7 @@ void GraphicsApp::Run() {
     int refresh = 1000 * (1.0 / frameRate_);
     refresh_thread = std::thread(
         [refresh]() {
+            std::chrono::milliseconds time(refresh);
             while (mainloop_active) {
                 std::this_thread::sleep_for(time);
                 glfwPostEmptyEvent();
