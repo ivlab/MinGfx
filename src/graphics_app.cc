@@ -5,14 +5,15 @@
  */
 
 #include "graphics_app.h"
-
+#include <thread>
+#include <chrono>
 
 namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
-    graphicsInitialized_(false), width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, int frameRate) :
+    graphicsInitialized_(false), width_(width), height_(height), frameRate_(frameRate), caption_(caption), lastDrawT_(0.0),
     leftDown_(false), middleDown_(false), rightDown_(false)
 {
 }
@@ -156,6 +157,20 @@ void GraphicsApp::Run() {
         // Update the simulation, i.e., perform all non-graphics updates that
         // should happen each frame.
         double now = glfwGetTime();
+        
+        //If a framerate is specified, sleep until the minimum frame time has elapsed
+        if (frameRate_ != 0) {
+            double dt = now-lastDrawT_;
+            if (dt < 1.0 / frameRate_) {
+                //Not enough time has elapsed. Sleep to make up the difference.
+                int delay = 1000 * (1.0 / frameRate_ - dt);
+                std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+
+                //Since sleeping occured, recalulate 'now' for UpdateSimulation
+                now = glfwGetTime();
+            }
+        }
+        
         UpdateSimulation(now-lastDrawT_);
         lastDrawT_ = now;
         
