@@ -132,7 +132,7 @@ public:
      \param height The height of the client area of the window in pixels.
      \param caption The caption for the window's title bar.
      */
-    GraphicsApp(int width, int height, const std::string &caption);
+    GraphicsApp(int width, int height, const std::string &caption, int frameRate=60);
 
 
     /// The destructor will shutdown the graphics system and window
@@ -455,6 +455,7 @@ private:
     bool graphicsInitialized_;
     int width_;
     int height_;
+    int frameRate_;
     const std::string caption_;
     nanogui::Screen *screen_;
     GLFWwindow* window_;
@@ -469,4 +470,3 @@ private:
 } // end namespace
 
 #endif
-

@@ -5,14 +5,15 @@
  */
 
 #include "graphics_app.h"
-
+#include <thread>
+#include <chrono>
 
 namespace mingfx {
 
 
 
-GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
-    graphicsInitialized_(false), width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
+GraphicsApp::GraphicsApp(int width, int height, const std::string &caption, int frameRate) :
+    graphicsInitialized_(false), width_(width), height_(height), frameRate_(frameRate), caption_(caption), lastDrawT_(0.0),
     leftDown_(false), middleDown_(false), rightDown_(false)
 {
 }
@@ -134,7 +135,7 @@ void GraphicsApp::InitGraphicsContext() {
     graphicsInitialized_ = true;
  }
 
-
+static bool mainloop_active = false;
     
 void GraphicsApp::Run() {
 
@@ -146,12 +147,30 @@ void GraphicsApp::Run() {
 
     InitOpenGL();
     
+    mainloop_active = true;
+    
+    //Set up an alternate thread for event polling
+    std::thread refresh_thread;
+    /* If there are no mouse/keyboard events, try to refresh the
+         view roughly every 17 ms (default); this is to support smooth
+         graphics while keeping the system load reasonably low */
+    int refresh = 1000 * (1.0 / frameRate_);
+    refresh_thread = std::thread(
+        [refresh]() {
+            std::chrono::milliseconds time(refresh);
+            while (mainloop_active) {
+                std::this_thread::sleep_for(time);
+                glfwPostEmptyEvent();
+            }
+        }
+    );
+    
     // Main program loop
     glfwSetTime(0.0);
     while (!glfwWindowShouldClose(window_)) {
 
-        // Poll for new user input events and call callbacks
-        glfwPollEvents();
+        // Wait for new user input events and call callbacks
+        glfwWaitEvents();
 
         // Update the simulation, i.e., perform all non-graphics updates that
         // should happen each frame.
@@ -181,6 +200,9 @@ void GraphicsApp::Run() {
         
         glfwSwapBuffers(window_);
     }
+    mainloop_active = false;
+    
+    refresh_thread.join();
     
     glfwTerminate();
 }
