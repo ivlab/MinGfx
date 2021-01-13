@@ -286,17 +286,21 @@ public:
     /// The total number of vertices in the mesh.
     int num_vertices() const;
     
-    /// Indexed by vertex number.  Also see num_vertices().
-    Point3 vertex(int vertex_id) const;
+    /// Read only access to the vertex position data.  Data are returned as a Point3.  Indexed by vertex number.  Also see num_vertices().
+	/// Use the SetVertices() function to set (or edit) vertex data.
+	Point3 read_vertex_data(int vertex_id) const;
     
-    /// Indexed by vertex number.  Also see num_vertices().
-    Vector3 normal(int vertex_id) const;
+    /// Read only access to per-vertex normal data.  Data are returned as a Vector3.  Indexed by vertex number.  Also see num_vertices().
+	/// Use the SetNormals() function to set (or edit) per-vertex normal data.
+	Vector3 read_normal_data(int vertex_id) const;
     
-    /// Indexed by vertex number.  Also see num_vertices().
-    Color color(int vertex_id) const;
+    /// Read only access to per-vertex color data.  Data are returned as a Color.  Indexed by vertex number.  Also see num_vertices().
+    /// Use the SetColors() function to set (or edit) per-vertex color data.
+	Color read_color_data(int vertex_id) const;
     
-    /// Indexed by vertex number.  Also see num_vertices().
-    Point2 tex_coords(int texture_unit, int vertex_id) const;
+    /// Read only access to per-vertex texture coordinates data.  Data are returned as a Point2.  Indexed by vertex number.  Also see num_vertices().
+    /// Use the SetTexCoords() function to set (or edit) per-vertex tex coords.
+	Point2 read_tex_coords_data(int texture_unit, int vertex_id) const;
     
     
     // Access to triangles
@@ -304,9 +308,9 @@ public:
     /// The total number of triangles in the mesh.
     int num_triangles() const;
     
-    /// Returns a 3 element array of the indices to the vertices that make up
-    /// the specified triangle.
-    std::vector<unsigned int> triangle_vertices(int triangle_id) const;
+    /// Read only access to the indices that make up a particular triangle.  Data are returned as a 3-element array
+    // of unsigned ints.  Use the SetIndices() function to set (or edit) the indices for the mesh.
+	std::vector<unsigned int> read_triangle_indices_data(int triangle_id) const;
     
    
 private:

@@ -47,10 +47,10 @@ AABB::AABB(const Point3 &a, const Point3 &b, const Point3 &c) {
 
     
 AABB::AABB(const Mesh &mesh, unsigned int tri_id) {
-    std::vector<unsigned int> indices = mesh.triangle_vertices(tri_id);
-    Point3 a = mesh.vertex(indices[0]);
-    Point3 b = mesh.vertex(indices[1]);
-    Point3 c = mesh.vertex(indices[2]);
+    std::vector<unsigned int> indices = mesh.read_triangle_indices_data(tri_id);
+    Point3 a = mesh.read_vertex_data(indices[0]);
+    Point3 b = mesh.read_vertex_data(indices[1]);
+    Point3 c = mesh.read_vertex_data(indices[2]);
     
     min_ = a;
     min_[0] = std::min(min_[0], b[0]);
@@ -75,7 +75,7 @@ AABB::AABB(const Mesh &mesh) {
     max_[0] = max_[1] = max_[2] = -std::numeric_limits<float>::max();
     
     for (int i=0; i < mesh.num_vertices(); i++) {
-        Point3 a = mesh.vertex(i);
+        Point3 a = mesh.read_vertex_data(i);
         min_[0] = std::min(min_[0], a[0]);
         min_[1] = std::min(min_[1], a[1]);
         min_[2] = std::min(min_[2], a[2]);

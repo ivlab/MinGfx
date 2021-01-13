@@ -215,8 +215,8 @@ namespace mingfx {
         for (int i=0; i<mesh.num_triangles(); i++) {
             Point3 p;
             float t;
-            std::vector<unsigned int> indices = mesh.triangle_vertices(i);
-            if (IntersectTriangle(mesh.vertex(indices[0]), mesh.vertex(indices[1]), mesh.vertex(indices[2]), &t, &p)) {
+            std::vector<unsigned int> indices = mesh.read_triangle_indices_data(i);
+            if (IntersectTriangle(mesh.read_vertex_data(indices[0]), mesh.read_vertex_data(indices[1]), mesh.read_vertex_data(indices[2]), &t, &p)) {
                 if ((*iTime < 0.0) || (t < *iTime)) {
                     *iPoint = p;
                     *iTime = t;
@@ -236,8 +236,8 @@ namespace mingfx {
             for (int i=0; i<tri_ids.size(); i++) {
                 Point3 p;
                 float t;
-                std::vector<unsigned int> indices = mesh->triangle_vertices(tri_ids[i]);
-                if (IntersectTriangle(mesh->vertex(indices[0]), mesh->vertex(indices[1]), mesh->vertex(indices[2]), &t, &p)) {
+                std::vector<unsigned int> indices = mesh->read_triangle_indices_data(tri_ids[i]);
+                if (IntersectTriangle(mesh->read_vertex_data(indices[0]), mesh->read_vertex_data(indices[1]), mesh->read_vertex_data(indices[2]), &t, &p)) {
                     if ((*iTime < 0.0) || (t < *iTime)) {
                         *iPoint = p;
                         *iTime = t;

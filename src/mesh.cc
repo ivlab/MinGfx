@@ -576,24 +576,23 @@ void Mesh::LoadFromOBJ(const std::string &filename) {
 
 
 
-Point3 Mesh::vertex(int i) const {
+Point3 Mesh::read_vertex_data(int i) const {
     return Point3(verts_[3*i], verts_[3*i+1], verts_[3*i+2]);
 }
 
-Vector3 Mesh::normal(int i) const {
+Vector3 Mesh::read_normal_data(int i) const {
     return Vector3(norms_[3*i], norms_[3*i+1], norms_[3*i+2]);
 }
 
-Color Mesh::color(int i) const {
+Color Mesh::read_color_data(int i) const {
     return Color(colors_[4*i], colors_[4*i+1], colors_[4*i+2], colors_[4*i+3]);
-    
 }
 
-Point2 Mesh::tex_coords(int textureUnit, int i) const {
+Point2 Mesh::read_tex_coords_data(int textureUnit, int i) const {
     return Point2(tex_coords_[textureUnit][2*i], tex_coords_[textureUnit][2*i+1]);
 }
 
-std::vector<unsigned int> Mesh::triangle_vertices(int triangle_id) const {
+std::vector<unsigned int> Mesh::read_triangle_indices_data(int triangle_id) const {
     std::vector<unsigned int> tri;
     int i = 3*triangle_id;
     if (indices_.size()) {
@@ -615,10 +614,10 @@ std::vector<unsigned int> Mesh::triangle_vertices(int triangle_id) const {
 void Mesh::CalcPerFaceNormals() {
     std::vector<Vector3> norms(num_vertices());
     for (int i=0; i<num_triangles(); i++) {
-        std::vector<unsigned int> indices = triangle_vertices(i);
-        Point3 a = vertex(indices[0]);
-        Point3 b = vertex(indices[1]);
-        Point3 c = vertex(indices[2]);
+        std::vector<unsigned int> indices = read_triangle_indices_data(i);
+        Point3 a = read_vertex_data(indices[0]);
+        Point3 b = read_vertex_data(indices[1]);
+        Point3 c = read_vertex_data(indices[2]);
         Vector3 n = Vector3::Cross(b-a, c-a).ToUnit();
         norms[indices[0]] = n;
         norms[indices[1]] = n;
@@ -631,10 +630,10 @@ void Mesh::CalcPerFaceNormals() {
 void Mesh::CalcPerVertexNormals() {
     std::vector<Vector3> norms(num_vertices());
     for (int i=0; i<num_triangles(); i++) {
-        std::vector<unsigned int> indices = triangle_vertices(i);
-        Point3 a = vertex(indices[0]);
-        Point3 b = vertex(indices[1]);
-        Point3 c = vertex(indices[2]);
+        std::vector<unsigned int> indices = read_triangle_indices_data(i);
+        Point3 a = read_vertex_data(indices[0]);
+        Point3 b = read_vertex_data(indices[1]);
+        Point3 c = read_vertex_data(indices[2]);
         Vector3 n = Vector3::Cross(b-a, c-a);
         norms[indices[0]] = norms[indices[0]] + n;
         norms[indices[1]] = norms[indices[1]] + n;
