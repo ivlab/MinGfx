@@ -186,10 +186,10 @@ public:
     
     /// Returns a perspective projection matrix equivalent to the one gluPerspective
     /// creates.
-    static Matrix4 Perspective(float fovyInDegrees, float aspectRatio, float nearPlane, float farPlane);
+    static Matrix4 Perspective(float fov_y_in_degrees, float aspect_ratio, float near_plane_dist, float far_plane_dist);
     
     /// Returns a projection matrix equivalent the one glFrustum creates
-    static Matrix4 Frustum(float left, float right, float bottom, float top, float nearPlane, float farPlane);
+    static Matrix4 Frustum(float left, float right, float bottom, float top, float near_plane_dist, float far_plane_dist);
 
     // --- Inverse, Transposeand Other General Matrix Functions ---
 
@@ -208,7 +208,7 @@ public:
 
     /// Returns the determinant of the 3x3 matrix formed by excluding the specified
     /// row and column from the 4x4 matrix.
-    float SubDeterminant(int excludeRow, int excludeCol) const;
+    float SubDeterminant(int exclude_row, int exclude_col) const;
 
     /// Returns the cofactor matrix.
     Matrix4 Cofactor() const;

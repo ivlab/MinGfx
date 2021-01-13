@@ -39,13 +39,25 @@ Texture2D::~Texture2D() {
         //stbi_image_free(data_);
     }
 
-    // Delete GL's version of the texture on the GPU
-    glDeleteTextures(1, &texID_);
+    // This is how to delete GL's version of the texture on the GPU
+    // but you have to be very careful with this.  For example, if we cause
+    // C++ to make a tmp copy of the Texture2D or we do an assignment tex1=tex2
+    // we now have two Texture2D objects pointing to the same OpenGL texture id.
+    // If one of them is deleted before the other, then the other will not be
+    // able to draw itself because the OpenGL tex id will be invalid.  For now,
+    // this is "addressed" by simply skipping the glDeleteTextures call.  This
+    // leads to some wasted OpenGL memory, and that would be a good thing to
+    // fix in the future, maybe via a shared_ptr or static refcount that maps
+    // opengl texids to a count of Texture2D objects that reference them.  Then,
+    // only delete the opengl tex if the refcount would go to 0.
+    //glDeleteTextures(1, &texID_);
 }
 
     
 bool Texture2D::InitFromFile(const std::string &filename) {
     handleMemInternally_ = true;
+    dataType_ = GL_UNSIGNED_BYTE;
+
 
     std::cout << "Loading texture from file: " << filename << std::endl;
 

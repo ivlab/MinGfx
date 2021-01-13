@@ -469,7 +469,7 @@ function(AutoBuild_download_project EXT_PROJECT_NAME)
     message(STATUS "AutoBuild: Building the ${EXT_PROJECT_NAME} download helper project.  (This actually performs the download and may take some time...)")
     execute_process(COMMAND "${CMAKE_COMMAND}" --build . WORKING_DIRECTORY "${AUTOBUILD_DOWNLOAD_DIR}/${EXT_PROJECT_NAME}/download-helper" OUTPUT_VARIABLE stdout ERROR_VARIABLE stderr RESULT_VARIABLE exitcode)
     if(NOT "${exitcode}" STREQUAL "0")
-        message(SEND_ERROR "AutoBuild: Error running download helper project: ${stdout} ${stderr}")
+        message(FATAL_ERROR "AutoBuild: Error running download helper project: ${stdout} ${stderr}")
     endif()
 
     message(STATUS "AutoBuild: Completed download of external project ${EXT_PROJECT_NAME}.")
@@ -491,9 +491,15 @@ endfunction()
 #     etc..
 # )
 function(AutoBuild_build_and_install_project EXT_PROJECT_NAME RELPATH_TO_CMAKELISTS)
-
     big_message("AUTOBUILD: BEGIN EXTERNAL PROJECT BUILD AND INSTALL (${EXT_PROJECT_NAME}).")
+    AutoBuild_configure_project( ${EXT_PROJECT_NAME} ${RELPATH_TO_CMAKELISTS} ${ARGN})
+    AutoBuild_build_and_install_debug( ${EXT_PROJECT_NAME} ${RELPATH_TO_CMAKELISTS} ${ARGN})
+    AutoBuild_build_and_install_release( ${EXT_PROJECT_NAME} ${RELPATH_TO_CMAKELISTS} ${ARGN})
+    message(STATUS "AutoBuild: Completed external build of ${EXT_PROJECT_NAME}.\n\n")
+endfunction()
 
+
+function(AutoBuild_configure_project EXT_PROJECT_NAME RELPATH_TO_CMAKELISTS)
     # any extra args to the function are interpreted as arguments for the cmake config process
     set(CMAKE_CONFIG_OPTIONS ${ARGN})
 
@@ -514,21 +520,26 @@ function(AutoBuild_build_and_install_project EXT_PROJECT_NAME RELPATH_TO_CMAKELI
     if(NOT "${exitcode}" STREQUAL "0")
         message(FATAL_ERROR "AutoBuild: Error generating build files for external project: ${stdout} ${stderr}")
     endif()
+endfunction()
 
+
+function(AutoBuild_build_and_install_debug EXT_PROJECT_NAME RELPATH_TO_CMAKELISTS)
     message(STATUS "AutoBuild: Building external project ${EXT_PROJECT_NAME} (Configuration = Debug).  (This may take some time...)")
+    set(BUILD_DIR "${CMAKE_BINARY_DIR}/external/${EXT_PROJECT_NAME}")
     execute_process(COMMAND "${CMAKE_COMMAND}" --build ${BUILD_DIR} --config Debug --target install OUTPUT_VARIABLE stdout ERROR_VARIABLE stderr RESULT_VARIABLE exitcode)
     if(NOT "${exitcode}" STREQUAL "0")
         message(FATAL_ERROR "AutoBuild: Error building Debug configuration for external project: ${stdout} ${stderr}")
     endif()
+endfunction()
 
+
+function(AutoBuild_build_and_install_release EXT_PROJECT_NAME RELPATH_TO_CMAKELISTS)
     message(STATUS "AutoBuild: Building external project ${EXT_PROJECT_NAME} (Configuration = Release).  (This may take some time...)")
+    set(BUILD_DIR "${CMAKE_BINARY_DIR}/external/${EXT_PROJECT_NAME}")
     execute_process(COMMAND "${CMAKE_COMMAND}" --build ${BUILD_DIR} --config Release --target install OUTPUT_VARIABLE stdout ERROR_VARIABLE stderr RESULT_VARIABLE exitcode)
     if(NOT "${exitcode}" STREQUAL "0")
         message(FATAL_ERROR "AutoBuild: Error building Release configuration for external project: ${stdout} ${stderr}")
     endif()
-
-    message(STATUS "AutoBuild: Completed external build of ${EXT_PROJECT_NAME}.\n\n")
-
 endfunction()
 
 

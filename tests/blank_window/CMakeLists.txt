@@ -5,7 +5,7 @@ project(mingfx-test-blank-window)
 
 
 # Source:
-set (SOURCEFILES 
+set (SOURCEFILES
   main.cc
 )
 set (HEADERFILES
@@ -39,4 +39,3 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER "Tests")
 source_group("Header Files" FILES ${HEADERFILES})
 set_source_files_properties(${CONFIGFILES} PROPERTIES HEADER_FILE_ONLY TRUE)
 source_group("Config Files" FILES ${CONFIGFILES})
-

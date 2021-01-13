@@ -80,11 +80,6 @@ namespace mingfx {
     
     virtual ~MyApp() {}
 
- 
-    void OnMouseMove(const Point2 &pos, const Vector2 &delta) {
-        std::cout << "Mouse moved to " << pos << std::endl;
-    }
-
     void InitNanoGUI() {
         // Setup the GUI window
         nanogui::Window *window = new nanogui::Window(screen(), "My GUI Panel");
@@ -93,7 +88,7 @@ namespace mingfx {
         window->setLayout(new nanogui::GroupLayout());
  
         nanogui::Button pause_btn = new nanogui::Button(window, "Pause");
-        pause_btn->setCallback(std::bind(&QuakeApp::OnPauseBtnPressed, this));
+        pause_btn->setCallback(std::bind(&MyApp::OnPauseBtnPressed, this));
         pause_btn->setTooltip("Toggle playback.");
  
         screen()->performLayout();
@@ -102,7 +97,17 @@ namespace mingfx {
     void InitOpenGL() {
         glClearColor(0.0, 0.0, 0.0, 1);
     }
- 
+
+    // this callback is for the nanogui pause_btn defined above
+    void OnPauseBtnPressed() {
+        std::cout << "Pause pressed." << std::endl;	
+    }
+    
+    // this callback is built into the base GraphicsApp class
+    void OnMouseMove(const Point2 &pos, const Vector2 &delta) {
+        std::cout << "Mouse moved to " << pos << std::endl;
+    }
+  
     void DrawUsingOpenGL() {
         Matrix4 model = Matrix4::Translation(Vector3(-1,0,0)) * Matrix4::Scale(Vector3(0.5, 0.5, 0.5));
         Matrix4 view = Matrix4::LookAt(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0));
