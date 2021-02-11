@@ -10,6 +10,8 @@
 #include <math.h>
 #include <string.h>
 
+#include "gfxmath.h"
+
 namespace mingfx {
 
     
@@ -108,8 +110,8 @@ Matrix4 Matrix4::Translation(const Vector3& v) {
 
     
 Matrix4 Matrix4::RotationX(const float radians) {
-    const float cosTheta = cos(radians);
-    const float sinTheta = sin(radians);
+    const float cosTheta = GfxMath::cos(radians);
+    const float sinTheta = GfxMath::sin(radians);
     return Matrix4::FromRowMajorElements(
         1, 0, 0, 0,
         0, cosTheta, -sinTheta, 0,
@@ -120,8 +122,8 @@ Matrix4 Matrix4::RotationX(const float radians) {
 
     
 Matrix4 Matrix4::RotationY(const float radians) {
-    const float cosTheta = cos(radians);
-    const float sinTheta = sin(radians);
+    const float cosTheta = GfxMath::cos(radians);
+    const float sinTheta = GfxMath::sin(radians);
     return Matrix4::FromRowMajorElements(
         cosTheta, 0, sinTheta, 0,
         0, 1, 0, 0,
@@ -132,8 +134,8 @@ Matrix4 Matrix4::RotationY(const float radians) {
 
     
 Matrix4 Matrix4::RotationZ(const float radians) {
-    const float cosTheta = cos(radians);
-    const float sinTheta = sin(radians);
+    const float cosTheta = GfxMath::cos(radians);
+    const float sinTheta = GfxMath::sin(radians);
     return Matrix4::FromRowMajorElements(
         cosTheta, -sinTheta, 0, 0,
         sinTheta, cosTheta, 0, 0,
@@ -146,8 +148,8 @@ Matrix4 Matrix4::RotationZ(const float radians) {
 Matrix4 Matrix4::Rotation(const Point3& p, const Vector3& v, const float a) {
     const float vZ = v[2];
     const float vX = v[0];
-    const float theta = atan2(vZ, vX);
-    const float phi   = -atan2((float)v[1], (float)sqrt(vX * vX + vZ * vZ));
+    const float theta = GfxMath::atan2(vZ, vX);
+    const float phi   = -GfxMath::atan2((float)v[1], (float)sqrt(vX * vX + vZ * vZ));
 
     const Matrix4 transToOrigin = Matrix4::Translation(-1.0*Vector3(p[0], p[1], p[2]));
     const Matrix4 A = Matrix4::RotationY(theta);

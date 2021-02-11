@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 
+#include "gfxmath.h"
 
 namespace mingfx {
     
@@ -180,10 +181,10 @@ void QuickShapes::initCyl() {
     
     const int nslices = 20;
     for (int s=1; s<nslices+1; s++) {
-        GLfloat xlast = std::cos(-TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat zlast = std::sin(-TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat xnew = std::cos(-TWOPI * (float)(s)/(float)nslices);
-        GLfloat znew = std::sin(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat xlast = GfxMath::cos(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat zlast = GfxMath::sin(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat xnew = GfxMath::cos(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat znew = GfxMath::sin(-TWOPI * (float)(s)/(float)nslices);
         
         // one triangle on the top
         verts.push_back(top);
@@ -252,10 +253,10 @@ void QuickShapes::initCone() {
     
     const int nslices = 20;
     for (int s=1; s<nslices+1; s++) {
-        GLfloat xlast = std::cos(-TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat zlast = std::sin(-TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat xnew = std::cos(-TWOPI * (float)(s)/(float)nslices);
-        GLfloat znew = std::sin(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat xlast = GfxMath::cos(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat zlast = GfxMath::sin(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat xnew = GfxMath::cos(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat znew = GfxMath::sin(-TWOPI * (float)(s)/(float)nslices);
         
         // one triangle on the side
         // normals are a bit more complex than for other shapes...
@@ -322,26 +323,30 @@ void QuickShapes::initSph() {
     const int nslices = 40;
     const int nstacks = 40;
     for (int s=1; s<nslices+1; s++) {
-        GLfloat xlast = std::cos(-TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat zlast = std::sin(-TWOPI * (float)(s-1)/(float)nslices);
-        GLfloat xnew = std::cos(-TWOPI * (float)(s)/(float)nslices);
-        GLfloat znew = std::sin(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat xlast = GfxMath::cos(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat zlast = GfxMath::sin(-TWOPI * (float)(s-1)/(float)nslices);
+        GLfloat xnew = GfxMath::cos(-TWOPI * (float)(s)/(float)nslices);
+        GLfloat znew = GfxMath::sin(-TWOPI * (float)(s)/(float)nslices);
         
         float stackstep = PI/(float)nstacks;
         
         // one triangle on the top
         verts.push_back(top);
-        verts.push_back(Vertex(std::sin(stackstep)*xlast,std::cos(stackstep),std::sin(stackstep)*zlast,
-                               std::sin(stackstep)*xlast,std::cos(stackstep),std::sin(stackstep)*zlast));
-        verts.push_back(Vertex(std::sin(stackstep)*xnew,std::cos(stackstep),std::sin(stackstep)*znew,
-                               std::sin(stackstep)*xnew,std::cos(stackstep),std::sin(stackstep)*znew));
+        verts.push_back(Vertex(GfxMath::sin(stackstep)*xlast,GfxMath::cos(stackstep),
+                               GfxMath::sin(stackstep)*zlast,
+                               GfxMath::sin(stackstep)*xlast,GfxMath::cos(stackstep),
+                               GfxMath::sin(stackstep)*zlast));
+        verts.push_back(Vertex(GfxMath::sin(stackstep)*xnew,GfxMath::cos(stackstep),
+                               GfxMath::sin(stackstep)*znew,
+                               GfxMath::sin(stackstep)*xnew,GfxMath::cos(stackstep),
+                               GfxMath::sin(stackstep)*znew));
         
         for (int t=2; t<nstacks; t++) {
-            GLfloat ylast = std::cos(PI*(float)(t-1)/(float)nstacks);
-            GLfloat ynew = std::cos(PI*(float)(t)/(float)nstacks);
+            GLfloat ylast = GfxMath::cos(PI*(float)(t-1)/(float)nstacks);
+            GLfloat ynew = GfxMath::cos(PI*(float)(t)/(float)nstacks);
             
-            GLfloat rlast = std::sin(PI * (float)(t-1)/(float)nstacks);
-            GLfloat rnew = std::sin(PI * (float)(t)/(float)nstacks);
+            GLfloat rlast = GfxMath::sin(PI * (float)(t-1)/(float)nstacks);
+            GLfloat rnew = GfxMath::sin(PI * (float)(t)/(float)nstacks);
             
             // two triangles to create a rect on the side
             verts.push_back(Vertex(rlast*xlast,ylast,rlast*zlast, rlast*xlast,ylast,rlast*zlast));
@@ -355,10 +360,14 @@ void QuickShapes::initSph() {
         
         // one triangle on the bottom
         verts.push_back(bot);
-        verts.push_back(Vertex(std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew,
-                               std::sin(stackstep)*xnew,std::cos(PI-stackstep),std::sin(stackstep)*znew));
-        verts.push_back(Vertex(std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast,
-                               std::sin(stackstep)*xlast,std::cos(PI-stackstep),std::sin(stackstep)*zlast));
+        verts.push_back(Vertex(GfxMath::sin(stackstep)*xnew,GfxMath::cos(PI-stackstep),
+                               GfxMath::sin(stackstep)*znew,
+                               GfxMath::sin(stackstep)*xnew,GfxMath::cos(PI-stackstep),
+                               GfxMath::sin(stackstep)*znew));
+        verts.push_back(Vertex(GfxMath::sin(stackstep)*xlast,GfxMath::cos(PI-stackstep),
+                               GfxMath::sin(stackstep)*zlast,
+                               GfxMath::sin(stackstep)*xlast,GfxMath::cos(PI-stackstep),
+                               GfxMath::sin(stackstep)*zlast));
     }
     
     GLfloat *vertices = new GLfloat[3*verts.size()];

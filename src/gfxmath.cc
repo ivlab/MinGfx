@@ -16,6 +16,62 @@
 namespace mingfx {
     
 
+float GfxMath::sin(float a) {
+#ifdef WIN32
+    return std::sinf(a);
+#else
+    return std::sin(a);
+#endif
+}
+
+float GfxMath::cos(float a) {
+#ifdef WIN32
+    return std::cosf(a);
+#else
+    return std::cos(a);
+#endif
+}
+
+float GfxMath::tan(float a) {
+#ifdef WIN32
+    return std::tanf(a);
+#else
+    return std::tan(a);
+#endif
+}
+
+float GfxMath::asin(float a) {
+#ifdef WIN32
+    return std::asinf(a);
+#else
+    return std::asin(a);
+#endif
+}
+
+float GfxMath::acos(float a) {
+#ifdef WIN32
+    return std::acosf(a);
+#else
+    return std::acos(a);
+#endif
+}
+
+float GfxMath::atan(float a) {
+#ifdef WIN32
+    return std::atanf(a);
+#else
+    return std::atan(a);
+#endif
+}
+
+float GfxMath::atan2(float a, float b) {
+#ifdef WIN32
+    return std::atan2f(a, b);
+#else
+    return std::atan2(a, b);
+#endif
+}
+
 float GfxMath::Clamp(float x, float a, float b) {
     return std::min(std::max(x, a), b);
 }    

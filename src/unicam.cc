@@ -191,7 +191,7 @@ void UniCam::OnDrag(const Point2 &mousePos) {
                 Vector3 v2 = (iPoint2 - boundingSphereCtr_).ToUnit();
                 
                 rotAxis_ = v1.Cross(v2).ToUnit();
-                float angle = std::acos(v1.Dot(v2));
+                float angle = GfxMath::acos(v1.Dot(v2));
 
                 if (std::isfinite(angle)) {
                     Matrix4 R = Matrix4::Rotation(boundingSphereCtr_, rotAxis_, angle);

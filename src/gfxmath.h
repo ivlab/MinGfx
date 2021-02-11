@@ -28,6 +28,22 @@ namespace mingfx {
 class GfxMath {
 public:
 
+    /// MinGfx specific implementations of trigonometric functions included to
+    /// solve compilation issues between different platforms.
+    static float sin(float a);
+
+    static float cos(float a);
+
+    static float tan(float a);
+
+    static float asin(float a);
+
+    static float acos(float a);
+
+    static float atan(float a);
+
+    static float atan2(float a, float b);
+
     /// Returns a if x is less than a and b if x is greater than b.
     static float Clamp(float x, float a, float b);
         
