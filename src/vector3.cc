@@ -57,8 +57,8 @@ bool Vector3::operator==(const Vector3& other) const {
 }
   
 bool Vector3::operator!=(const Vector3& other) const {
-    return (fabs(other[0] - v[0]) >= MINGFX_MATH_EPSILON &&
-            fabs(other[1] - v[1]) >= MINGFX_MATH_EPSILON &&
+    return (fabs(other[0] - v[0]) >= MINGFX_MATH_EPSILON ||
+            fabs(other[1] - v[1]) >= MINGFX_MATH_EPSILON ||
             fabs(other[2] - v[2]) >= MINGFX_MATH_EPSILON);
 }
 
