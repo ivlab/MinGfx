@@ -50,7 +50,7 @@ bool Vector2::operator==(const Vector2& other) const {
 }
 
 bool Vector2::operator!=(const Vector2& other) const {
-    return (fabs(other[0] - v[0]) >= MINGFX_MATH_EPSILON &&
+    return (fabs(other[0] - v[0]) >= MINGFX_MATH_EPSILON ||
             fabs(other[1] - v[1]) >= MINGFX_MATH_EPSILON);
 }
 
