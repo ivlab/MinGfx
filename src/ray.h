@@ -33,14 +33,13 @@ namespace mingfx {
  Example:
  ~~~
  // Create a pick ray from the mouse position
- void MyGraphicsApp::OnLeftMouseDown(const Point2 &pos) {
-    Point2 mouse_xy = PixelsToNormalizedDeviceCoords(pos);
-    float mouse_z = ReadZValueAtPixel(pos);
-    Point3 mouse_3d = GfxMath::ScreenToNearPlane(view_matrix, proj_matrix, mouse_xy, mouse_z);
+ void MyGraphicsApp::OnLeftMouseDown(const Point2 &mouse_in_2d_pixels) {
+    Point2 mouse_in_2d_ndc = PixelsToNormalizedDeviceCoords(mouse_in_2d_pixels);
+    Point3 mouse_in_3d = GfxMath::ScreenToNearPlane(view_matrix, proj_matrix, mouse_in_2d_ndc);
     Matrix4 camera_matrix = view_matrix.Inverse();
     Point3 eye = camera_matrix.ColumnToPoint3(3);
  
-    Ray pick_ray(eye, mouse_3d - eye);
+    Ray pick_ray(eye, mouse_in_3d - eye);
  
     // check to see if the ray intersects a sphere
     float t;
