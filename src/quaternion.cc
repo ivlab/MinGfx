@@ -116,12 +116,13 @@ Quaternion Quaternion::Slerp(const Quaternion &other, float alpha) const {
         return result;
     }
     
-    GfxMath::Clamp(dot, -1, 1);        // Robustness: Stay within domain of acos()
-    float theta_0 = acos(dot);        // theta_0 = angle between input vectors
-    float theta = theta_0 * alpha;    // theta = angle between v0 and result
+    GfxMath::Clamp(dot, -1, 1);         // Robustness: Stay within domain of acos()
+    float theta_0 = GfxMath::acos(dot); // theta_0 = angle between input vectors
+    float theta = theta_0 * alpha;      // theta = angle between v0 and result
     
-    float s0 = cos(theta) - dot * sin(theta) / sin(theta_0);  // == sin(theta_0 - theta) / sin(theta_0)
-    float s1 = sin(theta) / sin(theta_0);
+    float s0 = GfxMath::cos(theta) - dot
+             * GfxMath::sin(theta) / GfxMath::sin(theta_0);  // == sin(theta_0 - theta) / sin(theta_0)
+    float s1 = GfxMath::sin(theta) / GfxMath::sin(theta_0);
     
     return (s0 * v0) + (s1 * v1);
 }
@@ -177,10 +178,10 @@ Quaternion Quaternion::Conjugate() const {
 
 Quaternion Quaternion::FromAxisAngle(const Vector3 &axis, float angle) {
     // [qx, qy, qz, qw] = [sin(a/2) * vx, sin(a/2)* vy, sin(a/2) * vz, cos(a/2)]
-    float x = sin(angle/2.0) * axis[0];
-    float y = sin(angle/2.0) * axis[1];
-    float z = sin(angle/2.0) * axis[2];
-    float w = cos(angle/2.0);
+    float x = GfxMath::sin(angle/2.0) * axis[0];
+    float y = GfxMath::sin(angle/2.0) * axis[1];
+    float z = GfxMath::sin(angle/2.0) * axis[2];
+    float w = GfxMath::cos(angle/2.0);
     return Quaternion(x,y,z,w);
 }
 
@@ -200,19 +201,19 @@ Vector3 Quaternion::ToEulerAnglesZYX() const {
     // roll (x-axis rotation)
     float sinr = +2.0 * (w() * x() + y() * z());
     float cosr = +1.0 - 2.0 * (x() * x() + y() * y());
-    angles[0] = std::atan2(sinr, cosr);
+    angles[0] = GfxMath::atan2(sinr, cosr);
     
     // pitch (y-axis rotation)
     float sinp = +2.0 * (w() * y() - z() * x());
     if (std::fabs(sinp) >= 1)
         angles[1] = std::copysign(M_PI / 2, sinp); // use 90 degrees if out of range
     else
-        angles[1] = std::asin(sinp);
+        angles[1] = GfxMath::asin(sinp);
     
     // yaw (z-axis rotation)
     float siny = +2.0 * (w() * z() + x() * y());
     float cosy = +1.0 - 2.0 * (y() * y() + z() * z());
-    angles[2] = std::atan2(siny, cosy);
+    angles[2] = GfxMath::atan2(siny, cosy);
     
     return angles;
 }
