@@ -6,11 +6,8 @@
 
 #include "matrix4.h"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <string.h>
-
 #include "gfxmath.h"
+#include <string.h>
 
 namespace mingfx {
 
@@ -110,8 +107,8 @@ Matrix4 Matrix4::Translation(const Vector3& v) {
 
     
 Matrix4 Matrix4::RotationX(const float radians) {
-    const float cosTheta = GfxMath::cos(radians);
-    const float sinTheta = GfxMath::sin(radians);
+    const float cosTheta = cos(radians);
+    const float sinTheta = sin(radians);
     return Matrix4::FromRowMajorElements(
         1, 0, 0, 0,
         0, cosTheta, -sinTheta, 0,
@@ -122,8 +119,8 @@ Matrix4 Matrix4::RotationX(const float radians) {
 
     
 Matrix4 Matrix4::RotationY(const float radians) {
-    const float cosTheta = GfxMath::cos(radians);
-    const float sinTheta = GfxMath::sin(radians);
+    const float cosTheta = cos(radians);
+    const float sinTheta = sin(radians);
     return Matrix4::FromRowMajorElements(
         cosTheta, 0, sinTheta, 0,
         0, 1, 0, 0,
@@ -134,8 +131,8 @@ Matrix4 Matrix4::RotationY(const float radians) {
 
     
 Matrix4 Matrix4::RotationZ(const float radians) {
-    const float cosTheta = GfxMath::cos(radians);
-    const float sinTheta = GfxMath::sin(radians);
+    const float cosTheta = cos(radians);
+    const float sinTheta = sin(radians);
     return Matrix4::FromRowMajorElements(
         cosTheta, -sinTheta, 0, 0,
         sinTheta, cosTheta, 0, 0,
@@ -148,8 +145,8 @@ Matrix4 Matrix4::RotationZ(const float radians) {
 Matrix4 Matrix4::Rotation(const Point3& p, const Vector3& v, const float a) {
     const float vZ = v[2];
     const float vX = v[0];
-    const float theta = GfxMath::atan2(vZ, vX);
-    const float phi   = -GfxMath::atan2((float)v[1], (float)sqrt(vX * vX + vZ * vZ));
+    const float theta = atan2(vZ, vX);
+    const float phi   = -atan2((float)v[1], (float)sqrt(vX * vX + vZ * vZ));
 
     const Matrix4 transToOrigin = Matrix4::Translation(-1.0*Vector3(p[0], p[1], p[2]));
     const Matrix4 A = Matrix4::RotationY(theta);
@@ -217,7 +214,7 @@ Matrix4 Matrix4::Perspective(float fovyInDegrees, float aspectRatio,
 {
     // https://www.khronos.org/opengl/wiki/GluPerspective_code
     float ymax, xmax;
-    ymax = nearVal * tanf(fovyInDegrees * M_PI / 360.0);
+    ymax = nearVal * tanf(fovyInDegrees * GfxMath::PI / 360.0f);
     // ymin = -ymax;
     // xmin = -ymax * aspectRatio;
     xmax = ymax * aspectRatio;
@@ -230,10 +227,10 @@ Matrix4 Matrix4::Frustum(float left, float right,
                          float nearVal, float farVal)
 {
     return Matrix4::FromRowMajorElements(
-        2.0*nearVal/(right-left), 0, (right+left)/(right-left), 0,
-        0, 2.0*nearVal/(top-bottom), (top+bottom)/(top-bottom), 0,
-        0, 0, -(farVal+nearVal)/(farVal-nearVal), -2.0*farVal*nearVal/(farVal-nearVal),
-        0, 0, -1, 0
+        2.0f*nearVal/(right-left), 0.0f, (right+left)/(right-left), 0.0f,
+        0.0f, 2.0f*nearVal/(top-bottom), (top+bottom)/(top-bottom), 0.0f,
+        0.0f, 0.0f, -(farVal+nearVal)/(farVal-nearVal), -2.0f*farVal*nearVal/(farVal-nearVal),
+        0.0f, 0.0f, -1.0f, 0.0
     );
 }
 
@@ -391,10 +388,10 @@ Matrix4 operator*(const float& s, const Matrix4& m) {
 Point3 operator*(const Matrix4& m, const Point3& p) {
 	// For our points, p[3]=1 and we don't even bother storing p[3], so need to homogenize
 	// by dividing by w before returning the new point.
-    const float winv = 1 / (p[0] * m(3,0) + p[1] * m(3,1) + p[2] * m(3,2) + 1.0 * m(3,3));
-    return Point3(winv * (p[0] * m(0,0) + p[1] * m(0,1) + p[2] * m(0,2) + 1.0 * m(0,3)),
-                  winv * (p[0] * m(1,0) + p[1] * m(1,1) + p[2] * m(1,2) + 1.0 * m(1,3)),
-                  winv * (p[0] * m(2,0) + p[1] * m(2,1) + p[2] * m(2,2) + 1.0 * m(2,3)));
+    const float winv = 1.0f / (p[0] * m(3,0) + p[1] * m(3,1) + p[2] * m(3,2) + 1.0f * m(3,3));
+    return Point3(winv * (p[0] * m(0,0) + p[1] * m(0,1) + p[2] * m(0,2) + 1.0f * m(0,3)),
+                  winv * (p[0] * m(1,0) + p[1] * m(1,1) + p[2] * m(1,2) + 1.0f * m(1,3)),
+                  winv * (p[0] * m(2,0) + p[1] * m(2,1) + p[2] * m(2,2) + 1.0f * m(2,3)));
 
 }
 

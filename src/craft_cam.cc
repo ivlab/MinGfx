@@ -49,19 +49,19 @@ void CraftCam::OnMouseMove(const Vector2 &normalized_mouse_delta) {
 
 
 void CraftCam::WalkForward(double dt) {
-    base_head_ = Matrix4::Translation(3.0 * dt * t_scale_ * Vector3(0,0,1)) * base_head_;
+    base_head_ = Matrix4::Translation(3.0f * (float)dt * t_scale_ * Vector3(0,0,1)) * base_head_;
 }
 
 void CraftCam::WalkBackward(double dt) {
-    base_head_ = Matrix4::Translation(3.0 * dt * t_scale_ * Vector3(0,0,-1)) * base_head_;
+    base_head_ = Matrix4::Translation(3.0f * (float)dt * t_scale_ * Vector3(0,0,-1)) * base_head_;
 }
 
 void CraftCam::RotateLeft(double dt) {
-    base_head_ = Matrix4::RotationY(-0.75 * dt * r_scale_) * base_head_;
+    base_head_ = Matrix4::RotationY(-0.75f * (float)dt * r_scale_) * base_head_;
 }
 
 void CraftCam::RotateRight(double dt) {
-    base_head_ = Matrix4::RotationY(0.75 * dt * r_scale_) * base_head_;
+    base_head_ = Matrix4::RotationY(0.75f * (float)dt * r_scale_) * base_head_;
 }
 
 void CraftCam::LookWithMouse(const Vector2 &mouse_delta) {

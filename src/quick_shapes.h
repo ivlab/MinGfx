@@ -131,7 +131,7 @@ public:
                          const Point3 &p2,
                          float radius);
     
-    enum LinesType {
+    enum class LinesType {
         LINES,
         LINE_STRIP,
         LINE_LOOP

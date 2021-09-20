@@ -12,6 +12,27 @@
 namespace mingfx {
     
     DefaultShader::DefaultShader(bool addDefaultLight) {
+        for (int i = 0; i < MAX_LIGHTS; i++) {
+            lightPositions_[3 * i + 0] = 0.0f;
+            lightPositions_[3 * i + 1] = 0.0f;
+            lightPositions_[3 * i + 2] = 0.0f;
+
+            lightIas_[4 * i + 0] = 0.0f;
+            lightIas_[4 * i + 1] = 0.0f;
+            lightIas_[4 * i + 2] = 0.0f;
+            lightIas_[4 * i + 3] = 0.0f;
+
+            lightIds_[4 * i + 0] = 0.0f;
+            lightIds_[4 * i + 1] = 0.0f;
+            lightIds_[4 * i + 2] = 0.0f;
+            lightIds_[4 * i + 3] = 0.0f;
+
+            lightIss_[4 * i + 0] = 0.0f;
+            lightIss_[4 * i + 1] = 0.0f;
+            lightIss_[4 * i + 2] = 0.0f;
+            lightIss_[4 * i + 3] = 0.0f;
+        }
+
         if (addDefaultLight) {
             AddLight(LightProperties());
         }
@@ -66,7 +87,7 @@ namespace mingfx {
     
     
     int DefaultShader::num_lights() {
-        return lights_.size();
+        return (int)lights_.size();
     }
     
     DefaultShader::LightProperties DefaultShader::light(int i) {

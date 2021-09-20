@@ -13,7 +13,7 @@ namespace mingfx {
 
 GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
     graphicsInitialized_(false), width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
-    leftDown_(false), middleDown_(false), rightDown_(false)
+    leftDown_(false), middleDown_(false), rightDown_(false), screen_(NULL), window_(NULL)
 {
 }
 
@@ -44,7 +44,10 @@ void GraphicsApp::InitGraphicsContext() {
     // on OSX, glfwCreateWindow bombs if we pass caption_.c_str() in for the 3rd
     // parameter perhaps because it's const.  so, copying to a tmp char array here.
     char *title = new char[caption_.size() + 1];
-    strcpy(title, caption_.c_str());
+    for (int i = 0; i < caption_.size(); i++) {
+        title[i] = caption_[i];
+    }
+    title[caption_.size()] = '\0';
     std::cout << caption_ << std::endl;
     
     // Create a GLFWwindow object
@@ -191,11 +194,11 @@ bool GraphicsApp::cursor_pos_glfw_cb(double x, double y) {
     
     if (screen_->cursorPosCallbackEvent(x,y)) {
         // event was handled by nanogui
-        lastMouse_ = Point2(x,y);
+        lastMouse_ = Point2((float)x, (float)y);
         return true;
     }
     else {
-        Point2 cur(x,y);
+        Point2 cur((float)x, (float)y);
         Vector2 delta = cur - lastMouse_;
 
         // if no buttons are down, generate a mouse move event
@@ -227,11 +230,11 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            left_mouse_down(Point2(x,y));
+            left_mouse_down(Point2((float)x, (float)y));
             leftDown_ = true;
         }
         else {
-            left_mouse_up(Point2(x,y));
+            left_mouse_up(Point2((float)x, (float)y));
             leftDown_ = false;
         }
         return true;
@@ -240,11 +243,11 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            middle_mouse_down(Point2(x,y));
+            middle_mouse_down(Point2((float)x, (float)y));
             middleDown_ = true;
         }
         else {
-            middle_mouse_up(Point2(x,y));
+            middle_mouse_up(Point2((float)x, (float)y));
             middleDown_ = false;
         }
         return true;
@@ -253,11 +256,11 @@ bool GraphicsApp::mouse_button_glfw_cb(int button, int action, int modifiers) {
         double x,y;
         glfwGetCursorPos(window_, &x, &y);
         if (action == 1) {
-            right_mouse_down(Point2(x,y));
+            right_mouse_down(Point2((float)x, (float)y));
             rightDown_ = true;
         }
         else {
-            right_mouse_up(Point2(x,y));
+            right_mouse_up(Point2((float)x, (float)y));
             rightDown_ = false;
         }
         return true;
@@ -403,26 +406,26 @@ int GraphicsApp::framebuffer_height() {
 }
     
 Point2 GraphicsApp::PixelsToNormalizedDeviceCoords(const Point2 &pointInPixels) {
-    float x = (pointInPixels[0] / window_width()) * 2.0 - 1.0;
-    float y = (1.0 - (pointInPixels[1] / window_height())) * 2.0 - 1.0;
+    float x = (pointInPixels[0] / window_width()) * 2.0f - 1.0f;
+    float y = (1.0f - (pointInPixels[1] / window_height())) * 2.0f - 1.0f;
     return Point2(x,y);
 }
 
 Point2 GraphicsApp::NormalizedDeviceCoordsToPixels(const Point2 &pointInNDC) {
-    float x = 0.5 * (pointInNDC[0] + 1.0) * window_width();
-    float y = (1.0 - (0.5 * (pointInNDC[1] + 1.0))) * window_height();
+    float x = 0.5f * (pointInNDC[0] + 1.0f) * window_width();
+    float y = (1.0f - (0.5f * (pointInNDC[1] + 1.0f))) * window_height();
     return Point2(x,y);
 }
 
 Vector2 GraphicsApp::PixelsToNormalizedDeviceCoords(const Vector2 &vectorInPixels) {
-    float x = (2.0/window_width()) * vectorInPixels[0];
-    float y = (-2.0/window_height()) * vectorInPixels[1];
+    float x = (2.0f/window_width()) * vectorInPixels[0];
+    float y = (-2.0f/window_height()) * vectorInPixels[1];
     return Vector2(x,y);
 }
 
 Vector2 GraphicsApp::NormalizedDeviceCoordsToPixels(const Vector2 &vectorInNDC) {
-    float x = (window_width()/2.0) * vectorInNDC[0];
-    float y = (-window_height()/2.0) * vectorInNDC[1];
+    float x = (window_width()/2.0f) * vectorInNDC[0];
+    float y = (-window_height()/2.0f) * vectorInNDC[1];
     return Vector2(x,y);
 }
 
@@ -430,7 +433,7 @@ float GraphicsApp::ReadZValueAtPixel(const Point2 &pointInPixels, unsigned int w
     // scale screen points to framebuffer size, since they are not the same on retina displays
     float x01 = pointInPixels[0] / window_width();
     float y01 = pointInPixels[1] / window_height();
-    y01 = 1.0 - y01;
+    y01 = 1.0f - y01;
     
     float x = x01 * (float)framebuffer_width();
     float y = y01 * (float)framebuffer_height();

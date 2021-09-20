@@ -13,7 +13,21 @@
 #include "texture2d.h"
 #include "text_shader.h"
 #include "unicam.h"
+
+
+#pragma warning (push)
+#pragma warning (disable : 6001)
+#pragma warning (disable : 6011)
+#pragma warning (disable : 6262)
+#pragma warning (disable : 6385)
+#pragma warning (disable : 6387)
+#pragma warning (disable : 26450)
+#pragma warning (disable : 26451)
+#pragma warning (disable : 26453)
+#pragma warning (disable : 26495)
+#pragma warning (disable : 26812)
 #include <stb_image.h>
+#pragma warning (pop)
 
 #include <iostream>
 
@@ -50,6 +64,7 @@ GuiPlusOpenGL::GuiPlusOpenGL() : GraphicsApp(1024,768, "Circle Simulation") {
     
     simTime_ = 0.0;
     paused_ = false;
+    pauseBtn_ = NULL;
     
     int i;
     i = mesh1.AddTriangle(Point3(0,0,0), Point3(1,0,0), Point3(1,1,0));
@@ -201,14 +216,14 @@ void GuiPlusOpenGL::DrawUsingNanoVG(NVGcontext *ctx) {
     // example of drawing some circles
     
     nvgBeginPath(ctx);
-    nvgCircle(ctx, 512+50.0*cos(simTime_), 350+200.0*sin(simTime_), 50);
+    nvgCircle(ctx, 512.0f+50.0f*std::cosf((float)simTime_), 350.0f+200.0f*std::sinf((float)simTime_), 50.0f);
     nvgFillColor(ctx, nvgRGBA(100,100,255,200));
     nvgFill(ctx);
     nvgStrokeColor(ctx, nvgRGBA(0,0,0,255));
     nvgStroke(ctx);
 
     nvgBeginPath(ctx);
-    nvgCircle(ctx, 512+200.0*cos(simTime_), 350+50.0*sin(simTime_), 50);
+    nvgCircle(ctx, 512.0f+200.0f*std::cosf((float)simTime_), 350.0f+50.0f*std::sinf((float)simTime_), 50.0f);
     nvgFillColor(ctx, nvgRGBA(255,100,100,200));
     nvgFill(ctx);
     nvgStrokeColor(ctx, nvgRGBA(0,0,0,255));
@@ -223,7 +238,7 @@ void GuiPlusOpenGL::InitOpenGL() {
         
     qs = new QuickShapes();
 
-    P = Matrix4::Perspective(60.0, aspect_ratio(), 0.1, 10.0);
+    P = Matrix4::Perspective(60.0f, aspect_ratio(), 0.1f, 10.0f);
     V = Matrix4::LookAt(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0));
     uniCam.set_view_matrix(V);
 
@@ -254,8 +269,8 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     Matrix4 M = Matrix4::Translation(Vector3(-1,0,0)) * Matrix4::Scale(Vector3(0.5, 0.5, 0.5));
 
     // Draw several quick shapes
-    float col[3] = {0.4, 0.4, 0.8};
-    Matrix4 M2 = Matrix4::Translation(Vector3(1,1.5,0))*Matrix4::Scale(Vector3(0.2, 0.2, 0.2));
+    float col[3] = {0.4f, 0.4f, 0.8f};
+    Matrix4 M2 = Matrix4::Translation(Vector3(1.0f, 1.5f, 0.0f))*Matrix4::Scale(Vector3(0.2f, 0.2f, 0.2f));
     qs->DrawSphere(M2, V, P, col);
 
     M2 = Matrix4::Translation(Vector3(0,-0.5,0)) * M2;
@@ -277,9 +292,9 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     qs->DrawSquare(M2, V, P, col, tex1);
     
     
-    qs->DrawArrow(Matrix4(), V, P, col, Point3(0,0,0), Vector3(-1,1.5,0), 0.01);
+    qs->DrawArrow(Matrix4(), V, P, col, Point3(0,0,0), Vector3(-1,1.5,0), 0.01f);
     
-    qs->DrawLineSegment(Matrix4(), V, P, col, Point3(0,0,0), Point3(1, 1.5, 0), 0.01);
+    qs->DrawLineSegment(Matrix4(), V, P, col, Point3(0,0,0), Point3(1, 1.5, 0), 0.01f);
     
     qs->DrawAxes(Matrix4(), V, P);
     
@@ -291,11 +306,11 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     Point3 p;
     int id;
     if (pickRay.IntersectMesh(mesh1, &t, &p, &id)) {
-        M2 = Matrix4::Translation(p - Point3::Origin()) * Matrix4::Scale(Vector3(0.025, 0.025, 0.025));
+        M2 = Matrix4::Translation(p - Point3::Origin()) * Matrix4::Scale(Vector3(0.025f, 0.025f, 0.025f));
         qs->DrawSphere(M2, V, P, Color(1,0,1));
     }
     if (pickRay.IntersectMesh(mesh2, &t, &p, &id)) {
-        M2 = Matrix4::Translation(p - Point3::Origin()) * Matrix4::Scale(Vector3(0.025, 0.025, 0.025));
+        M2 = Matrix4::Translation(p - Point3::Origin()) * Matrix4::Scale(Vector3(0.025f, 0.025f, 0.025f));
         qs->DrawSphere(M2, V, P, Color(1,1,0));
     }
     
@@ -307,50 +322,50 @@ void GuiPlusOpenGL::DrawUsingOpenGL() {
     
     
     f.color = Color(1,1,0);
-    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
-    f.v_align = TextShader::VERT_ALIGN_TOP;
+    f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VertAlign::VERT_ALIGN_TOP;
     ts.Draw3D(M3, V, P, "TOPgg", f, true);
     
     f.color = Color(0,1,1);
-    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
-    f.v_align = TextShader::VERT_ALIGN_CENTER;
+    f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VertAlign::VERT_ALIGN_CENTER;
     ts.Draw3D(M3, V, P, "V_CENTERyy", f, true);
     
     f.color = Color(1,0,1);
-    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
-    f.v_align = TextShader::VERT_ALIGN_BOTTOM;
+    f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VertAlign::VERT_ALIGN_BOTTOM;
     ts.Draw3D(M3, V, P, "BOTTOMgg", f, true);
     
     f.color = Color(1,1,1);
-    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
-    f.v_align = TextShader::VERT_ALIGN_BASELINE;
+    f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VertAlign::VERT_ALIGN_BASELINE;
     ts.Draw3D(M3, V, P, "Hello good buddy", f, true);
     
-    qs->DrawLineSegment(M3, V, P, col, Point3(0,0,0), Point3(1, 0, 0), 0.01);
+    qs->DrawLineSegment(M3, V, P, col, Point3(0,0,0), Point3(1, 0, 0), 0.01f);
 
     M3 = M3 * Matrix4::Translation(Vector3(0,0.5,0));
 
     
      f.color = Color(1,0,0);
-     f.h_align = TextShader::HORIZ_ALIGN_LEFT;
-     f.v_align = TextShader::VERT_ALIGN_TOP;
+     f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_LEFT;
+     f.v_align = TextShader::VertAlign::VERT_ALIGN_TOP;
      ts.Draw3D(M3, V, P, "LEFT", f, true);
      
      f.color = Color(0,1,0);
-     f.h_align = TextShader::HORIZ_ALIGN_CENTER;
-     f.v_align = TextShader::VERT_ALIGN_TOP;
+     f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_CENTER;
+     f.v_align = TextShader::VertAlign::VERT_ALIGN_TOP;
      ts.Draw3D(M3, V, P, "CENTER", f, true);
      
      f.color = Color(0,0,1);
-     f.h_align = TextShader::HORIZ_ALIGN_RIGHT;
-     f.v_align = TextShader::VERT_ALIGN_TOP;
+     f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_RIGHT;
+     f.v_align = TextShader::VertAlign::VERT_ALIGN_TOP;
      ts.Draw3D(M3, V, P, "RIGHT", f, true);
      
      
     M3 = Matrix4::Translation(Vector3(0,0,1));
     f.color = Color(1,1,1);
-    f.h_align = TextShader::HORIZ_ALIGN_CENTER;
-    f.v_align = TextShader::VERT_ALIGN_BASELINE;
+    f.h_align = TextShader::HorizAlign::HORIZ_ALIGN_CENTER;
+    f.v_align = TextShader::VertAlign::VERT_ALIGN_BASELINE;
     f.size = 0.25;
     ts.Draw3D(M3, V, P, "Hello good buddy", f, true);
     

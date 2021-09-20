@@ -85,14 +85,14 @@ namespace mingfx {
         a = edge1.Dot(h);
         if (a > -MINGFX_MATH_EPSILON && a < MINGFX_MATH_EPSILON)
             return false;
-        f = 1/a;
+        f = 1.f/a;
         s = p_ - vertex0;
         u = f * (s.Dot(h));
-        if (u < 0.0 || u > 1.0)
+        if (u < 0.0 || u > 1.f)
             return false;
         q = s.Cross(edge1);
         v = f * d_.Dot(q);
-        if (v < 0.0 || u + v > 1.0)
+        if ((v < 0.0) || (u + v > 1.0f))
             return false;
         // At this stage we can compute t to find out where the intersection point is on the line.
         *iTime = f * edge2.Dot(q);
@@ -165,13 +165,13 @@ namespace mingfx {
         Vector3 D = d_;
         
         // A = (Dx^2 + Dy^2 + Dz^2)
-        const double A = (D[0]*D[0] + D[1]*D[1] + D[2]*D[2]);
+        const double A = ((double)D[0]*D[0] + (double)D[1]*D[1] + (double)D[2]*D[2]);
         
         // B = (Px * Dx + Py * Dy + Pz * Dz)
-        const double B = (P[0]*D[0] + P[1]*D[1] + P[2]*D[2]);
+        const double B = ((double)P[0]*D[0] + (double)P[1]*D[1] + (double)P[2]*D[2]);
         
         // C = (Px^2 + Py^2 + Pz^2 - (sphere radius)^2)
-        const double C = (P[0]*P[0] + P[1]*P[1] + P[2]*P[2] - radius*radius);
+        const double C = ((double)P[0]*P[0] + (double)P[1]*P[1] + (double)P[2]*P[2] - (double)radius*radius);
         
         // Discriminant of quadratic = B^2 - A * C
         double discriminant =  B*B - A*C;
@@ -187,18 +187,18 @@ namespace mingfx {
             bool hit2 = false;
             if (t1 > MINGFX_MATH_EPSILON) {
                 hit1 = true;
-                *iTime = t1;
+                *iTime = (float)t1;
             }
             if (t2 > MINGFX_MATH_EPSILON) {
                 hit2 = true;
-                *iTime = t2;
+                *iTime = (float)t2;
             }
             if ((!hit1) && (!hit2)) {
                 return false;
             }
             if ((hit1) && (hit2)) {
                 if (t1 < t2) {
-                    *iTime = t1;
+                    *iTime = (float)t1;
                 }
             }
             
@@ -259,9 +259,9 @@ namespace mingfx {
         Point3 origin = p_;
         
         Vector3 invdir = d_;
-        invdir[0] = 1.0 / invdir[0];
-        invdir[1] = 1.0 / invdir[1];
-        invdir[2] = 1.0 / invdir[2];
+        invdir[0] = 1.0f / invdir[0];
+        invdir[1] = 1.0f / invdir[1];
+        invdir[2] = 1.0f / invdir[2];
         
         float t1 = (box.min()[0] - origin[0])*invdir[0];
         float t2 = (box.max()[0] - origin[0])*invdir[0];

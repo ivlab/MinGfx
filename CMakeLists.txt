@@ -40,7 +40,10 @@ include(MessageMacros)
 
 # If you "autobuild" external dependencies as part of the cmake configure process, then they will be
 # downloaded to this directory.
-set(AUTOBUILD_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/external" CACHE STRING "Location for external project sources downloaded by AutoBuild.")
+set(AUTOBUILD_DOWNLOAD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/external" CACHE STRING "Location for external project sources downloaded by AutoBuild.")
+
+
+set(CMAKE_INSTALL_MESSAGE ALWAYS)
 
 include(AutoBuild)
 AutoBuild_init()
@@ -48,9 +51,7 @@ AutoBuild_init()
 
 #### ADJUST NAMES OF OUTPUT FILES BASED ON BUILD TYPE ####
 
-h1("CONFIGURING BUILD TYPE")
-
-message(STATUS "Building the '" ${CMAKE_BUILD_TYPE} "' version of MinGfx.")
+h1("CONFIGURING BUILD TYPES")
 
 # To distinguish between debugging, release, and other builds, we'll
 # add a postfix to the name of the lib or exe that we generate.
@@ -71,8 +72,6 @@ elseif (CMAKE_BUILD_TYPE MATCHES "Debug")
 else()
   set(CMAKE_BUILD_POSTFIX "")
 endif()
-
-message(STATUS "This build will append the postfix '" ${CMAKE_BUILD_POSTFIX} "' to any built libraries.")
 
 
 
@@ -104,7 +103,7 @@ set(INSTALL_LIB_DEST           lib/MinGfx${MINGFX_VERSION_STR})
 set(INSTALL_INCLUDE_DEST       include/MinGfx${MINGFX_VERSION_STR})
 set(INSTALL_SHADERS_DEST       share/MinGfx${MINGFX_VERSION_STR}/shaders)
 set(INSTALL_DATA_DEST          share/MinGfx${MINGFX_VERSION_STR}/data)
-set(INSTALL_DOC_DEST           share/MinGfx${MINGFX_VERSION_STR}/doc)
+set(INSTALL_DOC_DEST           share/MinGfx${MINGFX_VERSION_STR}/docs)
 set(INSTALL_CMAKECONFIG_DEST   lib/cmake/MinGfx${MINGFX_VERSION_STR})
 
 message(STATUS "Tests, other binaries: ${CMAKE_INSTALL_PREFIX}/${INSTALL_BIN_DEST}")
@@ -126,7 +125,7 @@ configure_file(
 
 h1("CONFIGURING COMPLIER FLAGS")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+
 
 message(STATUS "Building for " ${CMAKE_SYSTEM_NAME} ".")
 message(STATUS "Compiler supported features = ${CMAKE_CXX_COMPILE_FEATURES}")
@@ -136,6 +135,7 @@ message(STATUS "Compiler supported features = ${CMAKE_CXX_COMPILE_FEATURES}")
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   add_definitions(-DLINUX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 endif()
 
 
@@ -169,12 +169,14 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
      SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
   ENDIF("${isSystemDir}" STREQUAL "-1")
 
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 endif()
 
 
 # Windows specific
 if (WIN32)
   add_definitions(-DWIN32)
+  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Z7")
 endif()
 
 
@@ -223,7 +225,7 @@ option(WITH_DOCUMENTATION "Builds web-based documentation for the library. (Requ
 if (WITH_DOCUMENTATION)
   message(STATUS "ON: Will build and install MinGfx Web-Based Documentation.")
 else()
-  message(STATUS "OFF: NOT building MinGfx Web-Based Documentation.  Turn it on '-D WITH_DOCUMENTATION=ON'.")
+  message(STATUS "OFF: NOT building MinGfx Web-Based Documentation.")
 endif()
 
 if (WITH_DOCUMENTATION)
@@ -238,6 +240,7 @@ if (WITH_DOCUMENTATION)
         doc/installation.md
         doc/mainpage.md
         doc/header.html
+        doc/index.html
         doc/footer.html
         doc/customdoxygen.css
     )
@@ -268,6 +271,12 @@ if (WITH_DOCUMENTATION)
     source_group("Other Docs" FILES ${OTHER_DOCS})
 
     install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html 
+        DESTINATION ${INSTALL_DOC_DEST}
+        COMPONENT Docs
+        OPTIONAL
+    )
+
+    install(FILES doc/index.html
         DESTINATION ${INSTALL_DOC_DEST}
         COMPONENT Docs
         OPTIONAL
@@ -378,7 +387,7 @@ install(
     "${CMAKE_CURRENT_BINARY_DIR}/cmake/MinGfxConfig.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/cmake/MinGfxConfigVersion.cmake"
   DESTINATION
-    ${INSTALL_CMAKECONFIG_DEST}
+    "${INSTALL_CMAKECONFIG_DEST}"
 )
 
 

@@ -15,7 +15,11 @@
 #ifndef SRC_GRAPHICS_APP_H_
 #define SRC_GRAPHICS_APP_H_
 
+// disable warnings for this 3rd party code
+#pragma warning ( push, 0 )
 #include <nanogui/nanogui.h>
+#pragma warning ( pop )
+
 #include <iostream>
 
 #include "point2.h"

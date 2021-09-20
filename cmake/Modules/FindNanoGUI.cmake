@@ -47,7 +47,7 @@ endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(
-    NANOGUI
+    NanoGUI
     DEFAULT_MSG
     NANOGUI_INCLUDE_DIRS
     NANOGUI_LIBRARIES

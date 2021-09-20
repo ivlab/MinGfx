@@ -78,10 +78,10 @@ public:
         
         // defaults
         MaterialProperties() :
-            ambient_reflectance(0.25, 0.25, 0.25),
-            diffuse_reflectance(0.6, 0.6, 0.6),
-            specular_reflectance(0.4, 0.4, 0.4),
-            shinniness(20.0) {}
+            ambient_reflectance(0.25f, 0.25f, 0.25f),
+            diffuse_reflectance(0.6f, 0.6f, 0.6f),
+            specular_reflectance(0.4f, 0.4f, 0.4f),
+            shinniness(20.0f) {}
     };
     
     /// Small data structure to hold per-light properties
@@ -94,10 +94,10 @@ public:
         
         // defaults
         LightProperties() :
-            position(10,10,10),
-            ambient_intensity(0.25, 0.25, 0.25),
-            diffuse_intensity(0.6, 0.6, 0.6),
-            specular_intensity(0.6, 0.6, 0.6) {}
+            position(10.0f, 10.0f, 10.0f),
+            ambient_intensity(0.25f, 0.25f, 0.25f),
+            diffuse_intensity(0.6f, 0.6f, 0.6f),
+            specular_intensity(0.6f, 0.6f, 0.6f) {}
     };
     
     /// The constructor defaults to adding a single white light to the scene at

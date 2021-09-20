@@ -22,11 +22,15 @@
 #include "shader_program.h"
 #include "texture2d.h"
 
+// disable warnings for this 3rd party code
+#pragma warning ( push, 0 )
 #include <stb_truetype.h>
-
+#pragma warning ( pop )
 
 namespace mingfx {
     
+
+
 /**
  */
 class TextShader {
@@ -40,14 +44,13 @@ public:
     /// library to load true type fonts (files with a .ttf extension).
     bool Init(const std::string &font_file, int native_font_size);
     
-    
-    enum HorizAlign {
+    enum class HorizAlign {
         HORIZ_ALIGN_LEFT,
         HORIZ_ALIGN_CENTER,
         HORIZ_ALIGN_RIGHT
     };
-    
-    enum VertAlign {
+
+    enum class VertAlign {
         VERT_ALIGN_TOP,
         VERT_ALIGN_CENTER,
         VERT_ALIGN_BASELINE,
@@ -58,10 +61,10 @@ public:
     public:
         // constructor sets defaults
         TextFormat() :
-            size(0.1),
+            size(0.1f),
             color(1,1,1,1),
-            h_align(HORIZ_ALIGN_CENTER),
-            v_align(VERT_ALIGN_BASELINE) {}
+            h_align(HorizAlign::HORIZ_ALIGN_CENTER),
+            v_align(VertAlign::VERT_ALIGN_BASELINE) {}
         
         float size;
         Color color;

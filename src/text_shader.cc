@@ -9,12 +9,13 @@
 #include "platform.h"
 #include <fstream>
 
-
+// disable warnings for this 3rd party code
+#pragma warning (push, 0)
 #define STB_RECT_PACK_IMPLEMENTATION
 #include "stb_rect_pack.h"
-
 #define STB_TRUETYPE_IMPLEMENTATION
 #include <stb_truetype.h>
+#pragma warning (pop)
 
 
 namespace mingfx {
@@ -22,8 +23,11 @@ namespace mingfx {
 // Reference implementation: https://github.com/nothings/stb/blob/master/tests/oversample/main.c
 
         
-TextShader::TextShader() {
-    std::cout << "created text shader" << std::endl;
+TextShader::TextShader() : native_font_size_(0.0)
+{
+    for (int i = 0; i < 128; i++) {
+        chardata_[i] = stbtt_packedchar();
+    }
 }
 
 TextShader::~TextShader() {
@@ -37,11 +41,11 @@ bool TextShader::Init(const std::string &filename, int font_size) {
     shader_.LinkProgram();
 
     // load font
-    native_font_size_ = font_size;
+    native_font_size_ = (float)font_size;
     std::ifstream is(filename.c_str(), std::ifstream::binary);
     if (is) {
         is.seekg(0, is.end);
-        int length = is.tellg();
+        int length = (int)is.tellg();
         is.seekg(0, is.beg);
         
         char *ttf_buffer = new char[length];
@@ -57,15 +61,15 @@ bool TextShader::Init(const std::string &filename, int font_size) {
         int atlas_height = 1024;
 
         stbtt_pack_context pc;
-        unsigned char *bitmap = new unsigned char[atlas_width * atlas_height];
+        unsigned char *bitmap = new unsigned char[(size_t)atlas_width * atlas_height];
 
         stbtt_PackBegin(&pc, bitmap, atlas_width, atlas_height, 0, 1, NULL);
         stbtt_PackSetOversampling(&pc, 2, 2);
-        stbtt_PackFontRange(&pc, (unsigned char*)ttf_buffer, 0, font_size, 32, 95, chardata_+32);
+        stbtt_PackFontRange(&pc, (unsigned char*)ttf_buffer, 0, (float)font_size, 32, 95, chardata_+32);
         stbtt_PackEnd(&pc);
         
         // convert to 4-channel since that is all that Texture2D currently supports
-        unsigned char *bitmap4D = new unsigned char[4 * atlas_width * atlas_height];
+        unsigned char *bitmap4D = new unsigned char[(size_t)4 * atlas_width * atlas_height];
         for (int i=0; i < atlas_width * atlas_height; i++) {
             bitmap4D[4*i + 0] = bitmap[i];
             bitmap4D[4*i + 1] = bitmap[i];
@@ -114,26 +118,26 @@ void TextShader::Draw3D(const Matrix4 &model, const Matrix4 &view, const Matrix4
     }
     
     Vector3 offset;
-    if (format.h_align == HORIZ_ALIGN_LEFT) {
+    if (format.h_align == HorizAlign::HORIZ_ALIGN_LEFT) {
         offset[0] = 0;
     }
-    else if (format.h_align == HORIZ_ALIGN_CENTER) {
-        offset[0] = -0.5 * (md->max[0] - md->min[0]);
+    else if (format.h_align == HorizAlign::HORIZ_ALIGN_CENTER) {
+        offset[0] = -0.5f * (md->max[0] - md->min[0]);
     }
-    else if (format.h_align == HORIZ_ALIGN_RIGHT) {
+    else if (format.h_align == HorizAlign::HORIZ_ALIGN_RIGHT) {
         offset[0] = -(md->max[0] - md->min[0]);
     }
     
-    if (format.v_align == VERT_ALIGN_TOP) {
+    if (format.v_align == VertAlign::VERT_ALIGN_TOP) {
         offset[1] = -md->max[1];
     }
-    else if (format.v_align == VERT_ALIGN_CENTER) {
-        offset[1] = -0.5 * md->max[1];
+    else if (format.v_align == VertAlign::VERT_ALIGN_CENTER) {
+        offset[1] = -0.5f * md->max[1];
     }
-    else if (format.v_align == VERT_ALIGN_BASELINE) {
+    else if (format.v_align == VertAlign::VERT_ALIGN_BASELINE) {
         offset[1] = 0;
     }
-    else if (format.v_align == VERT_ALIGN_BOTTOM) {
+    else if (format.v_align == VertAlign::VERT_ALIGN_BOTTOM) {
         offset[1] = -md->min[1];
     }
     
@@ -181,13 +185,13 @@ void TextShader::SetTextMesh(const std::string &text, MeshData *md) {
         uvs.push_back(Point2(q.s0, q.t1));
     
         
-        indices.push_back(verts.size()-2);
-        indices.push_back(verts.size()-3);
-        indices.push_back(verts.size()-4);
+        indices.push_back((unsigned int)verts.size()-2);
+        indices.push_back((unsigned int)verts.size()-3);
+        indices.push_back((unsigned int)verts.size()-4);
 
-        indices.push_back(verts.size()-2);
-        indices.push_back(verts.size()-4);
-        indices.push_back(verts.size()-1);
+        indices.push_back((unsigned int)verts.size()-2);
+        indices.push_back((unsigned int)verts.size()-4);
+        indices.push_back((unsigned int)verts.size()-1);
     }
     
     md->mesh.SetVertices(verts);

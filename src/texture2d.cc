@@ -7,6 +7,18 @@
 #include "texture2d.h"
 #include "platform.h"
 
+#pragma warning (push)
+#pragma warning (disable : 6001)
+#pragma warning (disable : 6011)
+#pragma warning (disable : 6262)
+#pragma warning (disable : 6385)
+#pragma warning (disable : 6387)
+#pragma warning (disable : 26450)
+#pragma warning (disable : 26451)
+#pragma warning (disable : 26453)
+#pragma warning (disable : 26495)
+#pragma warning (disable : 26812)
+
 #ifdef WIN32
   // this is not needed on OSX or Linux, it must pick up the symbols from
   // libnanogui.so, but it appears to be needed on Windows.
@@ -14,6 +26,7 @@
 #endif
 #include <stb_image.h>
 
+#pragma warning (pop)
 
 #include <iostream>
 
@@ -200,7 +213,7 @@ Color Texture2D::Pixel(int x, int y) const {
         unsigned char g = data_ubyte_[index+1];
         unsigned char b = data_ubyte_[index+2];
         unsigned char a = data_ubyte_[index+3];
-        return Color((float)r/255.0, (float)g/255.0, (float)b/255.0, (float)a/255.0);
+        return Color((float)r/255.0f, (float)g/255.0f, (float)b/255.0f, (float)a/255.0f);
     }
     else if (dataType_ == GL_FLOAT) {
         float r = data_float_[index+0];

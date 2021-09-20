@@ -84,6 +84,10 @@ public:
     /// float normZ = graphicsApp->z_value_at_pixel(mousePos);
     static Point3 ScreenToWorld(const Matrix4 &viewMatrix, const Matrix4 &projMatrix, const Point2 &normalizedScreenPt, float normalizedZ);
 
+
+    static const float PI;
+    static const float TWO_PI;
+    static const float HALF_PI;
 };
 
 

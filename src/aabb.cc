@@ -9,22 +9,26 @@ namespace mingfx {
 AABB::AABB() {
     min_[0] = min_[1] = min_[2] = std::numeric_limits<float>::max();
     max_[0] = max_[1] = max_[2] = -std::numeric_limits<float>::max();
+    user_data_ = 0;
 }
     
     
 AABB::AABB(const Point3 &a) {
     min_ = a;
     max_ = a;
+    user_data_ = 0;
 }
     
 AABB::AABB(const Vector3 &v) {
-    min_ = Point3(-0.5*v[0], -0.5*v[1], -0.5*v[2]);
-    max_ = Point3( 0.5*v[0],  0.5*v[1],  0.5*v[2]);
+    min_ = Point3(-0.5f*v[0], -0.5f*v[1], -0.5f*v[2]);
+    max_ = Point3( 0.5f*v[0],  0.5f*v[1],  0.5f*v[2]);
+    user_data_ = 0;
 }
     
 AABB::AABB(const Point3 &p, const Vector3 &v) {
-    min_ = Point3(p[0] - 0.5*v[0], p[1] - 0.5*v[1], p[2] - 0.5*v[2]);
-    max_ = Point3(p[0] + 0.5*v[0], p[1] + 0.5*v[1], p[2] + 0.5*v[2]);
+    min_ = Point3(p[0] - 0.5f*v[0], p[1] - 0.5f*v[1], p[2] - 0.5f*v[2]);
+    max_ = Point3(p[0] + 0.5f*v[0], p[1] + 0.5f*v[1], p[2] + 0.5f*v[2]);
+    user_data_ = 0;
 }
     
 AABB::AABB(const Point3 &a, const Point3 &b, const Point3 &c) {
@@ -43,6 +47,7 @@ AABB::AABB(const Point3 &a, const Point3 &b, const Point3 &c) {
     max_[0] = std::max(max_[0], c[0]);
     max_[1] = std::max(max_[1], c[1]);
     max_[2] = std::max(max_[2], c[2]);
+    user_data_ = 0;
 }
 
     
@@ -67,13 +72,15 @@ AABB::AABB(const Mesh &mesh, unsigned int tri_id) {
     max_[0] = std::max(max_[0], c[0]);
     max_[1] = std::max(max_[1], c[1]);
     max_[2] = std::max(max_[2], c[2]);
+
+    user_data_ = 0;
 }
 
     
 AABB::AABB(const Mesh &mesh) {
     min_[0] = min_[1] = min_[2] = std::numeric_limits<float>::max();
     max_[0] = max_[1] = max_[2] = -std::numeric_limits<float>::max();
-    
+
     for (int i=0; i < mesh.num_vertices(); i++) {
         Point3 a = mesh.read_vertex_data(i);
         min_[0] = std::min(min_[0], a[0]);
@@ -84,6 +91,8 @@ AABB::AABB(const Mesh &mesh) {
         max_[1] = std::max(max_[1], a[1]);
         max_[2] = std::max(max_[2], a[2]);
     }
+
+    user_data_ = 0;
 }
     
     

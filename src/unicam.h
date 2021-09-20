@@ -206,7 +206,7 @@ private:
     
     void recalc_angular_vel();
     
-    enum UniCamState {
+    enum class UniCamState {
         START,
         PAN_DOLLY_ROT_DECISION,
         PAN_DOLLY_DECISION,
@@ -230,8 +230,8 @@ private:
     float   boundingSphereRad_;
     Point3  boundingSphereCtr_;
     double  rotLastTime_;
-    std::vector<std::pair<float, float>> rotAngularVelBuffer_;
-    float rotAngularVel_;
+    std::vector<std::pair<double, double>> rotAngularVelBuffer_;
+    double rotAngularVel_;
     Vector3 rotAxis_;
     
     bool    dollyInitialized_;

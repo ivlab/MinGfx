@@ -17,7 +17,7 @@ namespace mingfx {
 #define MAX_TEX_ATTRIBS 5
 
 
-Mesh::Mesh() : gpu_dirty_(true), bvh_dirty_(true) {
+Mesh::Mesh() : gpu_dirty_(true), vertex_buffer_(0), vertex_array_(0), element_buffer_(0), bvh_dirty_(true) {
 }
 
 Mesh::Mesh(const Mesh &other) {
@@ -57,17 +57,17 @@ void Mesh::UpdateTriangle(int triangle_id, Point3 v1, Point3 v2, Point3 v3) {
     bvh_dirty_ = true;
     
     int index = triangle_id * 9;
-    verts_[index + 0] = v1[0];
-    verts_[index + 1] = v1[1];
-    verts_[index + 2] = v1[2];
+    verts_[(size_t)index + 0] = v1[0];
+    verts_[(size_t)index + 1] = v1[1];
+    verts_[(size_t)index + 2] = v1[2];
     
-    verts_[index + 3] = v2[0];
-    verts_[index + 4] = v2[1];
-    verts_[index + 5] = v2[2];
+    verts_[(size_t)index + 3] = v2[0];
+    verts_[(size_t)index + 4] = v2[1];
+    verts_[(size_t)index + 5] = v2[2];
 
-    verts_[index + 6] = v3[0];
-    verts_[index + 7] = v3[1];
-    verts_[index + 8] = v3[2];
+    verts_[(size_t)index + 6] = v3[0];
+    verts_[(size_t)index + 7] = v3[1];
+    verts_[(size_t)index + 8] = v3[2];
 }
 
 
@@ -84,17 +84,17 @@ void Mesh::SetNormals(int triangle_id, Vector3 n1, Vector3 n2, Vector3 n3) {
         norms_.resize(requiredSize);
     }
     int index = triangle_id * 9;
-    norms_[index + 0] = n1[0];
-    norms_[index + 1] = n1[1];
-    norms_[index + 2] = n1[2];
+    norms_[(size_t)index + 0] = n1[0];
+    norms_[(size_t)index + 1] = n1[1];
+    norms_[(size_t)index + 2] = n1[2];
     
-    norms_[index + 3] = n2[0];
-    norms_[index + 4] = n2[1];
-    norms_[index + 5] = n2[2];
+    norms_[(size_t)index + 3] = n2[0];
+    norms_[(size_t)index + 4] = n2[1];
+    norms_[(size_t)index + 5] = n2[2];
     
-    norms_[index + 6] = n3[0];
-    norms_[index + 7] = n3[1];
-    norms_[index + 8] = n3[2];
+    norms_[(size_t)index + 6] = n3[0];
+    norms_[(size_t)index + 7] = n3[1];
+    norms_[(size_t)index + 8] = n3[2];
 }
 
 void Mesh::SetColors(int triangle_id, Color c1, Color c2, Color c3) {
@@ -110,20 +110,20 @@ void Mesh::SetColors(int triangle_id, Color c1, Color c2, Color c3) {
         colors_.resize(requiredSize);
     }
     int index = triangle_id * 12;
-    colors_[index + 0] = c1[0];
-    colors_[index + 1] = c1[1];
-    colors_[index + 2] = c1[2];
-    colors_[index + 3] = c1[3];
+    colors_[(size_t)index + 0] = c1[0];
+    colors_[(size_t)index + 1] = c1[1];
+    colors_[(size_t)index + 2] = c1[2];
+    colors_[(size_t)index + 3] = c1[3];
 
-    colors_[index + 4] = c2[0];
-    colors_[index + 5] = c2[1];
-    colors_[index + 6] = c2[2];
-    colors_[index + 7] = c2[3];
+    colors_[(size_t)index + 4] = c2[0];
+    colors_[(size_t)index + 5] = c2[1];
+    colors_[(size_t)index + 6] = c2[2];
+    colors_[(size_t)index + 7] = c2[3];
 
-    colors_[index + 8] = c3[0];
-    colors_[index + 9] = c3[1];
-    colors_[index + 10] = c3[2];
-    colors_[index + 11] = c3[3];
+    colors_[(size_t)index + 8] = c3[0];
+    colors_[(size_t)index + 9] = c3[1];
+    colors_[(size_t)index + 10] = c3[2];
+    colors_[(size_t)index + 11] = c3[3];
 }
 
 void Mesh::SetTexCoords(int triangle_id, int textureUnit, Point2 uv1, Point2 uv2, Point2 uv3) {
@@ -135,8 +135,8 @@ void Mesh::SetTexCoords(int triangle_id, int textureUnit, Point2 uv1, Point2 uv2
     }
     
     // resize as needed based on the number of textureUnits used
-    if (tex_coords_.size() < textureUnit+1) {
-        tex_coords_.resize(textureUnit+1);
+    if (tex_coords_.size() < (size_t)textureUnit+1) {
+        tex_coords_.resize((size_t)textureUnit+1);
     }
 
     // resize the textureUnit-specific array based on the number of triangles
@@ -145,14 +145,14 @@ void Mesh::SetTexCoords(int triangle_id, int textureUnit, Point2 uv1, Point2 uv2
         tex_coords_[textureUnit].resize(requiredSize);
     }
     int index = triangle_id * 6;
-    tex_coords_[textureUnit][index + 0] = uv1[0];
-    tex_coords_[textureUnit][index + 1] = uv1[1];
+    tex_coords_[textureUnit][(size_t)index + 0] = uv1[0];
+    tex_coords_[textureUnit][(size_t)index + 1] = uv1[1];
 
-    tex_coords_[textureUnit][index + 2] = uv2[0];
-    tex_coords_[textureUnit][index + 3] = uv2[1];
+    tex_coords_[textureUnit][(size_t)index + 2] = uv2[0];
+    tex_coords_[textureUnit][(size_t)index + 3] = uv2[1];
 
-    tex_coords_[textureUnit][index + 4] = uv3[0];
-    tex_coords_[textureUnit][index + 5] = uv3[1];
+    tex_coords_[textureUnit][(size_t)index + 4] = uv3[0];
+    tex_coords_[textureUnit][(size_t)index + 5] = uv3[1];
 }
 
 
@@ -192,8 +192,8 @@ void Mesh::SetColors(const std::vector<Color> &colors) {
 void Mesh::SetTexCoords(int texture_unit, const std::vector<Point2> &tex_coords) {
     gpu_dirty_ = true;
     // resize as needed based on the number of textureUnits used
-    if (tex_coords_.size() < texture_unit+1) {
-        tex_coords_.resize(texture_unit+1);
+    if (tex_coords_.size() < (size_t)texture_unit+1) {
+        tex_coords_.resize((size_t)texture_unit+1);
     }
     tex_coords_[texture_unit].clear();
     for (int i=0; i<tex_coords.size(); i++) {
@@ -258,8 +258,8 @@ void Mesh::SetColors(float *colorsArray, int numColors) {
 void Mesh::SetTexCoords(int textureUnit, float *texCoordsArray, int numTexCoords) {
     gpu_dirty_ = true;
     // resize as needed based on the number of textureUnits used
-    if (tex_coords_.size() < textureUnit+1) {
-        tex_coords_.resize(textureUnit+1);
+    if (tex_coords_.size() < (size_t)textureUnit+1) {
+        tex_coords_.resize((size_t)textureUnit+1);
     }
     tex_coords_[textureUnit].clear();
     int numFloats = numTexCoords * 2;
@@ -463,11 +463,11 @@ void Mesh::Draw() {
     
     if (instance_xforms_.size()) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer_);
-        glDrawElementsInstanced(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, (void*)0, instance_xforms_.size()/16);
+        glDrawElementsInstanced(GL_TRIANGLES, (GLsizei)indices_.size(), GL_UNSIGNED_INT, (void*)0, (GLsizei)instance_xforms_.size()/16);
     }
     else if (indices_.size()) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, element_buffer_);
-        glDrawElements(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, (void*)0);
+        glDrawElements(GL_TRIANGLES, (GLsizei)indices_.size(), GL_UNSIGNED_INT, (void*)0);
     }
     else {
         glDrawArrays(GL_TRIANGLES, 0, num_vertices());
@@ -478,15 +478,15 @@ void Mesh::Draw() {
 
 
 int Mesh::num_vertices() const {
-    return verts_.size()/3;
+    return (int)verts_.size()/3;
 }
 
 int Mesh::num_triangles() const {
     if (indices_.size()) {
-        return indices_.size()/3;
+        return (int)indices_.size()/3;
     }
     else {
-        return verts_.size()/9;
+        return (int)verts_.size()/9;
     }
 }
 
@@ -536,7 +536,7 @@ void Mesh::LoadFromOBJ(const std::string &filename) {
             for (int i = 2; i < polygon.size(); i++) {
                 //triangles.push_back(ivec3(polygon[0], polygon[i-1], polygon[i]));
                 int i1 = polygon[0];
-                int i2 = polygon[i-1];
+                int i2 = polygon[(size_t)i-1];
                 int i3 = polygon[i];
                 //int t = AddTriangle(vertices[i1], vertices[i2], vertices[i3]);
                 //if (normals.size()) {
@@ -577,19 +577,19 @@ void Mesh::LoadFromOBJ(const std::string &filename) {
 
 
 Point3 Mesh::read_vertex_data(int i) const {
-    return Point3(verts_[3*i], verts_[3*i+1], verts_[3*i+2]);
+    return Point3(verts_[(size_t)3*i], verts_[(size_t)3*i+1], verts_[(size_t)3*i+2]);
 }
 
 Vector3 Mesh::read_normal_data(int i) const {
-    return Vector3(norms_[3*i], norms_[3*i+1], norms_[3*i+2]);
+    return Vector3(norms_[(size_t)3*i], norms_[(size_t)3*i+1], norms_[(size_t)3*i+2]);
 }
 
 Color Mesh::read_color_data(int i) const {
-    return Color(colors_[4*i], colors_[4*i+1], colors_[4*i+2], colors_[4*i+3]);
+    return Color(colors_[(size_t)4*i], colors_[(size_t)4*i+1], colors_[(size_t)4*i+2], colors_[(size_t)4*i+3]);
 }
 
 Point2 Mesh::read_tex_coords_data(int textureUnit, int i) const {
-    return Point2(tex_coords_[textureUnit][2*i], tex_coords_[textureUnit][2*i+1]);
+    return Point2(tex_coords_[textureUnit][(size_t)2*i], tex_coords_[textureUnit][(size_t)2*i+1]);
 }
 
 std::vector<unsigned int> Mesh::read_triangle_indices_data(int triangle_id) const {
@@ -597,9 +597,9 @@ std::vector<unsigned int> Mesh::read_triangle_indices_data(int triangle_id) cons
     int i = 3*triangle_id;
     if (indices_.size()) {
         // indexed faces mode
-        tri.push_back(indices_[i+0]);
-        tri.push_back(indices_[i+1]);
-        tri.push_back(indices_[i+2]);
+        tri.push_back(indices_[(size_t)i+0]);
+        tri.push_back(indices_[(size_t)i+1]);
+        tri.push_back(indices_[(size_t)i+2]);
     }
     else {
         // ordered faces mode

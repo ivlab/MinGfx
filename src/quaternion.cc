@@ -199,21 +199,21 @@ Vector3 Quaternion::ToEulerAnglesZYX() const {
     Vector3 angles;
     
     // roll (x-axis rotation)
-    float sinr = +2.0 * (w() * x() + y() * z());
-    float cosr = +1.0 - 2.0 * (x() * x() + y() * y());
-    angles[0] = GfxMath::atan2(sinr, cosr);
+    float sinr = +2.0f * (w() * x() + y() * z());
+    float cosr = +1.0f - 2.0f * (x() * x() + y() * y());
+    angles[0] = std::atan2(sinr, cosr);
     
     // pitch (y-axis rotation)
-    float sinp = +2.0 * (w() * y() - z() * x());
-    if (std::fabs(sinp) >= 1)
-        angles[1] = std::copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+    float sinp = +2.0f * (w() * y() - z() * x());
+    if (std::fabs(sinp) >= 1.f)
+        angles[1] = std::copysign(GfxMath::HALF_PI, sinp); // use 90 degrees if out of range
     else
-        angles[1] = GfxMath::asin(sinp);
+        angles[1] = std::asin(sinp);
     
     // yaw (z-axis rotation)
-    float siny = +2.0 * (w() * z() + x() * y());
-    float cosy = +1.0 - 2.0 * (y() * y() + z() * z());
-    angles[2] = GfxMath::atan2(siny, cosy);
+    float siny = +2.0f * (w() * z() + x() * y());
+    float cosy = +1.0f - 2.0f * (y() * y() + z() * z());
+    angles[2] = std::atan2(siny, cosy);
     
     return angles;
 }
@@ -234,7 +234,7 @@ Quaternion operator*(const Quaternion& q1, const Quaternion& q2) {
 
 
 Quaternion operator/(const Quaternion& q, const float s) {
-    const float invS = 1.0 / s;
+    const float invS = 1.0f / s;
     return Quaternion(q[0]*invS, q[1]*invS, q[2]*invS, q[3]*invS);
 }
 

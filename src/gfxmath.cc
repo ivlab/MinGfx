@@ -15,6 +15,9 @@
 
 namespace mingfx {
     
+const float GfxMath::PI = 3.14159265359f;
+const float GfxMath::TWO_PI = 6.28318530718f;
+const float GfxMath::HALF_PI = 1.57079632679f;
 
 float GfxMath::sin(float a) {
 #ifdef WIN32
@@ -77,11 +80,11 @@ float GfxMath::Clamp(float x, float a, float b) {
 }    
 
 float GfxMath::ToRadians(float degrees) {
-    return degrees * M_PI / 180.0;
+    return degrees * GfxMath::PI / 180.0f;
 }
 
 float GfxMath::ToDegrees(float radians) {
-    return radians * 180.0 / M_PI;
+    return radians * 180.0f / GfxMath::PI;
 }
 
 Vector3 GfxMath::ToRadians(Vector3 degrees) {
@@ -97,7 +100,7 @@ float GfxMath::Lerp(float a, float b, float alpha) {
 }
     
 int GfxMath::iLerp(int a, int b, float alpha) {
-    return std::round((1.0f-alpha)*(float)a + alpha*(float)b);
+    return (int)std::round((1.0f-alpha)*(float)a + alpha*(float)b);
 }
     
 Point3 GfxMath::ScreenToNearPlane(const Matrix4 &V, const Matrix4 &P, const Point2 &ndcPoint) {
@@ -108,7 +111,7 @@ Point3 GfxMath::ScreenToNearPlane(const Matrix4 &V, const Matrix4 &P, const Poin
     
 Point3 GfxMath::ScreenToWorld(const Matrix4 &V, const Matrix4 &P, const Point2 &ndcPoint, float zValue) {
     Matrix4 filmPtToWorld = (P*V).Inverse();
-    float zneg1topos1 = zValue*2.0 - 1.0;
+    float zneg1topos1 = zValue*2.0f - 1.0f;
     return filmPtToWorld * Point3(ndcPoint[0], ndcPoint[1], zneg1topos1);
 }
 

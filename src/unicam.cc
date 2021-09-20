@@ -11,11 +11,16 @@
 namespace mingfx {
 
 
-UniCam::UniCam() : state_(START), defaultDepth_(4.0) {
+UniCam::UniCam() : state_(UniCamState::START), defaultDepth_(4.0), boundingSphereRad_(1.0), 
+    dollyFactor_(1.0), dollyInitialized_(false), elapsedTime_(0.0), hitGeometry_(false), 
+    rotAngularVel_(0.0), rotInitialized_(false), rotLastTime_(0.0), showIcon_(false)
+{
 }
 
 UniCam::UniCam(const Matrix4 &initialViewMatrix) :
-    state_(START), defaultDepth_(4.0), V_(initialViewMatrix)
+    state_(UniCamState::START), defaultDepth_(4.0), V_(initialViewMatrix), boundingSphereRad_(1.0), 
+    dollyFactor_(1.0), dollyInitialized_(false), elapsedTime_(0.0), hitGeometry_(false), 
+    rotAngularVel_(0.0), rotInitialized_(false), rotLastTime_(0.0), showIcon_(false)
 {
 }
 
@@ -26,7 +31,7 @@ UniCam::~UniCam()
 
 void UniCam::recalc_angular_vel() {
     // update angular velocity
-    float cutoff = elapsedTime_ - 0.2; // look just at the last 0.2 secs
+    float cutoff = (float)elapsedTime_ - 0.2f; // look just at the last 0.2 secs
     while ((rotAngularVelBuffer_.size()) && (rotAngularVelBuffer_[0].first < cutoff)) {
         rotAngularVelBuffer_.erase(rotAngularVelBuffer_.begin());
     }
@@ -42,7 +47,7 @@ void UniCam::recalc_angular_vel() {
 
 
 void UniCam::OnButtonDown(const Point2 &mousePos, float mouseZ) {
-    if (state_ == START) {
+    if (state_ == UniCamState::START) {
         initialClickPos_ = mousePos;
         mouseLast_ = mousePos;
         elapsedTime_ = 0.0;
@@ -57,15 +62,15 @@ void UniCam::OnButtonDown(const Point2 &mousePos, float mouseZ) {
             hitPoint_ = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0,0), defaultDepth_);
         }
         showIcon_ = true;
-        state_ = PAN_DOLLY_ROT_DECISION;
+        state_ = UniCamState::PAN_DOLLY_ROT_DECISION;
     }
-    else if (state_ == ROT_WAIT_FOR_SECOND_CLICK) {
+    else if (state_ == UniCamState::ROT_WAIT_FOR_SECOND_CLICK) {
         // we have the second click now, and we will start the trackball rotate interaction
-        state_ = ROT;
+        state_ = UniCamState::ROT;
     }
-    else if (state_ == SPINNING) {
+    else if (state_ == UniCamState::SPINNING) {
         // this click is to "catch" the model, stopping it from spinning.
-        state_ = START;
+        state_ = UniCamState::START;
     }
     else {
         std::cerr << "UniCam::OnButtonDown() unexpected state." << std::endl;
@@ -73,40 +78,40 @@ void UniCam::OnButtonDown(const Point2 &mousePos, float mouseZ) {
 }
 
 void UniCam::OnDrag(const Point2 &mousePos) {
-    if (state_ == PAN_DOLLY_ROT_DECISION) {
+    if (state_ == UniCamState::PAN_DOLLY_ROT_DECISION) {
         const double panMovementThreshold  = 0.01;
         const double dollyMovementThreshold = 0.01;
         if (fabs(mousePos[0] - initialClickPos_[0]) > panMovementThreshold) {
             // already lots of horizontal movement, we can go right to pan
-            state_ = PAN;
+            state_ = UniCamState::PAN;
             showIcon_ = false;
         }
         else if (fabs(mousePos[1] - initialClickPos_[1]) > dollyMovementThreshold) {
             // already lots of vertical movement, we can go right to dolly
-            state_ = DOLLY;
+            state_ = UniCamState::DOLLY;
             showIcon_ = false;
         }
         else if (elapsedTime_ > 1.0) {
             // timeout, this was not a quick click to set a center of rotation,
             // so there is no intent to rotate.  instead we will be doing either
             // pan or dolly.
-            state_ = PAN_DOLLY_DECISION;
+            state_ = UniCamState::PAN_DOLLY_DECISION;
             showIcon_ = false;
         }
     }
-    else if (state_ == PAN_DOLLY_DECISION) {
+    else if (state_ == UniCamState::PAN_DOLLY_DECISION) {
         const double panMovementThreshold  = 0.01;
         const double dollyMovementThreshold = 0.01;
         if (fabs(mousePos[0] - initialClickPos_[0]) > panMovementThreshold) {
             // lots of horizontal movement, go to pan
-            state_ = PAN;
+            state_ = UniCamState::PAN;
         }
         else if (fabs(mousePos[1] - initialClickPos_[1]) > dollyMovementThreshold) {
             // lots of vertical movement, go to dolly
-            state_ = DOLLY;
+            state_ = UniCamState::DOLLY;
         }
     }
-    else if (state_ == PAN) {
+    else if (state_ == UniCamState::PAN) {
         Matrix4 camMat = V_.Inverse();
         Point3 eye = camMat.ColumnToPoint3(3);
         Vector3 look = -camMat.ColumnToVector3(2);
@@ -115,7 +120,7 @@ void UniCam::OnDrag(const Point2 &mousePos) {
         Point3 pWorld2 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, mousePos, depth);
         V_ = V_ * Matrix4::Translation(pWorld2 - pWorld1);
     }
-    else if (state_ == DOLLY) {
+    else if (state_ == UniCamState::DOLLY) {
         if (!dollyInitialized_) {
             // Setup dollyFactor so that if you move the mouse to the bottom of the screen, the point
             // you clicked on will be right on top of the camera.
@@ -130,7 +135,7 @@ void UniCam::OnDrag(const Point2 &mousePos) {
         Vector3 d(0, 0, -dollyFactor_ * (mousePos[1] - mouseLast_[1]));
         V_ = Matrix4::Translation(d) * V_ ;
     }
-    else if (state_ == ROT) {
+    else if (state_ == UniCamState::ROT) {
         if (!rotInitialized_) {
             float depth = 0.0;
             if (hitGeometry_) {
@@ -191,7 +196,7 @@ void UniCam::OnDrag(const Point2 &mousePos) {
                 Vector3 v2 = (iPoint2 - boundingSphereCtr_).ToUnit();
                 
                 rotAxis_ = v1.Cross(v2).ToUnit();
-                float angle = GfxMath::acos(v1.Dot(v2));
+                float angle = std::acos(v1.Dot(v2));
 
                 if (std::isfinite(angle)) {
                     Matrix4 R = Matrix4::Rotation(boundingSphereCtr_, rotAxis_, angle);
@@ -212,7 +217,7 @@ void UniCam::OnDrag(const Point2 &mousePos) {
             recalc_angular_vel();
         }
     }
-    else if (state_ == START) {
+    else if (state_ == UniCamState::START) {
         // picked up a little mouse movement after "catching" a spinning model
         // nothing to do, just wait for the button up.
     }
@@ -223,13 +228,13 @@ void UniCam::OnDrag(const Point2 &mousePos) {
 }
 
 void UniCam::OnButtonUp(const Point2 &mousePos) {
-    if (state_ == PAN_DOLLY_ROT_DECISION) {
+    if (state_ == UniCamState::PAN_DOLLY_ROT_DECISION) {
         // here, we got a quick click of the mouse to indicate a center of rotation
         // so we now go into a mode of waiting for a second click to start rotating
         // around that point.
-        state_ = ROT_WAIT_FOR_SECOND_CLICK;
+        state_ = UniCamState::ROT_WAIT_FOR_SECOND_CLICK;
     }
-    else if (state_ == ROT) {
+    else if (state_ == UniCamState::ROT) {
         showIcon_ = false;
         // if we are leaving the rotation state and the angular velocity is
         // greater than some thresold, then the user has "thrown" the model
@@ -238,29 +243,29 @@ void UniCam::OnButtonUp(const Point2 &mousePos) {
         recalc_angular_vel();
         //std::cout << "check for spin: " << n-start << " " << rotAngularVel_ << " " << avel2 << std::endl;
 
-        const float threshold = 0.2;
+        const float threshold = 0.2f;
         if (std::fabs(rotAngularVel_) > threshold) {
-            state_ = SPINNING;
+            state_ = UniCamState::SPINNING;
         }
         else {
-            state_ = START;
+            state_ = UniCamState::START;
         }
     }
     else {
         showIcon_ = false;
         // all other cases go back to the start state
-        state_ = START;
+        state_ = UniCamState::START;
     }
 }
 
 void UniCam::AdvanceAnimation(double dt) {
     elapsedTime_ += dt;
     
-    if (state_ == SPINNING) {
+    if (state_ == UniCamState::SPINNING) {
         double deltaT = elapsedTime_ - rotLastTime_;
         rotLastTime_ = elapsedTime_;
-        double angle = rotAngularVel_ * deltaT;
-        Matrix4 R = Matrix4::Rotation(boundingSphereCtr_, rotAxis_, angle);
+        double angle = (double)rotAngularVel_ * deltaT;
+        Matrix4 R = Matrix4::Rotation(boundingSphereCtr_, rotAxis_, (float)angle);
         //R = R.orthonormal();
         V_ = V_ * R;
     }
@@ -275,8 +280,8 @@ void UniCam::Draw(const Matrix4 &projectionMatrix) {
         Point3 eye = camMat.ColumnToPoint3(3);
         Vector3 look = -camMat.ColumnToVector3(2);
         float depth = (hitPoint_ - eye).Dot(look);
-        Point3 pWorld1 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0,0), depth);
-        Point3 pWorld2 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0.015,0), depth);
+        Point3 pWorld1 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0.f,0.f), depth);
+        Point3 pWorld2 = GfxMath::ScreenToDepthPlane(V_, Pdraw_, Point2(0.015f,0.f), depth);
         float rad = (pWorld2 - pWorld1).Length();
         Matrix4 M = Matrix4::Translation(hitPoint_ - Point3::Origin()) * Matrix4::Scale(Vector3(rad, rad, rad));
         quickShapes_.DrawSphere(M, V_, Pdraw_, Color(0,0,0));

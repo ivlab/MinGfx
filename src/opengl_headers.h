@@ -15,11 +15,10 @@
 // but since nanogui uses glad internally, we will just use their approach to load opengl headers
 // so that everything is consistent.
 
-#ifdef WIN32
-#define NANOGUI_GLAD
-#endif
-
+// disable warnings for this 3rd party code
+#pragma warning ( push, 0 )
 #include <nanogui/opengl.h>
+#pragma warning ( pop )
 
 
 /*** Our typical (non-nanogui) appraoch:

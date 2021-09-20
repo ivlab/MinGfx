@@ -17,8 +17,8 @@ namespace mingfx {
     
     
     
-#define PI 3.14159265359
-#define TWOPI 6.28318530718
+#define PI 3.14159265359f
+#define TWOPI 6.28318530718f
     
     
     
@@ -206,22 +206,14 @@ void QuickShapes::initCyl() {
         verts.push_back(Vertex(xlast,-1,zlast, 0,-1,0));
     }
     
-    GLfloat *vertices = new GLfloat[3*verts.size()];
-    GLfloat *normals  = new GLfloat[3*verts.size()];
-    
-    int index = 0;
+    std::vector<Point3> vertices;
+    std::vector<Vector3> normals;
     for (int i=0; i<verts.size(); i++) {
-        vertices[index]   = verts[i].x;
-        vertices[index+1] = verts[i].y;
-        vertices[index+2] = verts[i].z;
-        normals[index]    = verts[i].nx;
-        normals[index+1]  = verts[i].ny;
-        normals[index+2]  = verts[i].nz;
-        index += 3;
-    }
-    
-    cylMesh_.SetVertices(vertices, verts.size());
-    cylMesh_.SetNormals(normals, verts.size());
+        vertices.push_back(Point3(verts[i].x, verts[i].y, verts[i].z));
+        normals.push_back(Vector3(verts[i].nx, verts[i].ny, verts[i].nz));
+    }    
+    cylMesh_.SetVertices(vertices);
+    cylMesh_.SetNormals(normals);
     cylMesh_.UpdateGPUMemory();
 }
 
@@ -274,22 +266,15 @@ void QuickShapes::initCone() {
         verts.push_back(Vertex(xlast,-1,zlast, 0,-1,0));
     }
     
-    GLfloat *vertices = new GLfloat[3*verts.size()];
-    GLfloat *normals  = new GLfloat[3*verts.size()];
-    
-    int index = 0;
-    for (int i=0; i<verts.size(); i++) {
-        vertices[index]   = verts[i].x;
-        vertices[index+1] = verts[i].y;
-        vertices[index+2] = verts[i].z;
-        normals[index]    = verts[i].nx;
-        normals[index+1]  = verts[i].ny;
-        normals[index+2]  = verts[i].nz;
-        index += 3;
+    std::vector<Point3> vertices;
+    std::vector<Vector3> normals;
+    for (int i = 0; i < verts.size(); i++) {
+        vertices.push_back(Point3(verts[i].x, verts[i].y, verts[i].z));
+        normals.push_back(Vector3(verts[i].nx, verts[i].ny, verts[i].nz));
     }
     
-    coneMesh_.SetVertices(vertices, verts.size());
-    coneMesh_.SetNormals(normals, verts.size());
+    coneMesh_.SetVertices(vertices);
+    coneMesh_.SetNormals(normals);
     coneMesh_.UpdateGPUMemory();
 }
 
@@ -370,22 +355,15 @@ void QuickShapes::initSph() {
                                GfxMath::sin(stackstep)*zlast));
     }
     
-    GLfloat *vertices = new GLfloat[3*verts.size()];
-    GLfloat *normals  = new GLfloat[3*verts.size()];
     
-    int index = 0;
-    for (int i=0; i<verts.size(); i++) {
-        vertices[index]   = verts[i].x;
-        vertices[index+1] = verts[i].y;
-        vertices[index+2] = verts[i].z;
-        normals[index]    = verts[i].nx;
-        normals[index+1]  = verts[i].ny;
-        normals[index+2]  = verts[i].nz;
-        index += 3;
+    std::vector<Point3> vertices;
+    std::vector<Vector3> normals;
+    for (int i = 0; i < verts.size(); i++) {
+        vertices.push_back(Point3(verts[i].x, verts[i].y, verts[i].z));
+        normals.push_back(Vector3(verts[i].nx, verts[i].ny, verts[i].nz));
     }
-    
-    sphereMesh_.SetVertices(vertices, verts.size());
-    sphereMesh_.SetNormals(normals, verts.size());
+    sphereMesh_.SetVertices(vertices);
+    sphereMesh_.SetNormals(normals);
     sphereMesh_.UpdateGPUMemory();
 }
 
@@ -412,28 +390,28 @@ void QuickShapes::initBrush() {
     
     // Raw vertices -- points that make up the brush geometry
     const GLfloat v[19][3] = {
-        { 0.5,   0.0,   0.0},  // 0
-        {-0.5,   0.0,   0.0},  // 1
+        { 0.5f,   0.0f,   0.0f},  // 0
+        {-0.5f,   0.0f,   0.0f},  // 1
         
-        { 0.5,   0.1,   0.25}, // 2
-        {-0.5,   0.1,   0.25}, // 3
-        { 0.5,   0.1,   0.75}, // 4
-        {-0.5,   0.1,   0.75}, // 5
-        { 0.1,   0.06,  1.0},  // 6
-        {-0.1,   0.06,  1.0},  // 7
-        { 0.15,  0.1,   1.75}, // 8
-        {-0.15,  0.1,   1.75}, // 9
+        { 0.5f,   0.1f,   0.25f}, // 2
+        {-0.5f,   0.1f,   0.25f}, // 3
+        { 0.5f,   0.1f,   0.75f}, // 4
+        {-0.5f,   0.1f,   0.75f}, // 5
+        { 0.1f,   0.06f,  1.0f},  // 6
+        {-0.1f,   0.06f,  1.0f},  // 7
+        { 0.15f,  0.1f,   1.75f}, // 8
+        {-0.15f,  0.1f,   1.75f}, // 9
         
-        { 0.0,   0.0,   1.85}, // 10
+        { 0.0f,   0.0f,   1.85f}, // 10
         
-        { 0.5,  -0.1,   0.25}, // 11
-        {-0.5,  -0.1,   0.25}, // 12
-        { 0.5,  -0.1,   0.75}, // 13
-        {-0.5,  -0.1,   0.75}, // 14
-        { 0.1,  -0.06,  1.0},  // 15
-        {-0.1,  -0.06,  1.0},  // 16
-        { 0.15, -0.1,   1.75}, // 17
-        {-0.15, -0.1,   1.75}  // 18
+        { 0.5f,  -0.1f,   0.25f}, // 11
+        {-0.5f,  -0.1f,   0.25f}, // 12
+        { 0.5f,  -0.1f,   0.75f}, // 13
+        {-0.5f,  -0.1f,   0.75f}, // 14
+        { 0.1f,  -0.06f,  1.0f},  // 15
+        {-0.1f,  -0.06f,  1.0f},  // 16
+        { 0.15f, -0.1f,   1.75f}, // 17
+        {-0.15f, -0.1f,   1.75f}  // 18
     };
     
     
@@ -503,62 +481,62 @@ void QuickShapes::initBrush() {
     // Normals defined so as to make each face of the brush a flat surface
     const GLfloat norms[34][3][3] = {
         // top
-        {{0.0, 0.93, -0.37}, {0.0, 0.93, -0.37}, {0.0, 0.93, -0.37}},
-        {{0.0, 0.93, -0.37}, {0.0, 0.93, -0.37}, {0.0, 0.93, -0.37}},
+        {{0.0f, 0.93f, -0.37f}, {0.0f, 0.93f, -0.37f}, {0.0f, 0.93f, -0.37f}},
+        {{0.0f, 0.93f, -0.37f}, {0.0f, 0.93f, -0.37f}, {0.0f, 0.93f, -0.37f}},
         
-        {{0.0, 1.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 1.0, 0.0}},
-        {{0.0, 1.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 1.0, 0.0}},
+        {{0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}},
+        {{0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f, 0.0f}},
         
-        {{0.0, 0.988, 0.158}, {0.0, 0.988, 0.158}, {0.0, 0.988, 0.158}},
-        {{0.0, 0.988, 0.158}, {0.0, 0.988, 0.158}, {0.0, 0.988, 0.158}},
+        {{0.0f, 0.988f, 0.158f}, {0.0f, 0.988f, 0.158f}, {0.0f, 0.988f, 0.158f}},
+        {{0.0f, 0.988f, 0.158f}, {0.0f, 0.988f, 0.158f}, {0.0f, 0.988f, 0.158f}},
         
-        {{0.0, 0.999, -0.0533}, {0.0, 0.999, -0.0533}, {0.0, 0.999, -0.0533}},
-        {{0.0, 0.999, -0.0533}, {0.0, 0.999, -0.0533}, {0.0, 0.999, -0.0533}},
+        {{0.0f, 0.999f, -0.0533f}, {0.0f, 0.999f, -0.0533f}, {0.0f, 0.999f, -0.0533f}},
+        {{0.0f, 0.999f, -0.0533f}, {0.0f, 0.999f, -0.0533f}, {0.0f, 0.999f, -0.0533f}},
         
-        {{0.0, 0.709, 0.709}, {0.0, 0.709, 0.709}, {0.0, 0.709, 0.709}},
+        {{0.0f, 0.709f, 0.709f}, {0.0f, 0.709f, 0.709f}, {0.0f, 0.709f, 0.709f}},
         
         // bottom
-        {{0.0, -0.93, -0.37}, {0.0, -0.93, -0.37}, {0.0, -0.93, -0.37}},
-        {{0.0, -0.93, -0.37}, {0.0, -0.93, -0.37}, {0.0, -0.93, -0.37}},
+        {{0.0f, -0.93f, -0.37f}, {0.0f, -0.93f, -0.37f}, {0.0f, -0.93f, -0.37f}},
+        {{0.0f, -0.93f, -0.37f}, {0.0f, -0.93f, -0.37f}, {0.0f, -0.93f, -0.37f}},
         
-        {{0.0, -1.0, 0.0}, {0.0, -1.0, 0.0}, {0.0, -1.0, 0.0}},
-        {{0.0, -1.0, 0.0}, {0.0, -1.0, 0.0}, {0.0, -1.0, 0.0}},
+        {{0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}},
+        {{0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}, {0.0f, -1.0f, 0.0f}},
         
-        {{0.0, -0.988, 0.158}, {0.0, -0.988, 0.158}, {0.0, -0.988, 0.158}},
-        {{0.0, -0.988, 0.158}, {0.0, -0.988, 0.158}, {0.0, -0.988, 0.158}},
+        {{0.0f, -0.988f, 0.158f}, {0.0f, -0.988f, 0.158f}, {0.0f, -0.988f, 0.158f}},
+        {{0.0f, -0.988f, 0.158f}, {0.0f, -0.988f, 0.158f}, {0.0f, -0.988f, 0.158f}},
         
-        {{0.0, -0.999, -0.0533}, {0.0, -0.999, -0.0533}, {0.0, -0.999, -0.0533}},
-        {{0.0, -0.999, -0.0533}, {0.0, -0.999, -0.0533}, {0.0, -0.999, -0.0533}},
+        {{0.0f, -0.999f, -0.0533f}, {0.0f, -0.999f, -0.0533f}, {0.0f, -0.999f, -0.0533f}},
+        {{0.0f, -0.999f, -0.0533f}, {0.0f, -0.999f, -0.0533f}, {0.0f, -0.999f, -0.0533f}},
         
-        {{0.0, -0.709, 0.709}, {0.0, -0.709, 0.709}, {0.0, -0.709, 0.709}},
+        {{0.0f, -0.709f, 0.709f}, {0.0f, -0.709f, 0.709f}, {0.0f, -0.709f, 0.709f}},
         
         // one side
-        {{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}},
+        {{1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}},
         
-        {{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}},
-        {{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}},
+        {{1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}},
+        {{1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}},
         
-        {{0.848, 0.0, 0.530}, {0.848, 0.0, 0.530}, {0.848, 0.0, 0.530}},
-        {{0.848, 0.0, 0.530}, {0.848, 0.0, 0.530}, {0.848, 0.0, 0.530}},
+        {{0.848f, 0.0f, 0.530f}, {0.848f, 0.0f, 0.530f}, {0.848f, 0.0f, 0.530f}},
+        {{0.848f, 0.0f, 0.530f}, {0.848f, 0.0f, 0.530f}, {0.848f, 0.0f, 0.530f}},
         
-        {{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}},
-        {{1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}, {1.0, 0.0, 0.0}},
+        {{1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}},
+        {{1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}},
         
-        {{0.709, 0.0, 0.709}, {0.709, 0.0, 0.709}, {0.709, 0.0, 0.709}},
+        {{0.709f, 0.0f, 0.709f}, {0.709f, 0.0f, 0.709f}, {0.709f, 0.0f, 0.709f}},
         
         // other side
-        {{-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}},
+        {{-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}},
         
-        {{-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}},
-        {{-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}},
+        {{-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}},
+        {{-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}},
         
-        {{-0.848, 0.0, 0.530}, {-0.848, 0.0, 0.530}, {-0.848, 0.0, 0.530}},
-        {{-0.848, 0.0, 0.530}, {-0.848, 0.0, 0.530}, {-0.848, 0.0, 0.530}},
+        {{-0.848f, 0.0f, 0.530f}, {-0.848f, 0.0f, 0.530f}, {-0.848f, 0.0f, 0.530f}},
+        {{-0.848f, 0.0f, 0.530f}, {-0.848f, 0.0f, 0.530f}, {-0.848f, 0.0f, 0.530f}},
         
-        {{-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}},
-        {{-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}, {-1.0, 0.0, 0.0}},
+        {{-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}},
+        {{-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}, {-1.0f, 0.0f, 0.0f}},
         
-        {{-0.709, 0.0, 0.709}, {-0.709, 0.0, 0.709}, {-0.709, 0.0, 0.709}}
+        {{-0.709f, 0.0f, 0.709f}, {-0.709f, 0.0f, 0.709f}, {-0.709f, 0.0f, 0.709f}}
     };
     
     brushMesh_.SetVertices((float*)verts, 102);
@@ -592,7 +570,7 @@ void QuickShapes::DrawLineSegment(const Matrix4 &modelMatrix,
                        const Point3 &p2,
                        float radius)
 {
-    Matrix4 S = Matrix4::Scale(Vector3(radius, 0.5*(p2-p1).Length(), radius));
+    Matrix4 S = Matrix4::Scale(Vector3(radius, 0.5f*(p2-p1).Length(), radius));
     Vector3 y = (p2-p1).ToUnit();
     Vector3 z = Vector3(1,0,0).Cross(y).ToUnit();
     if (z == Vector3(0,0,0)) {
@@ -623,12 +601,12 @@ void QuickShapes::DrawLines(const Matrix4 &modelMatrix,
                  float radius)
 {
     if (ltype == LinesType::LINES) {
-        for (int i=0; i<points.size(); i+=2) {
+        for (size_t i=0; i<points.size(); i+=2) {
             DrawLineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[i], points[i+1], radius);
         }
     }
     else {
-        for (int i=0; i<points.size()-1; i++) {
+        for (size_t i=0; i<points.size()-1; i++) {
             DrawLineSegment(modelMatrix, viewMatrix, projectionMatrix, color, points[i], points[i+1], radius);
         }
         if (ltype == LinesType::LINE_LOOP) {
@@ -645,10 +623,10 @@ void QuickShapes::DrawArrow(const Matrix4 &modelMatrix,
                  const Color &color,
                  Point3 p, Vector3 dir, float radius)
 {
-    float d = dir.Length() - 8.0*radius;
+    float d = dir.Length() - 8.0f*radius;
     DrawLineSegment(modelMatrix, viewMatrix, projectionMatrix, color, p, p + d*dir.ToUnit(), radius);
     
-    Matrix4 S = Matrix4::Scale(Vector3(radius*3.0, radius*4.0, radius*3.0));
+    Matrix4 S = Matrix4::Scale(Vector3(radius*3.0f, radius*4.0f, radius*3.0f));
     Vector3 y = dir.ToUnit();
     Vector3 z = Vector3(1,0,0).Cross(y).ToUnit();
     if (z == Vector3(0,0,0)) {
@@ -673,9 +651,9 @@ void QuickShapes::DrawAxes(const Matrix4 &modelMatrix,
                 const Matrix4 &viewMatrix,
                 const Matrix4 &projectionMatrix)
 {
-    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(1.0, 0.6, 0.6), Point3::Origin(), Vector3::UnitX(), 0.02);
-    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 1.0, 0.6), Point3::Origin(), Vector3::UnitY(), 0.02);
-    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6, 0.6, 1.0), Point3::Origin(), Vector3::UnitZ(), 0.02);
+    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(1.0f, 0.6f, 0.6f), Point3::Origin(), Vector3::UnitX(), 0.02f);
+    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6f, 1.0f, 0.6f), Point3::Origin(), Vector3::UnitY(), 0.02f);
+    DrawArrow(modelMatrix, viewMatrix, projectionMatrix, Color(0.6f, 0.6f, 1.0f), Point3::Origin(), Vector3::UnitZ(), 0.02f);
 
 }
     
