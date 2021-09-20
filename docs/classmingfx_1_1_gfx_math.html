@@ -77,7 +77,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classmingfx_1_1_gfx_math-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">mingfx::GfxMath Class Reference</div>  </div>
@@ -92,6 +91,21 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a8fcd445388be4cec4e8e6f4d78ff3266"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a8fcd445388be4cec4e8e6f4d78ff3266">sin</a> (float a)</td></tr>
+<tr class="memdesc:a8fcd445388be4cec4e8e6f4d78ff3266"><td class="mdescLeft">&#160;</td><td class="mdescRight">MinGfx specific implementations of trigonometric functions included to solve compilation issues between different platforms.  <a href="classmingfx_1_1_gfx_math.html#a8fcd445388be4cec4e8e6f4d78ff3266">More...</a><br /></td></tr>
+<tr class="separator:a8fcd445388be4cec4e8e6f4d78ff3266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9d0f12ac67081d14243327c2e976fdb"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#ab9d0f12ac67081d14243327c2e976fdb">cos</a> (float a)</td></tr>
+<tr class="separator:ab9d0f12ac67081d14243327c2e976fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9e01f68bd05725b9e31d563da0ee91e"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#ae9e01f68bd05725b9e31d563da0ee91e">tan</a> (float a)</td></tr>
+<tr class="separator:ae9e01f68bd05725b9e31d563da0ee91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dfe19e716d7cd1fde9257db5abacad2"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a8dfe19e716d7cd1fde9257db5abacad2">asin</a> (float a)</td></tr>
+<tr class="separator:a8dfe19e716d7cd1fde9257db5abacad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79e2db9a55482b2c4a954cdf3ad4df05"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a79e2db9a55482b2c4a954cdf3ad4df05">acos</a> (float a)</td></tr>
+<tr class="separator:a79e2db9a55482b2c4a954cdf3ad4df05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0610f7b321f7254dff29cfe5894a9c92"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a0610f7b321f7254dff29cfe5894a9c92">atan</a> (float a)</td></tr>
+<tr class="separator:a0610f7b321f7254dff29cfe5894a9c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62d0f38a8cf7f120899eec660bb5a934"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a62d0f38a8cf7f120899eec660bb5a934">atan2</a> (float a, float b)</td></tr>
+<tr class="separator:a62d0f38a8cf7f120899eec660bb5a934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af227209ec043b375497556ee2dcdf850"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#af227209ec043b375497556ee2dcdf850">Clamp</a> (float x, float a, float b)</td></tr>
 <tr class="memdesc:af227209ec043b375497556ee2dcdf850"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a if x is less than a and b if x is greater than b.  <a href="classmingfx_1_1_gfx_math.html#af227209ec043b375497556ee2dcdf850">More...</a><br /></td></tr>
 <tr class="separator:af227209ec043b375497556ee2dcdf850"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,17 +130,122 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a24048d7b688ae46317c3e8de8a701273"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classmingfx_1_1_point3.html">Point3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a24048d7b688ae46317c3e8de8a701273">ScreenToWorld</a> (const <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> &amp;viewMatrix, const <a class="el" href="classmingfx_1_1_matrix4.html">Matrix4</a> &amp;projMatrix, const <a class="el" href="classmingfx_1_1_point2.html">Point2</a> &amp;normalizedScreenPt, float normalizedZ)</td></tr>
 <tr class="memdesc:a24048d7b688ae46317c3e8de8a701273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a 2D point on the filmplane represented in Normalized Device Coorindates, which means (-1,1) for the top left corner of the screen and (1,-1) for the bottom right corner, to a 3D point in the world. The depth buffer value under the pixel must be supplied. If you are using <a class="el" href="classmingfx_1_1_graphics_app.html" title="This is the main application base class for the MinGfx Toolkit.">GraphicsApp</a>, you can use the mouse pos in pixels to get the required arguments like this: <a class="el" href="classmingfx_1_1_point2.html" title="A 2D Point with floating point coordinates, used for storing 2D texture coordinates,...">Point2</a> normPos = graphicsApp-&gt;pixels_to_normalized_coordinates(mousePos); float normZ = graphicsApp-&gt;z_value_at_pixel(mousePos);.  <a href="classmingfx_1_1_gfx_math.html#a24048d7b688ae46317c3e8de8a701273">More...</a><br /></td></tr>
 <tr class="separator:a24048d7b688ae46317c3e8de8a701273"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:aaa14e60a5f7c158db443f8b6d87958b4"><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#aaa14e60a5f7c158db443f8b6d87958b4">PI</a></td></tr>
-<tr class="separator:aaa14e60a5f7c158db443f8b6d87958b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e5c7562116babf11c61f4c7f20f8b69"><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#a0e5c7562116babf11c61f4c7f20f8b69">TWO_PI</a></td></tr>
-<tr class="separator:a0e5c7562116babf11c61f4c7f20f8b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5ba8ba54257d86dcf95bd2bbeb534c0"><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_gfx_math.html#ab5ba8ba54257d86dcf95bd2bbeb534c0">HALF_PI</a></td></tr>
-<tr class="separator:ab5ba8ba54257d86dcf95bd2bbeb534c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a79e2db9a55482b2c4a954cdf3ad4df05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79e2db9a55482b2c4a954cdf3ad4df05">&#9670;&nbsp;</a></span>acos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float mingfx::GfxMath::acos </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8dfe19e716d7cd1fde9257db5abacad2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dfe19e716d7cd1fde9257db5abacad2">&#9670;&nbsp;</a></span>asin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float mingfx::GfxMath::asin </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0610f7b321f7254dff29cfe5894a9c92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0610f7b321f7254dff29cfe5894a9c92">&#9670;&nbsp;</a></span>atan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float mingfx::GfxMath::atan </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a62d0f38a8cf7f120899eec660bb5a934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62d0f38a8cf7f120899eec660bb5a934">&#9670;&nbsp;</a></span>atan2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float mingfx::GfxMath::atan2 </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af227209ec043b375497556ee2dcdf850"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af227209ec043b375497556ee2dcdf850">&#9670;&nbsp;</a></span>Clamp()</h2>
 
@@ -168,6 +287,32 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a if x is less than a and b if x is greater than b. </p>
+
+</div>
+</div>
+<a id="ab9d0f12ac67081d14243327c2e976fdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9d0f12ac67081d14243327c2e976fdb">&#9670;&nbsp;</a></span>cos()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float mingfx::GfxMath::cos </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -399,6 +544,60 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8fcd445388be4cec4e8e6f4d78ff3266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fcd445388be4cec4e8e6f4d78ff3266">&#9670;&nbsp;</a></span>sin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float mingfx::GfxMath::sin </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>MinGfx specific implementations of trigonometric functions included to solve compilation issues between different platforms. </p>
+
+</div>
+</div>
+<a id="ae9e01f68bd05725b9e31d563da0ee91e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9e01f68bd05725b9e31d563da0ee91e">&#9670;&nbsp;</a></span>tan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float mingfx::GfxMath::tan </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a39a2b5973249fb3aefc210b18b0fdff3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a39a2b5973249fb3aefc210b18b0fdff3">&#9670;&nbsp;</a></span>ToDegrees() <span class="overload">[1/2]</span></h2>
 
@@ -500,79 +699,6 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab5ba8ba54257d86dcf95bd2bbeb534c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5ba8ba54257d86dcf95bd2bbeb534c0">&#9670;&nbsp;</a></span>HALF_PI</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const float mingfx::GfxMath::HALF_PI</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="gfxmath_8h_source.html#l00074">74</a> of file <a class="el" href="gfxmath_8h_source.html">gfxmath.h</a>.</p>
-
-</div>
-</div>
-<a id="aaa14e60a5f7c158db443f8b6d87958b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa14e60a5f7c158db443f8b6d87958b4">&#9670;&nbsp;</a></span>PI</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const float mingfx::GfxMath::PI</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="gfxmath_8h_source.html#l00072">72</a> of file <a class="el" href="gfxmath_8h_source.html">gfxmath.h</a>.</p>
-
-</div>
-</div>
-<a id="a0e5c7562116babf11c61f4c7f20f8b69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e5c7562116babf11c61f4c7f20f8b69">&#9670;&nbsp;</a></span>TWO_PI</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const float mingfx::GfxMath::TWO_PI</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="gfxmath_8h_source.html#l00073">73</a> of file <a class="el" href="gfxmath_8h_source.html">gfxmath.h</a>.</p>
 
 </div>
 </div>

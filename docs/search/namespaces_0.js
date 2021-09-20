@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mingfx_372',['mingfx',['../namespacemingfx.html',1,'']]]
+  ['mingfx_376',['mingfx',['../namespacemingfx.html',1,'']]]
 ];

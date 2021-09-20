@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['w_685',['w',['../structstbrp__rect.html#a248d43f1eb979c1e7b92ba6df431dec5',1,'stbrp_rect']]],
-  ['was_5fpacked_686',['was_packed',['../structstbrp__rect.html#a74ba347755ce17f2f8a2ea66c612af49',1,'stbrp_rect']]],
-  ['width_687',['width',['../structstbrp__context.html#a70cfcb2044ce8397cc440d28b30c09b2',1,'stbrp_context']]]
+  ['x_696',['x',['../structstbrp__rect.html#a4cc623a3e29f0bc0d3375f6645c84d18',1,'stbrp_rect::x()'],['../structstbrp__node.html#a45ab31a88025db27d08040d715b129ea',1,'stbrp_node::x()']]]
 ];

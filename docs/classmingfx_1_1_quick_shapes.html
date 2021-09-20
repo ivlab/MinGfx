@@ -90,7 +90,7 @@ $(function() {
 <p>void DrawUsingOpenGL() { later, in your draw routine, use it to draw shapes <a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a> view = <a class="el" href="classmingfx_1_1_matrix4.html#a4543695a6dfc996d0312b70c2eaa00de" title="Returns a view matrix that centers the camera at the &#39;eye&#39; position and orients it to look at the des...">Matrix4::LookAt</a>(Point3(0,0,3), Point3(0,0,0), Vector3(0,1,0)); <a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a> proj = <a class="el" href="classmingfx_1_1_matrix4.html#a0e34aee86758a0397074590b87712c5e" title="Returns a perspective projection matrix equivalent to the one gluPerspective creates.">Matrix4::Perspective</a>(60.0, aspect_ratio(), 0.1, 10.0);</p>
 <p><a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a> m_cube = <a class="el" href="classmingfx_1_1_matrix4.html#ae82bab81df82dc03f5eb11e74ba1dd84" title="Returns the translation matrix described by the vector.">Matrix4::Translation</a>(<a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a>(-2.5,0,0)) * <a class="el" href="classmingfx_1_1_matrix4.html#a0232a58d20b1da5374cf8c72fb113a4e" title="Returns the scale matrix described by the vector.">Matrix4::Scale</a>(<a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a>(0.5, 0.5, 0.5)); quick_shapes.DrawCube(m_cube, view, proj, Color(1,1,1));</p>
 <p><a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a> m_sphere = <a class="el" href="classmingfx_1_1_matrix4.html#a0232a58d20b1da5374cf8c72fb113a4e" title="Returns the scale matrix described by the vector.">Matrix4::Scale</a>(<a class="el" href="classmingfx_1_1_vector3.html" title="A 3D Vector with floating point coordinates, used for storing normals and all sorts of other 3D graph...">Vector3</a>(2.5, 2.5, 2.5)); quick_shapes.DrawSphere(m_sphere, view, proj, Color(1,1,1));</p>
-<p><a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a> m_loop; std::vector&lt;Point3&gt; loop; loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>( 4.0, 4.0, -4.0)); loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>(-4.0, 4.0, -4.0)); loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>(-4.0, 4.0, 4.0)); loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>( 4.0, 4.0, 4.0)); quick_shapes.DrawLines(m_loop, view, proj, Color(1,1,1), loop, <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603a8e0df0247f66bd2cac06f16abb562134">QuickShapes::LinesType::LINE_LOOP</a>, 0.1); } ~~~ </p>
+<p><a class="el" href="classmingfx_1_1_matrix4.html" title="A 4x4 transformation matrix stored internally as an array of floats in column-major order so as to be...">Matrix4</a> m_loop; std::vector&lt;Point3&gt; loop; loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>( 4.0, 4.0, -4.0)); loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>(-4.0, 4.0, -4.0)); loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>(-4.0, 4.0, 4.0)); loop.push_back(<a class="el" href="classmingfx_1_1_point3.html" title="A 3D Point with floating point coordinates, used for storing vertices and all sorts of other 3D graph...">Point3</a>( 4.0, 4.0, 4.0)); quick_shapes.DrawLines(m_loop, view, proj, Color(1,1,1), loop, QuickShapes::LinesType::LINE_LOOP, 0.1); } ~~~ </p>
 
 <p class="definition">Definition at line <a class="el" href="quick__shapes_8h_source.html#l00069">69</a> of file <a class="el" href="quick__shapes_8h_source.html">quick_shapes.h</a>.</p>
 </div>
@@ -98,9 +98,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aaea35a34a9495a9ab25cd9aa32a91603"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603">LinesType</a> { <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603ae585142391f356c60bcfe68279ec2727">LINES</a>
-, <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603ae64a4d2159ed46d077e21a505575c814">LINE_STRIP</a>
-, <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603a8e0df0247f66bd2cac06f16abb562134">LINE_LOOP</a>
+<tr class="memitem:aaea35a34a9495a9ab25cd9aa32a91603"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603">LinesType</a> { <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603ad0a143c968860e6156edff9b1515d5cf">LINES</a>
+, <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603a01793ad85c73f52c212c7ac7de367dd6">LINE_STRIP</a>
+, <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603a59bb40bada55194b2b811472d672e6c2">LINE_LOOP</a>
  }</td></tr>
 <tr class="separator:aaea35a34a9495a9ab25cd9aa32a91603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -159,24 +159,16 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">enum <a class="el" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603">mingfx::QuickShapes::LinesType</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaea35a34a9495a9ab25cd9aa32a91603ae585142391f356c60bcfe68279ec2727"></a>LINES&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaea35a34a9495a9ab25cd9aa32a91603ae64a4d2159ed46d077e21a505575c814"></a>LINE_STRIP&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaea35a34a9495a9ab25cd9aa32a91603a8e0df0247f66bd2cac06f16abb562134"></a>LINE_LOOP&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaea35a34a9495a9ab25cd9aa32a91603ad0a143c968860e6156edff9b1515d5cf"></a>LINES&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaea35a34a9495a9ab25cd9aa32a91603a01793ad85c73f52c212c7ac7de367dd6"></a>LINE_STRIP&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaea35a34a9495a9ab25cd9aa32a91603a59bb40bada55194b2b811472d672e6c2"></a>LINE_LOOP&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 <p class="definition">Definition at line <a class="el" href="quick__shapes_8h_source.html#l00134">134</a> of file <a class="el" href="quick__shapes_8h_source.html">quick_shapes.h</a>.</p>
@@ -609,10 +601,9 @@ Public Member Functions</h2></td></tr>
 <div class="line">loop.push_back(Point3(-4.0, 4.0, -4.0));</div>
 <div class="line">loop.push_back(Point3(-4.0, 4.0,  4.0));</div>
 <div class="line">loop.push_back(Point3( 4.0, 4.0,  4.0));</div>
-<div class="line">quick_shapes.DrawLines(model, view, proj, Color(1,1,1), loop, <a class="code" href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603a8e0df0247f66bd2cac06f16abb562134">QuickShapes::LinesType::LINE_LOOP</a>, 0.1);</div>
+<div class="line">quick_shapes.DrawLines(model, view, proj, Color(1,1,1), loop, QuickShapes::LinesType::LINE_LOOP, 0.1);</div>
 <div class="ttc" id="aclassmingfx_1_1_matrix4_html_a0e34aee86758a0397074590b87712c5e"><div class="ttname"><a href="classmingfx_1_1_matrix4.html#a0e34aee86758a0397074590b87712c5e">mingfx::Matrix4::Perspective</a></div><div class="ttdeci">static Matrix4 Perspective(float fov_y_in_degrees, float aspect_ratio, float near_plane_dist, float far_plane_dist)</div><div class="ttdoc">Returns a perspective projection matrix equivalent to the one gluPerspective creates.</div></div>
 <div class="ttc" id="aclassmingfx_1_1_matrix4_html_a4543695a6dfc996d0312b70c2eaa00de"><div class="ttname"><a href="classmingfx_1_1_matrix4.html#a4543695a6dfc996d0312b70c2eaa00de">mingfx::Matrix4::LookAt</a></div><div class="ttdeci">static Matrix4 LookAt(Point3 eye, Point3 target, Vector3 up)</div><div class="ttdoc">Returns a view matrix that centers the camera at the 'eye' position and orients it to look at the des...</div></div>
-<div class="ttc" id="aclassmingfx_1_1_quick_shapes_html_aaea35a34a9495a9ab25cd9aa32a91603a8e0df0247f66bd2cac06f16abb562134"><div class="ttname"><a href="classmingfx_1_1_quick_shapes.html#aaea35a34a9495a9ab25cd9aa32a91603a8e0df0247f66bd2cac06f16abb562134">mingfx::QuickShapes::LinesType::LINE_LOOP</a></div><div class="ttdeci">@ LINE_LOOP</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

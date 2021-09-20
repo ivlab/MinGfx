@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['two_5fpi_683',['TWO_PI',['../classmingfx_1_1_gfx_math.html#a0e5c7562116babf11c61f4c7f20f8b69',1,'mingfx::GfxMath']]]
+  ['v_5falign_692',['v_align',['../classmingfx_1_1_text_shader_1_1_text_format.html#a8455382a6829022020eb307ae9168bd7',1,'mingfx::TextShader::TextFormat']]]
 ];
