@@ -216,14 +216,14 @@ void GuiPlusOpenGL::DrawUsingNanoVG(NVGcontext *ctx) {
     // example of drawing some circles
     
     nvgBeginPath(ctx);
-    nvgCircle(ctx, 512.0f+50.0f*std::cosf((float)simTime_), 350.0f+200.0f*std::sinf((float)simTime_), 50.0f);
+    nvgCircle(ctx, 512.0f+50.0f*std::cos((float)simTime_), 350.0f+200.0f*std::sin((float)simTime_), 50.0f);
     nvgFillColor(ctx, nvgRGBA(100,100,255,200));
     nvgFill(ctx);
     nvgStrokeColor(ctx, nvgRGBA(0,0,0,255));
     nvgStroke(ctx);
 
     nvgBeginPath(ctx);
-    nvgCircle(ctx, 512.0f+200.0f*std::cosf((float)simTime_), 350.0f+50.0f*std::sinf((float)simTime_), 50.0f);
+    nvgCircle(ctx, 512.0f+200.0f*std::cos((float)simTime_), 350.0f+50.0f*std::sin((float)simTime_), 50.0f);
     nvgFillColor(ctx, nvgRGBA(255,100,100,200));
     nvgFill(ctx);
     nvgStrokeColor(ctx, nvgRGBA(0,0,0,255));
