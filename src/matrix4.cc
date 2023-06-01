@@ -95,6 +95,9 @@ Matrix4 Matrix4::Scale(const Vector3& v) {
     );
 }
 
+Matrix4 Matrix4::Scale(const float sx, const float sy, const float sz) {
+    return Scale(Vector3(sx, sy, sz));
+}
     
 Matrix4 Matrix4::Translation(const Vector3& v) {
     return Matrix4::FromRowMajorElements(
@@ -106,6 +109,10 @@ Matrix4 Matrix4::Translation(const Vector3& v) {
 }
 
     
+Matrix4 Matrix4::Translation(const float dx, const float dy, const float dz) {
+    return Translation(Vector3(dx, dy, dz));
+}
+
 Matrix4 Matrix4::RotationX(const float radians) {
     const float cosTheta = cos(radians);
     const float sinTheta = sin(radians);
@@ -234,7 +241,22 @@ Matrix4 Matrix4::Frustum(float left, float right,
     );
 }
 
-    
+Matrix4 Matrix4::Ortho(float left, float right, float bottom, float top, float nearval, float farval) {
+    return Matrix4::FromRowMajorElements(
+        2.0f / (right - left), 0.0f, 0.0f, -(right + left) / (right - left),
+        0.0f, 2.0f / (top - bottom), 0.0f, -(top + bottom) / (top - bottom),
+        0.0f, 0.0f, -2.0f / (farval - nearval), -(farval + nearval) / (farval - nearval),
+        0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+Matrix4 Matrix4::Ortho2D(float left, float right, float bottom, float top) {
+    return Ortho(left, right, bottom, top, -1, 1);
+}
+
+Matrix4 Matrix4::Ortho2D(Point2 bottomLeft, Point2 topRight) {
+    return Ortho2D(bottomLeft[0], topRight[0], bottomLeft[1], topRight[1]);
+}
+
 Matrix4 Matrix4::FromRowMajorElements(
     const float r1c1, const float r1c2, const float r1c3, const float r1c4,
     const float r2c1, const float r2c2, const float r2c3, const float r2c4,

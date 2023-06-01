@@ -93,6 +93,22 @@ bool TextShader::Init(const std::string &filename, int font_size) {
 }
 
 
+void TextShader::Draw2D(const Matrix4& projection, const Point2& pos,
+    const std::string& text, TextFormat format, bool cache)
+{
+    Matrix4 model = Matrix4::Translation(pos[0], pos[1], 0);
+    Matrix4 view = Matrix4();
+    Draw3D(model, view, projection, text, format, cache);
+}
+
+void TextShader::Draw2D(const Matrix4& projection, const float x_pos, const float y_pos,
+    const std::string& text, TextFormat format, bool cache)
+{
+    Matrix4 model = Matrix4::Translation(x_pos, y_pos, 0);
+    Matrix4 view = Matrix4();
+    Draw3D(model, view, projection, text, format, cache);
+}
+
 void TextShader::Draw3D(const Matrix4 &model, const Matrix4 &view, const Matrix4 &projection,
                         const std::string &text, TextFormat format, bool cache)
 {
@@ -147,6 +163,9 @@ void TextShader::Draw3D(const Matrix4 &model, const Matrix4 &view, const Matrix4
     
     shader_.UseProgram();
     Matrix4 mvp = projection * view * model;
+    if (format.flip_y) {
+        mvp = mvp * Matrix4::Scale(1, -1, 1);
+    }
     shader_.SetUniform("mvp_matrix", mvp);
     shader_.SetUniform("scale", format.size / native_font_size_);
     shader_.SetUniform("offset", offset);

@@ -23,6 +23,7 @@
 #include "craft_cam.h"
 #include "default_shader.h"
 #include "gfxmath.h"
+#include "gl_points_and_lines.h"
 #include "graphics_app.h"
 #include "matrix4.h"
 #include "mesh.h"

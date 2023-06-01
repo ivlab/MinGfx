@@ -62,20 +62,24 @@ public:
         // constructor sets defaults
         TextFormat() :
             size(0.1f),
-            color(1,1,1,1),
+            color(1, 1, 1, 1),
             h_align(HorizAlign::HORIZ_ALIGN_CENTER),
-            v_align(VertAlign::VERT_ALIGN_BASELINE) {}
-        
+            v_align(VertAlign::VERT_ALIGN_BASELINE),
+            flip_y(false) {}
+
         float size;
         Color color;
         HorizAlign h_align;
         VertAlign v_align;
+        bool flip_y;
     };
     
 
-    //void Draw2D(const Point2 &pos,
-    //            const std::string &text, TextFormat format, bool cache=false);
+    void Draw2D(const Matrix4& projection, const Point2& pos,
+        const std::string& text, TextFormat format, bool cache = false);
 
+    void Draw2D(const Matrix4& projection, const float x_pos, const float y_pos,
+        const std::string& text, TextFormat format, bool cache = false);
     
     void Draw3D(const Matrix4 &model, const Matrix4 &view, const Matrix4 &projection,
                 const std::string &text, TextFormat format, bool cache=false);

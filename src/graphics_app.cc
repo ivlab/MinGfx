@@ -12,46 +12,65 @@ namespace mingfx {
 
 
 GraphicsApp::GraphicsApp(int width, int height, const std::string &caption) :
-    graphicsInitialized_(false), width_(width), height_(height), caption_(caption), lastDrawT_(0.0),
-    leftDown_(false), middleDown_(false), rightDown_(false), screen_(NULL), window_(NULL)
+    graphicsInitialized_(false), lastDrawT_(0.0), leftDown_(false), middleDown_(false), rightDown_(false), screen_(NULL), window_(NULL)
 {
+    settings_.window_width = width;
+    settings_.window_height = height;
+    settings_.window_caption = caption;
 }
+
+GraphicsApp::GraphicsApp(const GraphicsSettings& settings) :
+    graphicsInitialized_(false), lastDrawT_(0.0), leftDown_(false), middleDown_(false), rightDown_(false), screen_(NULL), window_(NULL)
+{
+    settings_ = settings;
+}
+
+GraphicsApp::GraphicsApp() :
+    graphicsInitialized_(false), lastDrawT_(0.0), leftDown_(false), middleDown_(false), rightDown_(false), screen_(NULL), window_(NULL)
+{}
 
 GraphicsApp::~GraphicsApp() {
 }
 
+void GraphicsApp::InitGraphicsContext(const GraphicsSettings& settings) {
+    settings_ = settings;
+    InitGraphicsContext();
+}
+
 void GraphicsApp::InitGraphicsContext() {
-    
+
     glfwInit();
     
     glfwSetTime(0);
     
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, settings_.gl_version_major);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, settings_.gl_version_minor);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
-    glfwWindowHint(GLFW_SAMPLES, 0);
-    glfwWindowHint(GLFW_RED_BITS, 8);
-    glfwWindowHint(GLFW_GREEN_BITS, 8);
-    glfwWindowHint(GLFW_BLUE_BITS, 8);
-    glfwWindowHint(GLFW_ALPHA_BITS, 8);
-    glfwWindowHint(GLFW_STENCIL_BITS, 8);
-    glfwWindowHint(GLFW_DEPTH_BITS, 24);
-    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+    glfwWindowHint(GLFW_SAMPLES, settings_.multi_samples);
+    glfwWindowHint(GLFW_RED_BITS, settings_.red_bits);
+    glfwWindowHint(GLFW_GREEN_BITS, settings_.green_bits);
+    glfwWindowHint(GLFW_BLUE_BITS, settings_.blue_bits);
+    glfwWindowHint(GLFW_ALPHA_BITS, settings_.alpha_bits);
+    glfwWindowHint(GLFW_STENCIL_BITS, settings_.stencil_bits);
+    glfwWindowHint(GLFW_DEPTH_BITS, settings_.depth_bits);
+
+    glfwWindowHint(GLFW_RESIZABLE, settings_.window_resizable);
+    glfwWindowHint(GLFW_DECORATED, settings_.window_decorated);
+
     
     
     // on OSX, glfwCreateWindow bombs if we pass caption_.c_str() in for the 3rd
     // parameter perhaps because it's const.  so, copying to a tmp char array here.
-    char *title = new char[caption_.size() + 1];
-    for (int i = 0; i < caption_.size(); i++) {
-        title[i] = caption_[i];
+    char *title = new char[settings_.window_caption.size() + 1];
+    for (int i = 0; i < settings_.window_caption.size(); i++) {
+        title[i] = settings_.window_caption[i];
     }
-    title[caption_.size()] = '\0';
-    std::cout << caption_ << std::endl;
+    title[settings_.window_caption.size()] = '\0';
     
     // Create a GLFWwindow object
-    window_ = glfwCreateWindow(width_, height_, title, NULL, NULL);
+    window_ = glfwCreateWindow(settings_.window_width, settings_.window_height, title, NULL, NULL);
     if (window_ == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -59,6 +78,8 @@ void GraphicsApp::InitGraphicsContext() {
     }
     glfwMakeContextCurrent(window_);
     glfwSetWindowUserPointer(window_, this);
+
+    glfwSetWindowPos(window_, settings_.window_x_pos, settings_.window_y_pos);
 
     // cleanup tmp title hack
     delete [] title;
@@ -77,8 +98,8 @@ void GraphicsApp::InitGraphicsContext() {
     screen_ = new nanogui::Screen();
     screen_->initialize(window_, true);
     
-    glfwGetFramebufferSize(window_, &width_, &height_);
-    glViewport(0, 0, width_, height_);
+    glfwGetFramebufferSize(window_, &settings_.window_width, &settings_.window_height);
+    glViewport(0, 0, settings_.window_width, settings_.window_height);
     glfwSwapInterval(0);
     glfwSwapBuffers(window_);
     
@@ -347,9 +368,9 @@ bool GraphicsApp::resize_glfw_cb(int width, int height) {
     else {
         // the width and height reported here are the new framebuffer size
         // we will query/save/report the new window size instead
-        width_ = window_width();
-        height_ = window_height();
-        OnWindowResize(width_, height_);
+        settings_.window_width = window_width();
+        settings_.window_height = window_height();
+        OnWindowResize(settings_.window_width, settings_.window_height);
     }
     return false;
 }
@@ -455,8 +476,8 @@ GLFWwindow* GraphicsApp::window() {
     
 void GraphicsApp::ResizeWindow(int new_width, int new_height) {
     glfwSetWindowSize(window_, new_width, new_height);
-    width_ = new_width;
-    height_ = new_height;
+    settings_.window_width = new_width;
+    settings_.window_height = new_height;
     OnWindowResize(new_width, new_height);
 }
 

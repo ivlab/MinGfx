@@ -9,6 +9,7 @@ set(HEADERFILES
     src/craft_cam.h
     src/default_shader.h
     src/gfxmath.h
+    src/gl_points_and_lines.h
     src/graphics_app.h
     src/matrix4.h
     src/mesh.h
@@ -36,6 +37,7 @@ set(SOURCEFILES
     src/craft_cam.cc
     src/default_shader.cc
     src/gfxmath.cc
+    src/gl_points_and_lines.cc
     src/graphics_app.cc
     src/matrix4.cc
     src/mesh.cc

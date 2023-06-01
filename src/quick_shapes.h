@@ -182,7 +182,7 @@ public:
     
     // -------- 2D PRIMITIVES --------
     
-    /** Draws a square in the X-Y plane with extents -1 to 1 and normal in the
+    /** Draws a square in the X-Z plane with extents -1 to 1 and normal in the
         +Y direction.  Uses the model, view, and projection matrices provided
         and the supplied color as a material property.
      */
@@ -191,9 +191,8 @@ public:
 
     /** Draws a square, which you can deform into some other shape by adjusting
         the model matrix, and applies a texture to it.  The texture must already
-        be bound to the OpenGL textureID provided.  The square lies in the X-Y 
-        plane with extents -1 to 1 and normal in the +Y direction.  No lighting
-        is applied.
+        be bound to the OpenGL textureID provided.  The square lies in the X-Z 
+        plane with extents -1 to 1 and normal in the +Y direction.
      */
     void DrawSquare(const Matrix4 &modelMatrix, const Matrix4 &viewMatrix,
                     const Matrix4 &projectionMatrix, const Color &color,

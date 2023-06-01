@@ -135,13 +135,71 @@ namespace mingfx {
 class GraphicsApp {
 public:
 
-    /** \brief Constructs a new app but does not yet run it.
+    class GraphicsSettings {
+    public:
+        GraphicsSettings() :
+            gl_version_major(3),
+            gl_version_minor(3),
+            multi_samples(0),
+            red_bits(8),
+            green_bits(8),
+            blue_bits(8),
+            alpha_bits(8),
+            stencil_bits(8),
+            depth_bits(24),
+            window_width(1024),
+            window_height(768),
+            window_x_pos(0),
+            window_y_pos(0),
+            window_caption("MinGfx"),
+            window_resizable(true),
+            window_decorated(true) {}
+
+        int gl_version_major;
+        int gl_version_minor;
+        int multi_samples;
+        int red_bits;
+        int green_bits;
+        int blue_bits;
+        int alpha_bits;
+        int stencil_bits;
+        int depth_bits;
+
+        int window_width;
+        int window_height;
+        int window_x_pos;
+        int window_y_pos;
+        std::string window_caption;
+        bool window_resizable;
+        bool window_decorated;
+    };
+
+
+    /** \brief Constructs a new app but does not yet run it.  This
+     constructor is appropriate for most simple graphics apps.
      
      \param width The width of the client area of the window in pixels.
      \param height The height of the client area of the window in pixels.
      \param caption The caption for the window's title bar.
      */
     GraphicsApp(int width, int height, const std::string &caption);
+
+
+    /** \brief Constructs a new app but does not yet run it.  This
+     constructor is useful when more control over the graphics context
+    and window settings is needed.
+     \param settings Create a new GraphicsSettings object and override
+     any of the default graphics context and window settings as needed.
+    */
+    GraphicsApp(const GraphicsSettings &settings);
+
+
+    /** \brief Constructs a new app with default settings but does not
+    yet run it.  To use any custom GraphicsSettings with this default
+    constructor, you can explicitly call InitGraphicsContext() with
+    the desired setings.
+    */
+    GraphicsApp();
 
 
     /// The destructor will shutdown the graphics system and window
@@ -395,12 +453,27 @@ public:
     
     /** Users cannot make any graphics calls (e.g., setting the clear color,
      saving mesh data to the GPU) until the graphics context is initialized
-     by calling this method.  It is called automatically by the Run() method
-     before calling the InitNanoGUI() and InitOpenGL() methods.  So, users
-     should place all of their graphics initialization code inside one of
-     those two methods.
+     by calling this method.  Normally, it is called automatically by the Run()
+     method, which then proceeds to call the InitNanoGUI() and InitOpenGL() 
+     methods.  Occasionally it is useful to have more control over the when
+     exactly the graphics context is initiated, so it is also possible to
+     call this method manually before Run().  In that case, Run() will 
+     recognize the context has already be initialized and will not call
+     this method again.
      */
     virtual void InitGraphicsContext();
+
+    /** This method has the same functionality as InitGraphicsContext() and
+    also provides an opportunity to directly specify the settings to use when
+    creating the window and graphics context.  Note that the GraphicsSettings
+    can also be specified in the class constructor, and that is more typical.  
+    This method provides an alternative when the default constructor is used
+    and/or when the settings are not known at the time the class is created.
+    If some settings were specified in the constructor, the values here will
+    overwrite them.
+    */
+    virtual void InitGraphicsContext(const GraphicsSettings &settings);
+
 
 private:
 
@@ -461,10 +534,9 @@ private:
         OnSpecialKeyUp(key, scancode, modifiers);
     }
 
+
+    GraphicsSettings settings_;
     bool graphicsInitialized_;
-    int width_;
-    int height_;
-    const std::string caption_;
     nanogui::Screen *screen_;
     GLFWwindow* window_;
     double lastDrawT_;

@@ -131,8 +131,14 @@ public:
     /// Returns the scale matrix described by the vector
     static Matrix4 Scale(const Vector3 &v);
 
+    /// Returns the scale matrix described by the three x, y, z scale factors
+    static Matrix4 Scale(const float sx, const float sy, const float sz);
+
     /// Returns the translation matrix described by the vector
     static Matrix4 Translation(const Vector3 &v);
+
+    /// Returns the translation matrix for a translation by the vector dx, dy, dz.
+    static Matrix4 Translation(const float dx, const float dy, const float dz);
 
     /// Returns the rotation matrix about the x axis by the specified angle
     static Matrix4 RotationX(const float radians);
@@ -190,6 +196,28 @@ public:
     
     /// Returns a projection matrix equivalent the one glFrustum creates
     static Matrix4 Frustum(float left, float right, float bottom, float top, float near_plane_dist, float far_plane_dist);
+
+    /// Returns a orthographic projection matrix equivalent to the one glOrtho creates
+    static Matrix4 Ortho(float left, float right, float bottom, float top, float nearval, float farval);
+
+    /// Returns a 2D orthographic projection matrix equivalent to the one gluOrtho2D creates.  This
+    /// is equivalent to calling Ortho with -1, 1 for the nearval and farval.
+    static Matrix4 Ortho2D(float left, float right, float bottom, float top);
+
+    /** An alternative way to create a 2D orthographic projection matrix.  The location of the
+     origin (0,0) is a common source of confusion when setting up these matrices.  Thus, this
+     function's parameters require programmers to explicitly specify what the coordinate values
+     should be at the bottom-left corner of the window and at the top-right corner of the window.
+     ~~~
+       // To place (0,0) in the bottom left corner of the screen use:
+       ortho2D(Point2(0, 0), Point2(window_width(), window_height());
+
+       // To place (0,0) in the top left corner of the screen use:
+       ortho2D(Point2(0, window_height()), Point2(window_width(), 0));
+     ~~~
+     */
+    static Matrix4 Ortho2D(Point2 bottomLeft, Point2 topRight);
+
 
     // --- Inverse, Transposeand Other General Matrix Functions ---
 

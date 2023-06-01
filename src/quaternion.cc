@@ -178,10 +178,10 @@ Quaternion Quaternion::Conjugate() const {
 
 Quaternion Quaternion::FromAxisAngle(const Vector3 &axis, float angle) {
     // [qx, qy, qz, qw] = [sin(a/2) * vx, sin(a/2)* vy, sin(a/2) * vz, cos(a/2)]
-    float x = GfxMath::sin(angle/2.0) * axis[0];
-    float y = GfxMath::sin(angle/2.0) * axis[1];
-    float z = GfxMath::sin(angle/2.0) * axis[2];
-    float w = GfxMath::cos(angle/2.0);
+    float x = GfxMath::sin(angle/2.0f) * axis[0];
+    float y = GfxMath::sin(angle/2.0f) * axis[1];
+    float z = GfxMath::sin(angle/2.0f) * axis[2];
+    float w = GfxMath::cos(angle/2.0f);
     return Quaternion(x,y,z,w);
 }
 
